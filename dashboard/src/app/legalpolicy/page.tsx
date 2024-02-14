@@ -4,8 +4,8 @@ import "../globals.css";
 
 export default function LegalPolicyPage() {
   return (
-    <div className="radial-gradient-custom">
-     <h1 className="text-3xl text-center my-16 font-bold">Privacy Policy & Refund Policy</h1>
+    <div className="radial-gradient-custom m-0 p-0">
+     <h1 className="text-3xl text-center py-16 font-bold">Privacy Policy & Refund Policy</h1>
     
     <div className="w-8/12 mx-auto">
       <div className="mb-8">
