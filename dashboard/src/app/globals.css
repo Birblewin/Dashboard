@@ -31,16 +31,3 @@ body {
     text-wrap: balance;
   }
 }
-
-h1,
-h2,
-h3,
-h4,
-p,
-span,
-label,
-input,
-button {
-  font-family: "Roobert-Regular", sans-serif;
-  color: white;
-}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Noto_Sans, Inter } from "next/font/google";
 import "./globals.css";
 
 // IMPORTING COMPONENTS
@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
+const roobert = Noto_Sans({ weight: "300" })
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,10 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} transition-all duration-500 ease-in-out bg-black`}>
-        <Navbar/>
-        <main>{children}</main>
-        <Footer/>
+      <body
+        className={`${inter.className} transition-all duration-500 ease-in-out bg-[#050012]`}
+      >
+        <Navbar />
+        <main className={`min-h-[100vh] ${roobert.className}`}>{children}</main>
+        <Footer />
       </body>
     </html>
   );
