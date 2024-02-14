@@ -5,13 +5,9 @@ import { ProgressBar } from "@/components/progress-bar";
 
 
 export default function LegalPolicyPage() {
-      const pageStyle = {
-            background:
-            "radial-gradient(circle 300px at top left, #6843EC, #0E0E0E), " +
-            "radial-gradient(circle 300px at top left, #9161F2, #0E0E0E)"
-      }
+     
   return (
-    <div style={pageStyle}>
+    <div className="bg-[#050012]">
       <ProgressBar/>
      <p className="text-3xl text-center py-16  lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 pb-10 animate-pulse">Privacy Policy & Refund Policy</p>
     
