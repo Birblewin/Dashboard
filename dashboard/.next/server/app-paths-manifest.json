@@ -1,4 +1,4 @@
 {
-  "/page": "app/page.js",
-  "/legalpolicy/page": "app/legalpolicy/page.js"
+  "/legalpolicy/page": "app/legalpolicy/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }
