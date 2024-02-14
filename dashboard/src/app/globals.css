@@ -44,3 +44,9 @@ button {
   font-family: "Roobert-Regular", sans-serif;
   color: white;
 }
+
+.radial-gradient-custom {
+  background: 
+  radial-gradient(circle 300px at top left, #6843EC, #0E0E0E),
+  radial-gradient(circle 300px at top left, #9161F2, #0E0E0E);
+}
