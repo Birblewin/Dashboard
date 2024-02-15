@@ -56,8 +56,8 @@ const Background = () => {
       <img
         loading="lazy"
         width="250"
-        height="400"
-        className="absolute inset-0 mx-auto "
+        height="350"
+        className="absolute inset-0 transform translate-y-48 mx-auto "
         style={{ color: "transparent", zIndex: 1 }}
         src="/Astronaut.png"
       />
