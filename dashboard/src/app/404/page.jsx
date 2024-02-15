@@ -9,7 +9,7 @@ const Background = () => {
         height="30"
         className="fixed top-0 left-0 w-full h-full"
         style={{ color: "transparent", zIndex: 1 }}
-        src="/Stars.png"
+        src="/stars.png"
       />
       <img
         loading="lazy"
@@ -17,7 +17,7 @@ const Background = () => {
         height="30"
         className="fixed top-0 left-0 w-full h-full"
         style={{ color: "transparent", zIndex: 1 }}
-        src="/Small Planets.png"
+        src="/small planets.png"
       />
 
       <img
@@ -39,7 +39,7 @@ const Background = () => {
         loading="lazy"
         width='600'
         height="45"
-        className="absolute inset-0 mt-40 transform translate-y-48 object-contain mx-auto"
+        className="absolute inset-0 mt-48 object-contain mx-auto"
         style={{ color: "transparent", zIndex: 1 }}
         src="/404.png"
       />
@@ -57,7 +57,7 @@ const Background = () => {
         loading="lazy"
         width="250"
         height="350"
-        className="top-0 center-0 object-contain translate-y-40 mx-auto "
+        className="absolute inset-0 object-contain translate-y-40 mx-auto "
         style={{ color: "transparent", zIndex: 1 }}
         src="/Astronaut.png"
       />
@@ -65,7 +65,7 @@ const Background = () => {
         <h1 className='text-white pointer-events-none mt-[-30%] text-3xl ' style={{ zIndex: 1 }}>Page Not Found</h1>
       </div>
       <div className='absolute inset-0 flex items-center justify-center'>
-        <a href="/" className='bg-white translate-y-48 py-2 px-6 rounded-3xl text-black' style={{ zIndex: 1 }}>
+        <a href="/" className='bg-white translate-y-44 py-2 px-6 rounded-3xl text-black' style={{ zIndex: 1 }}>
           Go Home
         </a>
       </div>
