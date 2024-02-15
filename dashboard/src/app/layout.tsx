@@ -5,6 +5,7 @@ import "./globals.css";
 // IMPORTING COMPONENTS
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProgressBar from "@/components/ProgressBar"
 
 const inter = Inter({ subsets: ["latin"] });
 const roobert = Noto_Sans({ weight: "300" })
@@ -25,7 +26,12 @@ export default function RootLayout({
         className={`${inter.className} transition-all duration-500 ease-in-out bg-[#050012]`}
       >
         <Navbar />
-        <main className={`min-h-[100vh] ${roobert.className}`}>{children}</main>
+        
+        <main className={`min-h-[100vh] ${roobert.className}`}>
+          <ProgressBar/>
+          {children}
+        </main>
+        
         <Footer />
       </body>
     </html>
