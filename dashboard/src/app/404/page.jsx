@@ -33,10 +33,10 @@ const Background = () => {
         alt="Top Right Gradient"
       />
 
-      <div className="absolute inset-0 flex justify-center items-center md:justify-center md:items-center"> {/* Center the image in larger screens */}
+      <div className="absolute inset-0 flex justify-center items-center md:justify-center md:items-center">
         <img
           loading="lazy"
-          className="max-w-full h-auto transform rotate-90 md:rotate-0 md:max-w-full md:h-auto transition-transform duration-500 z-10" // Added z-index
+          className="max-w-full h-auto transform rotate-90 md:rotate-0 md:max-w-full md:h-auto transition-transform duration-500 z-10" 
           style={{ color: "transparent", zIndex: 1, maxWidth: '50vw' }}
           src="/404.png"
           alt="404"
@@ -69,7 +69,7 @@ const Background = () => {
       </div>
 
       <div className='absolute inset-0 flex items-center justify-center'>
-        <a href="/" className='bg-white translate-y-44 py-2 px-8 rounded-3xl text-black' style={{ zIndex: 1 }}>
+        <a href="/" className='bg-white translate-y-48 py-2 px-8 rounded-3xl text-black' style={{ zIndex: 1 }}>
           Go Home
         </a>
       </div>
