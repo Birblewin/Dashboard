@@ -39,7 +39,7 @@ const Background = () => {
         loading="lazy"
         width='600'
         height="45"
-        className="absolute inset-0 mt-38 transform translate-y-48 object-contain mx-auto"
+        className="absolute inset-0 mt-36 transform translate-y-48 object-contain mx-auto"
         style={{ color: "transparent", zIndex: 1 }}
         src="/404.png"
       />
@@ -57,7 +57,7 @@ const Background = () => {
         loading="lazy"
         width="250"
         height="350"
-        className="absolute inset-0 object-contain translate-y-44 mx-auto "
+        className="absolute inset-0 object-contain translate-y-40 mx-auto "
         style={{ color: "transparent", zIndex: 1 }}
         src="/Astronaut.png"
       />
