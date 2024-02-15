@@ -7,14 +7,14 @@ const Background = () => {
         loading="lazy"
         className="fixed top-0 left-0 w-full h-full"
         style={{ color: "transparent", zIndex: 1 }}
-        src="/stars.png"
+        src="/Stars.png"
         alt="Stars"
       />
       <img
         loading="lazy"
         className="fixed top-0 left-0 w-full h-full"
         style={{ color: "transparent", zIndex: 1 }}
-        src="/small planets.png"
+        src="/Small Planets.png"
         alt="Small Planets"
       />
 
