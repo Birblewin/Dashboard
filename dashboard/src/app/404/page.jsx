@@ -3,73 +3,82 @@ import React from 'react';
 const Background = () => {
   return (
     <div className='relative h-screen overflow-hidden'>
+      {/* Background images */}
       <img
         loading="lazy"
-        width="full"
-        height="30"
         className="fixed top-0 left-0 w-full h-full"
         style={{ color: "transparent", zIndex: 1 }}
-        src="/Stars.png"
+        src="/stars.png"
+        alt="Stars"
       />
       <img
         loading="lazy"
-        width="full"
-        height="30"
         className="fixed top-0 left-0 w-full h-full"
         style={{ color: "transparent", zIndex: 1 }}
-        src="/Small Planets.png"
+        src="/small planets.png"
+        alt="Small Planets"
       />
 
+      {/* Gradient images */}
       <img
         loading="lazy"
-        width='500'
-        height="400"
-        className="absolute object-contain mx-auto"
+        className="absolute top-0 left-0 w-full h-full"
         style={{ color: "transparent", zIndex: 1 }}
         src="/Top-left Gradient.png"
+        alt="Top Left Gradient"
       />
       <img
         loading="lazy"
-        height="45"
-        className="absolute top-0 right-0 object-contain mx-auto"
-        style={{ color: "transparent", zIndex: 1 }}
+        className="absolute top-0 right-0 w-full h-full"
+        style={{ color: "transparent", zIndex: 1, maxWidth: '90vw' }}
         src="/Top-right Gradient.png.png"
+        alt="Top Right Gradient"
       />
-      <img
-        loading="lazy"
-        width='600'
-        height="45"
-        className="absolute inset-0 mt-48 object-contain mx-auto"
-        style={{ color: "transparent", zIndex: 1 }}
-        src="/404.png"
-      />
-      <div className='relative overflow-hidden h-screen flex justify-center items-center'>
+
+<div className="absolute inset-0 flex justify-center items-center md:justify-center md:items-center"> {/* Center the image in larger screens */}
         <img
           loading="lazy"
-          width="550"
-          height="55"
-          className="absolute bottom-0 transform translate-y-48 mx-auto"
-          style={{ color: "transparent", zIndex: 1 }}
-          src="/Big Planet.png"
+          className="max-w-full h-auto transform rotate-90 md:rotate-0 md:max-w-full md:h-auto transition-transform duration-500 z-10" // Added z-index
+          style={{ color: "transparent", zIndex: 1, maxWidth: '50vw' }}
+          src="/404.png"
+          alt="404"
         />
       </div>
-      <img
-        loading="lazy"
-        width="250"
-        height="350"
-        className="absolute inset-0 object-contain translate-y-40 mx-auto "
-        style={{ color: "transparent", zIndex: 1 }}
-        src="/Astronaut.png"
-      />
-      <div className=' absolute inset-0 flex mx-auto items-center justify-center'>
-        <h1 className='text-white pointer-events-none mt-[-30%] text-3xl ' style={{ zIndex: 1 }}>Page Not Found</h1>
+
+      {/* Big planet */}
+      <div className=' relative overflow-hidden h-screen flex justify-center items-center z-1'> {/* Lower z-index to overlay with 404 image */}
+        <img
+          loading="lazy"
+          className="absolute bottom-[-26%] mt-[-30%] transform -translate-y-24 mx-auto transition-transform md:translate-y-0 md:mt[-18%]"
+          style={{ color: "transparent", zIndex: 1, maxWidth: '40vw' }}
+          src="/Big Planet.png"
+          alt="Big Planet"
+        />
       </div>
+
+
+      {/* Astronaut */}
+      <div className="absolute inset-0 flex justify-center items-center md:justify-center md:items-center"> {/* Center the image in larger screens */}
+        <img
+          loading="lazy"
+          className="max-w-full mt-[5%] h-auto transition-transform md:max-w-full md:h-auto" // Responsive styles
+          style={{ color: "transparent", zIndex: 1, maxWidth: '20vw' }}
+          src="/Astronaut.png"
+          alt="Astronaut"
+        />
+      </div>
+
+      {/* Page not found text */}
+      <div className="absolute inset-0  flex mx-auto items-center justify-center z-10"> {/* Set z-index to overlay */}
+        <h1 className='text-white pointer-events-none  text-3xl md:text-center' style={{ marginTop: '-8%', marginBottom: '20%' }}>Page Not Found</h1>
+      </div>
+
+      {/* Go home button */}
       <div className='absolute inset-0 flex items-center justify-center'>
         <a href="/" className='bg-white translate-y-44 py-2 px-6 rounded-3xl text-black' style={{ zIndex: 1 }}>
           Go Home
         </a>
       </div>
-
     </div>
   );
 };
