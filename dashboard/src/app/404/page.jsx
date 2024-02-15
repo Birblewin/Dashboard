@@ -39,7 +39,7 @@ const Background = () => {
         loading="lazy"
         width='600'
         height="45"
-        className="absolute inset-0 mt-48 transform translate-y-48 object-contain mx-auto"
+        className="absolute inset-0 mt-38 transform translate-y-48 object-contain mx-auto"
         style={{ color: "transparent", zIndex: 1 }}
         src="/404.png"
       />
