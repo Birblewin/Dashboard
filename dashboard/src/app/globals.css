@@ -34,27 +34,6 @@ body {
   }
 }
 
-@layer base {
-  body {
-    @apply bg-background text-foreground;
-  }
-  h1 {
-    @apply text-4xl font-extrabold tracking-tight scroll-m-20 lg:text-5xl;
-  }
-  h2 {
-    @apply pb-2 text-3xl font-semibold tracking-tight scroll-m-20 first:mt-0;
-  }
-  h3 {
-    @apply text-2xl font-semibold tracking-tight scroll-m-20;
-  }
-  h4 {
-    @apply text-xl font-semibold tracking-tight scroll-m-20;
-  }
-  p {
-    @apply leading-7;
-  }
-}
-
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
