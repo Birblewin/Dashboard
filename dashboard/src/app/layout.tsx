@@ -4,7 +4,7 @@ import "./globals.css";
 
 // IMPORTING COMPONENTS
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer";
 import ProgressBar from "@/components/ProgressBar"
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,7 +26,7 @@ export default function RootLayout({
       >
         <Navbar />
         
-        <main className={`min-h-[100vh]`}>
+        <main className={`min-h-[100vh] font-[Noto Sans]`}>
           <ProgressBar/>
           {children}
         </main>

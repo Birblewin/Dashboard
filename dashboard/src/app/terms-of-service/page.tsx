@@ -1,12 +1,7 @@
 "use client"
 
 // IMPORTING NECESSARY COMPONENTS
-import Link from 'next/link';  
-
-// NB:
-// STYLE THE CIRCLE
-// ADD THE SCROLL ON TOP
-// ADD CLASS AND REMOVE CURRENT FROM NEXT TO CSS
+import Link from 'next/link';
 
 // A FUNCTION THAT RETURNS THE TLC PAGE
 export default function TermsOfService() {
