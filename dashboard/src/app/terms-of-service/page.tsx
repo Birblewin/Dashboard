@@ -6,7 +6,7 @@ import Link from 'next/link';
 // A FUNCTION THAT RETURNS THE TLC PAGE
 export default function TermsOfService() {
   return (
-    <div className="flex flex-col justify-center items-center w-full px-8 md:px-10 lg:px-12 mt-[100px]">
+    <div className="flex flex-col justify-center items-center w-full px-8 md:px-10 lg:px-12 mt-[100px] bg-[#050012]">
       <section className="flex flex-col justify-center items-center text-gray-400 text-left pb-16 gap-6 lg:text-lg mx-[20%] lg:mx-[15%] md:pl-6">
         <h1 className="font-bold text-center text-3xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 pb-10 animate-pulse">
           Terms of Service
@@ -26,7 +26,7 @@ export default function TermsOfService() {
             our home site
           </Link>{" "}
           and other sites and subdomains (collectively,{" "}
-          <span className="font-bold">“Birble Ai”</span> or the{" "}
+          <span className="font-bold">“Birble AI”</span> or the{" "}
           <span className="font-bold">“Website”</span>) owned and operated by
           Birble AI an Ukrainian private company (the{" "}
           <span className="font-bold">“Company,” “we,” “us,”</span> or{" "}

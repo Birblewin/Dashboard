@@ -22,7 +22,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} transition-all duration-500 ease-in-out bg-[#050012]`}
       >
-        <main className={`min-h-[100vh]`}>
+        <main>
           <ProgressBar/>
           {children}
         </main>
