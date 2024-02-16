@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -31,3 +33,53 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  h1 {
+    @apply text-4xl font-extrabold tracking-tight scroll-m-20 lg:text-5xl;
+  }
+  h2 {
+    @apply pb-2 text-3xl font-semibold tracking-tight scroll-m-20 first:mt-0;
+  }
+  h3 {
+    @apply text-2xl font-semibold tracking-tight scroll-m-20;
+  }
+  h4 {
+    @apply text-xl font-semibold tracking-tight scroll-m-20;
+  }
+  p {
+    @apply leading-7;
+  }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield; /* Firefox */
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+span,
+label,
+input,
+button {
+  font-family: "Noto Sans", sans-serif;
+  color: white;
+  font-weight: 300;
+}
+
