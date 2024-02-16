@@ -15,7 +15,7 @@ const Background = () => {
       <Image
         loading="lazy"
         className="absolute inset-0 w-full h-full object-cover"
-        src="/small planets.png"
+        src="/Small Planets.png"
         alt="Small Planets"
         width={1920}
         height={1080}
@@ -23,7 +23,7 @@ const Background = () => {
       <Image
         loading="lazy"
         className="absolute inset-0 w-full h-full object-cover "
-        src="/stars.png"
+        src="/Stars.png"
         alt="Stars"
         width={1920}
         height={1080}
