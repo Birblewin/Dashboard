@@ -28,7 +28,7 @@ export default function TermsOfService() {
           and other sites and subdomains (collectively,{" "}
           <span className="font-bold">“Birble AI”</span> or the{" "}
           <span className="font-bold">“Website”</span>) owned and operated by
-          Birble AI an Ukrainian private company (the{" "}
+          Birble AI a Ukrainian private company (the{" "}
           <span className="font-bold">“Company,” “we,” “us,”</span> or{" "}
           <span className="font-bold">“our”</span>).
         </p>
