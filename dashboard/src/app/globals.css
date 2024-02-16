@@ -53,7 +53,8 @@ p,
 span,
 label,
 input,
-button {
+button,
+li {
   font-family: "Noto Sans", sans-serif;
   color: white;
   font-weight: 300;
