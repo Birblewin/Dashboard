@@ -8,7 +8,7 @@ import Footer from "@/components/footer";
 import ProgressBar from "@/components/ProgressBar"
 
 const inter = Inter({ subsets: ["latin"] });
-const roobert = Noto_Sans({ weight: "300" })
+const roobert = Noto_Sans({ weight: "300", subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Create Next App",
