@@ -22,8 +22,7 @@ export default function LegalPolicyPage() {
     
       <div className="mb-5">
           <h1 className="font-bold pb-2 text-lg">Disclaimer for<span className=" bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-700 to-pink-500"> Birble 
-                   AI
-                </span></h1>
+                </span><span className=" bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-700 to-pink-500"> AI</span></h1>
           <p className="text-[#9094A6]">
             If you require any more information or have any questions about our site&apos;s disclaimer, please feel free to contact us by email at BirbleAI@gmail.com <br /> <br />
 
