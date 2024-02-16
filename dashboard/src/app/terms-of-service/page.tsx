@@ -7,7 +7,7 @@ import Link from 'next/link';
 export default function TermsOfService() {
   return (
     <div className="flex flex-col justify-center items-center w-full px-8 md:px-10 lg:px-12 mt-[150px]">
-      <div></div>
+      <div className="rounded-full absolute w-[450px] h-[450px] bg-[#4D339F] blur-lg left-[200px] top-[-200px]"></div>
 
       <section className="flex flex-col justify-center items-center text-gray-400 text-left pb-16 gap-6 lg:text-lg mx-[20%] lg:mx-[15%] md:pl-6">
         <h1 className="font-bold text-center text-3xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 pb-10 animate-pulse">
@@ -1064,7 +1064,7 @@ export default function TermsOfService() {
 
           <li className="flex flex-col gap-4">
             <h2 className="font-bold underline">20. CONTACT US</h2>
-           
+
             <p>
               All feedback, comments, and questions on the Terms should be sent
               to birbleai@gmail.com
