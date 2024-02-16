@@ -11,7 +11,7 @@ export default function LegalPolicyPage() {
       <ProgressBar/>
      <p className="text-3xl text-center py-16  lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 pb-10 animate-pulse">Privacy Policy & Refund Policy</p>
     
-    <div className="w-8/12 mx-auto">
+    <div className="w-full sm:w-8/12 px-6 mx-auto">
       <div className="mb-8">
            <h1 className="font-bold pb-2 text-lg">Who we are</h1>
            <p className="text-[#9094A6]">
