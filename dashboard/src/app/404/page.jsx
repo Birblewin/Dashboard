@@ -68,7 +68,7 @@ const Background = () => {
         <h1 className='text-white text-3xl sm:text-center -mt-32 md:text-5xl lg:text-5xl'>Page Not Found</h1>
       </div>
 
-      <a href="/" className='absolute mt-56 ml-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-white py-3 px-8 rounded-3xl text-black sm:text-sm md:text-2xl lg:text-sm lg:mt-40'>
+      <a href="/" className='absolute mt-56 ml-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-white py-2 px-8 rounded-3xl text-black sm:text-sm md:text-2xl lg:text-sm lg:mt-40'>
         Go Home
       </a>
     </div>
