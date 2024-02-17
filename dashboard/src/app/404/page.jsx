@@ -1,76 +1,51 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Background = () => {
   return (
-    <div className="relative h-screen overflow-hidden">
-      <Image
-        loading="lazy"
-        className="fixed top-0 left-0 w-full h-full z-10 object-cover"
-        src="/Top-left Gradient.png"
-        alt="Top Left Gradient"
-        width={1920}
-        height={1080}
-      />
-      <Image
-        loading="lazy"
-        className="absolute inset-0 w-full h-full object-cover"
-        src="/Small Planets.png"
-        alt="Small Planets"
-        width={1920}
-        height={1080}
-      />
-      <Image
-        loading="lazy"
-        className="absolute inset-0 w-full h-full object-cover "
-        src="/Stars.png"
-        alt="Stars"
-        width={1920}
-        height={1080}
-      />
-      <div className="absolute top-0 right-0 z-10">
+
+    <div className='w-full h-full '>
+      <div className=" min-h-screen inset-0 flex flex-col items-center justify-center fixed">
         <Image
-          loading="lazy"
-          className="max-w-screen-lg z-10 object-cover object-center"
-          src="/Top-right Gradient.png.png"
-          alt="Top Right Gradient"
-          width={1000}
-          height={1000}
+          className="absolute bg-[url('/Stars.png')] bg-cover bg-center h-screen w-full object-cover"
+          alt="stars"
+        />
+        <Image
+          className="absolute bg-[url('/Small-Planets.png')] bg-cover bg-center h-screen w-full object-cover"
+          alt="small planets"
+        />
+        <Image
+          className="absolute bg-[url('/left-Gradient.png')] bg-cover bg-center h-screen w-full object-cover"
+        />
+        <Image
+          className="absolute bg-[url('/right-Gradient.png')] bg-cover bg-center h-screen w-full object-cover top-0 right-0"
+          alt="small planets"
+        />
+        <Image
+          className="absolute bg-[url('/404.png')] bg-no-repeat h-full w-full bg-center p-[30rem] md:p-0 rotate-90  sm:rotate-0 scale-50 md:scale-75 object-cover"
+          alt="404"
+
+        />
+
+        <Image
+          className="absolute bg-[url('/Big-Planet.png')] bg-center bg-no-repeat bg-cover w-full h-1/4 md:w-1/2 md:h-1/2 translate-y-80 object-cover"
+          alt="big planet"
         />
       </div>
+      <h1 className="text-center text-2xl md:text-5xl pointer-events-none translate-y-16 md:translate-y-28">
+        Page Not Found
+      </h1>
       <Image
-        loading="lazy"
-        className="absolute inset-0 w-full h-full z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:w-1/2 lg:my-auto lg:mx-auto lg:-bottom-[98%] lg:h-auto gap-4 object-contain transform translate-y-64 lg:translate-y-0 transition duration-500"
-        src="/Big Planet.png"
-        alt="Big Planet"
-        width={500}
-        height={500}
+        className="absolute bg-[url('/Astronaut.png')] bg-cover translate-y-[36%]  md:bg-center md:translate-y-[36%]  md:translate-x-[32rem] object-center md:w-1/6 md:h-9/12 w-9/12 h-1/2 z-10 object-cover"
+        alt="astronaut"
       />
+      <span className="absolute bottom-0 left-1/2 transform -translate-x-10 -translate-y-16 md:-translate-y-24 md:-translate-x-16">
+        <Link href="/" className="bg-white py-3 px-8 rounded-3xl text-black">
+          Go Home
+        </Link>
+      </span>
 
-      <Image
-        loading="lazy"
-        className="absolute inset-0 z-10 my-auto mx-auto flex items-center justify-center w-64 md:w-80 sm:my-auto lg:w-auto lg:h-56 transform rotate-90 sm:rotate-0 transition duration-500 scale-150 sm:scale-100"
-        src="/404.png"
-        alt="404"
-        width={500}
-        height={300}
-      />
-
-      <Image
-        loading="lazy"
-        className="absolute my-auto mx-auto inset-0 z-10 flex items-center justify-center w-64 md:w-80 sm:my-auto lg:w-auto lg:mt-40 lg:h-1/2 transform scale-75 sm:scale-100 transition duration-500"
-        src="/Astronaut.png"
-        alt="Astronaut"
-        width={500}
-        height={500}
-      />
-      <div className="absolute inset-0 flex mx-auto items-center pointer-events-none justify-center -top-80 z-10">
-        <h1 className='text-white text-3xl sm:text-center -mt-32 md:text-5xl lg:text-5xl'>Page Not Found</h1>
-      </div>
-
-      <a href="/" className='absolute mt-56 ml-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-white py-2 px-8 rounded-3xl text-black sm:text-sm md:text-2xl lg:text-sm lg:mt-40'>
-        Go Home
-      </a>
     </div>
   );
 };
