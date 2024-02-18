@@ -46,7 +46,7 @@ const Background = () => {
           width={500}
           height={300}
         />
-        <Link href="/" className='absolute z-10 bg-white text-black py-2 px-6 text-sm md:text-lg rounded-3xl translate-y-[14rem] md:translate-y-[11rem]
+        <Link href="/" className='absolute z-10 bg-white text-black py-2 px-6 md:px-8 text-sm md:text-lg rounded-3xl translate-y-[14rem] md:translate-y-[10rem]
         '>
           Go Home
         </Link>
