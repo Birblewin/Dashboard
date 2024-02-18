@@ -47,7 +47,7 @@ const Train = () => {
           height={300}
           alt="Astronaut"
         />
-        <Link href="/" className="text-black bg-white hover:underline px-6 py-2 rounded-3xl mt-10 sm:-mt-14 z-10">
+        <Link href="/" className="text-black bg-white px-6 py-2 rounded-3xl mt-10 sm:-mt-14 z-10">
           Go Home
         </Link>
       </div>
