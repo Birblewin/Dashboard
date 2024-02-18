@@ -41,7 +41,7 @@ const Train = () => {
         <h1 className='mt-10 text-3xl -translate-y-[18rem] md:text-4xl md:-translate-y-[12rem] pointer-events-none'>Page Not Found</h1>
         <Image
           loading="lazy"
-          className="absolute w-1/2 md:w-1/4 md:object-contain md:h-3/4 md:translate-y-8"
+          className="absolute w-1/2 md:w-1/4 md:object-contain md:h-3/4 md:translate-y-6"
           src="/Astronaut.png"
           width={500}
           height={300}
