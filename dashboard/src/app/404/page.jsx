@@ -37,19 +37,19 @@ const Train = () => {
           height={500}
         />
       </div>
-      <div className="m-h-screen inset-0 flex flex-col items-center justify-center fixed z-10">
-        <h1 className='mt-10 text-3xl -translate-y-[18rem] md:text-4xl md:-translate-y-[12rem] pointer-events-none'>Page Not Found</h1>
+      <div className="flex flex-col items-center justify-center min-h-screen sm:px-6 lg:px-8">
+        <h1 className="text-3xl lg:text-4xl text-center mb-16 z-10">Page Not Found</h1>
         <Image
           loading="lazy"
-          className="absolute w-1/2 md:w-1/4 md:object-contain md:h-3/4 md:translate-y-6"
+          className="w-60 h-auto mb-8 z-10 md:w-1/4 md:-mt-10"
           src="/Astronaut.png"
           width={500}
           height={300}
+          alt="Astronaut"
         />
-        <Link href="/" class='absolute z-10 bg-white text-black py-2 px-6 text-sm md:text-lg rounded-3xl -translate-y-[2rem] md:translate-y-[10rem] md:-translate-x-[1rem] bottom-10 md:bottom-auto left-1/2 transform -translate-x-1/2 md:static'>
+        <Link href="/" className="text-black bg-white hover:underline px-6 py-2 rounded-3xl mt-10 sm:-mt-14 z-10">
           Go Home
         </Link>
-
       </div>
     </>
 
