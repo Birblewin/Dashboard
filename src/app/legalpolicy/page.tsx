@@ -368,7 +368,7 @@ export default function LegalPolicyPage() {
             </ul>
           </div>
         </div>
-        <div className="mb-8">
+        <div className="mb-8 text-[#9094A6]">
           <h1 className="font-bold pb-2 text-lg">Exclusions</h1>
           <div>
             We retain the right to refuse a refund if:
