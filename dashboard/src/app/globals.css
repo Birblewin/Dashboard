@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -32,6 +34,17 @@ body {
   }
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield; /* Firefox */
+}
+
 h1,
 h2,
 h3,
@@ -40,7 +53,17 @@ p,
 span,
 label,
 input,
-button {
-  font-family: "Roobert-Regular", sans-serif;
+button,
+li {
+  font-family: "Noto Sans", sans-serif;
   color: white;
+  font-weight: 300;
 }
+
+
+.radial-gradient-custom {
+  background: 
+  radial-gradient(circle 300px at top left, #6843EC, #0E0E0E),
+  radial-gradient(circle 300px at top left, #9161F2, #0E0E0E);
+}
+
