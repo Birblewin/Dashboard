@@ -6,8 +6,8 @@ import Link from 'next/link';
 // A FUNCTION THAT RETURNS THE TLC PAGE
 export default function TermsOfService() {
   return (
-    <div className="flex flex-col justify-center items-center w-full px-8 md:px-10 lg:px-12 mt-[100px] bg-[#050012]">
-      <section className="flex flex-col justify-center items-center text-left pb-16 gap-6 lg:text-lg mx-[20%] lg:mx-[15%] md:pl-6">
+    <div className="flex flex-col justify-center items-center w-full px-8 md:px-10 lg:px-12 pt-16">
+      <section className="flex flex-col justify-center items-center text-left pb-16 gap-6 lg:text-lg w-4/5 mx-auto lg:w-[7/10] md:pl-6">
         <h1 className="font-bold text-center text-3xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 pb-10 animate-pulse">
           Terms of Service
         </h1>
@@ -66,7 +66,7 @@ export default function TermsOfService() {
 
         <ul className="gap-6 flex flex-col">
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">1. ACCOUNT & REGISTRATION</h2>
+            <h2 className="font-bold underline text-lg">1. ACCOUNT & REGISTRATION</h2>
 
             <p>
               You must be 18 years or older to use the products and services
@@ -91,7 +91,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">2. SERVICES</h2>
+            <h2 className="font-bold underline text-lg">2. SERVICES</h2>
 
             <p>
               Birble AI provides you with tools and services to create media
@@ -206,7 +206,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">3. CONTENT</h2>
+            <h2 className="font-bold underline text-lg">3. CONTENT</h2>
 
             <p>
               a) Your Content. You may provide input to the Services (
@@ -331,7 +331,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">4. FEES AND PAYMENT</h2>
+            <h2 className="font-bold underline text-lg">4. FEES AND PAYMENT</h2>
 
             <p>
               a) Fees and Billing. You will pay all fees charged to your account
@@ -364,7 +364,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">5. DMCA TAKEDOWN NOTICE</h2>
+            <h2 className="font-bold underline text-lg">5. DMCA TAKEDOWN NOTICE</h2>
 
             <p>
               Birble AI will take down works in response to Digital Millennium
@@ -440,7 +440,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">
+            <h2 className="font-bold underline text-lg">
               6. INTELLECTUAL PROPERTY RIGHTS
             </h2>
 
@@ -515,7 +515,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">7. TRADEMARKS</h2>
+            <h2 className="font-bold underline text-lg">7. TRADEMARKS</h2>
 
             <p>
               The Company name, the Company logo, and all related names, logos,
@@ -541,7 +541,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">8. LIMITATIONS OF USE</h2>
+            <h2 className="font-bold underline text-lg">8. LIMITATIONS OF USE</h2>
 
             <p>
               By using the Website, you warrant on behalf of yourself, your
@@ -667,7 +667,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">9. TERM AND TERMINATION</h2>
+            <h2 className="font-bold underline text-lg">9. TERM AND TERMINATION</h2>
 
             <p>
               These Terms shall remain in full force and and for any or no
@@ -680,7 +680,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">10. DISCLAIMERS</h2>
+            <h2 className="font-bold underline text-lg">10. DISCLAIMERS</h2>
 
             <p>
               You expressly understand and agree that your access to and use of
@@ -737,7 +737,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">11. LIMITATION OF LIABILITY</h2>
+            <h2 className="font-bold underline text-lg">11. LIMITATION OF LIABILITY</h2>
             <p>
               TO THE FULLEST EXTENT PROVIDED BY LAW, IN NO EVENT WILL THE
               COMPANY, ITS AFFILIATES, OR THEIR LICENSORS, SERVICE PROVIDERS,
@@ -778,7 +778,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">12. INDEMNIFICATION</h2>
+            <h2 className="font-bold underline text-lg">12. INDEMNIFICATION</h2>
 
             <p>
               To the fullest extent permitted by applicable law, you will
@@ -823,7 +823,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">
+            <h2 className="font-bold underline text-lg">
               13. RELIANCE ON INFORMATION POSTED
             </h2>
 
@@ -854,7 +854,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">14. LINKS FROM THE WEBSITE</h2>
+            <h2 className="font-bold underline text-lg">14. LINKS FROM THE WEBSITE</h2>
 
             <p>
               If the Website contains links to other sites and resources
@@ -871,7 +871,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">15. SEVERANCE</h2>
+            <h2 className="font-bold underline text-lg">15. SEVERANCE</h2>
 
             <p>
               Any term of these Terms which is wholly or partially void or
@@ -882,7 +882,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">16. GOVERNING LAW</h2>
+            <h2 className="font-bold underline text-lg">16. GOVERNING LAW</h2>
 
             <p>
               These Terms and your access to and use of the Website shall be
@@ -893,7 +893,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">
+            <h2 className="font-bold underline text-lg">
               17. DISPUTE RESOLUTION; ARBITRATION
             </h2>
 
@@ -915,7 +915,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">18. NO CLASS ACTION</h2>
+            <h2 className="font-bold underline text-lg">18. NO CLASS ACTION</h2>
 
             <p>
               YOU AND THE COMPANY AGREE THAT EACH MAY BRING CLAIMS AGAINST THE
@@ -926,7 +926,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">19. Privacy Policy</h2>
+            <h2 className="font-bold underline text-lg">19. Privacy Policy</h2>
 
             <p>
               At Birble AI, we are committed to safeguarding your privacy and
@@ -1061,7 +1061,7 @@ export default function TermsOfService() {
           </li>
 
           <li className="flex flex-col gap-4">
-            <h2 className="font-bold underline">20. CONTACT US</h2>
+            <h2 className="font-bold underline text-lg">20. CONTACT US</h2>
 
             <p>
               All feedback, comments, and questions on the Terms should be sent

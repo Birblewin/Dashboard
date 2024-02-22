@@ -19,11 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} transition-all duration-500 ease-in-out bg-[#050012]`}
-      >
-        <main>
-          <ProgressBar/>
+      <body className={`${inter.className}`}>
+        <main className="bg-[#050012] min-h-screen transition-all duration-500 ease-in-out">
+          <ProgressBar />
           {children}
         </main>
       </body>
