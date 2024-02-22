@@ -18,7 +18,7 @@ const Tool: React.FC<{
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
-          <Image src={"/svg.svg"} alt="svg" className="w-3 h-3" />
+          <Image src={"/svg.svg"} alt="svg" width={12} height={12} />
         </TooltipTrigger>
         <TooltipContent>
           <p>{tooltipText}</p>

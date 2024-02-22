@@ -1,5 +1,3 @@
-"use client"
-
 // IMPORTING NECESSARY COMPONENTS
 import Link from 'next/link';
 

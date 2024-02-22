@@ -1,12 +1,11 @@
 "use client";
 
 import CodeEditor from "@/components/SyntaxHighliter";
-import Image from "next/image";
 import { useState } from "react";
-import ERC20 from "@/components/erc20";
-import Download from "@/components/solidityDownloadBtn";
+import ERC20 from "@/components/ERC20";
+import Download from "@/components/SolidityDownloadBtn";
 import RenderBtn from "@/components/RenderBtn";
-import Governor from "@/components/governor";
+import Governor from "@/components/Governor";
 import CopyBtn from "@/components/CopyBtn";
 import DefenderBtn from "@/components/DefenderBtn";
 import ERC721 from "@/components/ERC721";
