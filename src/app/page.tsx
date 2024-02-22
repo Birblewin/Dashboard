@@ -10,8 +10,8 @@ import CopyBtn from "@/components/CopyBtn";
 import DefenderBtn from "@/components/DefenderBtn";
 import ERC721 from "@/components/ERC721";
 
-// import ERC1155 from "@/components/ERC1155";
-// import Custom from "@/components/Custom";
+import ERC1155 from "@/components/ERC1155";
+import Custom from "@/components/Custom";
 
 export default function Home() {
   const [selected, setSelected] = useState("ERC20");
@@ -104,8 +104,8 @@ export default function Home() {
           <div className="w-64 flex flex-col shrink-0 justify-between overflow-auto  h-[calc(100vh-84px)] rounded shadow-md">
             {selected === "ERC20" && <ERC20 />}
             {selected === "ERC721" && <ERC721 />}
-            {selected === "ERC1155" && "ERC1155"}
-            {selected === "Custom" && "Custom"}
+            {selected === "ERC1155" && <ERC1155 />}
+            {selected === "Custom" && <Custom />}
             {selected === "Governor" && <Governor />}
           </div>
 
