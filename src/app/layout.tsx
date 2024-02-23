@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 // IMPORTING COMPONENTS
-import ProgressBar from "@/components/ProgressBar"
+import Navbar from "@/components/Navbar"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +20,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
-        <main className="bg-[#050012] min-h-screen transition-all duration-500 ease-in-out">
-          <ProgressBar />
-          {children}
-        </main>
+        <Navbar/>
+        {children}
       </body>
     </html>
   );
