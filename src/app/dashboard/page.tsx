@@ -11,6 +11,7 @@ export default function DashboardRootPage(){
             <Link href={"/dashboard/terms-of-service"}>Terms of service</Link>
             <Link href={"/wizard"}>Solidity wizard</Link>
             <Link href={"/wizard/cairo"}>Cairo wizard</Link>
+            <Link href={"/dashboard/roadmap"}>RoadMap</Link>
         </div>
     )
 }
