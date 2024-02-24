@@ -1,14 +1,16 @@
 "use client"
 
-// IMPORTING NECESSARY FILES
-  // IMPORTING COMPONENTS
-import {useRouter} from "next/navigation"
-  // IMPORTING MODULES
-import React from "react"
+// IMPORTING NECESSARY COMPONENTS
+import Link from "next/link"
 
-// EXPORTING THE ROOTPAGE
+// EXPORTING A FUNCTION THAT RETURNS THE ROOT PAGE
 export default function RootPage(){
-  const router = useRouter()
-  React.useEffect(() => {router.push("/dashboard")}, [router])
-  return <p>Redirecting to home page...</p>
+    return(
+      <main className="flex flex-col gap-2 bg-[#050012] min-h-screen transition-all duration-500 ease-in-out">
+        <Link href={"/dashboard/legalpolicy"}>Legal Policy</Link>
+        <Link href={"/dashboard/terms-of-service"}>Terms of service</Link>
+        <Link href={"/wizard"}>Solidity wizard</Link>
+        <Link href={"/wizard/cairo"}>Cairo wizard</Link>
+      </main>
+    )
 }

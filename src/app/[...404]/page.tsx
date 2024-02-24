@@ -2,30 +2,27 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const Train = () => {
+const NotFoundPage = () => {
   return (
     <>
       <div className="min-h-screen inset-0 flex flex-col items-center justify-center fixed z-10">
         <div
-          loading="lazy"
           className="absolute bg-[url('/Small-Planets.png')] bg-cover object-contain bg-no-repeat bg-center w-full h-full"
         />
         <div
-          loading="lazy"
           className="absolute bg-[url('/Stars.png')] bg-cover object-contain bg-no-repeat bg-center w-full h-full"
         />
         <div
-          loading="lazy"
           className="absolute bg-[url('/left-Gradient.png')] bg-cover object-contain bg-no-repeat bg-center w-full h-full"
         />
         <div
-          loading="lazy"
           className="absolute bg-[url('/right-Gradient.png.png')] bg-cover object-contain bg-no-repeat bg-center w-full h-full top-0 right-0"
         />
         <Image
           loading="lazy"
           className="absolute transform rotate-90 sm:rotate-0 transition duration-500 md:w-3/4 md:object-contain z-[1]"
           src='/404.png'
+          alt="404 image"
           width={500}
           height={300}
         />
@@ -33,6 +30,7 @@ const Train = () => {
           loading="lazy"
           className="absolute mx-auto w-full translate-y-full  md:w-3/4 md:translate-y-[26rem]  "
           src='/Big-Planet.png'
+          alt="big planet image"
           width={500}
           height={500}
         />
@@ -56,4 +54,4 @@ const Train = () => {
   );
 };
 
-export default Train;
+export default NotFoundPage;

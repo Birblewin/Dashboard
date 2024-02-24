@@ -1,5 +1,7 @@
 "use client";
 
+// IMPORTING NECESSARY FILES
+  // IMPORTING COMPONENTS
 import {
   Tooltip,
   TooltipContent,
@@ -7,21 +9,27 @@ import {
   TooltipTrigger,
 } from "@/components/ui/Tooltip";
 
-import Image from "next/image"
+import Image from "next/image";
+  // IMPORTING TYPES
+import {ToolProps} from "@/types/props"
 
-const Tool: React.FC<{
-  link?: string;
-  tooltipText: string;
-  linktext?: string;
-}> = ({ tooltipText, link, linktext }) => {
+// A FUNCTION THAT RETURNS A TOOL COMPONENT
+export default function Tool({ 
+  tooltipText, 
+  link, 
+  linktext,
+  imageComponent=<Image src={"/svg.svg"} alt="svg" width={12} height={12} /> 
+}: ToolProps){
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
-          <Image src={"/svg.svg"} alt="svg" width={12} height={12} />
+          {imageComponent}
         </TooltipTrigger>
+        
         <TooltipContent>
           <p>{tooltipText}</p>
+          
           {link && (
             <a href={link} target="_blank" rel="noreferrer">
               {linktext}
@@ -32,5 +40,3 @@ const Tool: React.FC<{
     </TooltipProvider>
   );
 };
-
-export default Tool;
