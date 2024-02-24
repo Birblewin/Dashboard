@@ -7,7 +7,7 @@ const Map = ()=>{
     const svg = '/TagIcon.svg';
     
     return(    
-        <div className="w-[100vw] bg-cover bg-center  bg-[url('/background.png')] mix-blend-screen bg-scroll h-[450vh] "> 
+        <div className="bg-cover bg-center bg-[url('/background.png')] mix-blend-screen overflow-x-hidden"> 
             {/* Page one containing the header and page description*/}
             <div className="mx-auto w-[90%] items-center">
                 <div className="flex lg:flex-row flex-col  h-[100vh] w-[100%] md:mt-0">
