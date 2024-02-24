@@ -46,7 +46,9 @@ const ERC20 = () => {
           />
         </div>
       </div>
+
       <hr className="my-4"></hr>
+
       <div>
         <h1 className="text-[#818998] font-semibold text-xs">FEATURES</h1>
         <div className="m-[0.5rem] flex items-center place-content-between">
@@ -89,7 +91,9 @@ const ERC20 = () => {
           <label className="ml-[0.5rem] text-[#333333] ">Flash Minting</label>
         </div>
       </div>
+
       <hr className="my-4"></hr>
+
       <div>
         <div className=" mt-0  flex items-center">
           <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">
@@ -110,7 +114,9 @@ const ERC20 = () => {
           <label className="ml-2 text-[#333333] ">Mintable</label>
         </div>
       </div>
+
       <hr className="my-4"></hr>
+
       <div>
         <div className=" flex items-center">
           <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">
@@ -127,7 +133,9 @@ const ERC20 = () => {
           <label className="ml-2 text-[#333333] ">UUPS</label>
         </div>
       </div>
+
       <hr className="my-4"></hr>
+      
       <div>
         <h1 className="text-[#818998] font-semibold text-xs ">INFO</h1>
         <div className="flex flex-col mt-[0.75rem]">
