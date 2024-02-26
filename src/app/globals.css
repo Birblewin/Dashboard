@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+svg.svelte-wb18kg{
+    opacity: .15, 1;
+    color: #333333;
+}

@@ -23,7 +23,7 @@ const Tool: React.FC<{
         <TooltipContent>
           <p>{tooltipText}</p>
           {link && (
-            <a href={link} target="_blank" rel="noreferrer">
+            <a href={link} target="_blank" rel="noreferrer" className="text-blue-500 underline">
               {linktext}
             </a>
           )}

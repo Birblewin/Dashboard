@@ -108,7 +108,7 @@ const ERC20 = ()=>{
                     <input
                         type="radio"
                         className="form-checkbox h-3 w-3"
-                        
+                        name="accessControl"
                     />
                     <label className="ml-2 text-[#333333] ">Ownable</label>
                     </div>
@@ -119,7 +119,7 @@ const ERC20 = ()=>{
                     <input
                         type="radio"
                         className="radio h-3 w-3 "
-                        
+                        name="accessControl"
                     />
                     <label className="ml-2 text-[#333333] ">Roles</label>
                     </div>
@@ -130,7 +130,7 @@ const ERC20 = ()=>{
                         <input
                             type="radio"
                             className="form-checkbox h-3 w-3"
-                            
+                            name="accessControl"
                         />
                         <label className="ml-2 text-[#333333] ">Managed</label>
                     </div>
@@ -156,7 +156,7 @@ const ERC20 = ()=>{
                         <input
                             type="radio"
                             className="form-checkbox h-3 w-3"
-                            
+                            name="upgradeability"
                         />
                         <label className="ml-2 text-[#333333] ">Transparent</label>
                     </div>
@@ -167,7 +167,7 @@ const ERC20 = ()=>{
                         <input
                             type="radio"
                             className="radio h-3 w-3"
-                            
+                            name="upgradeability"
                         />
                         <label className="ml-2 text-[#333333] ">UUPS</label>
                     </div>
