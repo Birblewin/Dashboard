@@ -38,7 +38,7 @@ export default function WizardHeader() {
             </div>
           </div>
         </Link>
-        <Link href={""}>
+        <Link href={"/wizard/cairo"}>
           <div
             className={`${
               !isHome

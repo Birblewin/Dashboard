@@ -5,8 +5,8 @@ import { useState } from "react";
 import Download from "@/components/CairoDownloadBtn";
 import CopyBtn from "@/components/CopyBtn";
 import Custom2 from "@/components/Custom2";
-import ERC20 from "@/components/ERC20"
-import ERC721Cairo from "@/components/ERC721Cairo";
+import ERC20 from "@/components/ERC20C"
+import ERC721 from "@/components/ERC721"
 
 export default function Cairo() {
   const [selected, setSelected] = useState("ERC20");
