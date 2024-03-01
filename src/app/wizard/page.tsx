@@ -2,7 +2,7 @@
 
 import CodeEditor from "@/components/SyntaxHighliter";
 import { useState } from "react";
-import ERC20 from "@/components/ERC20";
+import ERC20 from "@/components/ERC20S";
 import Download from "@/components/SolidityDownloadBtn";
 import RenderBtn from "@/components/RenderBtn";
 import Governor from "@/components/Governor";
