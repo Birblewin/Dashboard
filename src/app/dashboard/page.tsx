@@ -6,7 +6,7 @@ import Link from "next/link"
 // EXPORTING A FUNCTION THAT RETURNS THE DASHBOARD ROOT PAGE
 export default function DashboardRootPage(){
     return(
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 text-white">
             <Link href={"/dashboard/legalpolicy"}>Legal Policy</Link>
             <Link href={"/dashboard/terms-of-service"}>Terms of service</Link>
             <Link href={"/wizard"}>Solidity wizard</Link>

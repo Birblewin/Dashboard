@@ -20,7 +20,7 @@ export default function WizardHeader() {
           Birble AI
           <span className="font-light text-xl text-[#333333]">| contracts</span>
         </Link>
-        <Link href={"/"}>
+        <Link href={"/wizard"}>
           <div
             className={`${
               isHome
@@ -38,7 +38,7 @@ export default function WizardHeader() {
             </div>
           </div>
         </Link>
-        <Link href={"/cairo"}>
+        <Link href={"/wizard/cairo"}>
           <div
             className={`${
               !isHome
