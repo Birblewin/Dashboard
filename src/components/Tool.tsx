@@ -1,5 +1,5 @@
 "use client";
-
+import HelpIcon from '@mui/icons-material/Help';
 import {
   Tooltip,
   TooltipContent,
@@ -18,12 +18,13 @@ const Tool: React.FC<{
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
-          <Image src={"/svg.svg"} alt="svg" width={12} height={12} />
+        <HelpIcon className='p-1 text-[#c9cdd3] hover:text-[#818998]' />
+
         </TooltipTrigger>
-        <TooltipContent>
-          <p>{tooltipText}</p>
+        <TooltipContent className="w-56 bg-[#fffaeb]">
+          <p className='text-black'>{tooltipText}</p>
           {link && (
-            <a href={link} target="_blank" rel="noreferrer" className="text-blue-500 underline">
+            <a className='text-blue-800 underline text-[15px]' href={link} target="_blank" rel="noreferrer">
               {linktext}
             </a>
           )}
