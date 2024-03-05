@@ -1,4 +1,16 @@
 import { ERC20SSecurityContact, ERC20SLicense, ERC20SName} from "@/store/ERC20S";
+import { selector } from 'recoil';
+
+
+export const contact = selector<string>({
+    key: 'ERC20SSecurityContact',
+    get: ({get}) => {
+      const securityC: string = get(ERC20SSecurityContact);
+      const unit: string = 'px';
+  
+      return `${securityC}`;
+    },
+  });
 
 const PermitConstructor =
     { 
@@ -8,7 +20,7 @@ const PermitConstructor =
         section: "Constructor",  
         tag: "Permit",
         name: "ERC20PermitConstructor", 
-        content: `ERC20Permit("${ERC20SName}")`
+        content: `ERC20Permit("${contact}")`
     };
 
 

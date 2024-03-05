@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { FormattedERC20SCode } from "@/formats/ERC20S";
 
 const burnable = `import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";`;
 
@@ -35,7 +36,7 @@ const CodeEditor: React.FC = () => {
         style={dracula}
         className="w-full h-full font-bold"
       >
-        {initialCode}
+        {FormattedERC20SCode}
       </SyntaxHighlighter>
     </div>
   );
