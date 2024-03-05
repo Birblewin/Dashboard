@@ -6,7 +6,7 @@ import Download from "@/components/CairoDownloadBtn";
 import CopyBtn from "@/components/CopyBtn";
 import Custom2 from "@/components/Custom2";
 import ERC20 from "@/components/ERC20C"
-import ERC721 from "@/components/ERC721"
+import ERC721Cairo from "@/components/ERC721Cairo";
 
 export default function Cairo() {
   const [selected, setSelected] = useState("ERC20");
@@ -67,7 +67,7 @@ export default function Cairo() {
         <div className="flex flex-row gap-4 grow">
           <div className="w-64 flex flex-col shrink-0 justify-between overflow-auto h-[calc(100vh-84px)] rounded shadow-md  ">
             {selected === "ERC20" && <ERC20/>}
-            {selected === "ERC721" && <ERC721/>}
+            {selected === "ERC721" && <ERC721Cairo/>}
             {selected === "Custom" && <Custom2/>}
           </div>
 
