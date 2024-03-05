@@ -9,9 +9,11 @@ import { RecoilRoot } from "recoil";
 // EXPORTING A FUNCTION THAT RETURNS THE LAYOUT OF THE WIZRD ROUTES
 export default function WizardLayout({children}: Readonly<{children: React.ReactNode}>){
     return(
-        <main className="bg-[#050012] min-h-screen transition-all duration-500 ease-in-out">
+        <main className="bg-[#f5f5f5] min-h-screen transition-all duration-500 ease-in-out">
+        <RecoilRoot>
           <WizardHeader />
-          <RecoilRoot>{children}</RecoilRoot>
+          {children}
+        </RecoilRoot>
         </main>
     )
 }

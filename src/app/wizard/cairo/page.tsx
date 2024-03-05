@@ -6,13 +6,39 @@ import Download from "@/components/CairoDownloadBtn";
 import CopyBtn from "@/components/CopyBtn";
 import Custom2 from "@/components/Custom2";
 import ERC20 from "@/components/ERC20C"
-import ERC721Cairo from "@/components/ERC721Cairo";
+import ERC721C from "@/components/ERC721C";
+import {atom, useRecoilState} from "recoil"
+import {ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom} from "@/store/cairoBtns"
 
 export default function Cairo() {
   const [selected, setSelected] = useState("ERC20");
 
+  const [IsERC721, setIsERC721] = useRecoilState(ERC721Atom);
+  const [IsERC20, setIsERC20] = useRecoilState(ERC20Atom);
+  const [IsCustom, setIsCustom] = useRecoilState(CustomAtom);
+  
+
   const handleClick = (id: string) => {
     setSelected(id);
+  };
+
+  const handleClickERC20 = () => {
+    handleClick("ERC20");
+    setIsERC20(true);
+    setIsERC721(false);
+    setIsCustom(false);
+  };
+  const handleClickERC721 = () => {
+    handleClick("ERC721");
+    setIsERC721(true);
+    setIsERC20(false);
+    setIsCustom(false);
+  };
+  const handleClickCustom = () => {
+    handleClick("Custom");
+    setIsCustom(true);
+    setIsERC20(false);
+    setIsERC721(false);
   };
   return (
     <>
@@ -27,7 +53,7 @@ export default function Cairo() {
                     ? "selectedd bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
                     : ""
                 }`}
-                onClick={() => handleClick("ERC20")}
+                onClick={handleClickERC20}
               >
                 ERC20
               </button>
@@ -39,7 +65,7 @@ export default function Cairo() {
                     ? "selectedd bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
                     : ""
                 }`}
-                onClick={() => handleClick("ERC721")}
+                onClick={handleClickERC721}
               >
                 ERC721
               </button>
@@ -51,7 +77,7 @@ export default function Cairo() {
                     ? "selectedd bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
                     : ""
                 }`}
-                onClick={() => handleClick("Custom")}
+                onClick={handleClickCustom}
               >
                 Custom
               </button>
@@ -67,7 +93,7 @@ export default function Cairo() {
         <div className="flex flex-row gap-4 grow">
           <div className="w-64 flex flex-col shrink-0 justify-between overflow-auto h-[calc(100vh-84px)] rounded shadow-md  ">
             {selected === "ERC20" && <ERC20/>}
-            {selected === "ERC721" && <ERC721Cairo/>}
+            {selected === "ERC721" && <ERC721C/>}
             {selected === "Custom" && <Custom2/>}
           </div>
 

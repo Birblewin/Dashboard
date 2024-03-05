@@ -8,15 +8,72 @@ import RenderBtn from "@/components/RenderBtn";
 import Governor from "@/components/Governor";
 import CopyBtn from "@/components/CopyBtn";
 import DefenderBtn from "@/components/DefenderBtn";
-import ERC721 from "@/components/ERC721";
+import ERC721 from "@/components/ERC721S";
 
 import ERC1155 from "@/components/ERC1155";
 import Custom from "@/components/Custom";
+import {atom, useRecoilState} from "recoil"
+import {ERC1155 as ERC1155Atom, ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom, Governor as GovernorAtom} from "@/store/solidityBtns"
 
 export default function Home() {
   const [selected, setSelected] = useState("ERC20");
 
-  function changeTab(clickedButton: any) {
+
+
+  // Define atoms using the createAtom function
+ 
+  
+  const [IsERC721, setIsERC721] = useRecoilState(ERC721Atom);
+  const [IsERC20, setIsERC20] = useRecoilState(ERC20Atom);
+  const [IsERC1155, setIsERC1155] = useRecoilState(ERC1155Atom);
+  const [IsCustom, setIsCustom] = useRecoilState(CustomAtom);
+  const [IsGovernor, setIsGovernor] = useRecoilState(GovernorAtom);
+    
+
+
+
+  const handleERC721Click = (e: { target: any; }) => {
+    changeTab(e.target);
+    setIsERC721(true);
+    setIsERC20(false);
+    setIsERC1155(false);
+    setIsCustom(false);
+    setIsGovernor(false);
+  };
+  const handleERC20Click = (e: { target: any; }) => {
+    changeTab(e.target);
+    setIsERC20(true);
+    setIsERC721(false);
+    setIsERC1155(false);
+    setIsCustom(false);
+    setIsGovernor(false);
+  };
+  const handleERC1155Click = (e: { target: any; }) => {
+    changeTab(e.target);
+    setIsERC1155(true);
+    setIsERC20(false);
+    setIsERC721(false);
+    setIsCustom(false);
+    setIsGovernor(false);
+  };
+  const handleCustomClick = (e: { target: any; }) => {
+    changeTab(e.target);
+    setIsCustom(true);
+    setIsERC20(false);
+    setIsERC721(false);
+    setIsERC1155(false);
+    setIsGovernor(false);
+  };
+  const handleGovernorClick = (e: { target: any; }) => {
+    changeTab(e.target);
+    setIsGovernor(true);
+    setIsERC20(false);
+    setIsERC721(false);
+    setIsERC1155(false);
+    setIsCustom(false);
+  };
+
+  function changeTab(clickedButton: { classList: any; innerText: any; }) {
     if (!clickedButton || !clickedButton.classList) {
       return;
     }
@@ -39,7 +96,7 @@ export default function Home() {
                     ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
                     : ""
                 }`}
-                onClick={(e) => changeTab(e.target)}
+                onClick={handleERC20Click}
               >
                 ERC20
               </button>
@@ -51,7 +108,7 @@ export default function Home() {
                     ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
                     : ""
                 }`}
-                onClick={(e) => changeTab(e.target)}
+                onClick={handleERC721Click}
               >
                 ERC721
               </button>
@@ -63,7 +120,7 @@ export default function Home() {
                     ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
                     : ""
                 }`}
-                onClick={(e) => changeTab(e.target)}
+                onClick={handleERC1155Click}
               >
                 ERC1155
               </button>
@@ -75,7 +132,7 @@ export default function Home() {
                     ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
                     : ""
                 }`}
-                onClick={(e) => changeTab(e.target)}
+                onClick={handleGovernorClick}
               >
                 Governor
               </button>
@@ -87,7 +144,7 @@ export default function Home() {
                     ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
                     : ""
                 }`}
-                onClick={(e) => changeTab(e.target)}
+                onClick={handleCustomClick}
               >
                 Custom
               </button>
