@@ -1,7 +1,5 @@
 "use client";
-
-// IMPORTING NECESSARY FILES
-  // IMPORTING COMPONENTS
+import HelpIcon from '@mui/icons-material/Help';
 import {
   Tooltip,
   TooltipContent,
@@ -24,14 +22,13 @@ export default function Tool({
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
-          {imageComponent}
+        <HelpIcon className='p-1 text-[#c9cdd3] hover:text-[#818998]' />
+
         </TooltipTrigger>
-        
-        <TooltipContent>
-          <p>{tooltipText}</p>
-          
+        <TooltipContent className="w-56 bg-[#fffaeb]">
+          <p className='text-black'>{tooltipText}</p>
           {link && (
-            <a href={link} target="_blank" rel="noreferrer">
+            <a className='text-blue-800 underline text-[15px]' href={link} target="_blank" rel="noreferrer">
               {linktext}
             </a>
           )}

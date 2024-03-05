@@ -1,7 +1,6 @@
-"use client"
-
 import { useState } from "react";
 import Tool from "./Tool";
+
 
 const ERC721 = ()=>{
     const [isAutoIncrementIds, setIsAutoIncrementIds] = useState(false);
@@ -31,9 +30,13 @@ const ERC721 = ()=>{
                     </div>
                 </div>
                 <div className="flex flex-col p-[0.5rem]">
-                    <label htmlFor="uri" className="text-[#333333] text-[0.875rem]">
-                        Base URI
-                    </label>
+                    <div className="flex justify-between">
+                        <label htmlFor="uri" className="text-[#333333] text-[0.875rem]">
+                            Base URI
+                        </label>
+                        <Tool tooltipText="Will be concatenated with token IDs to generate the token URIs."/>
+                    </div>
+                    
                     <input  id="uri" type="text" placeholder="https://..." className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"/>
                 </div>
             </div>
@@ -54,7 +57,7 @@ const ERC721 = ()=>{
                         <label className="ml-[0.5rem] text-[#333333] ">Mintable</label>
                     </div>
                     
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="Privileged accounts will be able to emit new tokens."/>
                 </div>
                 <div className="m-[0.5rem] flex items-center justify-between">
                     <div className="flex items-center">
@@ -70,7 +73,7 @@ const ERC721 = ()=>{
                     />
                         Auto increment Ids</label>
                     </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="New tokens will be automatically assigned an incremental id."/>
                 </div>
                 <div className="m-[0.5rem] flex items-center justify-between">
                     <div className=" flex items-center">
@@ -82,7 +85,7 @@ const ERC721 = ()=>{
                     />
                     <label className="ml-[0.5rem] text-[#333333]">Burnable</label>
                     </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="Token holders will be able to destroy their tokens." link='https://docs.openzeppelin.com/contracts/api/token/erc721#ERC721Burnable' linktext='Read more'/>
                 </div>
                 <div className="m-[0.5rem] flex items-center justify-between">
                     <div className=" flex items-center">
@@ -94,7 +97,7 @@ const ERC721 = ()=>{
                     />
                     <label className="ml-[0.5rem] text-[#333333] ">Pauseable</label>
                     </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="Privileged accounts will be able to pause the functionality marked as whenNotPaused. Useful for emergency response." link='https://docs.openzeppelin.com/contracts/api/utils#Pausable' linktext='Read more'/>
                 </div>
                 <div className="m-[0.5rem] flex items-center justify-between">
                     <div className=" flex items-center">
@@ -106,7 +109,7 @@ const ERC721 = ()=>{
                     />
                     <label className="ml-[0.5rem] text-[#333333] ">Votes</label>
                     </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="Keeps track of individual units for voting in on-chain governance, with a way to delegate one's voting power to a trusted account." link='https://docs.openzeppelin.com/contracts/api/token/erc721#ERC721Votes' linktext='Read more'/>
                 </div>
                 <div className="m-[0.5rem] mb-0 flex items-center justify-between">
                     <div className=" flex items-center">
@@ -118,7 +121,7 @@ const ERC721 = ()=>{
                     />
                     <label className="ml-[0.5rem] text-[#333333] ">Enumerable</label>
                     </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="Allows on-chain enumeration of all tokens or those owned by an account. Increases gas cost of transfers." link='https://docs.openzeppelin.com/contracts/api/token/erc721#ERC721Enumerable' linktext='Read more'/>
                 </div>
                 <div className="m-[0.5rem] mb-0 flex items-center justify-between">
                     <div className=" flex items-center">
@@ -130,7 +133,7 @@ const ERC721 = ()=>{
                     />
                     <label className="ml-[0.5rem] text-[#333333] ">URI Storage</label>
                     </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="Allows updating token URIs for individual token IDs." link='https://docs.openzeppelin.com/contracts/api/token/erc721#ERC721URIStorage' linktext='Read more'/>
                 </div>
                 
             </div>
@@ -146,7 +149,7 @@ const ERC721 = ()=>{
                         
                     />
                     </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="Restrict who can access the functions of a contract or when they can do it." link='https://docs.openzeppelin.com/contracts/api/access' linktext='Read more'/>
             
                 </div>
                 <div className="m-[0.5rem]  flex items-center justify-between">
@@ -159,7 +162,7 @@ const ERC721 = ()=>{
                     />
                     <label className="ml-2 text-[#333333] ">Ownable</label>
                     </div>
-                     <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                     <Tool tooltipText="Simple mechanism with a single account authorized for all privileged actions." link='https://docs.openzeppelin.com/contracts/api/access#Ownable' linktext='Read more'/>
                    
                 </div>
                 <div className="m-[0.5rem]  flex items-center justify-between">
@@ -172,7 +175,7 @@ const ERC721 = ()=>{
                     />
                     <label className="ml-2 text-[#333333] ">Roles</label>
                     </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="Flexible mechanism with a separate role for each privileged action. A role can have many authorized accounts." link='https://docs.openzeppelin.com/contracts/api/access#AccessControl' linktext='Read more'/>
                     
                 </div>
                 <div className=" flex items-center m-[0.5rem]  mb-0 justify-between">
@@ -185,7 +188,7 @@ const ERC721 = ()=>{
                     />
                     <label className="ml-2 text-[#333333] ">Managed</label>
                     </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="Enables a central contract to define a policy that allows certain callers to access certain functions" link='https://docs.openzeppelin.com/contracts/api/access#AccessManaged' linktext='Read more'/>
                     
                 </div>
                 
@@ -202,7 +205,7 @@ const ERC721 = ()=>{
                         
                     />
                     </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="Smart contracts are immutable by default unless deployed behind an upgradeable proxy." link='https://docs.openzeppelin.com/openzeppelin/upgrades' linktext='Read more'/>
                 </div>
                 <div className="m-[0.5rem] flex items-center justify-between">
                     <div  className="flex items-center">
@@ -214,7 +217,7 @@ const ERC721 = ()=>{
                     />
                     <label className="ml-2 text-[#333333] ">Transparent</label>
                     </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="Uses more complex proxy with higher overhead, requires less changes in your contract. Can also be used with beacons." link='https://docs.openzeppelin.com/contracts/api/proxy#TransparentUpgradeableProxy' linktext='Read more'/>
                    
                 </div>
                 <div className="m-[0.5rem] mb-0 flex items-center justify-between">
@@ -227,7 +230,7 @@ const ERC721 = ()=>{
                     />
                     <label className="ml-2 text-[#333333] ">UUPS</label>
                     </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="Uses simpler proxy with less overhead, requires including extra code in your contract. Allows flexibility for authorizing upgrades." link='https://docs.openzeppelin.com/contracts/api/proxy#UUPSUpgradeable' linktext='Read more'/>
                    
                 </div>
                 
@@ -240,7 +243,7 @@ const ERC721 = ()=>{
                    <label htmlFor="Security Contact" className="text-[#333333] text-sm">
                         Security Contact
                     </label>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
+                    <Tool tooltipText="Where people can contact you to report security issues. Will only be visible if contract metadata is verified." link='https://github.com/ethereum-lists/contracts/blob/main/README.md#tracking-new-deployments' linktext='Read more'/>
                    </div>
                    
                     <input  id="Security Contact" type="text" placeholder="security@example.com" className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"/>
