@@ -2,40 +2,15 @@
 
 
 import Tool from "./Tool";
-import {atom, useRecoilState} from "recoil"
+import {useRecoilState} from "recoil"
+import { ERC20CAccessControl, ERC20CAccessControlOwnable, ERC20CAccessControlRoles, ERC20CBurnable, ERC20CLicense, ERC20CMintable, ERC20CName, ERC20CPauseable, ERC20CPremint, ERC20CSymbol, ERC20CUpgradeable } from "@/store/ERC20C";
 
 
 
 
 
 const ERC20 = ()=>{
-   // Define a type for your atom values
-    type AtomValue = string | number | boolean;
-
-    // Function to generate atoms with default values
-    const createAtom = <T extends AtomValue>(key: string, defaultValue: T) => atom({
-    key: key,
-    default: defaultValue,
-    });
-
-    // Define atoms using the createAtom function
-    const ERC20CName = createAtom<string>('ERC20CName', 'My Token');
-    
-    const ERC20CLicense = createAtom<string>('ERC20CLicense', 'MIT');
-    const ERC20CSymbol = createAtom<string>('ERC20CSymbol', 'MTK');
-    const ERC20CPremint = createAtom<string>('ERC20CPremint', '0');
-    const ERC20CMintable = createAtom<boolean>('ERC20CMintable', false);
-    
-    const ERC20CPauseable = createAtom<boolean>('ERC20CPauseable', false);
-    const ERC20CAccessControl = createAtom<boolean>('ERC20CAccessControl', false);
-    const ERC20CBurnable = createAtom<boolean>('ERC20CBurnable', false);
-
-    const ERC20CUpgradeable = createAtom<boolean>('ERC20CUpgradeable', false);
-    
-    const ERC20CAccessControlRoles = createAtom<boolean>('ERC20CAccessControlRoles', false);
-    const ERC20CAccessControlOwnable = createAtom<boolean>('ERC20CAccessControlOwnable', false);
    
-
     const [name, setName] = useRecoilState(ERC20CName);
     const [license, setLicense] = useRecoilState(ERC20CLicense);
     const [symbol, setSymbol] = useRecoilState(ERC20CSymbol);
@@ -44,8 +19,7 @@ const ERC20 = ()=>{
    
     const [pauseable, setPauseable] = useRecoilState(ERC20CPauseable);
     const [accessControl, setAccessControl] = useRecoilState(ERC20CAccessControl);
-    const [burnable, setBurnable] = useRecoilState(ERC20CBurnable);
-    
+    const [burnable, setBurnable] = useRecoilState(ERC20CBurnable);   
     const [upgradeable, setUpgradeable] = useRecoilState(ERC20CUpgradeable);
     const [roles, setRoles] = useRecoilState(ERC20CAccessControlRoles);
     const [ownable, setOwnable] = useRecoilState(ERC20CAccessControlOwnable);
