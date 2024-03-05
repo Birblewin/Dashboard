@@ -1,16 +1,7 @@
 import { ERC20SSecurityContact, ERC20SLicense, ERC20SName} from "@/store/ERC20S";
-import { selector } from 'recoil';
 
 
-export const contact = selector<string>({
-    key: 'ERC20SSecurityContact',
-    get: ({get}) => {
-      const securityC: string = get(ERC20SSecurityContact);
-      const unit: string = 'px';
-  
-      return `${securityC}`;
-    },
-  });
+
 
 const PermitConstructor =
     { 
@@ -20,7 +11,7 @@ const PermitConstructor =
         section: "Constructor",  
         tag: "Permit",
         name: "ERC20PermitConstructor", 
-        content: `ERC20Permit("${contact}")`
+        content: `ERC20Permit("${ERC20SLicense}")`
     };
 
 
@@ -32,7 +23,7 @@ export const ERC20SCode =[
         section: "license",  
         tag: "Default",
         name: "ERC20DefaultLicense", 
-        content: `// SPDX-License-Identifier: ${ERC20SLicense}`
+        content: `// SPDX-License-Identifier: MIT`
     },
     { 
         snippet_id: 1, 
@@ -59,7 +50,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "DefaultStart",
         name: "ERC20DefaultUpgradeableImports", 
-        content: `"@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";`
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -68,7 +59,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Burnable",
         name: "ERC20BurnableUpgradeableImports", 
-        content: `import"@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20BurnableUpgradeable.sol";`
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20BurnableUpgradeable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -77,7 +68,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Pausable",
         name: "ERC20PausableUpgradeableImports", 
-        content: `import"@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PausableUpgradeable.sol";`
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PausableUpgradeable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -95,7 +86,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Permit",
         name: "ERC20PermitUpgradeableImports", 
-        content: `import"@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol"`
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol"`
     },
     { 
         snippet_id: 1, 
@@ -113,7 +104,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Ownable",
         name: "ERC20OwnableUpgradeableImports", 
-        content: `import"@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";`
+        content: `import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -122,7 +113,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Roles",
         name: "ERC20RolesUpgradeableImports", 
-        content: `import"@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";`
+        content: `import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -131,7 +122,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Managed",
         name: "ERC20ManagedUpgradeableImports", 
-        content: `import"@openzeppelin/contracts-upgradeable/access/manager/AccessManagedUpgradeable.sol";`
+        content: `import "@openzeppelin/contracts-upgradeable/access/manager/AccessManagedUpgradeable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -176,7 +167,7 @@ export const ERC20SCode =[
         section: "Imports",  
         tag: "Pausable",
         name: "ERC20PausableImports", 
-        content: `import       "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";`
+        content: `import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";`
     },
     { 
         snippet_id: 1, 
