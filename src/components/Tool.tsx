@@ -7,17 +7,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/Tooltip";
 
-import Image from "next/image";
-  // IMPORTING TYPES
-import {ToolProps} from "@/types/props"
+import Image from "next/image"
 
-// A FUNCTION THAT RETURNS A TOOL COMPONENT
-export default function Tool({ 
-  tooltipText, 
-  link, 
-  linktext,
-  imageComponent=<Image src={"/svg.svg"} alt="svg" width={12} height={12} /> 
-}: ToolProps){
+const Tool: React.FC<{
+  link?: string;
+  tooltipText: string;
+  linktext?: string;
+}> = ({ tooltipText, link, linktext }) => {
   return (
     <TooltipProvider>
       <Tooltip>
@@ -37,3 +33,5 @@ export default function Tool({
     </TooltipProvider>
   );
 };
+
+export default Tool;

@@ -2,9 +2,9 @@
     // IMPORTING COMPONENTS
 "use client"
 import WizardHeader from "@/components/WizardHeader"
+import RecoilRoot from "recoil"
     // IMPORT MODULES
 import React from "react"
-import { RecoilRoot } from "recoil";
 
 // EXPORTING A FUNCTION THAT RETURNS THE LAYOUT OF THE WIZRD ROUTES
 export default function WizardLayout({children}: Readonly<{children: React.ReactNode}>){
