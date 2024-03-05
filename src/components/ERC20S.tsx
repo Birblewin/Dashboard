@@ -1,6 +1,7 @@
 "use client"
 
 
+import { ERC20SName, ERC20SSecurityContact, ERC20SLicense, ERC20SSymbol, ERC20SPremint, ERC20SMintable, ERC20SVotes, ERC20SPauseable, ERC20SAccessControl, ERC20SBurnable, ERC20SUpgradeability, ERC20SFlashMinting, ERC20SUpgradeabilityTransparent, ERC20SUpgradeabilityUUPS, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged } from "@/store/ERC20S";
 import Tool from "./Tool";
 import {atom, useRecoilState} from "recoil"
 
@@ -9,34 +10,7 @@ import {atom, useRecoilState} from "recoil"
 
 
 const ERC20 = ()=>{
-   // Define a type for your atom values
-    type AtomValue = string | number | boolean;
-
-    // Function to generate atoms with default values
-    const createAtom = <T extends AtomValue>(key: string, defaultValue: T) => atom({
-    key: key,
-    default: defaultValue,
-    });
-
-    // Define atoms using the createAtom function
-    const ERC20SName = createAtom<string>('ERC20SName', 'My Token');
-    const ERC20SSecurityContact = createAtom<string>('ERC20SSecurityContact', '');
-    const ERC20SLicense = createAtom<string>('ERC20SLicense', 'MIT');
-    const ERC20SSymbol = createAtom<string>('ERC20SSymbol', 'MTK');
-    const ERC20SPremint = createAtom<string>('ERC20SPremint', '0');
-    const ERC20SMintable = createAtom<boolean>('ERC20SMintable', false);
-    const ERC20SVotes = createAtom<boolean>('ERC20SVotes', false);
-    const ERC20SPauseable = createAtom<boolean>('ERC20SPauseable', false);
-    const ERC20SAccessControl = createAtom<boolean>('ERC20SAccessControl', false);
-    const ERC20SBurnable = createAtom<boolean>('ERC20SBurnable', false);
-    const ERC20SUpgradeability = createAtom<boolean>('ERC20SUpgradeability', false);
-    const ERC20SFlashMinting = createAtom<boolean>('ERC20SFlashMinting', false);
-    const ERC20SUpgradeabilityTransparent = createAtom<boolean>('ERC20SUpgradeabilityTransparent', false);
-    const ERC20SUpgradeabilityUUPS = createAtom<boolean>('ERC20SUpgradeabilityUUPS', false);
-    const ERC20SAccessControlRoles = createAtom<boolean>('ERC20SAccessControlRoles', false);
-    const ERC20SAccessControlOwnable = createAtom<boolean>('ERC20SAccessControlOwnable', false);
-    const ERC20SAccessControlManaged = createAtom<boolean>('ERC20SAccessControlManaged', false);
-
+   
     const [name, setName] = useRecoilState(ERC20SName);
     const [securityContact, setSecurityContact] = useRecoilState(ERC20SSecurityContact);
     const [license, setLicense] = useRecoilState(ERC20SLicense);
