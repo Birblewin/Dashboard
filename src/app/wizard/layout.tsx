@@ -2,7 +2,7 @@
     // IMPORTING COMPONENTS
 "use client"
 import WizardHeader from "@/components/WizardHeader"
-import RecoilRoot from "recoil"
+import {RecoilRoot} from "recoil"
     // IMPORT MODULES
 import React from "react"
 
