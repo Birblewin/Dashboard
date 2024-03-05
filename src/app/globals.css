@@ -67,15 +67,6 @@
     --ring: 0 0% 83.1%;
   }
 }
- 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
 
 :root {
   --foreground-rgb: 0, 0, 0;
