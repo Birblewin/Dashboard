@@ -12,7 +12,7 @@ const PermitConstructor =
     };
 
 
-const ERC20CCode =[
+export const ERC20SCode =[
     { 
         snippet_id: 1, 
         wizard_id: 1,
