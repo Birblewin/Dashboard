@@ -8,7 +8,7 @@ import {generateERC20SCode} from "../generator/ERC20S";
 import {wizard, cairo} from '../store/headerBtns'
 import {ERC721, ERC20,Custom } from '../store/cairoBtns'
 import {ERC20InitialCairoCode, ERC721InitialCairoCode, CustomInitialCairoCode} from './cairoSnippets'
-import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPremint, ERC20SUpgradeability, ERC20SUpgradeabilityUUPS } from "@/store/ERC20S";
+import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPremint, ERC20SUpgradeability, ERC20SUpgradeabilityUUPS, ERC20SPermit } from "@/store/ERC20S";
 import { ERC1155InitialCode } from "@/generator/ERC1155";
 import { ERC721InitialCode } from "@/generator/ERC721S";
 import { GovernorInitialCode } from "@/generator/Governor";
@@ -25,11 +25,12 @@ const CodeEditor: React.FC = () => {
   const [erc20sroles] = useRecoilState(ERC20SAccessControlRoles);
   const [erc20sownable] = useRecoilState(ERC20SAccessControlOwnable);
   const [erc20smanaged] = useRecoilState(ERC20SAccessControlManaged);
-  const [erc20spremint] = useRecoilState(ERC20SPremint);
+  const [erc20spermit] = useRecoilState(ERC20SPermit);
   const [erc20supgradeable] = useRecoilState(ERC20SUpgradeability);
   const [erc20sUUPS] = useRecoilState(ERC20SUpgradeabilityUUPS);
 
-  const ERC20InitialCode = generateERC20SCode(erc20sburnable, erc20svotes, erc20spausable, erc20sflashMinting, erc20sroles, erc20sownable, erc20smanaged, erc20spremint, erc20supgradeable, erc20sUUPS);
+
+  const ERC20InitialCode = generateERC20SCode(erc20sburnable, erc20svotes, erc20spausable, erc20sflashMinting, erc20sroles, erc20sownable, erc20smanaged, erc20spermit, erc20supgradeable, erc20sUUPS);
 
 
   //checking which page is active

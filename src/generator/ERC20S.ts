@@ -79,13 +79,13 @@ export const FlashMintingSection1: string[] = getCodeContent("upgradeableFunctio
 
    
   
-export function generateERC20SCode(erc20sburnable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spremint: string, erc20supgradeable: boolean, erc20sUUPS: boolean ): string {
+export function generateERC20SCode(erc20sburnable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spermit: boolean, erc20supgradeable: boolean, erc20sUUPS: boolean ): string {
     const upgradeableImports = `
     ${StartUpgradeableImport}
     ${erc20sburnable ? BurnableUpgradeableImport : ""}
     ${erc20spausable ? PausableUpgradeableImport : ""}
     ${erc20sflashMinting ? FlashMintingUpgradeableImport : ""}
-    ${erc20spremint ? PermitUpgradeableImport : ""}
+    ${erc20spermit ? PermitUpgradeableImport : ""}
     ${erc20svotes ? VotesUpgradeableImport : ""}
     ${erc20sownable ? OwnableUpgradeableImport : ""}
     ${erc20sroles ? RolesUpgradeableImport : ""}
@@ -95,11 +95,11 @@ export function generateERC20SCode(erc20sburnable: boolean, erc20svotes: boolean
   
   `
   const Imports = `
-    
+  ${Import} 
   ${erc20sburnable ? BurnableImport : ""}
   ${erc20spausable ? PausableImport : ""}
   ${erc20sflashMinting ? FlashMintingImport : ""}
-  ${erc20spremint ? PermitImport : ""}
+  ${erc20spermit ? PermitImport : ""}
   ${erc20svotes ? VotesImport : ""}
   ${erc20sownable ? OwnableImport : ""}
   ${erc20sroles ? RolesImport : ""}

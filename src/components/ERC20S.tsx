@@ -1,7 +1,7 @@
 "use client"
 
 
-import { ERC20SName, ERC20SSecurityContact, ERC20SLicense, ERC20SSymbol, ERC20SPremint, ERC20SMintable, ERC20SVotes, ERC20SPauseable, ERC20SAccessControl, ERC20SBurnable, ERC20SUpgradeability, ERC20SFlashMinting, ERC20SUpgradeabilityTransparent, ERC20SUpgradeabilityUUPS, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged } from "@/store/ERC20S";
+import { ERC20SName, ERC20SSecurityContact, ERC20SLicense, ERC20SSymbol, ERC20SPremint, ERC20SMintable, ERC20SVotes, ERC20SPauseable, ERC20SAccessControl, ERC20SBurnable, ERC20SUpgradeability, ERC20SFlashMinting, ERC20SUpgradeabilityTransparent, ERC20SUpgradeabilityUUPS, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPermit } from "@/store/ERC20S";
 import Tool from "./Tool";
 import {atom, useRecoilState} from "recoil"
 
@@ -19,6 +19,7 @@ const ERC20 = ()=>{
     const [mintable, setMintable] = useRecoilState(ERC20SMintable);
     const [votes, setVotes] = useRecoilState(ERC20SVotes);
     const [pauseable, setPauseable] = useRecoilState(ERC20SPauseable);
+    const [permit, setPermit] = useRecoilState(ERC20SPermit);
     const [accessControl, setAccessControl] = useRecoilState(ERC20SAccessControl);
     const [burnable, setBurnable] = useRecoilState(ERC20SBurnable);
     const [upgradeability, setUpgradeability] = useRecoilState(ERC20SUpgradeability);
@@ -222,6 +223,19 @@ const ERC20 = ()=>{
                         <label className="ml-[0.5rem] text-[#333333] ">Pauseable</label>
                     </div>
                     <Tool tooltipText="Privileged accounts will be able to pause the functionality marked as whenNotPaused. Useful for emergency response." link='https://docs.openzeppelin.com/contracts/5.x/api/utils#Pausable' linktext='Read more'/>
+                </div>
+                <div className="m-[0.5rem] flex items-center place-content-between">
+                    <div className="flex items-center">
+                        <input
+                            type="checkbox"
+                            className="form-checkbox h-3 w-3 text-indigo-600 rounded"
+                            checked={permit}
+                            onChange={(e) => setPermit(!permit)}
+                            
+                        />
+                        <label className="ml-[0.5rem] text-[#333333] ">Permit</label>
+                    </div>
+                    <Tool tooltipText="Keeps track of historical balances for voting in on-chain governance, with a way to delegate one's voting power to a trusted account." link='https://docs.openzeppelin.com/contracts/5.x/api/token/erc20#ERC20Votes' linktext='Read more'/>
                 </div>
                 <div className="m-[0.5rem] flex items-center place-content-between">
                     <div className="flex items-center">

@@ -18,6 +18,7 @@ export const ERC20SPremint = createAtom<string>('ERC20SPremint', '0');
 export const ERC20SMintable = createAtom<boolean>('ERC20SMintable', false);
 export const ERC20SVotes = createAtom<boolean>('ERC20SVotes', false);
 export const ERC20SPauseable = createAtom<boolean>('ERC20SPauseable', false);
+export const ERC20SPermit = createAtom<boolean>('ERC20SPermit', true);
 export const ERC20SAccessControl = createAtom<boolean>('ERC20SAccessControl', false);
 export const ERC20SBurnable = createAtom<boolean>('ERC20SBurnable', false);
 export const ERC20SUpgradeability = createAtom<boolean>('ERC20SUpgradeability', false);
