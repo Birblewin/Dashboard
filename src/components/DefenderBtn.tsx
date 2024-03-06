@@ -5,7 +5,7 @@ import Link from "next/link";
 
 function DefenderBtn() {
   return (
-    <button className="border p-2 rounded hover:bg-gray-200 w-[85%] mx-auto">
+    <button className="border p-2 rounded hover:bg-gray-200 w-4/5 mx-auto lg:w-36">
       <Link
         href="#"
         className="font-bold text-black flex gap-1 justify-around items-center"

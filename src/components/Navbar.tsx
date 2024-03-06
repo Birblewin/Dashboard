@@ -32,13 +32,15 @@ export default function Navbar() {
   return (
     <nav className="flex flex-row items-center p-4 justify-between bg-[#ffffff] mb-8">
       {/* VISIBLE FOR SMALL ONLY */}
-      <Image
-        src={"/logo.svg"}
-        alt="birble logo"
-        width={50}
-        height={50}
-        className="md:hidden"
-      />
+      <Link href={"https://www.birbleai.com/"} target="_blank">
+        <Image
+          src={"/logo.svg"}
+          alt="birble logo"
+          width={50}
+          height={50}
+          className="md:hidden"
+        />
+      </Link>
 
       {/* POPOVER, MD:HIDDEN */}
       <div className="md:hidden">
