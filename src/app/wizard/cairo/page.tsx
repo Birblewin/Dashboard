@@ -152,14 +152,14 @@ export default function Cairo() {
         </Popover>
       </div>
 
-      <div className="grid md:grid-flow-row md:grid-cols-3 gap-4 grid-flow-col grid-rows-2">
+      <div className="grid md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 md:grid-rows-1 gap-4 grid-flow-col grid-rows-2">
         <div className="flex flex-col justify-between overflow-auto h-[calc(100vh-84px)] rounded shadow-md">
           {selected === "ERC20" && <ERC20Cairo/>}
           {selected === "ERC721" && <ERC721C/>}
           {selected === "Custom" && <Custom2/>}
         </div>
 
-        <div className="output flex flex-col grow overflow-auto  h-[calc(100vh-84px)] md:col-span-2">
+        <div className="output flex flex-col grow overflow-auto  h-[calc(100vh-84px)] md:col-span-2 lg:col-span-3">
           <CodeEditor />
         </div>
       </div>
