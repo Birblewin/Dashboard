@@ -32,17 +32,15 @@ export default function Navbar() {
   return (
     <nav className="flex flex-row items-center p-4 justify-between bg-[#ffffff] mb-8">
       {/* VISIBLE FOR SMALL ONLY */}
-      <Link href={"https://www.birbleai.com/"} target="_blank">
-        <Image
-          src={"/logo.svg"}
-          alt="birble logo"
-          width={50}
-          height={50}
-          className="md:hidden"
-        />
+      <Link
+        href={"https://www.birbleai.com/"}
+        target="_blank"
+        className="md:hidden"
+      >
+        <Image src={"/logo.svg"} alt="birble logo" width={50} height={50} />
       </Link>
 
-      {/* POPOVER, MD:HIDDEN */}
+      {/* EDITORPOPOVER, MD:HIDDEN */}
       <div className="md:hidden">
         <Popover
           imageComponent={
@@ -133,7 +131,12 @@ export default function Navbar() {
       {/* VISIBLE FROM MIDDLE UP */}
       <div className="hidden md:flex items-center">
         <div className="flex gap-1">
-          <Image src={"/logo.svg"} alt="birble logo" width={50} height={50} />
+          <Link
+            href={"https://www.birbleai.com/"}
+            target="_blank"
+          >
+            <Image src={"/logo.svg"} alt="birble logo" width={50} height={50} />
+          </Link>
 
           {/* VISIBLE FROM LARGE UP */}
           <Link

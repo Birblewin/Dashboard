@@ -136,20 +136,28 @@ export default function Cairo() {
           </button>
         </div>
 
-        {/* popup button FOR ACTION BUTTONS */}
-        <Popover
-          imageComponent={
-            <BuildRoundedIcon
-              fontSize="large"
-              className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
-            />
-          }
-        >
-          <div className="flex flex-col gap-2">
-            <CopyBtn />
-            <Download />
-          </div>
-        </Popover>
+        {/* popup button FOR ACTION BUTTONS, FOR SMALL TO MEDIUM SCREENS */}
+        <div className="block lg:hidden">
+          <Popover
+            imageComponent={
+              <BuildRoundedIcon
+                fontSize="large"
+                className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
+              />
+            }
+          >
+            <div className="flex flex-col gap-2">
+              <CopyBtn />
+              <Download />
+            </div>
+          </Popover>
+        </div>
+
+        {/* TABS SHOWING ACTION BUTTONS FROM LARGE UP */}
+        <div className="lg:flex gap-2 hidden">
+          <CopyBtn />
+          <Download />
+        </div>
       </div>
 
       <div className="grid md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 md:grid-rows-1 gap-4 grid-flow-col grid-rows-2">

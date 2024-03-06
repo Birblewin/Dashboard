@@ -204,7 +204,7 @@ export default function Home() {
             >
               ERC1155
             </button>
-            
+
             <button
               type="button"
               className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
@@ -230,22 +230,44 @@ export default function Home() {
             </button>
           </div>
 
-          {/* popup button FOR ACTION BUTTONS */}
-          <Popover
-            imageComponent={
-              <BuildRoundedIcon
-                fontSize="large"
-                className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
-              />
-            }
-          >
-            <div className="flex flex-col gap-2">
-              <DefenderBtn />
-              <CopyBtn />
-              <RenderBtn />
-              <Download />
-            </div>
-          </Popover>
+          {/* popup button FOR ACTION BUTTONS, FOR SMALL TO MEDIUM SCREENS */}
+          <div className="block lg:hidden">
+            <Popover
+              imageComponent={
+                <BuildRoundedIcon
+                  fontSize="large"
+                  className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
+                />
+              }
+            >
+              <div className="flex flex-col gap-2">
+                <DefenderBtn />
+                <CopyBtn />
+                <RenderBtn />
+                <Download />
+              </div>
+            </Popover>
+          </div>
+
+          {/* TABS SHOWING ACTION BUTTONS FROM LARGE UP */}
+          <div className="lg:flex gap-2 hidden">
+            <CopyBtn />
+            <Download />
+
+            <Popover
+              imageComponent={
+                <BuildRoundedIcon
+                  fontSize="large"
+                  className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
+                />
+              }
+            >
+              <div className="flex flex-col gap-2">
+                <DefenderBtn />
+                <RenderBtn />
+              </div>
+            </Popover>
+          </div>
         </div>
 
         {/* FOR SMALL SCREENS, COLS */}
