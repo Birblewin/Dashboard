@@ -5,7 +5,7 @@ import { useState } from "react";
 import Download from "@/components/CairoDownloadBtn";
 import CopyBtn from "@/components/CopyBtn";
 import Custom2 from "@/components/Custom2";
-import ERC20Cairo from "@/components/ERC20Cairo"
+import ERC20Cairo from "@/components/ERC20C"
 import ERC721C from "@/components/ERC721C";
 import {atom, useRecoilState} from "recoil"
 import {ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom} from "@/store/cairoBtns"
@@ -155,7 +155,7 @@ export default function Cairo() {
       <div className="grid md:grid-flow-row md:grid-cols-3 gap-4 grid-flow-col grid-rows-2">
         <div className="flex flex-col justify-between overflow-auto h-[calc(100vh-84px)] rounded shadow-md">
           {selected === "ERC20" && <ERC20Cairo/>}
-          {selected === "ERC721" && <ERC721Cairo/>}
+          {selected === "ERC721" && <ERC721C/>}
           {selected === "Custom" && <Custom2/>}
         </div>
 
