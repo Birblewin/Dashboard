@@ -106,7 +106,7 @@ export default function Cairo() {
                 ? "selectedd bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
                 : ""
             }`}
-            onClick={() => setSelected("ERC20")}
+            onClick={handleClickERC20}
           >
             ERC20
           </button>
@@ -118,7 +118,7 @@ export default function Cairo() {
                 ? "selectedd bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
                 : ""
             }`}
-            onClick={() => setSelected("ERC721")}
+            onClick={handleClickERC721}
           >
             ERC721
           </button>
@@ -130,7 +130,7 @@ export default function Cairo() {
                 ? "selectedd bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
                 : ""
             }`}
-            onClick={() => setSelected("Custom")}
+            onClick={handleClickCustom}
           >
             Custom
           </button>

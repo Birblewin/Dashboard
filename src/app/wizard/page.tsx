@@ -139,6 +139,7 @@ export default function Home() {
                 >
                   ERC1155
                 </button>
+
                 <button
                   type="button"
                   className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
@@ -166,6 +167,69 @@ export default function Home() {
             </Popover>
           </div>
 
+          {/* FOR MEDIUM TO LARGE SCREENS, ERC TABS */}
+          <div className="md:flex hidden gap-2 items-center">
+            <button
+              type="button"
+              className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+                selected === "ERC20"
+                  ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                  : ""
+              }`}
+              onClick={handleERC20Click}
+            >
+              ERC20
+            </button>
+
+            <button
+              type="button"
+              className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+                selected === "ERC721"
+                  ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                  : ""
+              }`}
+              onClick={handleERC721Click}
+            >
+              ERC721
+            </button>
+
+            <button
+              type="button"
+              className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+                selected === "ERC1155"
+                  ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                  : ""
+              }`}
+              onClick={handleERC1155Click}
+            >
+              ERC1155
+            </button>
+            
+            <button
+              type="button"
+              className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+                selected === "Governor"
+                  ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                  : ""
+              }`}
+              onClick={handleGovernorClick}
+            >
+              Governor
+            </button>
+
+            <button
+              type="button"
+              className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+                selected === "Custom"
+                  ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                  : ""
+              }`}
+              onClick={handleCustomClick}
+            >
+              Custom
+            </button>
+          </div>
+
           {/* popup button FOR ACTION BUTTONS */}
           <Popover
             imageComponent={
@@ -183,6 +247,7 @@ export default function Home() {
             </div>
           </Popover>
         </div>
+
         {/* FOR SMALL SCREENS, COLS */}
         {/* FOR MEDIUM TO LARGE SCREENS, 2 ROWS */}
         <div className="grid md:grid-flow-row md:grid-cols-3 gap-4 grid-flow-col grid-rows-2">
