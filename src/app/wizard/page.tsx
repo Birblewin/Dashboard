@@ -3,13 +3,13 @@
 // IMPORTING NECESSARY FILES
   // IMPORTING COMPONENETS
 import CodeEditor from "@/components/SyntaxHighliter";
-import ERC20 from "@/components/ERC20";
+import ERC20Solidity from "@/components/ERC20Solidity";
 import Download from "@/components/SolidityDownloadBtn";
 import RenderBtn from "@/components/RenderBtn";
 import Governor from "@/components/Governor";
 import CopyBtn from "@/components/CopyBtn";
 import DefenderBtn from "@/components/DefenderBtn";
-import ERC721 from "@/components/ERC721";
+import ERC721Solidity from "@/components/ERC721Solidity";
 import ERC1155 from "@/components/ERC1155";
 import Custom from "@/components/Custom";
 import BuildRoundedIcon from "@mui/icons-material/BuildRounded";
@@ -184,8 +184,8 @@ export default function Home() {
         {/* FOR MEDIUM TO LARGE SCREENS, 2 ROWS */}
         <div className="grid md:grid-flow-row md:grid-cols-3 gap-4 grid-flow-col grid-rows-2">
           <div className="flex flex-col shrink-0 justify-between overflow-auto  h-[calc(100vh-84px)] rounded shadow-md">
-            {selected === "ERC20" && <ERC20 />}
-            {selected === "ERC721" && <ERC721 />}
+            {selected === "ERC20" && <ERC20Solidity />}
+            {selected === "ERC721" && <ERC721Solidity />}
             {selected === "ERC1155" && <ERC1155 />}
             {selected === "Custom" && <Custom />}
             {selected === "Governor" && <Governor />}

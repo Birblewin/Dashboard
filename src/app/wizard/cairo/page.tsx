@@ -5,7 +5,7 @@ import { useState } from "react";
 import Download from "@/components/CairoDownloadBtn";
 import CopyBtn from "@/components/CopyBtn";
 import Custom2 from "@/components/Custom2";
-import ERC20 from "@/components/ERC20C"
+import ERC20Cairo from "@/components/ERC20Cairo"
 import ERC721Cairo from "@/components/ERC721Cairo";
 
 import BuildRoundedIcon from "@mui/icons-material/BuildRounded";
@@ -125,7 +125,7 @@ export default function Cairo() {
 
       <div className="grid md:grid-flow-row md:grid-cols-3 gap-4 grid-flow-col grid-rows-2">
         <div className="flex flex-col justify-between overflow-auto h-[calc(100vh-84px)] rounded shadow-md">
-          {selected === "ERC20" && <ERC20/>}
+          {selected === "ERC20" && <ERC20Cairo/>}
           {selected === "ERC721" && <ERC721Cairo/>}
           {selected === "Custom" && <Custom2/>}
         </div>

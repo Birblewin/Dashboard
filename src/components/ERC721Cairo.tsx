@@ -3,8 +3,6 @@ import Tool from "./Tool";
 
 
 const ERC721Cairo = ()=>{
-    
-
     return(
         <div className="p-4">
             <div>
