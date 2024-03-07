@@ -15,7 +15,7 @@ import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 import Popover from "@/components/Popover";
 
 export default function Cairo() {
-  const [selected, setSelected] = useState("ERC20");
+  const [selected, setSelected] = useState<"ERC20" | "ERC721"| "Custom">("ERC20");
 
   const [IsERC721, setIsERC721] = useRecoilState(ERC721Atom);
   const [IsERC20, setIsERC20] = useRecoilState(ERC20Atom);
@@ -23,7 +23,7 @@ export default function Cairo() {
   
 
   const handleClick = (id: string) => {
-    setSelected(id);
+    setSelected(id as "ERC20" | "ERC721" | "Custom");
   };
 
   const handleClickERC20 = () => {
@@ -46,9 +46,15 @@ export default function Cairo() {
   };
   return (
     <div className="flex flex-col gap-4 p-4 mx-4 rounded shadow-md  bg-[#ffffff]">
-      <div className=" flex flex-row justify-between p-2 mb-2">
+      <div className=" flex flex-row justify-between p-2 mb-2 items-center">
         {/* FOR SMALL SCREENS, hamburger FOR ERC TABS */}
-        <div className="md:hidden">
+        <div className="md:hidden flex gap-3">
+          {selected && (
+            <p className="bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5] font-bold py-2 px-4 rounded-md">
+              {selected}
+            </p>
+          )}
+
           <Popover
             imageComponent={
               <ArrowDropDownRoundedIcon
@@ -60,10 +66,10 @@ export default function Cairo() {
             <div className="flex flex-col gap-2">
               <button
                 type="button"
-                className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+                className={`font-bold py-2 px-4 rounded-md ${
                   selected === "ERC20"
-                    ? "selectedd bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
-                    : ""
+                    ? "bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
+                    : "text-[#575c66] hover:bg-gray-200"
                 }`}
                 onClick={handleClickERC20}
               >
@@ -72,10 +78,10 @@ export default function Cairo() {
 
               <button
                 type="button"
-                className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+                className={`font-bold py-2 px-4 rounded-md ${
                   selected === "ERC721"
-                    ? "selectedd bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
-                    : ""
+                    ? "bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
+                    : "text-[#575c66] hover:bg-gray-200"
                 }`}
                 onClick={handleClickERC721}
               >
@@ -84,10 +90,10 @@ export default function Cairo() {
 
               <button
                 type="button"
-                className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+                className={`font-bold py-2 px-4 rounded-md ${
                   selected === "Custom"
-                    ? "selectedd bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
-                    : ""
+                    ? "bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
+                    : "text-[#575c66] hover:bg-gray-200"
                 }`}
                 onClick={handleClickCustom}
               >
@@ -101,10 +107,10 @@ export default function Cairo() {
         <div className="md:flex hidden gap-2 items-center">
           <button
             type="button"
-            className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+            className={`font-bold py-2 px-4 rounded-md ${
               selected === "ERC20"
-                ? "selectedd bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
-                : ""
+                ? "bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
+                : "text-[#575c66] hover:bg-gray-200"
             }`}
             onClick={handleClickERC20}
           >
@@ -113,10 +119,10 @@ export default function Cairo() {
 
           <button
             type="button"
-            className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+            className={`font-bold py-2 px-4 rounded-md ${
               selected === "ERC721"
-                ? "selectedd bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
-                : ""
+                ? "bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
+                : "text-[#575c66] hover:bg-gray-200"
             }`}
             onClick={handleClickERC721}
           >
@@ -125,10 +131,10 @@ export default function Cairo() {
 
           <button
             type="button"
-            className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+            className={`font-bold py-2 px-4 rounded-md ${
               selected === "Custom"
-                ? "selectedd bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
-                : ""
+                ? "bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
+                : "text-[#575c66] hover:bg-gray-200"
             }`}
             onClick={handleClickCustom}
           >
@@ -162,9 +168,9 @@ export default function Cairo() {
 
       <div className="grid md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 md:grid-rows-1 gap-4 grid-flow-col grid-rows-2">
         <div className="flex flex-col justify-between overflow-auto h-[calc(100vh-84px)] rounded shadow-md">
-          {selected === "ERC20" && <ERC20Cairo/>}
-          {selected === "ERC721" && <ERC721C/>}
-          {selected === "Custom" && <Custom2/>}
+          {selected === "ERC20" && <ERC20Cairo />}
+          {selected === "ERC721" && <ERC721C />}
+          {selected === "Custom" && <Custom2 />}
         </div>
 
         <div className="output flex flex-col grow overflow-auto  h-[calc(100vh-84px)] md:col-span-2 lg:col-span-3">

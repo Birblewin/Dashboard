@@ -40,8 +40,18 @@ export default function Navbar() {
         <Image src={"/logo.svg"} alt="birble logo" width={50} height={50} />
       </Link>
 
-      {/* EDITORPOPOVER, MD:HIDDEN */}
-      <div className="md:hidden">
+      {/* EDITOR POPOVER, MD:HIDDEN */}
+      <div className="md:hidden flex gap-3">
+        {isHome ? (
+          <p className="font-bold border-none bg-gradient-to-r from-[#51d4ff] to-[#4e5de4] text-white p-2 ml-4 rounded-[0.5rem]">
+            Solidity
+          </p>
+        ) : (
+          <p className="font-bold border-none bg-gradient-to-r from-[#fe9149] to-[#fe4a3c] text-white p-2 ml-4 rounded-[0.5rem]">
+            Cairo
+          </p>
+        )}
+
         <Popover
           imageComponent={
             <MenuRoundedIcon
@@ -131,10 +141,7 @@ export default function Navbar() {
       {/* VISIBLE FROM MIDDLE UP */}
       <div className="hidden md:flex items-center">
         <div className="flex gap-1">
-          <Link
-            href={"https://www.birbleai.com/"}
-            target="_blank"
-          >
+          <Link href={"https://www.birbleai.com/"} target="_blank">
             <Image src={"/logo.svg"} alt="birble logo" width={50} height={50} />
           </Link>
 

@@ -28,7 +28,7 @@ import {
 } from "@/store/solidityBtns";
 
 export default function Home() {
-  const [selected, setSelected] = useState("ERC20");
+  const [selected, setSelected] = useState<"ERC20" | "ERC721" | "ERC1155" | "Custom" | "Governor">("ERC20");
 
   // Define atoms using the createAtom function
 
@@ -38,40 +38,46 @@ export default function Home() {
   const [IsCustom, setIsCustom] = useRecoilState(CustomAtom);
   const [IsGovernor, setIsGovernor] = useRecoilState(GovernorAtom);
 
-  const handleERC721Click = (e: { target: any }) => {
-    changeTab(e.target);
+  const handleClick = (
+    id: "ERC20" | "ERC721" | "ERC1155" | "Custom" | "Governor"
+  ) => {
+    setSelected(id);
+  };
+
+  const handleERC721Click = () => {
+    handleClick("ERC721")
     setIsERC721(true);
     setIsERC20(false);
     setIsERC1155(false);
     setIsCustom(false);
     setIsGovernor(false);
   };
-  const handleERC20Click = (e: { target: any }) => {
-    changeTab(e.target);
+  const handleERC20Click = () => {
+    handleClick("ERC20")
     setIsERC20(true);
     setIsERC721(false);
     setIsERC1155(false);
     setIsCustom(false);
     setIsGovernor(false);
   };
-  const handleERC1155Click = (e: { target: any }) => {
-    changeTab(e.target);
+  const handleERC1155Click = () => {
+    handleClick("ERC1155")
     setIsERC1155(true);
     setIsERC20(false);
     setIsERC721(false);
     setIsCustom(false);
     setIsGovernor(false);
   };
-  const handleCustomClick = (e: { target: any }) => {
-    changeTab(e.target);
+  const handleCustomClick = () => {
+    handleClick("Custom")
     setIsCustom(true);
     setIsERC20(false);
     setIsERC721(false);
     setIsERC1155(false);
     setIsGovernor(false);
   };
-  const handleGovernorClick = (e: { target: any }) => {
-    changeTab(e.target);
+  const handleGovernorClick = () => {
+    handleClick("Governor")
     setIsGovernor(true);
     setIsERC20(false);
     setIsERC721(false);
@@ -79,22 +85,18 @@ export default function Home() {
     setIsCustom(false);
   };
 
-  function changeTab(clickedButton: { classList: any; innerText: any }) {
-    if (!clickedButton || !clickedButton.classList) {
-      return;
-    }
-
-    const buttonText = clickedButton.innerText;
-
-    setSelected(buttonText);
-  }
-
   return (
     <>
       <div className="flex flex-col gap-4 p-4 mx-4 rounded shadow-md bg-[#ffffff]">
-        <div className=" flex flex-row justify-between p-2 mb-2">
+        <div className=" flex flex-row justify-between p-2 mb-2 items-center">
           {/* FOR SMALL SCREENS, hamburger FOR ERC TABS */}
-          <div className="md:hidden">
+          <div className="md:hidden flex gap-3">
+            {selected && (
+              <p className="bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5] font-bold py-2 px-4 rounded-md">
+                {selected}
+              </p>
+            )}
+
             <Popover
               imageComponent={
                 <ArrowDropDownRoundedIcon
@@ -106,10 +108,10 @@ export default function Home() {
               <div className="flex flex-col gap-2">
                 <button
                   type="button"
-                  className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+                  className={`font-bold py-2 px-4 rounded-md ${
                     selected === "ERC20"
-                      ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
-                      : ""
+                      ? "bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                      : "hover:bg-gray-200 text-[#575c66]"
                   }`}
                   onClick={handleERC20Click}
                 >
@@ -118,10 +120,10 @@ export default function Home() {
 
                 <button
                   type="button"
-                  className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+                  className={`font-bold py-2 px-4 rounded-md ${
                     selected === "ERC721"
-                      ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
-                      : ""
+                      ? "bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                      : "hover:bg-gray-200 text-[#575c66]"
                   }`}
                   onClick={handleERC721Click}
                 >
@@ -130,10 +132,10 @@ export default function Home() {
 
                 <button
                   type="button"
-                  className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+                  className={`font-bold py-2 px-4 rounded-md ${
                     selected === "ERC1155"
-                      ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
-                      : ""
+                      ? "bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                      : "hover:bg-gray-200 text-[#575c66]"
                   }`}
                   onClick={handleERC1155Click}
                 >
@@ -142,10 +144,10 @@ export default function Home() {
 
                 <button
                   type="button"
-                  className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+                  className={`font-bold py-2 px-4 rounded-md ${
                     selected === "Governor"
-                      ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
-                      : ""
+                      ? "bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                      : "hover:bg-gray-200 text-[#575c66]"
                   }`}
                   onClick={handleGovernorClick}
                 >
@@ -154,10 +156,10 @@ export default function Home() {
 
                 <button
                   type="button"
-                  className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+                  className={`font-bold py-2 px-4 rounded-md ${
                     selected === "Custom"
-                      ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
-                      : ""
+                      ? "bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                      : "hover:bg-gray-200 text-[#575c66]"
                   }`}
                   onClick={handleCustomClick}
                 >
@@ -171,10 +173,10 @@ export default function Home() {
           <div className="md:flex hidden gap-2 items-center">
             <button
               type="button"
-              className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+              className={`font-bold py-2 px-4 rounded-md ${
                 selected === "ERC20"
-                  ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
-                  : ""
+                  ? "bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                  : "hover:bg-gray-200 text-[#575c66]"
               }`}
               onClick={handleERC20Click}
             >
@@ -183,10 +185,10 @@ export default function Home() {
 
             <button
               type="button"
-              className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+              className={`font-bold py-2 px-4 rounded-md ${
                 selected === "ERC721"
-                  ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
-                  : ""
+                  ? "bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                  : "hover:bg-gray-200 text-[#575c66]"
               }`}
               onClick={handleERC721Click}
             >
@@ -195,10 +197,10 @@ export default function Home() {
 
             <button
               type="button"
-              className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+              className={`font-bold py-2 px-4 rounded-md ${
                 selected === "ERC1155"
-                  ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
-                  : ""
+                  ? "bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                  : "hover:bg-gray-200 text-[#575c66]"
               }`}
               onClick={handleERC1155Click}
             >
@@ -207,10 +209,10 @@ export default function Home() {
 
             <button
               type="button"
-              className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+              className={`font-bold py-2 px-4 rounded-md ${
                 selected === "Governor"
-                  ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
-                  : ""
+                  ? "bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                  : "hover:bg-gray-200 text-[#575c66]"
               }`}
               onClick={handleGovernorClick}
             >
@@ -219,10 +221,10 @@ export default function Home() {
 
             <button
               type="button"
-              className={`text-[#575c66] font-bold hover:bg-gray-200 py-2 px-4 rounded-md ${
+              className={`font-bold py-2 px-4 rounded-md ${
                 selected === "Custom"
-                  ? " bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
-                  : ""
+                  ? "bg-[#4e5de4] hover:bg-blue-600 text-[#f5f5f5]"
+                  : "hover:bg-gray-200 text-[#575c66]"
               }`}
               onClick={handleCustomClick}
             >
