@@ -13,17 +13,32 @@ import {ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom} from "@/
 import BuildRoundedIcon from "@mui/icons-material/BuildRounded";
 import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 import Popover from "@/components/Popover";
+// IMPORTING TYPES
+import { IsOpenType } from "@/types/types";
 
 export default function Cairo() {
-  const [selected, setSelected] = useState<"ERC20" | "ERC721"| "Custom">("ERC20");
+  // A STATE TO MANAGE THE TAB SELECTED
+  const [selected, setSelected] = useState<"ERC20" | "ERC721" | "Custom">(
+    "ERC20"
+  );
+
+  // A STATE TO KEEP TRACK OF WHETHER OR NOT THE MODAL SHOULD OPEN
+  const [isOpen, setIsOpen] = useState<Omit<IsOpenType, "linksPopup">>({
+    actionButtonsPopup: {
+      largeScreens: false,
+      smallScreens: false,
+    },
+
+    editorPopup: false,
+  });
 
   const [IsERC721, setIsERC721] = useRecoilState(ERC721Atom);
   const [IsERC20, setIsERC20] = useRecoilState(ERC20Atom);
   const [IsCustom, setIsCustom] = useRecoilState(CustomAtom);
-  
 
   const handleClick = (id: string) => {
     setSelected(id as "ERC20" | "ERC721" | "Custom");
+    setIsOpen((prevState) => ({ ...prevState, editorPopup: false }));
   };
 
   const handleClickERC20 = () => {
@@ -60,8 +75,15 @@ export default function Cairo() {
               <ArrowDropDownRoundedIcon
                 fontSize="large"
                 className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
+                onClick={() =>
+                  setIsOpen((prevState) => ({
+                    ...prevState,
+                    editorPopup: !prevState.editorPopup,
+                  }))
+                }
               />
             }
+            isOpen={isOpen.editorPopup}
           >
             <div className="flex flex-col gap-2">
               <button
@@ -149,19 +171,64 @@ export default function Cairo() {
               <BuildRoundedIcon
                 fontSize="large"
                 className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
+                onClick={() =>
+                  setIsOpen(
+                    ({
+                      actionButtonsPopup: { largeScreens, smallScreens },
+                      editorPopup,
+                    }) => ({
+                      editorPopup,
+                      actionButtonsPopup: {
+                        largeScreens,
+                        smallScreens: !smallScreens,
+                      },
+                    })
+                  )
+                }
               />
             }
           >
             <div className="flex flex-col gap-2">
-              <CopyBtn />
-              <Download />
+              <CopyBtn
+                handleClick={() =>
+                  setIsOpen(
+                    ({
+                      actionButtonsPopup: { largeScreens },
+                      editorPopup,
+                    }) => ({
+                      editorPopup,
+                      actionButtonsPopup: {
+                        largeScreens,
+                        smallScreens: false,
+                      },
+                    })
+                  )
+                }
+              />
+
+              <Download
+                handleClick={() =>
+                  setIsOpen(
+                    ({
+                      actionButtonsPopup: { largeScreens },
+                      editorPopup,
+                    }) => ({
+                      editorPopup,
+                      actionButtonsPopup: {
+                        largeScreens,
+                        smallScreens: false,
+                      },
+                    })
+                  )
+                }
+              />
             </div>
           </Popover>
         </div>
 
         {/* TABS SHOWING ACTION BUTTONS FROM LARGE UP */}
         <div className="lg:flex gap-2 hidden">
-          <CopyBtn />
+          <CopyBtn handleClick={() => null}/>
           <Download />
         </div>
       </div>

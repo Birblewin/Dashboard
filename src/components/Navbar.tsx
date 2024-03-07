@@ -10,20 +10,27 @@ import { cairo, wizard } from "../store/headerBtns";
   // IMPORTING MODULES
 import { useState } from "react";
 import {atom, useRecoilState} from "recoil"
+  // IMPORTING TYPES
+import { IsOpenType } from "@/types/types";
 
 // A FUNCTION THAT GENERATES A NAVBAR COMPONENT
 export default function Navbar() {
+    // A STATE TO KEEP TRACK OF THE TAB BEING CLICKED
   const [isHome, setIsHome] = useState(true);
   const [Cairo, setCairo] = useRecoilState(cairo);
   const [Wizard, setWizard] = useRecoilState(wizard);
+    // A STATE TO KEEP TRACK OF WHETHER OR NOT THE POPUP IS OPEN
+  const [isOpen, setIsOpen] = useState<Pick<IsOpenType, "linksPopup">>({ linksPopup: false })
 
   const handleWizardClick = () => {
+    setIsOpen(prevState => ({...prevState, linksPopup: false}))
     setIsHome(true);
     setWizard(true);
     setCairo(false);
   };
 
   const handleCairoClick = () => {
+    setIsOpen(prevState => ({...prevState, linksPopup: false}))
     setIsHome(false);
     setCairo(true);
     setWizard(false);
@@ -52,13 +59,20 @@ export default function Navbar() {
           </p>
         )}
 
-        <Popover 
+        <Popover
           imageComponent={
             <MenuRoundedIcon
               fontSize="large"
               className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
+              onClick={() =>
+                setIsOpen((prevState) => ({
+                  ...prevState,
+                  linksPopup: !prevState.linksPopup,
+                }))
+              }
             />
           }
+          isOpen={isOpen.linksPopup}
         >
           <div className="flex flex-col gap-2">
             <Link href={"/wizard"}>
@@ -104,6 +118,10 @@ export default function Navbar() {
               className="font-medium text-[1rem] ml-4 text-[#333333]"
               target="_blank"
               rel="noreferrer"
+              onClick={() => setIsOpen((prevState) => ({
+                ...prevState,
+                linksPopup: false,
+              }))}
             >
               Forum
             </Link>
@@ -113,6 +131,10 @@ export default function Navbar() {
               className="font-medium text-[1rem] ml-4 text-[#333333]"
               target="_blank"
               rel="noreferrer"
+              onClick={() => setIsOpen((prevState) => ({
+                ...prevState,
+                linksPopup: false,
+              }))}
             >
               Docs
             </Link>
@@ -122,6 +144,10 @@ export default function Navbar() {
               className="font-medium text-[1rem] ml-4 text-[#333333]"
               target="_blank"
               rel="noreferrer"
+              onClick={() => setIsOpen((prevState) => ({
+                ...prevState,
+                linksPopup: false,
+              }))}
             >
               GitHub
             </Link>
@@ -131,6 +157,11 @@ export default function Navbar() {
               className="font-medium text-[1rem] ml-4 text-[#333333]"
               target="_blank"
               rel="noreferrer"
+              
+              onClick={() => setIsOpen((prevState) => ({
+                ...prevState,
+                linksPopup: false,
+              }))}
             >
               Twitter
             </Link>

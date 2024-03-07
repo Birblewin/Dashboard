@@ -116,6 +116,7 @@ export default function Home() {
                 <ArrowDropDownRoundedIcon
                   fontSize="large"
                   className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
+                  
                   onClick={() =>
                     setIsOpen((prevState) => ({
                       ...prevState,
@@ -260,6 +261,7 @@ export default function Home() {
                 <BuildRoundedIcon
                   fontSize="large"
                   className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
+                  
                   onClick={() =>
                     setIsOpen(
                       ({
