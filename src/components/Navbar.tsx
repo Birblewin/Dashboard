@@ -52,7 +52,7 @@ export default function Navbar() {
           </p>
         )}
 
-        <Popover
+        <Popover 
           imageComponent={
             <MenuRoundedIcon
               fontSize="large"

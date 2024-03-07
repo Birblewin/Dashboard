@@ -10,9 +10,9 @@ import {
 import {PopoverProps} from "@/types/props"
 
 // A FUNCTION THAT RETURNS A POPOVER COMPONENT
-export default function Popover({children, imageComponent}: PopoverProps){
+export default function Popover({children, imageComponent, isOpen}: PopoverProps){
     return (
-      <Pop>
+      <Pop open={isOpen}>
         <PopoverTrigger>{imageComponent}</PopoverTrigger>
         <PopoverContent>{children}</PopoverContent>
       </Pop>

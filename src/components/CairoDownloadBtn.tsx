@@ -3,8 +3,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import DownloadIcon from "@mui/icons-material/Download";
 import Image from "next/image";
+// IMPORTING PROPS
+import { ButtonProps } from "@/types/props";
 
-function Download() {
+function Download({handleClick}: ButtonProps) {
   const [showPopup, setShowPopup] = useState(false);
   const popupRef = useRef(null);
 
@@ -25,6 +27,7 @@ function Download() {
   }, []);
 
   const handleButtonClick = () => {
+    if(handleClick) handleClick()
     setShowPopup(true);
   };
 

@@ -26,9 +26,22 @@ import {
   Custom as CustomAtom,
   Governor as GovernorAtom,
 } from "@/store/solidityBtns";
+// IMPORTING TYPES
+import { IsOpenType } from "../../types/types";
 
 export default function Home() {
+    // A STATE TO KEEP TRACK OF SELECTED TAB
   const [selected, setSelected] = useState<"ERC20" | "ERC721" | "ERC1155" | "Custom" | "Governor">("ERC20");
+  
+  // A STATE TO KEEP TRACK OF WHETHER OR NOT THE MODAL SHOULD OPEN
+  const [isOpen, setIsOpen] = useState<Omit<IsOpenType, "linksPopup">>({
+    actionButtonsPopup: {
+      largeScreens: false,
+      smallScreens: false
+    },
+
+    editorPopup: false
+  })
 
   // Define atoms using the createAtom function
 
@@ -42,6 +55,7 @@ export default function Home() {
     id: "ERC20" | "ERC721" | "ERC1155" | "Custom" | "Governor"
   ) => {
     setSelected(id);
+    setIsOpen(prevState => ({...prevState, editorPopup: false}))
   };
 
   const handleERC721Click = () => {
@@ -102,8 +116,15 @@ export default function Home() {
                 <ArrowDropDownRoundedIcon
                   fontSize="large"
                   className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
+                  onClick={() =>
+                    setIsOpen((prevState) => ({
+                      ...prevState,
+                      editorPopup: !prevState.editorPopup,
+                    }))
+                  }
                 />
               }
+              isOpen={isOpen.editorPopup}
             >
               <div className="flex flex-col gap-2">
                 <button
@@ -239,21 +260,99 @@ export default function Home() {
                 <BuildRoundedIcon
                   fontSize="large"
                   className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
+                  onClick={() =>
+                    setIsOpen(
+                      ({
+                        actionButtonsPopup: { largeScreens, smallScreens },
+                        editorPopup,
+                      }) => ({
+                        editorPopup,
+                        actionButtonsPopup: {
+                          largeScreens,
+                          smallScreens: !smallScreens,
+                        },
+                      })
+                    )
+                  }
                 />
               }
+              isOpen={isOpen.actionButtonsPopup.smallScreens}
             >
               <div className="flex flex-col gap-2">
-                <DefenderBtn />
-                <CopyBtn />
-                <RenderBtn />
-                <Download />
+                <DefenderBtn
+                  handleClick={() =>
+                    setIsOpen(
+                      ({
+                        actionButtonsPopup: { largeScreens },
+                        editorPopup,
+                      }) => ({
+                        editorPopup,
+                        actionButtonsPopup: {
+                          largeScreens,
+                          smallScreens: false,
+                        },
+                      })
+                    )
+                  }
+                />
+
+                <CopyBtn
+                  handleClick={() =>
+                    setIsOpen(
+                      ({
+                        actionButtonsPopup: { largeScreens },
+                        editorPopup,
+                      }) => ({
+                        editorPopup,
+                        actionButtonsPopup: {
+                          largeScreens,
+                          smallScreens: false,
+                        },
+                      })
+                    )
+                  }
+                />
+
+                <RenderBtn
+                  handleClick={() =>
+                    setIsOpen(
+                      ({
+                        actionButtonsPopup: { largeScreens },
+                        editorPopup,
+                      }) => ({
+                        editorPopup,
+                        actionButtonsPopup: {
+                          largeScreens,
+                          smallScreens: false,
+                        },
+                      })
+                    )
+                  }
+                />
+
+                <Download
+                  handleClick={() =>
+                    setIsOpen(
+                      ({
+                        actionButtonsPopup: { largeScreens },
+                        editorPopup,
+                      }) => ({
+                        editorPopup,
+                        actionButtonsPopup: {
+                          largeScreens,
+                          smallScreens: false,
+                        },
+                      })
+                    )
+                  }
+                />
               </div>
             </Popover>
           </div>
 
           {/* TABS SHOWING ACTION BUTTONS FROM LARGE UP */}
           <div className="lg:flex gap-2 hidden">
-            <CopyBtn />
+            <CopyBtn handleClick={() => null} />
             <Download />
 
             <Popover
@@ -261,12 +360,58 @@ export default function Home() {
                 <BuildRoundedIcon
                   fontSize="large"
                   className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
+                  onClick={() =>
+                    setIsOpen(
+                      ({
+                        actionButtonsPopup: { largeScreens, smallScreens },
+                        editorPopup,
+                      }) => ({
+                        editorPopup,
+                        actionButtonsPopup: {
+                          smallScreens,
+                          largeScreens: !largeScreens,
+                        },
+                      })
+                    )
+                  }
                 />
               }
+              isOpen={isOpen.actionButtonsPopup.largeScreens}
             >
               <div className="flex flex-col gap-2">
-                <DefenderBtn />
-                <RenderBtn />
+                <DefenderBtn
+                  handleClick={() =>
+                    setIsOpen(
+                      ({
+                        actionButtonsPopup: { smallScreens },
+                        editorPopup,
+                      }) => ({
+                        editorPopup,
+                        actionButtonsPopup: {
+                          smallScreens,
+                          largeScreens: false,
+                        },
+                      })
+                    )
+                  }
+                />
+
+                <RenderBtn
+                  handleClick={() =>
+                    setIsOpen(
+                      ({
+                        actionButtonsPopup: { smallScreens },
+                        editorPopup,
+                      }) => ({
+                        editorPopup,
+                        actionButtonsPopup: {
+                          smallScreens,
+                          largeScreens: false,
+                        },
+                      })
+                    )
+                  }
+                />
               </div>
             </Popover>
           </div>
