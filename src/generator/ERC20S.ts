@@ -56,6 +56,7 @@ export const VotesUpgradeableContractName: string[] = getCodeContent("upgradeabl
 export const PausableUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "Pausable");
 export const FlashMintUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "flashMinting");
 export const RolesByte: string[] = getCodeContent("RolesByte");
+export const DefaultConstructor: string[] = getCodeContent("Constructor", "Default"); 
 export const PermitConstructor: string[] = getCodeContent("Constructor", "Permit");
 export const OwnableConstructor: string[] = getCodeContent("Constructor", "Ownable");
 export const RolesConstructor: string[] = getCodeContent("Constructor", "Roles");
@@ -66,6 +67,9 @@ export const PausableSection2: string[] = getCodeContent("Section2", "Pausable")
 export const UUPSSection2: string[] = getCodeContent("Section2", "UUPS");
 export const PausableSection3: string[] = getCodeContent("Section3", "Pausable");
 export const VotesSection3: string[] = getCodeContent("Section3", "Votes");
+export const Section1Header: string[] = getCodeContent("upgradeableFunctionsHeader", "Default");
+export const PausableSection1Header: string[] = getCodeContent("upgradeableFunctionsHeader", "Pausable");
+export const MintableSection1Header: string[] = getCodeContent("upgradeableFunctionsHeader", "Mintable");
 export const Section1: string[] = getCodeContent("upgradeableFunctions", "Default");
 export const OwnableSection1: string[] = getCodeContent("upgradeableFunctions", "Ownable");
 export const RolesSection1: string[] = getCodeContent("upgradeableFunctions", "Roles");
@@ -79,42 +83,141 @@ export const FlashMintingSection1: string[] = getCodeContent("upgradeableFunctio
 
    
   
-export function generateERC20SCode(erc20sburnable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spermit: boolean, erc20supgradeable: boolean, erc20sUUPS: boolean ): string {
-    const upgradeableImports = `
-    ${StartUpgradeableImport}
-    ${erc20sburnable ? BurnableUpgradeableImport : ""}
-    ${erc20spausable ? PausableUpgradeableImport : ""}
-    ${erc20sflashMinting ? FlashMintingUpgradeableImport : ""}
-    ${erc20spermit ? PermitUpgradeableImport : ""}
-    ${erc20svotes ? VotesUpgradeableImport : ""}
-    ${erc20sownable ? OwnableUpgradeableImport : ""}
-    ${erc20sroles ? RolesUpgradeableImport : ""}
-    ${erc20smanaged ? ManagedUpgradeableImport : ""}
-    ${EndUpgradeableImport}
-    ${erc20sUUPS ? UUPSUpgradeableImport : ""}
-  
-  `
-  const Imports = `
-  ${Import} 
-  ${erc20sburnable ? BurnableImport : ""}
-  ${erc20spausable ? PausableImport : ""}
-  ${erc20sflashMinting ? FlashMintingImport : ""}
-  ${erc20spermit ? PermitImport : ""}
-  ${erc20svotes ? VotesImport : ""}
-  ${erc20sownable ? OwnableImport : ""}
-  ${erc20sroles ? RolesImport : ""}
-  ${erc20smanaged ? ManagedImport : ""}
+export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spermit: boolean, erc20supgradeable: boolean, erc20sUUPS: boolean, erc20ssecutitycontact: string ): string {
+    const upgradeableImports = [
+    StartUpgradeableImport,
+    erc20sburnable ? BurnableUpgradeableImport : "",
+    erc20spausable ? PausableUpgradeableImport : "",
+    erc20sflashMinting ? FlashMintingUpgradeableImport : "",
+    erc20spermit ? PermitUpgradeableImport : "",
+    erc20svotes ? VotesUpgradeableImport : "",
+    erc20sownable ? OwnableUpgradeableImport : "",
+    erc20sroles ? RolesUpgradeableImport : "",
+    erc20smanaged ? ManagedUpgradeableImport : "",
+    EndUpgradeableImport,
+    erc20sUUPS ? UUPSUpgradeableImport : ""
+  ].filter(Boolean).join('\n').trim();
 
-    
-  `
+  const Imports = [
+  Import,
+  erc20sburnable ? BurnableImport : "",
+  erc20spausable ? PausableImport : "",
+  erc20sflashMinting ? FlashMintingImport : "",
+  erc20spermit ? PermitImport : "",
+  erc20svotes ? VotesImport : "",
+  erc20sownable ? OwnableImport : "",
+  erc20sroles ? RolesImport : "",
+  erc20smanaged ? ManagedImport : ""
+
+  ].filter(Boolean).join('\n').trim(); 
+
+
+  const upgradeableContractnames = [
+    erc20sownable? OwnableUpgradeableContractName : "",
+    erc20sroles ?RolesUpgradeableContractName : "",
+    erc20smanaged ?ManagedUpgradeableContractName : "",
+    erc20sburnable? BurnableUpgradeableContractName: "",
+    erc20spausable ?PausableUpgradeableContractName : "",
+    erc20spermit?  PermitUpgradeableContractName : "",
+    erc20svotes? VotesUpgradeableContractName : "",
+    erc20sflashMinting? FlashMintUpgradeableContractName : ""
+  ].filter(Boolean).join(',').trim();
+
+  const contractnames = [
+    erc20sownable? OwnableContractName : "",
+    erc20sroles ?RolesContractName : "",
+    erc20smanaged ?ManagedContractName : "",
+    erc20sburnable? BurnableContractName: "",
+    erc20spausable ?PausableContractName : "",
+    erc20spermit?  PermitContractName : "",
+    erc20svotes? VotesContractName : "",
+    erc20sflashMinting? FlashMintContractName : ""
+  ].filter(Boolean).join(',').trim();
+
+
+
+  const contract = [
+    ContractHeader,
+    !erc20supgradeable? ContractName : "",
+    erc20supgradeable ?  UpgradeableContractName: "",
+    !erc20supgradeable ? contractnames : "",
+    erc20supgradeable ?  upgradeableContractnames : "",
+    " {"
+  ].filter(Boolean).join("").trim();
+
+
+  const constructor = [
+      DefaultConstructor,
+      erc20spermit? PermitConstructor: "",
+      erc20sownable? OwnableConstructor : "",
+      erc20sroles? RolesConstructor : "",
+      erc20smanaged? ManagedConstructor : "",
+
+  ].filter(Boolean).join("\n").trim();
+
+
+  const section1header = [
+    Section1Header,
+    erc20spausable? PausableSection1Header: "",
+    erc20smintable? MintableSection1Header: "",
+    ")"
+  ].filter(Boolean).join("").trim();
+
+
+  const section1 = [
+    Section1,
+    erc20sownable? OwnableSection1: "",
+    erc20sroles? RolesSection1: "",
+    erc20smanaged? ManagedSection1 : "",
+    erc20sburnable? BurnableSection1 : "",
+    erc20spausable? PausableSection1 : "",
+    erc20spermit? PermitSection1 : "",
+    erc20svotes? VotesSection1 : "",
+    erc20sflashMinting? FlashMintingSection1 : "",
+    "}"
+  ].filter(Boolean).join("\n").trim();
+
+  const upgradeableFunctions = [
+    section1header,
+    `${section1}`
+  ].filter(Boolean).join("\n").trim();
+
+
+  const section2 = [
+    erc20smintable? MintableSection2 : "",
+    erc20spausable? PausableSection2 : "",
+    erc20sUUPS ? UUPSSection2: ""
+  ].filter(Boolean).join("\n").trim();
+
+
+  const section3 = [
+    erc20spausable || erc20svotes ? PausableSection3:"",
+    erc20svotes ? VotesSection3: "",
+  ].filter(Boolean).join("\n").trim();
+
+  
+
+
+  const result =[
+    License,
+    Compatibility,
+    CodeVersion,
+    !erc20supgradeable ? Imports : "",
+    erc20supgradeable ? upgradeableImports : "",
+    "   ",
+    erc20ssecutitycontact? SecurityContact : "",
+    contract ,
+    erc20sroles? RolesByte : "",
+    !erc20supgradeable ? constructor : "",
+    erc20supgradeable ? UpgradeableConstructor : "",
+    erc20supgradeable ? upgradeableFunctions : "",
+    section2,
+    section3,
+    "}"
+  ].filter(Boolean).join('\n'); 
+
     return `
-    ${License}
-    ${Compatibility}
-    ${CodeVersion}
-    ${!erc20supgradeable ? Imports : ""}
-    ${erc20supgradeable ? upgradeableImports : ""}
-  
-  
+     ${result}
   `;
   }
   
