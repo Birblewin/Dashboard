@@ -15,7 +15,7 @@ import { GovernorInitialCode } from "@/generator/Governor";
 import { generateCustomSCode } from "@/generator/CustomS";
 import { CustomSAccessControlManaged, CustomSAccessControlOwnable, CustomSAccessControlRoles, CustomSPauseable, CustomSSecurityContact, CustomSUpgradeability, CustomSUpgradeabilityTransparent, CustomSUpgradeabilityUUPS, CustomSUpgradeable } from "@/store/CustomS";
 import { CustomCPauseable, CustomCAccessControlRoles, CustomCAccessControlOwnable, CustomCUpgradeable, CustomCUpgradeability, CustomCUpgradeabilityUUPS } from "@/store/CustomC";
-import { ERC20CBurnable, ERC20CPauseable, ERC20CAccessControlRoles, ERC20CAccessControlOwnable, ERC20CMintable, ERC20CUpgradeable } from "@/store/ERC20C";
+import { ERC20CBurnable, ERC20CPauseable, ERC20CAccessControlRoles, ERC20CAccessControlOwnable, ERC20CMintable, ERC20CUpgradeable, ERC20CPremint } from "@/store/ERC20C";
 import { generateCustomCCode } from "@/generator/CustomC";
 import { generateERC20CCode } from "@/generator/ERC20C";
 
@@ -46,9 +46,10 @@ const CodeEditor: React.FC = () => {
   const [erc20cownable] = useRecoilState(ERC20CAccessControlOwnable);
   const [erc20cupgradeable] = useRecoilState(ERC20CUpgradeable);
   const [erc20cmintable] = useRecoilState(ERC20CMintable)
+  const [erc20cpremint] = useRecoilState(ERC20CPremint)
 
 
-  const ERC20CInitialCode = generateERC20CCode(erc20cburnable,erc20cmintable,  erc20cpausable,  erc20croles, erc20cownable,  erc20cupgradeable);
+  const ERC20CInitialCode = generateERC20CCode(erc20cburnable,erc20cmintable,  erc20cpausable,  erc20croles, erc20cownable,  erc20cupgradeable, erc20cpremint);
 
   //customS logic with props snippets
   const [customspausable] = useRecoilState(CustomSPauseable);
@@ -72,7 +73,7 @@ const CodeEditor: React.FC = () => {
   const [customcUUPS] = useRecoilState(CustomCUpgradeabilityUUPS);
 
 
-  const CusstomCInitialCode = generateCustomCCode(customcupgradeable,customcpausable, customcroles, customcownable,  customcupgradeability, customcUUPS);
+  const CustomCInitialCode = generateCustomCCode(customcupgradeable,customcpausable, customcroles, customcownable,  customcupgradeability, customcUUPS);
 
 
   //checking which page is active
@@ -110,9 +111,9 @@ const CodeEditor: React.FC = () => {
       if (CairoERC721) {
         CairoInitialCode = ERC721InitialCairoCode;
       } else if (CairoERC20) {
-        CairoInitialCode = ERC20InitialCairoCode;
+        CairoInitialCode = ERC20CInitialCode;
       } else if (CairoCustom) {
-        CairoInitialCode = CustomInitialCairoCode;
+        CairoInitialCode = CustomCInitialCode;
       }
   
 
