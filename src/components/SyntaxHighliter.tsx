@@ -8,11 +8,12 @@ import {generateERC20SCode} from "../generator/ERC20S";
 import {wizard, cairo} from '../store/headerBtns'
 import {ERC721, ERC20,Custom } from '../store/cairoBtns'
 import {ERC20InitialCairoCode, ERC721InitialCairoCode, CustomInitialCairoCode} from './cairoSnippets'
-import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPremint, ERC20SUpgradeability, ERC20SUpgradeabilityUUPS } from "@/store/ERC20S";
+import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPremint, ERC20SUpgradeability, ERC20SUpgradeabilityUUPS} from "@/store/ERC20S";
 import { ERC1155InitialCode } from "@/generator/ERC1155";
-import { ERC721InitialCode } from "@/generator/ERC721S";
+import { generateERC721SCode } from "@/generator/ERC721S";
 import { GovernorInitialCode } from "@/generator/Governor";
 import { CustomInitialCode } from "@/generator/CustomS";
+import { ERC721SBurnable, ERC721SPauseable, ERC721SVotes, ERC721SAccessControlRoles, ERC721SAccessControlOwnable, ERC721SAccessControlManaged, ERC721SEnumerable, ERC721SURIStorage, ERC721SUpgradeabilityTransparent, ERC721SUpgradeabilityUUPS, ERC721SSecurityContact, ERC721SUpgradeability, ERC721SAutoIncrementIds, ERC721SMintable } from "@/store/ERC721S";
 
 
 const CodeEditor: React.FC = () => {
@@ -30,6 +31,24 @@ const CodeEditor: React.FC = () => {
   const [erc20sUUPS] = useRecoilState(ERC20SUpgradeabilityUUPS);
 
   const ERC20InitialCode = generateERC20SCode(erc20sburnable, erc20svotes, erc20spausable, erc20sflashMinting, erc20sroles, erc20sownable, erc20smanaged, erc20spremint, erc20supgradeable, erc20sUUPS);
+
+
+  const [erc721sburnable] = useRecoilState(ERC721SBurnable);
+  const [erc721spausable] = useRecoilState(ERC721SPauseable);
+  const [erc721svotes] = useRecoilState(ERC721SVotes);
+  const [erc721sUriStorage] = useRecoilState(ERC721SURIStorage);
+  const [erc721sroles] = useRecoilState(ERC721SAccessControlRoles);
+  const [erc721sownable] = useRecoilState(ERC721SAccessControlOwnable);
+  const [erc721smanaged] = useRecoilState(ERC721SAccessControlManaged);
+  const [erc721senumerable] = useRecoilState(ERC721SEnumerable);
+  const [erc721transparent] = useRecoilState(ERC721SUpgradeabilityTransparent)
+  const [erc721uups] = useRecoilState(ERC721SUpgradeabilityUUPS)
+  const [erc721security] = useRecoilState(ERC721SSecurityContact)
+  const [erc721upgradability] = useRecoilState(ERC721SUpgradeability)
+  const [erc721autoincrement] = useRecoilState(ERC721SAutoIncrementIds)
+  const [erc721mintable] = useRecoilState(ERC721SMintable)
+  
+  const ERC721InitialCode = generateERC721SCode(erc721sburnable, erc721svotes, erc721spausable, erc721sUriStorage, erc721sroles, erc721sownable, erc721smanaged, erc721senumerable, erc721transparent, erc721uups, erc721security, erc721upgradability,erc721autoincrement, erc721mintable );
 
 
   //checking which page is active

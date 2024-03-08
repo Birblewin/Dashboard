@@ -1,6 +1,6 @@
-import { useState } from "react";
+
 import Tool from "./Tool";
-import {atom, useRecoilState} from "recoil"
+import { useRecoilState} from "recoil"
 import { ERC721SAccessControl, ERC721SAccessControlManaged, ERC721SAccessControlOwnable, ERC721SAccessControlRoles, ERC721SAutoIncrementIds, ERC721SBaseURI, ERC721SBurnable, ERC721SEnumerable, ERC721SLicense, ERC721SMintable, ERC721SName, ERC721SPauseable, ERC721SSecurityContact, ERC721SSymbol, ERC721SURIStorage, ERC721SUpgradeability, ERC721SUpgradeabilityTransparent, ERC721SUpgradeabilityUUPS, ERC721SVotes } from "../store/ERC721S";
 
 const ERC721S = ()=>{
@@ -33,6 +33,8 @@ const ERC721S = ()=>{
           setUUPS(false);
         } else if (e.target.value === 'uups') {
           setUUPS(true);
+          setAccessControl(true);
+          setOwnable(true);
           setTransparent(false);
         }
         setUpgradeability(true); // Set the checkbox to true if either radio input is true
@@ -129,6 +131,8 @@ const ERC721S = ()=>{
           } else {
             setUUPS(false);
             setTransparent(false);
+            setAccessControl(false);
+            setOwnable(false); setRoles(false);  setManaged(false); // Set all access control options to false
           }
           setUpgradeability(!upgradeability);
         }
