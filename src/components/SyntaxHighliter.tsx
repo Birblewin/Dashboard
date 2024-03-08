@@ -13,7 +13,7 @@ import { ERC1155InitialCode } from "@/generator/ERC1155";
 import { ERC721InitialCode } from "@/generator/ERC721S";
 import { GovernorInitialCode } from "@/generator/Governor";
 import { generateCustomSCode } from "@/generator/CustomS";
-import { CustomSAccessControlManaged, CustomSAccessControlOwnable, CustomSAccessControlRoles, CustomSPauseable, CustomSSecurityContact, CustomSUpgradeability, CustomSUpgradeabilityUUPS, CustomSUpgradeable } from "@/store/CustomS";
+import { CustomSAccessControlManaged, CustomSAccessControlOwnable, CustomSAccessControlRoles, CustomSPauseable, CustomSSecurityContact, CustomSUpgradeability, CustomSUpgradeabilityTransparent, CustomSUpgradeabilityUUPS, CustomSUpgradeable } from "@/store/CustomS";
 import { CustomCPauseable, CustomCAccessControlRoles, CustomCAccessControlOwnable, CustomCUpgradeable, CustomCUpgradeability, CustomCUpgradeabilityUUPS } from "@/store/CustomC";
 import { ERC20CBurnable, ERC20CPauseable, ERC20CAccessControlRoles, ERC20CAccessControlOwnable, ERC20CMintable, ERC20CUpgradeable } from "@/store/ERC20C";
 import { generateCustomCCode } from "@/generator/CustomC";
@@ -56,7 +56,7 @@ const CodeEditor: React.FC = () => {
   const [customsownable] = useRecoilState(CustomSAccessControlOwnable);
   const [customsmanaged] = useRecoilState(CustomSAccessControlManaged);
   const [customsupgradeable] = useRecoilState(CustomSUpgradeable)
-  const [customsupgradeability] = useRecoilState(CustomSUpgradeability);
+  const [customsupgradeability] = useRecoilState(CustomSUpgradeabilityTransparent);
   const [customsUUPS] = useRecoilState(CustomSUpgradeabilityUUPS);
   const [customssecuritycontact] = useRecoilState(CustomSSecurityContact)
 
