@@ -1,27 +1,228 @@
 "use client"
 
+import { useRecoilState } from "recoil";
 import Tool from "./Tool";
+import { ERC1155Name, ERC1155SecurityContact, ERC1155License, ERC1155Mintable, ERC1155Pauseable, ERC1155AccessControl, ERC1155Burnable, ERC1155Upgradeability, ERC1155UpgradeabilityTransparent, ERC1155UpgradeabilityUUPS, ERC1155AccessControlRoles, ERC1155AccessControlOwnable, ERC1155AccessControlManaged, ERC1155BaseURI, ERC1155SupplyTracking, ERC1155UpdateableURI } from "@/store/ERC1155";
 
 export default function ERC1155() {
-  return (
-    <div className=" flex flex-col rounded-lg overflow-y-visible p-4 bg-white ">
-      <h2 className="text-[#818998] font-semibold text-xs">SETTINGS</h2>
-      <form className="flex flex-col">
-        <label className="text-black mt-2 text-xs font-normal">Name</label>
-        <input
-          type="text"
-          placeholder="MyToken"
-          className="mt-2 p-1 rounded border border-gray-300 text-black"
-        />
-        <label className="text-black text-xs mt-2 font-normal">URI</label>
 
-        <input
-          type="text"
-          placeholder="http://..."
-          className="mt-2 p-1 rounded border border-gray-300  text-black"
-        />
-      </form>
+  // Settings
+  const [name, setName] = useRecoilState(ERC1155Name);
+  const [baseURI, setBaseURI] = useRecoilState(ERC1155BaseURI);
+  // Features
+  const [mintable, setMintable] = useRecoilState(ERC1155Mintable);
+  const [burnable, setBurnable] = useRecoilState(ERC1155Burnable);
+  const [supplyTracking, setSupplyTracking] = useRecoilState(ERC1155SupplyTracking);
+  const [pauseable, setPauseable] = useRecoilState(ERC1155Pauseable);
+  const [updateableURI, setUpdateableURI] = useRecoilState(ERC1155UpdateableURI);
+  // AccessControl
+  const [accessControl, setAccessControl] = useRecoilState(ERC1155AccessControl);
+  const [ownable, setOwnable] = useRecoilState(ERC1155AccessControlOwnable);
+  const [roles, setRoles] = useRecoilState(ERC1155AccessControlRoles);
+  const [managed, setManaged] = useRecoilState(ERC1155AccessControlManaged);
+  // Upgradeability
+  const [upgradeability, setUpgradeability] = useRecoilState(ERC1155Upgradeability);
+  const [transparent, setTransparent] = useRecoilState(ERC1155UpgradeabilityTransparent);
+  const [UUPS, setUUPS] = useRecoilState(ERC1155UpgradeabilityUUPS);
+  // Info
+  const [securityContact, setSecurityContact] = useRecoilState(ERC1155SecurityContact);
+  const [license, setLicense] = useRecoilState(ERC1155License);
+
+  const handleUpgradeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === 'transparent') {
+      setTransparent(true);
+      setUUPS(false);
+    } else if (e.target.value === 'uups') {
+      setUUPS(true);
+      setTransparent(false);
+    }
+    setUpgradeability(true); // Set the checkbox to true if either radio input is true
+  };
+
+  const handleAccessControlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const isChecked = e.target.checked;
+
+    if (value === 'ownable') {
+      setOwnable(true);
+      setRoles(false);
+      setManaged(false);
+    } else if (value === 'roles') {
+      setRoles(true);
+      setOwnable(false);
+      setManaged(false);
+    } else if (value === 'managed') {
+      setRoles(false);
+      setOwnable(false);
+      setManaged(true);
+    }
+
+
+    // Access controll auuto checkes when {mintable, pausable and updateableURI} are clicked
+
+    if (isChecked || mintable || pauseable || updateableURI) {
+      setAccessControl(true);
+
+    } else {
+      setAccessControl(false);
+    }
+
+  };
+
+  const handleMintableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMintable(!mintable);
+    const isChecked = e.target.checked;
+
+
+    // If Mintable is true, set Access Control to true
+    if (isChecked) {
+      setAccessControl(true);
+      setOwnable(true)
+
+
+    } else {
+      // If both Burnable and Pauseable are false, set Access Control to false
+      if (!pauseable) {
+        setAccessControl(false);
+        setOwnable(false)
+        setManaged(false)
+        setRoles(false)
+      }
+      if (!updateableURI) {
+        setAccessControl(false);
+        setOwnable(false)
+        setManaged(false)
+        setRoles(false)
+      }
+    }
+  };
+  const handlePausableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPauseable(!pauseable);
+    const isChecked = e.target.checked;
+
+
+    // If Mintable is true, set Access Control to true
+    if (isChecked) {
+      setAccessControl(true);
+      setOwnable(true)
+
+
+    } else {
+      // If both Burnable and Pauseable are false, set Access Control to false
+      if (!updateableURI) {
+        setAccessControl(false);
+        setOwnable(false)
+        setManaged(false)
+        setRoles(false)
+      }
+      if (!mintable) {
+        setAccessControl(false);
+        setOwnable(false)
+        setManaged(false)
+        setRoles(false)
+      }
+    }
+  };
+  const handleUpdateableURIChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUpdateableURI(!updateableURI);
+    const isChecked = e.target.checked;
+
+
+    // If Mintable is true, set Access Control to true
+    if (isChecked) {
+      setAccessControl(true);
+      setOwnable(true)
+
+
+    } else {
+      // If both Burnable and Pauseable are false, set Access Control to false
+      if (!mintable) {
+        setAccessControl(false);
+        setOwnable(false)
+        setManaged(false)
+        setRoles(false)
+      }
+      if (!pauseable) {
+        setAccessControl(false);
+        setOwnable(false)
+        setManaged(false)
+        setRoles(false)
+      }
+    }
+  };
+
+  const handleUpgradabilityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const isChecked = e.target.checked;
+
+    if (value === 'upgradeable') {
+
+      if (isChecked) {
+        setUUPS(false);
+        setTransparent(true);
+      } else {
+        setUUPS(false);
+        setTransparent(false);
+      }
+      setUpgradeability(!upgradeability);
+    }
+  };
+  const handleAccessControl = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const isChecked = e.target.checked;
+
+    if (!mintable && !pauseable && !updateableURI) {
+
+      if (value === 'access') {
+
+        if (isChecked) {
+          setOwnable(true);
+          setRoles(false);
+          setManaged(false)
+        } else {
+          setOwnable(false);
+          setRoles(false);
+          setManaged(false)
+        }
+        setAccessControl(!accessControl);
+      }
+    } else {
+      e.preventDefault();
+    }
+  };
+
+  return (
+    <div className="p-4 overflow-visible">
+      <div>
+        <h2 className="text-[#818998] font-semibold text-xs">SETTINGS</h2>
+        <div className="flex flex-col p-[0.5rem]">
+          <div className="flex item-center place-content-between">
+            <label htmlFor="uri" className="text-[#333333] text-[0.875rem]"> NAME </label>
+          </div>
+          <input
+            id="name"
+            type="text"
+            placeholder="0"
+            className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"
+            value={name} onChange={(e) => setName(e.target.value)} />
+        </div>
+        <div className="flex flex-col p-[0.5rem]">
+          <div className="flex item-center place-content-between">
+            <label htmlFor="uri" className="text-[#333333] text-[0.875rem]"> URI </label>
+            <Tool tooltipText="Restrict who can access the functions of a contract or when they can do it." link='https://docs.openzeppelin.com/contracts/5.x/api/access' linktext='Read more' />
+          </div>
+          <input
+            id="uri"
+            type="text"
+            placeholder="0"
+            className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"
+            value={baseURI} onChange={(e) => setBaseURI(e.target.value)}
+          />
+        </div>
+      </div>
+
       <hr className="my-4"></hr>
+
       <div>
         <h1 className="text-[#818998] font-semibold text-xs">FEATURES</h1>
         <div className="m-[0.5rem] flex items-center justify-between">
@@ -30,14 +231,12 @@ export default function ERC1155() {
               title="Mintable"
               type="checkbox"
               className="form-checkbox h-3 w-3 text-indigo-600 rounded"
+              checked={mintable}
+              onChange={handleMintableChange}
             />
             <label className="ml-[0.5rem] text-[#333333]">Mintable</label>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
+          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
         </div>
 
         <div className="m-[0.5rem] flex items-center justify-between">
@@ -46,120 +245,121 @@ export default function ERC1155() {
               title="Burnable"
               type="checkbox"
               className="form-checkbox h-3 w-3 text-indigo-600 rounded"
+              checked={burnable}
+              onChange={(e) => setBurnable(!burnable)}
             />
             <label className="ml-[0.5rem] text-[#333333] ">Burnable</label>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
+          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
         </div>
+
         <div className="m-[0.5rem] flex items-center justify-between">
           <div className=" flex items-center">
             <input
               title="Supply Tracking"
               type="checkbox"
               className="form-checkbox h-3 w-3 text-indigo-600 rounded"
+              checked={supplyTracking}
+              onChange={(e) => setSupplyTracking(!supplyTracking)}
             />
             <label className="ml-2 text-[#333333]">Supply Tracking</label>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
+          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
         </div>
+
         <div className="m-[0.5rem] flex items-center justify-between">
           <div className=" flex items-center">
             <input
               title="Pauseable"
               type="checkbox"
               className="form-checkbox h-3 w-3 text-indigo-600 rounded"
+              checked={pauseable}
+              onChange={handlePausableChange}
             />
             <label className="ml-[0.5rem] text-[#333333] ">Pauseable</label>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
+          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
         </div>
+
         <div className="m-[0.5rem] flex items-center justify-between">
           <div className=" flex items-center">
             <input
               title="Updateable URI"
               type="checkbox"
               className="form-checkbox h-3 w-3 text-indigo-600 rounded"
+              checked={updateableURI}
+              onChange={handleUpdateableURIChange}
             />
-            <label className="ml-[0.5rem] text-[#333333] ">
-              Updateable URI
-            </label>
+            <label className="ml-[0.5rem] text-[#333333] "> Updateable URI </label>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
+          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
         </div>
       </div>
+
       <hr className="my-4"></hr>
+
       <div>
-        <div className="flex">
-          <div className=" mt-0  flex items-center">
-            <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">
-              ACCESS CONTROL
-            </label>
+        <div className=" mt-0  flex items-center place-content-between mr-[0.5rem]">
+          <div className="flex items-center mr-[0.5rem]">
+            <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">ACCESS CONTROL</label>
             <input
-              title="Ownable"
               type="checkbox"
               className="form-checkbox h-3 w-3 rounded"
+              checked={accessControl}
+              value="access"
+              onChange={handleAccessControl}
             />
           </div>
+          <Tool tooltipText="Restrict who can access the functions of a contract or when they can do it." link='https://docs.openzeppelin.com/contracts/5.x/api/access' linktext='Read more' />
         </div>
+
         <div className="m-[0.5rem]  flex items-center justify-between">
           <div className="flex items-center">
             <input
               title="Ownable"
               type="radio"
               className="form-checkbox h-3 w-3"
+              value="ownable"
+              checked={ownable}
+              onChange={handleAccessControlChange}
             />
             <label className="ml-2 text-[#333333] ">Ownable</label>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
+          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
         </div>
+
         <div className="m-[0.5rem]  flex items-center justify-between">
           <div className="  flex items-center">
-            <input title="Roles" type="radio" className="radio h-3 w-3 " />
+            <input title="Roles"
+              type="radio"
+              className="radio h-3 w-3 "
+              value="roles"
+              checked={roles}
+              onChange={handleAccessControlChange}
+            />
             <label className="ml-2 text-[#333333] ">Roles</label>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
+          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
         </div>
+
         <div className=" flex items-center m-[0.5rem]  mb-0 justify-between">
           <div className=" flex items-center ">
             <input
               title="Managed"
               type="radio"
               className="form-checkbox h-3 w-3"
+              value="managed"
+              checked={managed}
+              onChange={handleAccessControlChange}
             />
             <label className="ml-2 text-[#333333] ">Managed</label>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
+          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
         </div>
       </div>
+
       <hr className="my-4" />
+
       <div>
         <div className=" flex">
           <div className=" flex items-center">
@@ -170,62 +370,74 @@ export default function ERC1155() {
               title="upgradability"
               type="checkbox"
               className="form-checkbox h-3 w-3 rounded"
+              checked={upgradeability}
+              value="upgradeable"
+              onChange={handleUpgradabilityChange}
             />
           </div>
         </div>
+
         <div className="m-[0.5rem] flex items-center justify-between">
           <div className="flex items-center">
             <input
               title="transparent"
               type="radio"
               className="form-checkbox h-3 w-3"
+              value='transparent'
+              checked={transparent}
+              onChange={handleUpgradeChange}
             />
             <label className="ml-2 text-[#333333] ">Transparent</label>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
+          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
         </div>
+
         <div className="m-[0.5rem] mb-0 flex items-center justify-between">
           <div className=" flex items-center">
-            <input title="uups" type="radio" className="radio h-3 w-3" />
+            <input
+              title="uups"
+              type="radio"
+              className="radio h-3 w-3"
+              value="uups"
+              checked={UUPS}
+              onChange={handleUpgradeChange}
+            />
             <label className="ml-2 text-[#333333] ">UUPS</label>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
+          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
         </div>
       </div>
+
       <hr className="my-4" />
-      <div>
+
+      <div className="px-2">
         <h1 className="text-[#818998] font-semibold text-xs ">INFO</h1>
         <div className="flex flex-col mt-[0.75rem]">
-          <label htmlFor="Security Contact" className="text-[#333333] text-sm">
-            Security Contact
-          </label>
+          <div className="flex items-center justify-between">
+            <label htmlFor="Security Contact" className="text-[#333333] text-sm">  Security Contact </label>
+            <Tool tooltipText="Where people can contact you to report security issues. Will only be visible if contract metadata is verified." link='https://github.com/ethereum-lists/contracts/blob/main/README.md#tracking-new-deployments' linktext='Read more' />
+          </div>
           <input
             id="Security Contact"
             type="text"
             placeholder="security@example.com"
             className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"
+            value={securityContact}
+            onChange={(e) => setSecurityContact(e.target.value)}
           />
         </div>
         <div className="flex flex-col mt-[0.75rem]">
-          <label htmlFor="license" className="text-[#333333] text-sm">
-            License
-          </label>
+          <label htmlFor="license" className="text-[#333333] text-sm"> License </label>
           <input
             id="license"
             type="text"
             placeholder="MIT"
             className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"
+            value={license} onChange={(e) => setLicense(e.target.value)}
           />
         </div>
       </div>
     </div>
+
   );
 }
