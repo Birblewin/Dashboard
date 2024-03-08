@@ -11,11 +11,10 @@ import RecoilNexus from "recoil-nexus";
 export default function WizardLayout({children}: Readonly<{children: React.ReactNode}>){
     return(
         <main className="bg-[#f5f5f5] min-h-screen transition-all duration-500 ease-in-out">
-        <RecoilRoot>
-          <RecoilNexus />
+        
           <WizardHeader />
           {children}
-        </RecoilRoot>
+        
         </main>
     )
 }

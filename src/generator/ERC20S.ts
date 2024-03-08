@@ -147,53 +147,53 @@ export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: bool
 
 
   const constructor = [
-      DefaultConstructor,
+      "\t" + DefaultConstructor,
       erc20spermit? PermitConstructor: "",
-      erc20sownable? OwnableConstructor : "",
-      erc20sroles? RolesConstructor : "",
-      erc20smanaged? ManagedConstructor : "",
+      erc20sownable? "\t" + OwnableConstructor : "",
+      erc20sroles? "\t" + RolesConstructor : "",
+      erc20smanaged? "\t" + ManagedConstructor : "",
 
-  ].filter(Boolean).join("\n").trim();
+  ].filter(Boolean).join("\n");
 
 
   const section1header = [
-    Section1Header,
+    "\t" + Section1Header,
     erc20spausable? PausableSection1Header: "",
     erc20smintable? MintableSection1Header: "",
     ")"
-  ].filter(Boolean).join("").trim();
+  ].filter(Boolean).join("");
 
 
   const section1 = [
-    Section1,
-    erc20sownable? OwnableSection1: "",
-    erc20sroles? RolesSection1: "",
-    erc20smanaged? ManagedSection1 : "",
-    erc20sburnable? BurnableSection1 : "",
-    erc20spausable? PausableSection1 : "",
-    erc20spermit? PermitSection1 : "",
-    erc20svotes? VotesSection1 : "",
-    erc20sflashMinting? FlashMintingSection1 : "",
-    "}"
-  ].filter(Boolean).join("\n").trim();
+    "\t" + Section1,
+    erc20sownable? "\t" + OwnableSection1: "",
+    erc20sroles? "\t" + RolesSection1: "",
+    erc20smanaged? "\t" + ManagedSection1 : "",
+    erc20sburnable? "\t" + BurnableSection1 : "",
+    erc20spausable? "\t" + PausableSection1 : "",
+    erc20spermit? "\t" + PermitSection1 : "",
+    erc20svotes? "\t" + VotesSection1 : "",
+    erc20sflashMinting? "\t" + FlashMintingSection1 : "",
+    "\t }"
+  ].filter(Boolean).join("\n");
 
   const upgradeableFunctions = [
-    section1header,
+    "\t" + section1header,
     `${section1}`
-  ].filter(Boolean).join("\n").trim();
+  ].filter(Boolean).join("\n");
 
 
   const section2 = [
-    erc20smintable? MintableSection2 : "",
-    erc20spausable? PausableSection2 : "",
-    erc20sUUPS ? UUPSSection2: ""
-  ].filter(Boolean).join("\n").trim();
+    erc20smintable? "\t" + MintableSection2 : "",
+    erc20spausable? "\t" + PausableSection2 : "",
+    erc20sUUPS ? "\t" + UUPSSection2: ""
+  ].filter(Boolean).join("\n");
 
 
   const section3 = [
-    erc20spausable || erc20svotes ? PausableSection3:"",
-    erc20svotes ? VotesSection3: "",
-  ].filter(Boolean).join("\n").trim();
+    erc20spausable || erc20svotes ? "\t" + PausableSection3:"",
+    erc20svotes ? "\t" + VotesSection3: "",
+  ].filter(Boolean).join("\n");
 
   
 
@@ -207,9 +207,9 @@ export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: bool
     "   ",
     erc20ssecutitycontact? SecurityContact : "",
     contract ,
-    erc20sroles? RolesByte : "",
+    erc20sroles? "\t" + RolesByte : "",
     !erc20supgradeable ? constructor : "",
-    erc20supgradeable ? UpgradeableConstructor : "",
+    erc20supgradeable ? "\t" + UpgradeableConstructor : "",
     erc20supgradeable ? upgradeableFunctions : "",
     section2,
     section3,

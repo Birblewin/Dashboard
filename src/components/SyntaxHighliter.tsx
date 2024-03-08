@@ -135,7 +135,7 @@ const CodeEditor: React.FC = () => {
       <div className="w-full h-full" >
         <pre>
           <SyntaxHighlighter
-            language="solidity"
+            language="cairo"
             style={dracula}
             className="w-full h-full font-bold"
           >

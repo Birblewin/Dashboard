@@ -353,7 +353,7 @@ export const CustomSCode =[
         wizard_id: 1,
         contractType_id: 1, 
         section: "Section2",  
-        tag: "PAusable",
+        tag: "Pausable",
         name: "Section2", 
         content: `function pause() public onlyOwner {
             _pause();

@@ -5,6 +5,9 @@ const name = ERC20SName;
 const license = ERC20SLicense;
 const contact = ERC20SSecurityContact;
 
+
+console.log(ERC20SName);
+
 const PermitConstructor =
     { 
         snippet_id: 1, 
@@ -25,7 +28,7 @@ export const ERC20SCode =[
         section: "license",  
         tag: "Default",
         name: "ERC20DefaultLicense", 
-        content:`// SPDX-License-Identifier: ${license}`
+        content:`// SPDX-License-Identifier: `
     },
     { 
         snippet_id: 1, 

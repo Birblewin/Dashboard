@@ -46,7 +46,7 @@ export const RolesConstructor: string[] = getCodeContent("Constructor", "Roles")
 export const ManagedConstructor: string[] = getCodeContent("Constructor", "Managed");
 export const UpgradeableConstructor: string[] = getCodeContent("upgradeableConstructor");
 export const PausableSection2: string[] = getCodeContent("Section2", "Pausable");
-export const UUPSSection3: string[] = getCodeContent("Section3", "Pausable");
+export const UUPSSection3: string[] = getCodeContent("Section3", "UUPS");
 export const VotesSection3: string[] = getCodeContent("Section3", "Votes");
 export const TransparentSection1: string[] = getCodeContent("upgradeableFunctions", "Transparent");
 export const UUPSSection1: string[] = getCodeContent("upgradeableFunctions", "UUPS");
@@ -115,14 +115,14 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
     !customsupgradeability? upgradeableImports: "",
     "  ",
     contract,
-    customspausable && customsroles ? PausableRolesByte: "",
-    customsUUPS && customsroles ? UUPSRolesByte: "",
-    customsupgradeability ? TransparentSection1 : "",
-    customsUUPS? UUPSSection1 : "",
-    customspausable? PausableSection2 : "",
-    customsupgradeability ? UUPSSection3 : "",
+    customspausable && customsroles ? "\t" + PausableRolesByte: "",
+    customsUUPS && customsroles ? "\t"+UUPSRolesByte: "",
+    customsupgradeability ? "\t"+TransparentSection1 : "",
+    customsUUPS? "\t"+UUPSSection1 : "",
+    customspausable? "\t"+PausableSection2 : "",
+    customsupgradeability ? "\t"+UUPSSection3 : "",
    "}"
-  ].filter(Boolean).join('\n').trim();
+  ].filter(Boolean).join('\n');
 
     return `
      ${result}
