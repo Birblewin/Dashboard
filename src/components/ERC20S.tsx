@@ -182,7 +182,7 @@ const ERC20 = ()=>{
                         </label>
                         <Tool tooltipText="Create an initial amount of tokens for the deployer." />
                     </div>
-                    <input  id="uri" type="text" placeholder="0" className="border border-1 border-[#333333] rounded-[6px] p-1  text-black" value={premint}  onChange={(e) => setPremint(e.target.value)}/>
+                    <input  id="uri" type="number" placeholder="0" className="border border-1 border-[#333333] rounded-[6px] p-1  text-black" value={premint}  onChange={(e) => setPremint(parseFloat(e.target.value))}/>
                 </div>
             </div>
             <hr className="my-4"></hr>
