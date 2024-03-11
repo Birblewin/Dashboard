@@ -85,12 +85,16 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
 
   const contractnames = [
     customsmanaged || customsownable || customsroles || customspausable ? ContractStart: "",
+    customsownable? ",": "",
     customsownable? OwnableContractName : "",
+    customsroles? ",": "",
     customsroles ?RolesContractName : "",
+    customsmanaged? ",": "",
     customsmanaged ?ManagedContractName : "",
+    customspausable? ",": "",
     customspausable ?PausableContractName : "",
     
-  ].filter(Boolean).join(',').trim();
+  ].filter(Boolean).join('');
 
 
 
