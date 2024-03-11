@@ -153,24 +153,6 @@ export default function Custom() {
             
           />
         </div>
-
-        <div className="m-[0.5rem] flex items-center justify-between">
-          <div className=" flex items-center">
-            <input
-              title="Upgradeable"
-              type="checkbox"
-              className="form-checkbox h-3 w-3 text-indigo-600 rounded"
-              checked={upgradeable}
-              onChange={(e) => setUpgradeable(!upgradeable)}
-            />
-            <label className="ml-[0.5rem] text-[#333333] ">Upgradeable</label>
-          </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
-        </div>
       </div>
       <hr className="my-4"></hr>
       <div>

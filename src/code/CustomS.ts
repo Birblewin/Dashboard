@@ -342,10 +342,10 @@ export const CustomSCode =[
         tag: "UUPS",
         name: "ERC20PausableupgradeableFunctions", 
         content: `function initialize(address initialOwner) initializer public {
-            __Pausable_init();
-            __Ownable_init(initialOwner);
-            __UUPSUpgradeable_init();
-        }
+        __Pausable_init();
+        __Ownable_init(initialOwner);
+        __UUPSUpgradeable_init();
+    }
     `
     },
     { 
@@ -356,12 +356,12 @@ export const CustomSCode =[
         tag: "Pausable",
         name: "Section2", 
         content: `function pause() public onlyOwner {
-            _pause();
-        }
+        _pause();
+    }
     
-        function unpause() public onlyOwner {
-            _unpause();
-        }
+    function unpause() public onlyOwner {
+        _unpause();
+    }
     `
     },
     { 
