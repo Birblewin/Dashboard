@@ -1,6 +1,7 @@
 
 import { ERC721SCode } from '@/code/ERC721S';
-import { ERC721SLicense, ERC721SName, ERC721SSecurityContact } from '@/store/ERC721S';
+import { ERC721SBaseURI, ERC721SLicense, ERC721SName, ERC721SSecurityContact, ERC721SSymbol, ERC721SURIStorage } from '@/store/ERC721S';
+import { useRecoilState } from 'recoil';
 
 
 
@@ -14,7 +15,7 @@ const getCodeContent = (section: string, tag?: string): string[] => {
     return ERC721SCode.filter((code: CodeSection) => code.section === section && (!tag || code.tag === tag)).map(filteredCode => filteredCode.content);
 }
 
-export const License: string[] = getCodeContent("license");
+//export const License: string[] = getCodeContent("license");
 export const Compatibility: string[] = getCodeContent("compatibility");
 export const CodeVersion: string[] = getCodeContent("codeVersion");
 export const StartUpgradeableImport: string[] = getCodeContent("upgradeableImports", "DefaultStart");
@@ -32,7 +33,7 @@ export const UUPSUpgradeableImport: string[] = getCodeContent("upgradeableImport
 
 //.............................
 export const SecurityContact: string[] = getCodeContent("SecurityContact");
-export const ContractHeader: string[] = getCodeContent("ContractHeader");
+//export const ContractHeader: string[] = getCodeContent("ContractHeader");
 export const ContractName: string[] = getCodeContent("ContractNames", "Default");
 export const ContractNameDefault: string[] = getCodeContent("ContractNames", "DefaultName");
 export const OwnableContractName: string[] = getCodeContent("ContractNames", "Ownable");
@@ -67,6 +68,8 @@ export const AutoIncrementIds: string[] = getCodeContent("Constructor", "AutoInc
 export const VotesConstructor: string[] = getCodeContent("Constructor", "Votes");
 export const OwnableConstructor1: string[] = getCodeContent("Constructor", "Ownable1");
 export const OwnableConstructor2: string[] = getCodeContent("Constructor", "Ownable2");
+export const MintableRoles2: string[] = getCodeContent("Constructor", "MintableRoles2");
+export const PausableRoles2: string[] = getCodeContent("Constructor", "PausableRoles2");
 export const RolesConstructor1: string[] = getCodeContent("Constructor", "Roles1");
 export const RolesConstructor2: string[] = getCodeContent("Constructor", "Roles2");
 export const ManagedConstructor1: string[] = getCodeContent("Constructor", "Managed1");
@@ -78,56 +81,213 @@ export const UpgradableConstructor: string[] = getCodeContent("Constructor", "Up
 //.............................................
 export const MintableFunctions: string[] = getCodeContent("Functions", "Mintable");
 export const PausableFunctions: string[] = getCodeContent("Functions", "Pausable");
-export const UUPSFunctions: string[] = getCodeContent("Functions", "UUPS");
-export const TransparentFunctions: string[] = getCodeContent("Functions", "Transparent");
-// export const ManagedUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "Managed");
-// export const BurnableUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "Burnable");
-// export const PermitUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "Permit");
-// export const VotesUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "Votes");
-// export const PausableUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "Pausable");
-// export const FlashMintUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "flashMinting");
-// export const RolesByte: string[] = getCodeContent("RolesByte");
-// export const PermitConstructor: string[] = getCodeContent("Constructor", "Permit");
-// export const OwnableConstructor: string[] = getCodeContent("Constructor", "Ownable");
-// export const RolesConstructor: string[] = getCodeContent("Constructor", "Roles");
-// export const ManagedConstructor: string[] = getCodeContent("Constructor", "Managed");
-// export const UpgradeableConstructor: string[] = getCodeContent("upgradeableConstructor");
-// export const MintableSection2: string[] = getCodeContent("Section2", "Mintable");
-// export const PausableSection2: string[] = getCodeContent("Section2", "Pausable");
-// export const UUPSSection2: string[] = getCodeContent("Section2", "UUPS");
-// export const PausableSection3: string[] = getCodeContent("Section3", "Pausable");
-// export const VotesSection3: string[] = getCodeContent("Section3", "Votes");
-// export const Section1: string[] = getCodeContent("upgradeableFunctions", "Default");
-// export const OwnableSection1: string[] = getCodeContent("upgradeableFunctions", "Ownable");
-// export const RolesSection1: string[] = getCodeContent("upgradeableFunctions", "Roles");
-// export const ManagedSection1: string[] = getCodeContent("upgradeableFunctions", "Managed");
-// export const BurnableSection1: string[] = getCodeContent("upgradeableFunctions", "Burnable");
-// export const PausableSection1: string[] = getCodeContent("upgradeableFunctions", "Pausable");
-// export const PermitSection1: string[] = getCodeContent("upgradeableFunctions", "Permit");
-// export const VotesSection1: string[] = getCodeContent("upgradeableFunctions", "Votes");
-// export const FlashMintingSection1: string[] = getCodeContent("upgradeableFunctions", "flashMinting");
+
+
+export const InitializeMintableFunctions: string[] = getCodeContent("upgradeableFunctions", "Burnable");
+export const InitializePausableFunctions: string[] = getCodeContent("upgradeableFunctions", "Pausable");
+export const InitializeEnumerableFunctions: string[] = getCodeContent("upgradeableFunctions", "Enumerable");
+export const InitializeURIStorageFunctions: string[] = getCodeContent("upgradeableFunctions", "URIStorage");
+export const InitializeVotesFunctions: string[] = getCodeContent("upgradeableFunctions", "Votes");
+export const InitializeOwnableFunctions: string[] = getCodeContent("upgradeableFunctions", "Ownable");
+export const InitializeRolesFunctions: string[] = getCodeContent("upgradeableFunctions", "Roles");
+export const InitializeRolesFunctions2: string[] = getCodeContent("upgradeableFunctions", "RolesRole");
+export const InitializeManagedFunctions: string[] = getCodeContent("upgradeableFunctions", "Managed");
+export const InitializeUUPSFunctions: string[] = getCodeContent("upgradeableFunctions", "UUPS");
+export const MintableRoles: string[] = getCodeContent("upgradeableFunctions", "MintableRoles");
+export const PausableRoles: string[] = getCodeContent("upgradeableFunctions", "PausableRoles");
+export const RolesUUPS: string[] = getCodeContent("upgradeableFunctions", "RolesUUPS");
+export const OwnableUUPS: string[] = getCodeContent("upgradeableFunctions", "OwnableUUPS");
+export const ManagedUUPS: string[] = getCodeContent("upgradeableFunctions", "ManagedUUPS");
+export const AutoIncrementFunc: string[] = getCodeContent("Functions", "AutoIncrementMintable");
+export const URIStorageMint: string[] = getCodeContent("Functions", "URIStorageMintable");
+
+
 
 
    
   
-export function generateERC721SCode(erc721sburnable: boolean, erc721svotes: boolean, erc721spausable: boolean, erc721sUriStorage: boolean, erc721sroles: boolean, erc721sownable: boolean, erc721smanaged: boolean, erc721senumerable: boolean, erc721transparent: boolean, erc721uups:boolean, erc721security:any, erc721upgradability: boolean, erc721autoincrement: boolean, erc721mintable: boolean): string {
-         
-        const upgradeableFunctions = [
-            erc721uups? UUPSFunctions : "",
-            erc721transparent? TransparentFunctions : "",
-        ]
-        const functions = [
-             erc721mintable? MintableFunctions : "" , 
-             erc721spausable? PausableFunctions : "",
+export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: boolean, erc721spausable: boolean, erc721sUriStorage: boolean, erc721sroles: boolean, erc721sownable: boolean, erc721smanaged: boolean, erc721senumerable: boolean, erc721transparent: boolean, erc721uups:boolean, erc721security:any, erc721upgradability: boolean, erc721autoincrement: boolean, erc721mintable: boolean, erc721sBaseUrl:any): string {
 
+        const shouldRenderStarter = erc721spausable || erc721svotes || erc721sUriStorage || erc721senumerable;
+        const shouldRenderUpdateFunction = erc721spausable || erc721svotes || erc721senumerable;
+        const shouldRenderIncreaseBalanceFunction = erc721senumerable || erc721svotes;
+        const shouldRenderSupportsInterface = erc721senumerable || erc721sUriStorage;
+        const [name, setName] = useRecoilState(ERC721SName);
+        const [license, setLicense] = useRecoilState(ERC721SLicense);
+        const [securityContact, setSecurityContact] = useRecoilState(ERC721SSecurityContact);
+        const [symbol, setSymbol] = useRecoilState(ERC721SSymbol);
+        const [baseUrl, setBaseUrl] = useRecoilState(ERC721SBaseURI);
+        const [contractName, setContractName] = useRecoilState(ERC721SName);
+        const ContractHeader = [
+            `contract ${contractName} is `
+        ]
+        const License = [
+            `// SPDX-License-Identifier: ${license}`
+        ]
+        const UUPSFunctions = [
+            `function _authorizeUpgrade(address newImplementation)
+            internal
+            ${erc721sownable? OwnableUUPS : ""}${erc721sroles? RolesUUPS : ""}${erc721smanaged? ManagedUUPS : ""}
+            override
+        {}`
+        ]
+
+        const Roles = [
+            erc721mintable? MintableRoles : "" ,
+            erc721spausable? '\t'+PausableRoles : "",
+        ].join('\n\t\t').trim();
+        const initializedStrings = [
+            erc721senumerable? '\t'+InitializeEnumerableFunctions:"",
+            erc721sUriStorage? InitializeURIStorageFunctions:"",
+            erc721spausable? InitializePausableFunctions:"",
+            erc721smanaged? InitializeManagedFunctions:"",
+            erc721sroles? InitializeRolesFunctions:"",
+            erc721svotes? InitializeVotesFunctions:"",
+            erc721sownable? InitializeOwnableFunctions:"",
+            erc721uups? InitializeUUPSFunctions:"",
+            erc721sroles? InitializeRolesFunctions2:"",
+            erc721sownable? Roles:"",  
+        ].join('\n\t\t\t').trim();
+        const TransparentFunction = [
+            `  function initialize(address defaultAdmin, address pauser, address minter)
+            initializer public
+        {
+            __ERC721_init(${ERC721SName}, "MTK");
+            ${initializedStrings}
+        }`
+        ]
+        const upgradableUpdateFunction = [
+            `function _update(address to, uint256 tokenId, address auth)
+            internal
+            override(ERC721Upgradeable${erc721senumerable? UpgradableEnumerable : ""}${erc721spausable? UpgradablePausable : ""} ${erc721svotes? UpgradableVotes : ""})
+            returns (address)
+        {
+            return super._update(to, tokenId, auth);
+        }`
+        ].join('').trim(); 
+
+        const upgradableIncreaseBalanceFunction = [
+            `function _increaseBalance(address account, uint128 value)
+            internal
+            override(ERC721Upgradeable${erc721senumerable? UpgradableEnumerable : ""}${erc721svotes? UpgradableVotes : ""})
+        {
+            super._increaseBalance(account, value);
+        }`
+        ].join('').trim(); 
+
+        const upgradableTokenURIFunction = [
+            ` function tokenURI(uint256 tokenId)
+            public
+            view
+            override(ERC721Upgradeable${erc721sUriStorage? UpgradableURIStorage : ""})
+            returns (string memory)
+        {
+            return super.tokenURI(tokenId);
+        }`
+        ].join('').trim(); 
+
+        const upgradableSupportsInterface = [
+            `function supportsInterface(bytes4 interfaceId)
+            public
+            view
+            override(ERC721Upgradeable${erc721senumerable? UpgradableEnumerable : ""}${erc721sUriStorage? UpgradableURIStorage : ""})
+            returns (bool)
+        {
+            return super.supportsInterface(interfaceId);
+        }`
+        ].join('').trim(); 
+
+        const starter = [
+            `// The following functions are overrides required by Solidity.`
+        ].join('').trim(); 
+        const updateFunction = [
+            `function _update(address to, uint256 tokenId, address auth)
+            internal
+            override(ERC721${erc721senumerable? EnumerableContractName : ""} ${erc721spausable? PausableContractName : ""} ${erc721svotes? ', ERC721Votes' : ""})
+            returns (address)
+        {
+            return super._update(to, tokenId, auth);
+        }`
+        ].join('').trim(); 
+
+        const increaseBalanceFunction = [
+            `function _increaseBalance(address account, uint128 value)
+            internal
+            override(ERC721${erc721senumerable? EnumerableContractName : ""} ${erc721svotes? ', ERC721Votes' : ""})
+        {
+            super._increaseBalance(account, value);
+        }`
+        ].join('').trim();
+
+        const tokenURIFunction = [
+            `function tokenURI(uint256 tokenId)
+            public
+            view
+            override(ERC721${erc721sUriStorage? URIStorageContractName : ""})
+            returns (string memory)
+        {
+            return super.tokenURI(tokenId);
+        }`
+        ].join('').trim();
+
+        const SupportsInterface = [
+            `function supportsInterface(bytes4 interfaceId)
+            public
+            view
+            override(ERC721${erc721senumerable? EnumerableContractName : ""}${erc721sUriStorage? URIStorageContractName : ""})
+            returns (bool)
+        {
+            return super.supportsInterface(interfaceId);
+        }`
+        ].join('').trim();
+        
+        const MintableFunctions = [
+            `function safeMint(address to, string memory uri) public onlyOwner {
+                ${erc721autoincrement? AutoIncrementFunc : ""}
+                _safeMint(to, tokenId);
+                ${erc721sUriStorage? URIStorageMint : ""}
+            }`
+        ]
+        
+        const upgradeableFunctions = [
+            erc721upgradability? TransparentFunction : "",
+            erc721mintable? MintableFunctions : "" , 
+            erc721spausable? PausableFunctions : "",
+            erc721sBaseUrl ? '\n'+(`  function _baseURI() internal pure override returns (string memory) {
+                return "${baseUrl}";
+            }`) : "",
+            erc721uups? '\n\n\t\t'+UUPSFunctions : "",
+            shouldRenderStarter? '\n\t\t'+starter : "",
+            shouldRenderUpdateFunction? '\n\t\t'+upgradableUpdateFunction : "",
+            shouldRenderIncreaseBalanceFunction? '\n\t\t'+upgradableIncreaseBalanceFunction : "",
+            shouldRenderSupportsInterface? '\n\t\t'+upgradableSupportsInterface : "",
+            erc721sUriStorage? '\n\t\t'+upgradableTokenURIFunction : "",   
+        ].join('').trim();
+
+
+        const functions = [
+             erc721mintable ? MintableFunctions : "" , 
+             erc721spausable ? PausableFunctions : "",
+             erc721sBaseUrl ? '\n'+(`  function _baseURI() internal pure override returns (string memory) {
+                return "${baseUrl}";
+            }`) : "",
+             shouldRenderStarter ? '\n\t\t' + starter : "",
+             shouldRenderUpdateFunction ? '\n\t\t' + updateFunction : "",
+             shouldRenderIncreaseBalanceFunction ? '\n\t\t' + increaseBalanceFunction : "",
+             shouldRenderSupportsInterface ? '\n\t\t' + SupportsInterface : "",
+             erc721sUriStorage ? '\n\t\t' + tokenURIFunction : "",
         ].join('\n').trim();   
 
         const upgradeableConstructor = [
               UpgradableConstructor
         ]
+        const Roles2 = [
+            erc721mintable? MintableRoles2 : "" ,
+            erc721spausable? PausableRoles2 : ""
+        ].join('\n\t\t').trim();
         const constructor = [
         `${erc721autoincrement ? AutoIncrementIds : ""} 
-        constructor(${erc721smanaged?ManagedConstructor1:""}${erc721sownable?OwnableConstructor1:""}${erc721sroles?RolesConstructor1:""}) ERC721("${ERC721SName}", "${ERC721SLicense}") ${erc721svotes?VotesConstructor:""} ${erc721sownable?'\n\t\t'+OwnableConstructor2+'\n\t\t':''}${erc721smanaged?'\n\t\t'+ManagedConstructor2+'\n\t\t':''}{${erc721sroles?'\n\t\t'+RolesConstructor2+'\n\t\t':""}}`
+        constructor(${erc721smanaged?ManagedConstructor1:""}${erc721sownable?OwnableConstructor1:""}${erc721sroles?RolesConstructor1:""}) ERC721("${name}", "${symbol}") ${erc721svotes?VotesConstructor:""} ${erc721sownable?'\n\t\t'+OwnableConstructor2+'\n\t\t':''}${erc721smanaged?'\n\t\t'+ManagedConstructor2+'\n\t\t':''}{${erc721sroles?'\n\t\t'+RolesConstructor2+'\n\t\t':""}${erc721sroles?Roles2:""}}`
         ].join('\n').trim();
 
        const UpgradeableContract = [
@@ -178,7 +338,7 @@ export function generateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
         erc721uups ? UUPSUpgradeableImport : "",
 
         erc721security ? `
-/// @custom:security-contact ${ERC721SSecurityContact}` : "",
+/// @custom:security-contact ${securityContact}` : "",
 
         erc721upgradability? UpgradeableContract: contract,
         erc721upgradability? upgradeableConstructor: '\t\t'+constructor,

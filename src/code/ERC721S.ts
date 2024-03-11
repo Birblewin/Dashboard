@@ -1,31 +1,20 @@
 
-import { ERC721SLicense, ERC721SName, ERC721SSecurityContact,ERC721SAutoIncrementIds } from "@/store/ERC721S";
+import { ERC721SLicense, ERC721SName } from "@/store/ERC721S";
 
 
 
-
-// const PermitConstructor =
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "Constructor",  
-//         tag: "Permit",
-//         name: "ERC721PermitConstructor", 
-//         content: `ERC721Permit("${ERC721SLicense}")`
-//     };
 
 
 export const ERC721SCode =[
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "license",  
-        tag: "Default",
-        name: "ERC721DefaultLicense", 
-        content: `// SPDX-License-Identifier: ${ERC721SLicense}`
-    },
+    // { 
+    //     snippet_id: 1, 
+    //     wizard_id: 1,
+    //     contractType_id: 1, 
+    //     section: "license",  
+    //     tag: "Default",
+    //     name: "ERC721DefaultLicense", 
+    //     content: `// SPDX-License-Identifier: ${ERC721SLicense}`
+    // },
     { 
         snippet_id: 1, 
         wizard_id: 1,
@@ -127,15 +116,6 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Votes.sol";`
         name: "ERC721ManagedUpgradeableImports", 
         content: `import "@openzeppelin/contracts/access/manager/AccessManaged.sol";`
     },
-    // { 
-    //     snippet_id: 1, 
-    //     wizard_id: 1,
-    //     contractType_id: 1, 
-    //     section: "upgradeableImports",  
-    //     tag: "DefaultEnd",
-    //     name: "ERC721DefaultEndUpgradeableImports", 
-    //     content: `import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
-    // },
     { 
         snippet_id: 1, 
         wizard_id: 1,
@@ -162,102 +142,20 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
     //     snippet_id: 1, 
     //     wizard_id: 1,
     //     contractType_id: 1, 
-    //     section: "Imports",  
+    //     section: "SecurityContact",  
     //     tag: "Default",
-    //     name: "ERC721DefaultImports", 
-    //     content: `import "@openzeppelin/contracts/token/ERC721/ERC721.sol";`
+    //     name: "ERC721SecurityContact", 
+    //     content: `/// @custom:security-contact ${ERC721SSecurityContact}`
     // },
     // { 
     //     snippet_id: 1, 
     //     wizard_id: 1,
     //     contractType_id: 1, 
-    //     section: "Imports",  
-    //     tag: "Burnable",
-    //     name: "ERC721BurnableImports", 
-    //     content: `import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";`
+    //     section: "ContractHeader",  
+    //     tag: "Default",
+    //     name: "ERC721ContractHeader", 
+    //     content: `contract ${ERC721SName} is `
     // },
-    // { 
-    //     snippet_id: 1, 
-    //     wizard_id: 1,
-    //     contractType_id: 1, 
-    //     section: "Imports",  
-    //     tag: "Pausable",
-    //     name: "ERC721PausableImports", 
-    //     content: `import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";`
-    // },
-    // { 
-    //     snippet_id: 1, 
-    //     wizard_id: 1,
-    //     contractType_id: 1, 
-    //     section: "Imports",  
-    //     tag: "flashMinting",
-    //     name: "ERC721FlashMintingImports", 
-    //     content: `import "@openzeppelin/contracts/token/ERC721/extensions/ERC721FlashMint.sol";`
-    // },
-    // { 
-    //     snippet_id: 1, 
-    //     wizard_id: 1,
-    //     contractType_id: 1, 
-    //     section: "Imports",  
-    //     tag: "Permit",
-    //     name: "ERC721PermitImports", 
-    //     content: `import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Permit.sol";`
-    // },
-    // { 
-    //     snippet_id: 1, 
-    //     wizard_id: 1,
-    //     contractType_id: 1, 
-    //     section: "Imports",  
-    //     tag: "Votes",
-    //     name: "ERC721VotesImports", 
-    //     content: `import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Votes.sol";`
-    // },
-    // { 
-    //     snippet_id: 1, 
-    //     wizard_id: 1,
-    //     contractType_id: 1, 
-    //     section: "Imports",  
-    //     tag: "Ownable",
-    //     name: "ERC721OwnableImports", 
-    //     content: `import "@openzeppelin/contracts/access/Ownable.sol";`
-    // },
-    // { 
-    //     snippet_id: 1, 
-    //     wizard_id: 1,
-    //     contractType_id: 1, 
-    //     section: "Imports",  
-    //     tag: "Roles",
-    //     name: "ERC721RolesImports", 
-    //     content: `import "@openzeppelin/contracts/access/AccessControl.sol";`
-    // },
-    // { 
-    //     snippet_id: 1, 
-    //     wizard_id: 1,
-    //     contractType_id: 1, 
-    //     section: "Imports",  
-    //     tag: "Managed",
-    //     name: "ERC721ManagedImports", 
-    //     content: `import "@openzeppelin/contracts/access/manager/AccessManaged.sol";`
-    // },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "SecurityContact",  
-        tag: "Default",
-        name: "ERC721SecurityContact", 
-        content: `/// @custom:security-contact ${ERC721SSecurityContact}`
-    },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "ContractHeader",  
-        tag: "Default",
-        name: "ERC721ContractHeader", 
-        content: `
-contract ${ERC721SName} is `
-    },
     { 
         snippet_id: 1, 
         wizard_id: 1,
@@ -523,6 +421,24 @@ contract ${ERC721SName} is `
         wizard_id: 1,
         contractType_id: 1, 
         section: "Constructor",  
+        tag: "MintableRoles2",
+        name: "ERC721MintableRoles2Constructor", 
+        content: `_grantRole(MINTER_ROLE, minter);`
+     },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Constructor",  
+        tag: "PausableRoles2",
+        name: "ERC721PausableRoles2Constructor", 
+        content: `_grantRole(PAUSER_ROLE, pauser);`
+     },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Constructor",  
         tag: "Managed1",
         name: "ERC721Managed1Constructor", 
         content: `address initialAuthority`
@@ -608,13 +524,18 @@ contract ${ERC721SName} is `
         wizard_id: 1,
         contractType_id: 1, 
         section: "Functions",  
-        tag: "Mintable",
-        name: "ERC721MintableFunctions", 
-        content: `
-        function safeMint(address to, uint256 tokenId) public restricted {
-            ${ERC721SAutoIncrementIds? 'uint256 tokenId = _nextTokenId++;' : ''}
-            _safeMint(to, tokenId);
-        }`
+        tag: "AutoIncrementMintable",
+        name: "ERC721AutoIncrementMintableFunctions", 
+        content: `uint256 tokenId = _nextTokenId++;`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Functions",  
+        tag: "URIStorageMintable",
+        name: "ERC721URIStorageMintableFunctions", 
+        content: `_setTokenURI(tokenId, uri);`
     },
     { 
         snippet_id: 1, 
@@ -630,125 +551,146 @@ contract ${ERC721SName} is `
     
         function unpause() public onlyOwner {
             _unpause();
-        }
-    
-        // The following functions are overrides required by Solidity.
-    
-        function _update(address to, uint256 tokenId, address auth)
-            internal
-            override(ERC721, ERC721Pausable)
-            returns (address)
-        {
-            return super._update(to, tokenId, auth);
         }`
-    },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "Functions",  
-        tag: "Transparent",
-        name: "ERC721TransparentFunctions", 
-        content: `
-        function initialize(address initialOwner) initializer public {
-            __ERC721_init("${ERC721SName}", "${ERC721SLicense}");
-            __Ownable_init(initialOwner);
-        }`
-    },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "Functions",  
-        tag: "UUPS",
-        name: "ERC721UUPSFunctions", 
-        content: `
-        function initialize(address initialOwner) initializer public {
-            __ERC721_init("${ERC721SName}", "${ERC721SLicense}");
-            __Ownable_init(initialOwner);
-            __UUPSUpgradeable_init();
-        }
-    
-        function _authorizeUpgrade(address newImplementation)
-            internal
-            onlyOwner
-            override
-        {}`
     },
 
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "upgradeableFunctions",  
-//         tag: "Burnable",
-//         name: "ERC721BurnableupgradeableFunctions", 
-//         content: `__ERC721Burnable_init();`
-//     },
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "upgradeableFunctions",  
-//         tag: "Pausable",
-//         name: "ERC721PausableupgradeableFunctions", 
-//         content: `__ERC721Pausable_init();`
-//     },
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "upgradeableFunctions",  
-//         tag: "flashMinting",
-//         name: "ERC721FlashMintingupgradeableFunctions", 
-//         content: `__ERC721FlashMint_init();`
-//     },
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "upgradeableFunctions",  
-//         tag: "Permit",
-//         name: "ERC721PermitupgradeableFunctions", 
-//         content: `__ERC721Permit_init("${ERC721SName}");`
-//     },
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "upgradeableFunctions",  
-//         tag: "Votes",
-//         name: "ERC721VotesupgradeableFunctions", 
-//         content: `__ERC721Votes_init();`
-//     },
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "upgradeableFunctions",  
-//         tag: "Ownable",
-//         name: "ERC721OwnableupgradeableFunctions", 
-//         content: `__Ownable_init(initialOwner);`
-//     },
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "upgradeableFunctions",  
-//         tag: "Roles",
-//         name: "ERC721RolesupgradeableFunctions", 
-//         content: `__AccessControl_init();
-//         _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);`
-//     },
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "upgradeableFunctions",  
-//         tag: "Managed",
-//         name: "ERC721ManagedupgradeableFunctions", 
-//         content: `__AccessManaged_init(initialAuthority);`
-//     },
+    //..............
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "Burnable",
+        name: "ERC721BurnableupgradeableFunctions", 
+        content: `__ERC721Burnable_init();`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "Pausable",
+        name: "ERC721PausableupgradeableFunctions", 
+        content: `__ERC721Pausable_init()`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "Enumerable",
+        name: "ERC721EnumerableupgradeableFunctions", 
+        content: ` __ERC721Enumerable_init();`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "URIStorage",
+        name: "ERC721URIStorageupgradeableFunctions", 
+        content: `__ERC721URIStorage_init();`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "Votes",
+        name: "ERC721VotesupgradeableFunctions", 
+        content: `__EIP712_init(${ERC721SName}, "1");
+            __ERC721Votes_init();`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "Ownable",
+        name: "ERC721OwnableupgradeableFunctions", 
+        content: `__Ownable_init(initialOwner);`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "Roles",
+        name: "ERC721RolesupgradeableFunctions", 
+        content: `__AccessControl_init();`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "RolesRole",
+        name: "ERC721RolesRoleupgradeableFunctions", 
+        content: `_grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "MintableRoles",
+        name: "ERC721MintableRolesupgradeableFunctions", 
+        content: `_grantRole(MINTER_ROLE, minter);`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "PausableRoles",
+        name: "ERC721PausableRolesupgradeableFunctions", 
+        content: `_grantRole(PAUSER_ROLE, pauser);`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "Managed",
+        name: "ERC721ManagedupgradeableFunctions", 
+        content: `__AccessManaged_init(initialAuthority);`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "UUPS",
+        name: "ERC721UUPSupgradeableFunctions", 
+        content: `__UUPSUpgradeable_init();`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "OwnableUUPS",
+        name: "ERC721UUPSupgradeableFunctions", 
+        content: `onlyOwner`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "RolesUUPS",
+        name: "ERC721RolesUUPSupgradeableFunctions", 
+        content: `onlyRole(UPGRADER_ROLE)`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "ManagedUUPS",
+        name: "ERC721ManagedUUPSupgradeableFunctions", 
+        content: `restricted`
+    },
 //     { 
 //         snippet_id: 1, 
 //         wizard_id: 1,
