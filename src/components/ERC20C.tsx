@@ -116,7 +116,7 @@ const ERC20 = ()=>{
         const value = e.target.value;
         const isChecked = e.target.checked;
 
-        if (!mintable && !pauseable) {
+        if (!mintable && !pauseable && !upgradeable) {
         
             if (value === 'access') {
             
