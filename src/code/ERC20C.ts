@@ -31,7 +31,7 @@ export const ERC20CCode =[
         snippet_id: 1, 
         wizard_id: 2,
         contractType_id: 1, 
-        section: "RolesVariables",  
+        section: "Variables",  
         tag: "Pausable",
         name: "PausableVariables", 
         content: `const PAUSER_ROLE: felt252 = selector!("PAUSER_ROLE");`
@@ -40,8 +40,8 @@ export const ERC20CCode =[
         snippet_id: 1, 
         wizard_id: 2,
         contractType_id: 1, 
-        section: "RolesVariables",  
-        tag: "Minatable",
+        section: "Variables",  
+        tag: "Mintable",
         name: "MinatbleVariables", 
         content: `const MINTER_ROLE: felt252 = selector!("MINTER_ROLE");`
     },
@@ -49,7 +49,7 @@ export const ERC20CCode =[
         snippet_id: 1, 
         wizard_id: 2,
         contractType_id: 1, 
-        section: "RolesVariables",  
+        section: "Variables",  
         tag: "Upgradeable",
         name: "UpgradeableVariables", 
         content: `const UPGRADER_ROLE: felt252 = selector!("UPGRADER_ROLE");`
@@ -61,8 +61,7 @@ export const ERC20CCode =[
         section: "WizardTag",  
         tag: "Default",
         name: "WizardTag", 
-        content: `#[starknet::contract]
-        `
+        content: `#[starknet::contract]`
     },
     { 
         snippet_id: 1, 
@@ -99,7 +98,7 @@ export const ERC20CCode =[
         tag: "Pausable",
         name: "PausableImport", 
         content: `use openzeppelin::token::erc20::interface;
-        use openzeppelin::security::pausable::PausableComponent;`
+    use openzeppelin::security::pausable::PausableComponent;`
     },
     { 
         snippet_id: 1, 
@@ -118,8 +117,8 @@ export const ERC20CCode =[
         tag: "Roles",
         name: "RolesImport", 
         content: `use openzeppelin::access::accesscontrol::AccessControlComponent;
-        use openzeppelin::introspection::src5::SRC5Component;
-        use openzeppelin::access::accesscontrol::DEFAULT_ADMIN_ROLE;`
+    use openzeppelin::introspection::src5::SRC5Component;
+    use openzeppelin::access::accesscontrol::DEFAULT_ADMIN_ROLE;`
     },
     { 
         snippet_id: 1, 
@@ -129,7 +128,7 @@ export const ERC20CCode =[
         tag: "Upgradeable",
         name: "UpgradeableImport", 
         content: `use openzeppelin::upgrades::UpgradeableComponent;
-        use openzeppelin::upgrades::interface::IUpgradeable;`
+    use openzeppelin::upgrades::interface::IUpgradeable;`
     },
     { 
         snippet_id: 1, 
@@ -229,7 +228,7 @@ export const ERC20CCode =[
         tag: "Roles",
         name: "RolesComponent", 
         content: `component!(path: AccessControlComponent, storage: accesscontrol, event: AccessControlEvent);
-        component!(path: SRC5Component, storage: src5, event: SRC5Event);`
+    component!(path: SRC5Component, storage: src5, event: SRC5Event);`
     },
     { 
         snippet_id: 1, 
@@ -248,7 +247,7 @@ export const ERC20CCode =[
         tag: "Default",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-        impl ERC20MetadataImpl =ERC20Component::ERC20MetadataImpl<ContractState>;
+    impl ERC20MetadataImpl =ERC20Component::ERC20MetadataImpl<ContractState>;
         `
     },
     { 
@@ -259,9 +258,9 @@ export const ERC20CCode =[
         tag: "Default2",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-        impl ERC20Impl = ERC20Component::ERC20Impl<ContractState>;
-        #[abi(embed_v0)]
-        impl ERC20CamelOnlyImpl = ERC20Component::ERC20CamelOnlyImpl<ContractState>;
+    impl ERC20Impl = ERC20Component::ERC20Impl<ContractState>;
+    #[abi(embed_v0)]
+    impl ERC20CamelOnlyImpl = ERC20Component::ERC20CamelOnlyImpl<ContractState>;
         `
     },
     { 
@@ -272,7 +271,8 @@ export const ERC20CCode =[
         tag: "Pausable",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-        impl PausableImpl = PausableComponent::PausableImpl<ContractState>;`
+    impl PausableImpl = PausableComponent::PausableImpl<ContractState>;
+    `
     },
     { 
         snippet_id: 1, 
@@ -282,9 +282,9 @@ export const ERC20CCode =[
         tag: "Ownable",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-        impl OwnableImpl = OwnableComponent::OwnableImpl<ContractState>;
-        #[abi(embed_v0)]
-        impl OwnableCamelOnlyImpl = OwnableComponent::OwnableCamelOnlyImpl<ContractState>;
+    impl OwnableImpl = OwnableComponent::OwnableImpl<ContractState>;
+    #[abi(embed_v0)]
+    impl OwnableCamelOnlyImpl = OwnableComponent::OwnableCamelOnlyImpl<ContractState>;
         `
     },
     { 
@@ -295,11 +295,11 @@ export const ERC20CCode =[
         tag: "Roles",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-        impl AccessControlImpl = AccessControlComponent::AccessControlImpl<ContractState>;
-        #[abi(embed_v0)]
-        impl AccessControlCamelImpl = AccessControlComponent::AccessControlCamelImpl<ContractState>;
-        #[abi(embed_v0)]
-        impl SRC5Impl = SRC5Component::SRC5Impl<ContractState>;
+    impl AccessControlImpl = AccessControlComponent::AccessControlImpl<ContractState>;
+    #[abi(embed_v0)]
+    impl AccessControlCamelImpl = AccessControlComponent::AccessControlCamelImpl<ContractState>;
+    #[abi(embed_v0)]
+    impl SRC5Impl = SRC5Component::SRC5Impl<ContractState>;
         `
     },
     { 
@@ -355,9 +355,9 @@ export const ERC20CCode =[
         tag: "Default",
         name: "RolesComponent", 
         content: `#[storage]
-        struct Storage {
-            #[substorage(v0)]
-            erc20: ERC20Component::Storage,
+    struct Storage {
+        #[substorage(v0)]
+        erc20: ERC20Component::Storage,
     `
     },
     { 
@@ -409,11 +409,11 @@ export const ERC20CCode =[
         section: "Events",  
         tag: "Default",
         name: "RolesComponent", 
-        content: `    #[event]
-        #[derive(Drop, starknet::Event)]
-        enum Event {
-            #[flat]
-            ERC20Event: ERC20Component::Event,`
+        content: `#[event]
+    #[derive(Drop, starknet::Event)]
+    enum Event {
+        #[flat]
+        ERC20Event: ERC20Component::Event,`
     },
     { 
         snippet_id: 1, 
@@ -467,7 +467,7 @@ export const ERC20CCode =[
         tag: "Default",
         name: "RolesComponent", 
         content: ` fn constructor(
-            ref self: ContractState`
+        ref self: ContractState`
     },
     { 
         snippet_id: 1, 
@@ -587,60 +587,60 @@ export const ERC20CCode =[
         tag: "Ownable",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-        impl ERC20Impl of interface::IERC20<ContractState> {
-            fn total_supply(self: @ContractState) -> u256 {
-                self.erc20.total_supply()
-            }
-    
-            fn balance_of(self: @ContractState, account: ContractAddress) -> u256 {
-                self.erc20.balance_of(account)
-            }
-    
-            fn allowance(self: @ContractState, owner: ContractAddress, spender: ContractAddress) -> u256 {
-                self.erc20.allowance(owner, spender)
-            }
-    
-            fn transfer(ref self: ContractState, recipient: ContractAddress, amount: u256) -> bool {
-                self.pausable.assert_not_paused();
-                self.erc20.transfer(recipient, amount)
-            }
-    
-            fn transfer_from(
-                ref self: ContractState,
-                sender: ContractAddress,
-                recipient: ContractAddress,
-                amount: u256,
-            ) -> bool {
-                self.pausable.assert_not_paused();
-                self.erc20.transfer_from(sender, recipient, amount)
-            }
-    
-            fn approve(ref self: ContractState, spender: ContractAddress, amount: u256) -> bool {
-                self.pausable.assert_not_paused();
-                self.erc20.approve(spender, amount)
-            }
+    impl ERC20Impl of interface::IERC20<ContractState> {
+        fn total_supply(self: @ContractState) -> u256 {
+            self.erc20.total_supply()
+        }
+
+        fn balance_of(self: @ContractState, account: ContractAddress) -> u256 {
+            self.erc20.balance_of(account)
+        }
+
+        fn allowance(self: @ContractState, owner: ContractAddress, spender: ContractAddress) -> u256 {
+            self.erc20.allowance(owner, spender)
+        }
+
+        fn transfer(ref self: ContractState, recipient: ContractAddress, amount: u256) -> bool {
+            self.pausable.assert_not_paused();
+            self.erc20.transfer(recipient, amount)
         }
     
-        #[abi(embed_v0)]
-        impl ERC20CamelOnlyImpl of interface::IERC20CamelOnly<ContractState> {
-            fn totalSupply(self: @ContractState) -> u256 {
-                self.total_supply()
-            }
-    
-            fn balanceOf(self: @ContractState, account: ContractAddress) -> u256 {
-                self.balance_of(account)
-            }
-    
-            fn transferFrom(
-                ref self: ContractState,
-                sender: ContractAddress,
-                recipient: ContractAddress,
-                amount: u256,
-            ) -> bool {
-                self.pausable.assert_not_paused();
-                self.transfer_from(sender, recipient, amount)
-            }
+        fn transfer_from(
+            ref self: ContractState,
+            sender: ContractAddress,
+            recipient: ContractAddress,
+            amount: u256,
+        ) -> bool {
+            self.pausable.assert_not_paused();
+            self.erc20.transfer_from(sender, recipient, amount)
         }
+    
+        fn approve(ref self: ContractState, spender: ContractAddress, amount: u256) -> bool {
+            self.pausable.assert_not_paused();
+            self.erc20.approve(spender, amount)
+        }
+    }
+    
+    #[abi(embed_v0)]
+    impl ERC20CamelOnlyImpl of interface::IERC20CamelOnly<ContractState> {
+        fn totalSupply(self: @ContractState) -> u256 {
+            self.total_supply()
+        }
+    
+        fn balanceOf(self: @ContractState, account: ContractAddress) -> u256 {
+            self.balance_of(account)
+        }
+    
+        fn transferFrom(
+            ref self: ContractState,
+            sender: ContractAddress,
+            recipient: ContractAddress,
+            amount: u256,
+        ) -> bool {
+            self.pausable.assert_not_paused();
+            self.transfer_from(sender, recipient, amount)
+        }
+    }
     `
     },
     { 
@@ -651,60 +651,60 @@ export const ERC20CCode =[
         tag: "Roles",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-        impl ERC20Impl of interface::IERC20<ContractState> {
-            fn total_supply(self: @ContractState) -> u256 {
-                self.erc20.total_supply()
-            }
-    
-            fn balance_of(self: @ContractState, account: ContractAddress) -> u256 {
-                self.erc20.balance_of(account)
-            }
-    
-            fn allowance(self: @ContractState, owner: ContractAddress, spender: ContractAddress) -> u256 {
-                self.erc20.allowance(owner, spender)
-            }
-    
-            fn transfer(ref self: ContractState, recipient: ContractAddress, amount: u256) -> bool {
-                self.pausable.assert_not_paused();
-                self.erc20.transfer(recipient, amount)
-            }
-    
-            fn transfer_from(
-                ref self: ContractState,
-                sender: ContractAddress,
-                recipient: ContractAddress,
-                amount: u256,
-            ) -> bool {
-                self.pausable.assert_not_paused();
-                self.erc20.transfer_from(sender, recipient, amount)
-            }
-    
-            fn approve(ref self: ContractState, spender: ContractAddress, amount: u256) -> bool {
-                self.pausable.assert_not_paused();
-                self.erc20.approve(spender, amount)
-            }
+    impl ERC20Impl of interface::IERC20<ContractState> {
+        fn total_supply(self: @ContractState) -> u256 {
+            self.erc20.total_supply()
+        }
+
+        fn balance_of(self: @ContractState, account: ContractAddress) -> u256 {
+            self.erc20.balance_of(account)
         }
     
-        #[abi(embed_v0)]
-        impl ERC20CamelOnlyImpl of interface::IERC20CamelOnly<ContractState> {
-            fn totalSupply(self: @ContractState) -> u256 {
-                self.total_supply()
-            }
-    
-            fn balanceOf(self: @ContractState, account: ContractAddress) -> u256 {
-                self.balance_of(account)
-            }
-    
-            fn transferFrom(
-                ref self: ContractState,
-                sender: ContractAddress,
-                recipient: ContractAddress,
-                amount: u256,
-            ) -> bool {
-                self.pausable.assert_not_paused();
-                self.transfer_from(sender, recipient, amount)
-            }
+        fn allowance(self: @ContractState, owner: ContractAddress, spender: ContractAddress) -> u256 {
+            self.erc20.allowance(owner, spender)
         }
+
+        fn transfer(ref self: ContractState, recipient: ContractAddress, amount: u256) -> bool {
+            self.pausable.assert_not_paused();
+            self.erc20.transfer(recipient, amount)
+        }
+    
+        fn transfer_from(
+            ref self: ContractState,
+            sender: ContractAddress,
+            recipient: ContractAddress,
+            amount: u256,
+        ) -> bool {
+            self.pausable.assert_not_paused();
+            self.erc20.transfer_from(sender, recipient, amount)
+        }
+    
+        fn approve(ref self: ContractState, spender: ContractAddress, amount: u256) -> bool {
+            self.pausable.assert_not_paused();
+            self.erc20.approve(spender, amount)
+        }
+    }
+    
+    #[abi(embed_v0)]
+    impl ERC20CamelOnlyImpl of interface::IERC20CamelOnly<ContractState> {
+        fn totalSupply(self: @ContractState) -> u256 {
+            self.total_supply()
+        }
+    
+        fn balanceOf(self: @ContractState, account: ContractAddress) -> u256 {
+            self.balance_of(account)
+        }
+    
+        fn transferFrom(
+            ref self: ContractState,
+            sender: ContractAddress,
+            recipient: ContractAddress,
+            amount: u256,
+        ) -> bool {
+            self.pausable.assert_not_paused();
+            self.transfer_from(sender, recipient, amount)
+        }
+    }
     `
     },
     { 
@@ -715,8 +715,8 @@ export const ERC20CCode =[
         tag: "Default",
         name: "RolesComponent", 
         content: `#[generate_trait]
-        #[abi(per_item)]
-        impl ExternalImpl of ExternalTrait `
+    #[abi(per_item)]
+    impl ExternalImpl of ExternalTrait `
     },
     { 
         snippet_id: 1, 
@@ -726,16 +726,16 @@ export const ERC20CCode =[
         tag: "Pausable1",
         name: "RolesComponent", 
         content: `#[external(v0)]
-        fn pause(ref self: ContractState) {
-            self.ownable.assert_only_owner();
-            self.pausable._pause();
-        }
+    fn pause(ref self: ContractState) {
+        self.ownable.assert_only_owner();
+        self.pausable._pause();
+    }
 
-        #[external(v0)]
-        fn unpause(ref self: ContractState) {
-            self.ownable.assert_only_owner();
-            self.pausable._unpause();
-        }`
+    #[external(v0)]
+    fn unpause(ref self: ContractState) {
+        self.ownable.assert_only_owner();
+        self.pausable._unpause();
+    }`
     },
     { 
         snippet_id: 1, 
@@ -745,16 +745,16 @@ export const ERC20CCode =[
         tag: "Pausable2",
         name: "RolesComponent", 
         content: `#[external(v0)]
-        fn pause(ref self: ContractState) {
-            self.accesscontrol.assert_only_role(PAUSER_ROLE);
-            self.pausable._pause();
-        }
+    fn pause(ref self: ContractState) {
+        self.accesscontrol.assert_only_role(PAUSER_ROLE);
+        self.pausable._pause();
+    }
 
-        #[external(v0)]
-        fn unpause(ref self: ContractState) {
-            self.accesscontrol.assert_only_role(PAUSER_ROLE);
-            self.pausable._unpause();
-        }`
+    #[external(v0)]
+    fn unpause(ref self: ContractState) {
+        self.accesscontrol.assert_only_role(PAUSER_ROLE);
+        self.pausable._unpause();
+    }`
     },
     { 
         snippet_id: 1, 
@@ -764,11 +764,11 @@ export const ERC20CCode =[
         tag: "Burnable",
         name: "RolesComponent", 
         content: `#[external(v0)]
-        fn burn(ref self: ContractState, value: u256) {
-            self.pausable.assert_not_paused();
-            let caller = get_caller_address();
-            self.erc20._burn(caller, value);
-        }`
+    fn burn(ref self: ContractState, value: u256) {
+        self.pausable.assert_not_paused();
+        let caller = get_caller_address();
+        self.erc20._burn(caller, value);
+    }`
     },
     { 
         snippet_id: 1, 
@@ -778,11 +778,11 @@ export const ERC20CCode =[
         tag: "Mintable1",
         name: "RolesComponent", 
         content: `#[external(v0)]
-        fn mint(ref self: ContractState, recipient: ContractAddress, amount: u256) {
-            self.ownable.assert_only_owner();
-            self.pausable.assert_not_paused();
-            self.erc20._mint(recipient, amount);
-        }`
+    fn mint(ref self: ContractState, recipient: ContractAddress, amount: u256) {
+        self.ownable.assert_only_owner();
+        self.pausable.assert_not_paused();
+        self.erc20._mint(recipient, amount);
+    }`
     },
     { 
         snippet_id: 1, 
@@ -792,11 +792,11 @@ export const ERC20CCode =[
         tag: "Mintable2",
         name: "RolesComponent", 
         content: `#[external(v0)]
-        fn mint(ref self: ContractState, recipient: ContractAddress, amount: u256) {
-            self.accesscontrol.assert_only_role(MINTER_ROLE);
-            self.pausable.assert_not_paused();
-            self.erc20._mint(recipient, amount);
-        }`
+    fn mint(ref self: ContractState, recipient: ContractAddress, amount: u256) {
+        self.accesscontrol.assert_only_role(MINTER_ROLE);
+        self.pausable.assert_not_paused();
+        self.erc20._mint(recipient, amount);
+    }`
     },
     { 
         snippet_id: 1, 
@@ -806,12 +806,12 @@ export const ERC20CCode =[
         tag: "Ownable",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-        impl UpgradeableImpl of IUpgradeable<ContractState> {
-            fn upgrade(ref self: ContractState, new_class_hash: ClassHash) {
-                self.ownable.assert_only_owner();
-                self.upgradeable._upgrade(new_class_hash);
-            }
+    impl UpgradeableImpl of IUpgradeable<ContractState> {
+        fn upgrade(ref self: ContractState, new_class_hash: ClassHash) {
+            self.ownable.assert_only_owner();
+            self.upgradeable._upgrade(new_class_hash);
         }
+    }
     `
     },
     { 
@@ -822,12 +822,12 @@ export const ERC20CCode =[
         tag: "Roles",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-        impl UpgradeableImpl of IUpgradeable<ContractState> {
-            fn upgrade(ref self: ContractState, new_class_hash: ClassHash) {
-                self.accesscontrol.assert_only_role(UPGRADER_ROLE);
-                self.upgradeable._upgrade(new_class_hash);
-            }
+    impl UpgradeableImpl of IUpgradeable<ContractState> {
+        fn upgrade(ref self: ContractState, new_class_hash: ClassHash) {
+            self.accesscontrol.assert_only_role(UPGRADER_ROLE);
+            self.upgradeable._upgrade(new_class_hash);
         }
+    }
     `
     }
 ]

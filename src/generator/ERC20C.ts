@@ -28,9 +28,9 @@ export const UpgradeableZeppelinImport: string[] = getCodeContent("ZeppelimImpor
 export const BurnableStarknetImport: string[] = getCodeContent("StarknetImports", "Burnable");
 export const UpgradeableStarknetImport: string[] = getCodeContent("StarknetImports", "Upgradeable");
 export const AccessControlStarknetImport: string[] = getCodeContent("StarknetImports", "AccessControl");
-export const SuperImport: string[] = getCodeContent("SuperImports", "Default");
+export const SuperImports: string[] = getCodeContent("SuperImports", "Default");
 export const PausableSuperImport: string[] = getCodeContent("SuperImports", "Pausable");
-export const MintableSuperImport: string[] = getCodeContent("SuperImports", "Min\table");
+export const MintableSuperImport: string[] = getCodeContent("SuperImports", "Mintable");
 export const UpgradeableSuperImport: string[] = getCodeContent("SuperImports", "Upgradeable");
 export const ContractHeader: string[] = getCodeContent("ContractHeader");
 export const Component: string[] = getCodeContent("Components", "Default");
@@ -87,119 +87,124 @@ export const RolesUpgradeableABI: string[] = getCodeContent("UpgradeableABI", "R
   
 export function generateERC20CCode(erc20cburnable: boolean,erc20cmintable: boolean,  erc20cpausable: boolean,  erc20croles: boolean, erc20cownable: boolean,  erc20cupgradeable: boolean, erc20cpremint: string): string {
     const Variables = [
+    "\n",
     erc20cpausable? PausableVariable : "",
     erc20cmintable? MintableVariable: "",
-    erc20cupgradeable? UpgradeableVariable : ""
-    
-  ].filter(Boolean).join('\n').trim();
+    erc20cupgradeable? UpgradeableVariable : "",
+    "\n"
+  ].filter(Boolean).join('\n');
 
   const  Zeppelin = [
-    StartZeppelinImport,
-    erc20cburnable? BurnableZeppelinImport: "",
-    erc20cpausable? PausableZeppelinImport: "",
-    erc20cownable ? OwnableZeppelinImport: "",
-    erc20croles? RolesZeppelinImport: "",
-    erc20cupgradeable? UpgradeableZeppelinImport: ""
-  ].filter(Boolean).join('\n').trim(); 
+    "\t"+StartZeppelinImport,
+    erc20cburnable? "\t"+BurnableZeppelinImport: "",
+    erc20cpausable? "\t"+PausableZeppelinImport: "",
+    erc20cownable ? "\t"+OwnableZeppelinImport: "",
+    erc20croles? "\t"+RolesZeppelinImport: "",
+    erc20cupgradeable? "\t"+UpgradeableZeppelinImport: ""
+  ].filter(Boolean).join('\n'); 
   
   const  Starknet = [
-    erc20cburnable? BurnableStarknetImport: "",
-    erc20cownable || erc20cownable || erc20cpremint ? AccessControlStarknetImport: "",
-    erc20croles? RolesZeppelinImport: "",
-    erc20cupgradeable? UpgradeableStarknetImport: ""
-  ].filter(Boolean).join('\n').trim(); 
+    erc20cburnable? "\t"+BurnableStarknetImport: "",
+    erc20cownable || erc20cownable || erc20cpremint ? "\t"+AccessControlStarknetImport: "",
+    erc20croles? "\t"+RolesZeppelinImport: "",
+    erc20cupgradeable? "\t"+UpgradeableStarknetImport: ""
+  ].filter(Boolean).join('\n'); 
 
   const  Superimport = [
+    "\t"+SuperImports,
     erc20cpausable? PausableSuperImport: "",
+    erc20cmintable? ", ": "",
     erc20cmintable ? MintableSuperImport: "",
-    erc20cupgradeable? UpgradeableSuperImport: ""
-  ].filter(Boolean).join('\n').trim(); 
+    erc20cupgradeable? ", ": "",
+    erc20cupgradeable? UpgradeableSuperImport: "",
+    "}"
+  ].filter(Boolean).join(''); 
 
   const  Components = [
-    Component,
-    erc20cpausable? PausableComponent: "",
-    erc20cownable  ? OwnableZeppelinImport: "",
-    erc20croles ? RolesZeppelinImport: "",
-    erc20cupgradeable ? UpgradeableComponent: ""
-  ].filter(Boolean).join('\n').trim(); 
+    "\t"+Component,
+    erc20cpausable? "\t"+PausableComponent: "",
+    erc20cownable  ? "\t"+OwnableZeppelinImport: "",
+    erc20croles ? "\t"+RolesZeppelinImport: "",
+    erc20cupgradeable ? "\t"+UpgradeableComponent: ""
+  ].filter(Boolean).join('\n'); 
 
   const  Embeds = [
-    Embed,
-    !erc20cpausable? UnpausableEmbed: "",
-    erc20cpausable? PausableEmbed: "",
-    erc20cownable  ? OwnableEmbed: "",
-    erc20croles ? RolesEmbed: "",
+    "\t"+Embed,
+    !erc20cpausable? "\t"+UnpausableEmbed: "",
+    erc20cpausable? "\t"+PausableEmbed: "",
+    erc20cownable  ? "\t"+OwnableEmbed: "",
+    erc20croles ? "\t"+RolesEmbed: "",
     
-  ].filter(Boolean).join('\n').trim(); 
+  ].filter(Boolean).join('\n'); 
 
   const IMPLS = [
-    IMPL,
-    erc20cpausable? PausableIMPL : "",
-    erc20cownable? OwnableIMPL: "",
-    erc20croles ? RolesIMPL: "",
-    erc20cupgradeable? UpgradeableIMPL : ""
+    "\t"+IMPL,
+    erc20cpausable? "\t"+PausableIMPL : "",
+    erc20cownable? "\t"+OwnableIMPL: "",
+    erc20croles ? "\t"+RolesIMPL: "",
+    erc20cupgradeable? "\t"+UpgradeableIMPL : ""
 
-  ].filter(Boolean).join('\n').trim();
+  ].filter(Boolean).join('\n');
 
 
   const Storages = [
-    Storage,
-    erc20cpausable? PausableStorage : "",
-    erc20cownable? OwnableStorage: "",
-    erc20croles ? RolesStorage: "",
-    erc20cupgradeable? UpgradeableStorage : "",
-    "}"
-  ].filter(Boolean).join('\n').trim();
+    "\n"+"\t"+Storage,
+    erc20cpausable? "\t"+"\t"+PausableStorage : "",
+    erc20cownable? "\t"+"\t"+OwnableStorage: "",
+    erc20croles ? "\t"+"\t"+RolesStorage: "",
+    erc20cupgradeable? "\t"+"\t"+UpgradeableStorage : "",
+    "\t"+"}"+"\n"
+  ].filter(Boolean).join('\n');
 
   const Events = [
-    Event,
-    erc20cpausable? PausableEvent : "",
-    erc20cownable? OwnableEvent: "",
-    erc20croles ? RolesEvent: "",
-    erc20cupgradeable? UpgradeableEvent : "",
-    "}"
-  ].filter(Boolean).join('\n').trim();
+    "\t"+Event,
+    erc20cpausable? "\t"+"\t"+PausableEvent : "",
+    erc20cownable? "\t"+"\t"+OwnableEvent: "",
+    erc20croles ? "\t"+"\t"+RolesEvent: "",
+    erc20cupgradeable? "\t"+"\t"+UpgradeableEvent : "",
+    "\t"+"}"
+  ].filter(Boolean).join('\n');
 
   const  Constructors = [
-    Constructor,    
-    erc20cownable ? OwnableConstructor: "",
-    erc20croles? RolesConstructor: "",
-    erc20cpremint? PremintConstructor: "",
-    erc20cpausable && erc20croles? PausableConstructor: "",
-    erc20cmintable && erc20croles ? MintableConstructor: "",
-    erc20cupgradeable? UpgradeableConstructor: "",
-    "){"
-  ].filter(Boolean).join('\n').trim(); 
+    "\t"+Constructor,    
+    erc20cownable ? "\t"+"\t"+OwnableConstructor: "",
+    erc20croles? "\t"+"\t"+RolesConstructor: "",
+    erc20cpremint? "\t"+"\t"+PremintConstructor: "",
+    erc20cpausable && erc20croles? "\t"+"\t"+PausableConstructor: "",
+    erc20cmintable && erc20croles ? "\t"+"\t"+MintableConstructor: "",
+    erc20cupgradeable? "\t"+"\t"+UpgradeableConstructor: "",
+    "\t"+"){"
+  ].filter(Boolean).join('\n'); 
 
   const  ConstructorReturns = [
-    ConstructorReturn,    
-    erc20cownable ? OwnableConstructorReturns: "",
-    erc20croles? RolesConstructorReturns: "",
-    erc20cpausable && erc20croles? PausableConstructorReturns: "",
-    erc20cmintable && erc20croles? MintableConstructorReturns: "",
-    erc20cupgradeable && erc20croles? UpgradeableConstructorReturns: "",
-    "){"
-  ].filter(Boolean).join('\n').trim(); 
+    "\t"+"\t"+ConstructorReturn,    
+    erc20cownable ? "\t"+"\t"+OwnableConstructorReturns: "",
+    erc20croles? "\t"+"\t"+RolesConstructorReturns: "",
+    erc20cpausable && erc20croles? "\t"+"\t"+PausableConstructorReturns: "",
+    erc20cmintable && erc20croles? "\t"+"\t"+MintableConstructorReturns: "",
+    erc20cupgradeable && erc20croles? "\t"+"\t"+UpgradeableConstructorReturns: "",
+    "\t"+"}"+"\n"
+  ].filter(Boolean).join('\n'); 
 
   const ABIEmbeds = [
-    erc20cownable? OwnableABIEmbed: "",
-    erc20croles? RolesABIEmbed: ""
-  ].filter(Boolean).join('\n').trim();
+    erc20cownable? "\t"+OwnableABIEmbed: "",
+    erc20croles? "\t"+RolesABIEmbed: ""
+  ].filter(Boolean).join('\n');
 
   const Traits = [
-    Trait,
-    erc20cpausable && erc20cownable ? Pausable1Trait: "",
-    erc20cpausable && erc20croles ? Pausable2Trait: "",
-    erc20cburnable? BurnableTrait: "",
-    erc20cmintable && erc20cownable ? Mintable1Trait: "",
-    erc20cmintable && erc20croles ? Mintable2Trait: "",
-    "}"
-  ].filter(Boolean).join('\n').trim();
+    "\t"+Trait,
+    erc20cpausable && erc20cownable ? "\t"+Pausable1Trait: "",
+    erc20cpausable && erc20croles ? "\t"+Pausable2Trait: "",
+    erc20cburnable? "\t"+BurnableTrait: "",
+    erc20cmintable && erc20cownable ? "\t"+Mintable1Trait: "",
+    erc20cmintable && erc20croles ? "\t"+Mintable2Trait: "",
+    "\n"
+  ].filter(Boolean).join('\n');
 
   const UpgradeableABIs = [
-    erc20cownable? OwnableUpgradeableABI: "",
-    erc20cmintable? OwnableUpgradeableABI: ""
-  ].filter(Boolean).join('\n').trim();
+    erc20cownable? "\t"+OwnableUpgradeableABI: "",
+    erc20cmintable? "\t"+OwnableUpgradeableABI: ""
+  ].filter(Boolean).join('\n');
 
 
   const result =[
@@ -210,18 +215,19 @@ export function generateERC20CCode(erc20cburnable: boolean,erc20cmintable: boole
     ContractHeader,
     Zeppelin,
     Starknet,
-    Superimport,
+    erc20cmintable || erc20cpausable || erc20cupgradeable?  Superimport: "",
     Components,
     Embeds,
     IMPLS,
     Storages,
     Events,
     Constructors,
+    ConstructorReturns,
     erc20cpausable? ABIEmbeds: "",
-    erc20cburnable|| erc20cmintable || erc20cpausable || erc20cpremint?  Traits: "",
-    erc20cupgradeable? UpgradeableABIs : ""
-   
-  ].filter(Boolean).join('\n'); 
+    erc20cburnable|| erc20cmintable || erc20cpausable || erc20cupgradeable?  Traits: "",
+    erc20cupgradeable? UpgradeableABIs : "",
+    "}"
+  ].filter(Boolean).join('\n').trim(); 
 
     return `
      ${result}
