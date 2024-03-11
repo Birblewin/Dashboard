@@ -86,7 +86,7 @@ export default function Custom2() {
         const value = e.target.value;
         const isChecked = e.target.checked;
 
-        if (!pauseable) {
+        if (!pauseable && !upgradeable) {
         
             if (value === 'access') {
             

@@ -69,101 +69,102 @@ const SuperImport: string[] = getCodeContent("SuperImports", "Default");
 export function generateCustomCCode(customcupgradeable: boolean,customcpausable: boolean, customcroles: boolean, customcownable: boolean,  customcupgradeability: boolean, customcUUPS: boolean): string {
     const Variables = [
     customcpausable? PausableVariable : "",
-    customcupgradeable? UpgradeableVariable : ""
-    
-  ].filter(Boolean).join('\n').trim();
+    customcupgradeable? UpgradeableVariable : "",
+    "\n"
+  ].filter(Boolean).join('\n');
 
   const  Zeppelin = [
     
-    customcpausable? PausableZeppelinImport: "",
-    customcownable ? OwnableZeppelinImport: "",
-    customcroles? RolesZeppelinImport: "",
-    customcupgradeable? UpgradeableZeppelinImport: ""
-  ].filter(Boolean).join('\n').trim(); 
+    customcpausable? "\t"+PausableZeppelinImport: "",
+    customcownable ? "\t"+OwnableZeppelinImport: "",
+    customcroles? "\t"+RolesZeppelinImport: "",
+    customcupgradeable? "\t"+UpgradeableZeppelinImport: ""
+  ].filter(Boolean).join('\n'); 
   
   const  Starknet = [
     
-    customcownable || customcroles  ? AccessControlStarknetImport: "",
-    customcupgradeable? UpgradeableStarknetImport: ""
-  ].filter(Boolean).join('\n').trim(); 
+    customcownable || customcroles  ? "\t"+AccessControlStarknetImport: "",
+    customcupgradeable? "\t"+UpgradeableStarknetImport: ""
+  ].filter(Boolean).join('\n'); 
 
   const  Superimport = [
     SuperImport,
     customcpausable? PausableSuperImport: "",
-    
-    customcupgradeable? UpgradeableSuperImport: ""
-  ].filter(Boolean).join('\n').trim(); 
+    customcupgradeable? ", ": "",
+    customcupgradeable? UpgradeableSuperImport: "",
+    "}"
+  ].filter(Boolean).join(''); 
 
   const  Components = [
-    Component,
-    customcpausable? PausableComponent: "",
-    customcownable  ? OwnableZeppelinImport: "",
-    customcroles ? RolesZeppelinImport: "",
-    customcupgradeable ? UpgradeableComponent: ""
-  ].filter(Boolean).join('\n').trim(); 
+    "\t"+Component,
+    customcpausable? "\t"+PausableComponent: "",
+    customcownable  ? "\t"+OwnableZeppelinImport: "",
+    customcroles ? "\t"+RolesZeppelinImport: "",
+    customcupgradeable ? "\t"+UpgradeableComponent: ""
+  ].filter(Boolean).join('\n'); 
 
   const  Embeds = [
-    customcpausable? PausableEmbed: "",
-    customcownable  ? OwnableEmbed: "",
-    customcroles ? RolesEmbed: "",
+    customcpausable? "\t"+PausableEmbed: "",
+    customcownable  ? "\t"+OwnableEmbed: "",
+    customcroles ? "\t"+RolesEmbed: "",
     
-  ].filter(Boolean).join('\n').trim(); 
+  ].filter(Boolean).join('\n'); 
 
   const IMPLS = [
-    customcpausable? PausableIMPL : "",
-    customcownable? OwnableIMPL: "",
-    customcroles ? RolesIMPL: "",
-    customcupgradeable? UpgradeableIMPL : ""
+    customcpausable? "\t"+PausableIMPL : "",
+    customcownable? "\t"+OwnableIMPL: "",
+    customcroles ? "\t"+RolesIMPL: "",
+    customcupgradeable? "\t"+UpgradeableIMPL : ""
 
-  ].filter(Boolean).join('\n').trim();
+  ].filter(Boolean).join('\n');
 
 
   const Storages = [
-    Storage,
-    customcpausable? PausableStorage : "",
-    customcownable? OwnableStorage: "",
-    customcroles ? RolesStorage: "",
-    customcupgradeable? UpgradeableStorage : "",
-    "}"
-  ].filter(Boolean).join('\n').trim();
+    "\n"+"\t"+Storage,
+    customcpausable? "\t"+"\t"+PausableStorage : "",
+    customcownable? "\t"+"\t"+OwnableStorage: "",
+    customcroles ? "\t"+"\t"+RolesStorage: "",
+    customcupgradeable? "\t"+"\t"+UpgradeableStorage : "",
+    "\t"+"}"+"\n"
+  ].filter(Boolean).join('\n');
 
   const Events = [
     Event,
-    customcpausable? PausableEvent : "",
-    customcownable? OwnableEvent: "",
-    customcroles ? RolesEvent: "",
-    customcupgradeable? UpgradeableEvent : "",
-    "}"
-  ].filter(Boolean).join('\n').trim();
+    customcpausable? "\t"+"\t"+PausableEvent : "",
+    customcownable? "\t"+"\t"+OwnableEvent: "",
+    customcroles ? "\t"+"\t"+RolesEvent: "",
+    customcupgradeable? "\t"+"\t"+UpgradeableEvent : "",
+    "\t"+"}"+"\n"
+  ].filter(Boolean).join('\n');
 
   const  Constructors = [
-    Constructor,    
-    customcownable ? OwnableConstructor: "",
-    customcroles? RolesConstructor: "",
-    customcpausable && customcroles? PausableConstructor: "",
-    customcupgradeable? UpgradeableConstructor: "",
-    "){"
-  ].filter(Boolean).join('\n').trim(); 
+    "\t"+Constructor,    
+    customcownable ? "\t"+"\t"+OwnableConstructor: "",
+    customcroles? "\t"+"\t"+RolesConstructor: "",
+    customcpausable && customcroles? "\t"+"\t"+PausableConstructor: "",
+    customcupgradeable? "\t"+"\t"+UpgradeableConstructor: "",
+    "\t"+"\t"+"){"
+  ].filter(Boolean).join('\n'); 
 
   const  ConstructorReturns = [
-    ConstructorReturn,    
-    customcownable ? OwnableConstructorReturns: "",
-    customcroles? RolesConstructorReturns: "",
-    customcpausable && customcroles? PausableConstructorReturns: "",
-    customcupgradeable && customcroles? UpgradeableConstructorReturns: "",
-    "}"
-  ].filter(Boolean).join('\n').trim(); 
+    "\t"+ConstructorReturn,    
+    customcownable ? "\t"+"\t"+OwnableConstructorReturns: "",
+    customcroles? "\t"+"\t"+RolesConstructorReturns: "",
+    customcpausable && customcroles? "\t"+"\t"+PausableConstructorReturns: "",
+    customcupgradeable && customcroles? "\t"+"\t"+UpgradeableConstructorReturns: "",
+    "\t"+"}"+"\n"
+  ].filter(Boolean).join('\n'); 
 
   
   const Traits = [
-    customcpausable && customcownable ? Pausable1Trait: "",
-    customcpausable && customcroles ? Pausable2Trait: "",
-  ].filter(Boolean).join('\n').trim();
+    customcpausable && customcownable ? "\t"+Pausable1Trait: "",
+    customcpausable && customcroles ? "\t"+Pausable2Trait: "",
+  ].filter(Boolean).join('\n');
 
   const UpgradeableABIs = [
-    customcownable? OwnableUpgradeableABI: "",
-    customcroles? RolesUpgradeableABI: ""
-  ].filter(Boolean).join('\n').trim();
+    customcownable? "\t"+OwnableUpgradeableABI: "",
+    customcroles? "\t"+RolesUpgradeableABI: ""
+  ].filter(Boolean).join('\n');
 
 
   const result =[
@@ -174,7 +175,7 @@ export function generateCustomCCode(customcupgradeable: boolean,customcpausable:
     ContractHeader,
     Zeppelin,
     Starknet,
-    Superimport,
+    "\t"+Superimport,
     Components,
     Embeds,
     IMPLS,
@@ -183,8 +184,8 @@ export function generateCustomCCode(customcupgradeable: boolean,customcpausable:
     Constructors,
     ConstructorReturns,
     customcpausable ?  Traits: "",
-    customcupgradeable? UpgradeableABIs : ""
-   
+    customcupgradeable? UpgradeableABIs : "",
+    "}"
   ].filter(Boolean).join('\n'); 
 
     return `

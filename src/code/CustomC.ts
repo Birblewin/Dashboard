@@ -29,25 +29,17 @@ const CustomCCode =[
             snippet_id: 1, 
             wizard_id: 2,
             contractType_id: 1, 
-            section: "RolesVariables",  
+            section: "Variables",  
             tag: "Pausable",
             name: "PausableVariables", 
             content: `const PAUSER_ROLE: felt252 = selector!("PAUSER_ROLE");`
         },
+        
         { 
             snippet_id: 1, 
             wizard_id: 2,
             contractType_id: 1, 
-            section: "RolesVariables",  
-            tag: "Minatable",
-            name: "MinatbleVariables", 
-            content: `const MINTER_ROLE: felt252 = selector!("MINTER_ROLE");`
-        },
-        { 
-            snippet_id: 1, 
-            wizard_id: 2,
-            contractType_id: 1, 
-            section: "RolesVariables",  
+            section: "Variables",  
             tag: "Upgradeable",
             name: "UpgradeableVariables", 
             content: `const UPGRADER_ROLE: felt252 = selector!("UPGRADER_ROLE");`
@@ -59,8 +51,7 @@ const CustomCCode =[
             section: "WizardTag",  
             tag: "Default",
             name: "WizardTag", 
-            content: `#[starknet::contract]
-            `
+            content: `#[starknet::contract]`
         },
         { 
             snippet_id: 1, 
@@ -98,8 +89,8 @@ const CustomCCode =[
             tag: "Roles",
             name: "RolesImport", 
             content: `use openzeppelin::access::accesscontrol::AccessControlComponent;
-            use openzeppelin::introspection::src5::SRC5Component;
-            use openzeppelin::access::accesscontrol::DEFAULT_ADMIN_ROLE;`
+    use openzeppelin::introspection::src5::SRC5Component;
+    use openzeppelin::access::accesscontrol::DEFAULT_ADMIN_ROLE;`
         },
         { 
             snippet_id: 1, 
@@ -109,7 +100,7 @@ const CustomCCode =[
             tag: "Upgradeable",
             name: "UpgradeableImport", 
             content: `use openzeppelin::upgrades::UpgradeableComponent;
-            use openzeppelin::upgrades::interface::IUpgradeable;`
+    use openzeppelin::upgrades::interface::IUpgradeable;`
         },
         
         { 
@@ -184,7 +175,7 @@ const CustomCCode =[
             tag: "Roles",
             name: "RolesComponent", 
             content: `component!(path: AccessControlComponent, storage: accesscontrol, event: AccessControlEvent);
-            component!(path: SRC5Component, storage: src5, event: SRC5Event);`
+    component!(path: SRC5Component, storage: src5, event: SRC5Event);`
         },
         { 
             snippet_id: 1, 
@@ -203,7 +194,7 @@ const CustomCCode =[
             tag: "Pausable",
             name: "RolesComponent", 
             content: `#[abi(embed_v0)]
-            impl PausableImpl = PausableComponent::PausableImpl<ContractState>;`
+    impl PausableImpl = PausableComponent::PausableImpl<ContractState>;`
         },
         { 
             snippet_id: 1, 
@@ -213,9 +204,9 @@ const CustomCCode =[
             tag: "Ownable",
             name: "RolesComponent", 
             content: `#[abi(embed_v0)]
-            impl OwnableImpl = OwnableComponent::OwnableImpl<ContractState>;
-            #[abi(embed_v0)]
-            impl OwnableCamelOnlyImpl = OwnableComponent::OwnableCamelOnlyImpl<ContractState>;
+    impl OwnableImpl = OwnableComponent::OwnableImpl<ContractState>;
+    #[abi(embed_v0)]
+    impl OwnableCamelOnlyImpl = OwnableComponent::OwnableCamelOnlyImpl<ContractState>;
             `
         },
         { 
@@ -226,11 +217,11 @@ const CustomCCode =[
             tag: "Roles",
             name: "RolesComponent", 
             content: `#[abi(embed_v0)]
-            impl AccessControlImpl = AccessControlComponent::AccessControlImpl<ContractState>;
-            #[abi(embed_v0)]
-            impl AccessControlCamelImpl = AccessControlComponent::AccessControlCamelImpl<ContractState>;
-            #[abi(embed_v0)]
-            impl SRC5Impl = SRC5Component::SRC5Impl<ContractState>;
+    impl AccessControlImpl = AccessControlComponent::AccessControlImpl<ContractState>;
+    #[abi(embed_v0)]
+    impl AccessControlCamelImpl = AccessControlComponent::AccessControlCamelImpl<ContractState>;
+    #[abi(embed_v0)]
+    impl SRC5Impl = SRC5Component::SRC5Impl<ContractState>;
             `
         },
         { 
@@ -277,7 +268,7 @@ const CustomCCode =[
             tag: "Default",
             name: "RolesComponent", 
             content: `#[storage]
-            struct Storage {
+    struct Storage {
         `
         },
         { 
@@ -288,7 +279,7 @@ const CustomCCode =[
             tag: "Pausable",
             name: "RolesComponent", 
             content: `#[substorage(v0)]
-            pausable: PausableComponent::Storage,`
+        pausable: PausableComponent::Storage,`
         },
         { 
             snippet_id: 1, 
@@ -298,7 +289,7 @@ const CustomCCode =[
             tag: "Ownable",
             name: "RolesComponent", 
             content: `#[substorage(v0)]
-            ownable: OwnableComponent::Storage,`
+        ownable: OwnableComponent::Storage,`
         },
         { 
             snippet_id: 1, 
@@ -308,9 +299,9 @@ const CustomCCode =[
             tag: "Roles",
             name: "RolesComponent", 
             content: `#[substorage(v0)]
-            accesscontrol: AccessControlComponent::Storage,
-            #[substorage(v0)]
-            src5: SRC5Component::Storage,`
+        accesscontrol: AccessControlComponent::Storage,
+        #[substorage(v0)]
+        src5: SRC5Component::Storage,`
         },
         { 
             snippet_id: 1, 
@@ -320,7 +311,7 @@ const CustomCCode =[
             tag: "Upgradeable",
             name: "RolesComponent", 
             content: `#[substorage(v0)]
-            upgradeable: UpgradeableComponent::Storage,`
+        upgradeable: UpgradeableComponent::Storage,`
         },
         { 
             snippet_id: 1, 
@@ -330,8 +321,8 @@ const CustomCCode =[
             tag: "Default",
             name: "RolesComponent", 
             content: `    #[event]
-            #[derive(Drop, starknet::Event)]
-            enum Event {`
+    #[derive(Drop, starknet::Event)]
+    enum Event {`
         },
         { 
             snippet_id: 1, 
@@ -341,7 +332,7 @@ const CustomCCode =[
             tag: "Pausable",
             name: "RolesComponent", 
             content: `#[flat]
-            PausableEvent: PausableComponent::Event,`
+        PausableEvent: PausableComponent::Event,`
         },
         { 
             snippet_id: 1, 
@@ -351,7 +342,7 @@ const CustomCCode =[
             tag: "Ownable",
             name: "RolesComponent", 
             content: `#[flat]
-            OwnableEvent: OwnableComponent::Event,
+        OwnableEvent: OwnableComponent::Event,
             `
         },
         { 
@@ -362,10 +353,10 @@ const CustomCCode =[
             tag: "Roles",
             name: "RolesComponent", 
             content: `#[flat]
-            AccessControlEvent: AccessControlComponent::Event,
+        AccessControlEvent: AccessControlComponent::Event,
             
-            #[flat]
-            SRC5Event: SRC5Component::Event,`
+        #[flat]
+        SRC5Event: SRC5Component::Event,`
         },
         { 
             snippet_id: 1, 
@@ -375,7 +366,7 @@ const CustomCCode =[
             tag: "Upgradeable",
             name: "RolesComponent", 
             content: `#[flat]
-            UpgradeableEvent: UpgradeableComponent::Event,`
+        UpgradeableEvent: UpgradeableComponent::Event,`
         },
         { 
             snippet_id: 1, 
@@ -384,8 +375,8 @@ const CustomCCode =[
             section: "Constructor",  
             tag: "Default",
             name: "RolesComponent", 
-            content: ` fn constructor(
-                ref self: ContractState`
+            content: `fn constructor(
+        ref self: ContractState`
         },
         { 
             snippet_id: 1, 
@@ -442,7 +433,7 @@ const CustomCCode =[
             name: "RolesComponent", 
             content: `self.accesscontrol.initializer();
     
-            self.accesscontrol._grant_role(DEFAULT_ADMIN_ROLE, default_admin);`
+        self.accesscontrol._grant_role(DEFAULT_ADMIN_ROLE, default_admin);`
         },
         { 
             snippet_id: 1, 
@@ -471,16 +462,17 @@ const CustomCCode =[
             tag: "Pausable1",
             name: "RolesComponent", 
             content: `#[external(v0)]
-            fn pause(ref self: ContractState) {
-                self.ownable.assert_only_owner();
-                self.pausable._pause();
-            }
+    fn pause(ref self: ContractState) {
+        self.ownable.assert_only_owner();
+        self.pausable._pause();
+    }
     
-            #[external(v0)]
-            fn unpause(ref self: ContractState) {
-                self.ownable.assert_only_owner();
-                self.pausable._unpause();
-            }`
+    #[external(v0)]
+    fn unpause(ref self: ContractState) {
+        self.ownable.assert_only_owner();
+        self.pausable._unpause();
+    }
+`
         },
         { 
             snippet_id: 1, 
@@ -490,16 +482,17 @@ const CustomCCode =[
             tag: "Pausable2",
             name: "RolesComponent", 
             content: `#[external(v0)]
-            fn pause(ref self: ContractState) {
-                self.accesscontrol.assert_only_role(PAUSER_ROLE);
-                self.pausable._pause();
-            }
+    fn pause(ref self: ContractState) {
+        self.accesscontrol.assert_only_role(PAUSER_ROLE);
+        self.pausable._pause();
+    }
     
-            #[external(v0)]
-            fn unpause(ref self: ContractState) {
-                self.accesscontrol.assert_only_role(PAUSER_ROLE);
-                self.pausable._unpause();
-            }`
+    #[external(v0)]
+    fn unpause(ref self: ContractState) {
+        self.accesscontrol.assert_only_role(PAUSER_ROLE);
+        self.pausable._unpause();
+    }
+`
         },
         
         { 
@@ -510,12 +503,12 @@ const CustomCCode =[
             tag: "Ownable",
             name: "RolesComponent", 
             content: `#[abi(embed_v0)]
-            impl UpgradeableImpl of IUpgradeable<ContractState> {
-                fn upgrade(ref self: ContractState, new_class_hash: ClassHash) {
-                    self.ownable.assert_only_owner();
-                    self.upgradeable._upgrade(new_class_hash);
-                }
-            }
+    impl UpgradeableImpl of IUpgradeable<ContractState> {
+        fn upgrade(ref self: ContractState, new_class_hash: ClassHash) {
+            self.ownable.assert_only_owner();
+            self.upgradeable._upgrade(new_class_hash);
+        }
+    }
         `
         },
         { 
@@ -526,12 +519,12 @@ const CustomCCode =[
             tag: "Roles",
             name: "RolesComponent", 
             content: `#[abi(embed_v0)]
-            impl UpgradeableImpl of IUpgradeable<ContractState> {
-                fn upgrade(ref self: ContractState, new_class_hash: ClassHash) {
-                    self.accesscontrol.assert_only_role(UPGRADER_ROLE);
-                    self.upgradeable._upgrade(new_class_hash);
-                }
-            }
+    impl UpgradeableImpl of IUpgradeable<ContractState> {
+        fn upgrade(ref self: ContractState, new_class_hash: ClassHash) {
+            self.accesscontrol.assert_only_role(UPGRADER_ROLE);
+            self.upgradeable._upgrade(new_class_hash);
+        }
+    }
         `
         }
     ]
