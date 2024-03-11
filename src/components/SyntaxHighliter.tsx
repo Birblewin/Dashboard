@@ -8,7 +8,7 @@ import {generateERC20SCode} from "../generator/ERC20S";
 import {wizard, cairos} from '../store/headerBtns'
 import {ERC721, ERC20,Custom } from '../store/cairoBtns'
 import {ERC20InitialCairoCode, ERC721InitialCairoCode, CustomInitialCairoCode} from './cairoSnippets'
-import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPremint, ERC20SUpgradeability, ERC20SUpgradeabilityUUPS, ERC20SPermit, ERC20SMintable, ERC20SSecurityContact } from "@/store/ERC20S";
+import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPremint, ERC20SUpgradeability, ERC20SUpgradeabilityUUPS, ERC20SPermit, ERC20SMintable, ERC20SSecurityContact, ERC20SLicense, ERC20SName, ERC20SSymbol } from "@/store/ERC20S";
 import { ERC1155InitialCode } from "@/generator/ERC1155";
 import { ERC721InitialCode } from "@/generator/ERC721S";
 import { GovernorInitialCode } from "@/generator/Governor";
@@ -39,9 +39,12 @@ const CodeEditor: React.FC = () => {
   const [erc20sUUPS] = useRecoilState(ERC20SUpgradeabilityUUPS);
   const [erc20smintable] = useRecoilState(ERC20SMintable)
   const [erc20ssecuritycontact] = useRecoilState(ERC20SSecurityContact)
+  const [erc20slicense] = useRecoilState(ERC20SLicense);
+  const [erc20sname] = useRecoilState(ERC20SName);
+  const [erc20ssymbol]= useRecoilState(ERC20SSymbol)
 
 
-  const ERC20InitialCode = generateERC20SCode(erc20sburnable,erc20smintable, erc20svotes, erc20spausable, erc20sflashMinting, erc20sroles, erc20sownable, erc20smanaged, erc20spermit, erc20supgradeable, erc20sUUPS, erc20ssecuritycontact);
+  const ERC20InitialCode = generateERC20SCode(erc20sburnable,erc20smintable, erc20svotes, erc20spausable, erc20sflashMinting, erc20sroles, erc20sownable, erc20smanaged, erc20spermit, erc20supgradeable, erc20sUUPS, erc20ssecuritycontact, erc20slicense, erc20sname, erc20ssymbol);
  
   //erc20C logic with props snippets
   const [erc20cburnable] = useRecoilState(ERC20CBurnable);

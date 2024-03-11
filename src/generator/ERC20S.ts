@@ -12,7 +12,7 @@ const getCodeContent = (section: string, tag?: string): string[] => {
     return ERC20SCode.filter((code: CodeSection) => code.section === section && (!tag || code.tag === tag)).map(filteredCode => filteredCode.content);
 }
 
-export const License: string[] = getCodeContent("license");
+
 export const Compatibility: string[] = getCodeContent("compatibility");
 export const CodeVersion: string[] = getCodeContent("codeVersion");
 export const StartUpgradeableImport: string[] = getCodeContent("upgradeableImports", "DefaultStart");
@@ -35,8 +35,6 @@ export const VotesImport: string[] = getCodeContent("Imports", "Votes");
 export const OwnableImport: string[] = getCodeContent("Imports", "Ownable");
 export const RolesImport: string[] = getCodeContent("Imports", "Roles");
 export const ManagedImport: string[] = getCodeContent("Imports", "Managed");
-export const SecurityContact: string[] = getCodeContent("SecurityContact");
-export const ContractHeader: string[] = getCodeContent("ContractHeader");
 export const ContractName: string[] = getCodeContent("ContractNames", "Default");
 export const OwnableContractName: string[] = getCodeContent("ContractNames", "Ownable");
 export const RolesContractName: string[] = getCodeContent("ContractNames", "Roles");
@@ -56,7 +54,6 @@ export const VotesUpgradeableContractName: string[] = getCodeContent("upgradeabl
 export const PausableUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "Pausable");
 export const FlashMintUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "flashMinting");
 export const RolesByte: string[] = getCodeContent("RolesByte");
-export const DefaultConstructor: string[] = getCodeContent("Constructor", "Default"); 
 export const PermitConstructor: string[] = getCodeContent("Constructor", "Permit");
 export const OwnableConstructor: string[] = getCodeContent("Constructor", "Ownable");
 export const RolesConstructor: string[] = getCodeContent("Constructor", "Roles");
@@ -70,20 +67,29 @@ export const VotesSection3: string[] = getCodeContent("Section3", "Votes");
 export const Section1Header: string[] = getCodeContent("upgradeableFunctionsHeader", "Default");
 export const PausableSection1Header: string[] = getCodeContent("upgradeableFunctionsHeader", "Pausable");
 export const MintableSection1Header: string[] = getCodeContent("upgradeableFunctionsHeader", "Mintable");
-export const Section1: string[] = getCodeContent("upgradeableFunctions", "Default");
 export const OwnableSection1: string[] = getCodeContent("upgradeableFunctions", "Ownable");
 export const RolesSection1: string[] = getCodeContent("upgradeableFunctions", "Roles");
 export const ManagedSection1: string[] = getCodeContent("upgradeableFunctions", "Managed");
 export const BurnableSection1: string[] = getCodeContent("upgradeableFunctions", "Burnable");
 export const PausableSection1: string[] = getCodeContent("upgradeableFunctions", "Pausable");
-export const PermitSection1: string[] = getCodeContent("upgradeableFunctions", "Permit");
 export const VotesSection1: string[] = getCodeContent("upgradeableFunctions", "Votes");
 export const FlashMintingSection1: string[] = getCodeContent("upgradeableFunctions", "flashMinting");
 
 
    
   
-export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spermit: boolean, erc20supgradeable: boolean, erc20sUUPS: boolean, erc20ssecutitycontact: string ): string {
+export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spermit: boolean, erc20supgradeable: boolean, erc20sUUPS: boolean, erc20ssecutitycontact: string , erc20slicense: string, erc20sname: string, erc20ssymbol: string): string {
+
+    const License = `// SPDX-License-Identifier: ${erc20slicense}`
+    const SecurityContact = `/// @custom:security-contact ${erc20ssecutitycontact}`
+    const ContractHeader = `contract ${erc20sname} is`
+    const DefaultConstructor = `constructor() ERC20("${erc20sname}", "${erc20ssymbol}") ` + (erc20spermit ? `ERC20Permit("${erc20ssymbol}")` : "");
+    const Section1 = `initializer public
+    {
+        __ERC20_init("${erc20sname}", "${erc20ssymbol}");`
+    const PermitSection1 = `    __ERC20Permit_init("${erc20sname}");`
+
+
     const upgradeableImports = [
     StartUpgradeableImport,
     erc20sburnable ? BurnableUpgradeableImport : "",

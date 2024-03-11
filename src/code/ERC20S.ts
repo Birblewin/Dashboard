@@ -517,7 +517,7 @@ export const ERC20SCode =[
         tag: "Default",
         name: "ERC20DefaultupgradeableFunctions", 
         content: `       initializer public
-{
+    {
     __ERC20_init("${name}", "${license}");`
     },
     { 
