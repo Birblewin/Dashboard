@@ -10,4 +10,4 @@ default: defaultValue,
 
 // Define atoms using the createAtom function
 export const wizard = createAtom<boolean>('wizard', true);
-export const cairo = createAtom<boolean>('cairo', false);
+export const cairos = createAtom<boolean>('cairo', false);

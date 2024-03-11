@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import {atom, useRecoilState} from "recoil"
 
-import { cairo, wizard } from "../store/headerBtns";
+import { cairos, wizard } from "../store/headerBtns";
 
 // A FUNCTION THAT GENERATES A WIZARDHEADER COMPONENT
 export default function WizardHeader() {
@@ -14,7 +14,7 @@ export default function WizardHeader() {
 
 
 
-    const [Cairo, setCairo] = useRecoilState(cairo);
+    const [Cairo, setCairo] = useRecoilState(cairos);
     const [Wizard, setWizard] = useRecoilState(wizard);
     
   const handleWizardClick = () => {

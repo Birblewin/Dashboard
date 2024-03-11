@@ -5,7 +5,7 @@ import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import {ERC1155 as ERC1155Atom, ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom, Governor as GovernorAtom} from '../store/solidityBtns'
 import { useRecoilState } from "recoil";
 import {generateERC20SCode} from "../generator/ERC20S";
-import {wizard, cairo} from '../store/headerBtns'
+import {wizard, cairos} from '../store/headerBtns'
 import {ERC721, ERC20,Custom } from '../store/cairoBtns'
 import {ERC20InitialCairoCode, ERC721InitialCairoCode, CustomInitialCairoCode} from './cairoSnippets'
 import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPremint, ERC20SUpgradeability, ERC20SUpgradeabilityUUPS, ERC20SPermit, ERC20SMintable, ERC20SSecurityContact } from "@/store/ERC20S";
@@ -18,6 +18,10 @@ import { CustomCPauseable, CustomCAccessControlRoles, CustomCAccessControlOwnabl
 import { ERC20CBurnable, ERC20CPauseable, ERC20CAccessControlRoles, ERC20CAccessControlOwnable, ERC20CMintable, ERC20CUpgradeable, ERC20CPremint } from "@/store/ERC20C";
 import { generateCustomCCode } from "@/generator/CustomC";
 import { generateERC20CCode } from "@/generator/ERC20C";
+import { PrismLight } from 'react-syntax-highlighter';
+import cairo from 'prismjs-cairo';
+
+PrismLight.registerLanguage('cairo', cairo);
 
 
 const CodeEditor: React.FC = () => {
@@ -78,7 +82,7 @@ const CodeEditor: React.FC = () => {
 
   //checking which page is active
   const [isWizard] = useRecoilState(wizard)
-  const [isCairo] = useRecoilState(cairo)
+  const [isCairo] = useRecoilState(cairos)
 
   //wizard templates
   const [IsERC1155] = useRecoilState(ERC1155Atom);
@@ -106,7 +110,7 @@ const CodeEditor: React.FC = () => {
       const [CairoERC20] = useRecoilState(ERC20);
       const [CairoCustom] = useRecoilState(Custom);
 
-      let CairoInitialCode = ERC20InitialCairoCode;
+      let CairoInitialCode = ERC20CInitialCode;
 
       if (CairoERC721) {
         CairoInitialCode = ERC721InitialCairoCode;
