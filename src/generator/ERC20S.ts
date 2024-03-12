@@ -1,8 +1,6 @@
 
 import {ERC20SCode} from '../code/ERC20S';
 
-
-
 interface CodeSection {
     section: string;
     tag?: string;
