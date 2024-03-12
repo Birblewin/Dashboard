@@ -33,14 +33,14 @@ export type ContractDataType = ContractObjectGenerator<{
 // A TYPE FOR THE SNIPPET CODE DATA
 export type SnippetCodeDataType = {
     snippetID: number,
-    tag?: string,
+    tag?: string | string[],
     name: string,
     section: string
     content: string
 }
 
 // A TYPE FOR THE GOVERNOR CODE SNIPPET
-export type GovernorCodeSnippetDataType = Required<SnippetCodeDataType & {
+export type GovernorCodeSnippetDataType = SnippetCodeDataType & {
     wizardID: 2;
     contractID: 8
-}>
+}
