@@ -186,7 +186,6 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
             }  
              function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
             public
-            restricted
         {
             _mintBatch(to, ids, amounts, data);`
         ]
