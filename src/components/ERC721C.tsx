@@ -1,5 +1,5 @@
 
-import { ERC721CName, ERC721CLicense, ERC721CSymbol, ERC721CMintable, ERC721CPauseable, ERC721CAccessControl, ERC721CBurnable, ERC721CUpgradeable, ERC721CAccessControlRoles, ERC721CAccessControlOwnable } from "@/store/ERC721C";
+import { ERC721CName, ERC721CLicense, ERC721CSymbol, ERC721CMintable, ERC721CPauseable, ERC721CAccessControl, ERC721CBurnable, ERC721CUpgradeable, ERC721CAccessControlRoles, ERC721CAccessControlOwnable, ERC721CBaseURI } from "@/store/ERC721C";
 import Tool from "./Tool";
 import {atom, useRecoilState} from "recoil"
 
@@ -15,6 +15,8 @@ const ERC721C = ()=>{
     const [upgradeable, setUpgradeable] = useRecoilState(ERC721CUpgradeable);
     const [roles, setRoles] = useRecoilState(ERC721CAccessControlRoles);
     const [ownable, setOwnable] = useRecoilState(ERC721CAccessControlOwnable);
+    const [BaseURI, setBaseURI] = useRecoilState(ERC721CBaseURI);
+    
 
 
       const handleAccessControlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -145,6 +147,19 @@ const ERC721C = ()=>{
                          value={symbol}  onChange={(e) => setSymbol(e.target.value)}
                         />
                     </div>
+                   
+                </div>
+                <div className="flex flex-col p-[0.5rem]">
+                    <div className="flex justify-between">
+                        <label htmlFor="uri" className="text-[#333333] text-[0.875rem]">
+                            Base URI
+                        </label>
+                        <Tool tooltipText="Will be concatenated with token IDs to generate the token URIs."/>
+                    </div>
+                    
+                    <input  id="uri" type="text" placeholder="https://..." className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"
+                    value={BaseURI}  onChange={(e) => setBaseURI(e.target.value)}
+                    />
                 </div>
             </div>
             <hr className="my-4"></hr>

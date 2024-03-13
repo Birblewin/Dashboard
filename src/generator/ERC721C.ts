@@ -1,5 +1,5 @@
 import { ERC721CCode } from "@/code/ERC721C";
-import {ERC721CLicense, ERC721CName,ERC721CSymbol } from "@/store/ERC721C";
+import {ERC721CBaseURI, ERC721CLicense, ERC721CName,ERC721CSymbol,  } from "@/store/ERC721C";
 import { useRecoilState } from "recoil";
 
 interface CodeSection {
@@ -71,6 +71,7 @@ export function GenerateERC721CCode(erc721cburnable: boolean, erc721cpausable: b
     const [license, setLicense] = useRecoilState(ERC721CLicense);
     const [name, setName] = useRecoilState(ERC721CName);
     const [symbol, setSymbol] = useRecoilState(ERC721CSymbol);
+    const [BaseURI, setBaseURI] = useRecoilState(ERC721CBaseURI);
 
     const Imports = [
         erc721cownable? "\n"+OwnableImport:"",
@@ -175,7 +176,7 @@ mod MyToken {
 
     #[constructor]
     fn constructor(ref self: ContractState, ${erc721cownable? OwnableConstructor:""}${erc721croles?RolesConstructor+',':""}${erc721croles?'\n\t'+Roles:""}) {
-        self.erc721.initializer(${name}, ${symbol});
+        self.erc721.initializer("${name}", "${symbol}", "${BaseURI}");
         ${erc721cownable? OwnableConstructorInit:''}${erc721croles? RolesConstructorInit:""}
         ${erc721croles? RolesInit:""}
     }

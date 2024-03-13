@@ -5,7 +5,7 @@ import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import {ERC1155 as ERC1155Atom, ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom, Governor as GovernorAtom} from '../store/solidityBtns'
 import { useRecoilState } from "recoil";
 import {generateERC20SCode} from "../generator/ERC20S";
-import {wizard, cairo} from '../store/headerBtns'
+import {wizard, cairos} from '../store/headerBtns'
 import {ERC721, ERC20,Custom } from '../store/cairoBtns'
 import {ERC20InitialCairoCode, CustomInitialCairoCode} from './cairoSnippets'
 import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPremint, ERC20SUpgradeability, ERC20SUpgradeabilityUUPS} from "@/store/ERC20S";
@@ -16,7 +16,10 @@ import { CustomInitialCode } from "@/generator/CustomS";
 import { ERC721SBurnable, ERC721SPauseable, ERC721SVotes, ERC721SAccessControlRoles, ERC721SAccessControlOwnable, ERC721SAccessControlManaged, ERC721SEnumerable, ERC721SURIStorage, ERC721SUpgradeabilityTransparent, ERC721SUpgradeabilityUUPS, ERC721SSecurityContact, ERC721SUpgradeability, ERC721SAutoIncrementIds, ERC721SMintable, ERC721SBaseURI } from "@/store/ERC721S";
 import { GenerateERC721CCode } from "@/generator/ERC721C";
 import { ERC721CAccessControlOwnable, ERC721CAccessControlRoles, ERC721CBurnable, ERC721CMintable, ERC721CPauseable, ERC721CUpgradeable } from "@/store/ERC721C";
+import { PrismLight } from 'react-syntax-highlighter';
+import cairo from 'prismjs-cairo';
 
+PrismLight.registerLanguage('cairo', cairo);
 
 const CodeEditor: React.FC = () => {
 
@@ -66,7 +69,7 @@ const CodeEditor: React.FC = () => {
 
   //checking which page is active
   const [isWizard] = useRecoilState(wizard)
-  const [isCairo] = useRecoilState(cairo)
+  const [isCairo] = useRecoilState(cairos)
 
   //wizard templates
   const [IsERC1155] = useRecoilState(ERC1155Atom);
@@ -122,7 +125,7 @@ const CodeEditor: React.FC = () => {
     {isCairo && (
       <div className="w-full h-full">
         <SyntaxHighlighter
-          language="solidity"
+          language="cairo"
           style={dracula}
           className="w-full h-full font-bold"
         >

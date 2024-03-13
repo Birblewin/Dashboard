@@ -1,9 +1,4 @@
 
-import { ERC721SLicense, ERC721SName } from "@/store/ERC721S";
-
-
-
-
 
 export const ERC721SCode =[
     // { 
@@ -38,54 +33,54 @@ export const ERC721SCode =[
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
-        section: "upgradeableImports",  
+        section: "Imports",  
         tag: "DefaultStart",
-        name: "ERC721DefaultUpgradeableImports", 
+        name: "ERC721DefaultImports", 
         content: `import "@openzeppelin/contracts/token/ERC721/ERC721.sol";`
     },
     { 
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
-        section: "upgradeableImports",  
+        section: "Imports",  
         tag: "Burnable",
-        name: "ERC721BurnableUpgradeableImports", 
+        name: "ERC721BurnableImports", 
         content: `import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";`
     },
     { 
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
-        section: "upgradeableImports",  
+        section: "Imports",  
         tag: "Pausable",
-        name: "ERC721PausableUpgradeableImports", 
+        name: "ERC721PausableImports", 
         content: `import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";`
     },
     { 
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
-        section: "upgradeableImports",  
+        section: "Imports",  
         tag: "URIStorage",
-        name: "ERC721FlashMintingUpgradeableImports", 
+        name: "ERC721FlashMintingImports", 
         content: `import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";`
     },
     { 
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
-        section: "upgradeableImports",  
+        section: "Imports",  
         tag: "Enumerable",
-        name: "ERC721PermitUpgradeableImports", 
+        name: "ERC721PermitImports", 
         content: `import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";`
     },
     { 
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
-        section: "upgradeableImports",  
+        section: "Imports",  
         tag: "Votes",
-        name: "ERC721VotesUpgradeableImports", 
+        name: "ERC721VotesImports", 
         content:`import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Votes.sol";`
     },
@@ -93,51 +88,125 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Votes.sol";`
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
-        section: "upgradeableImports",  
+        section: "Imports",  
         tag: "Ownable",
-        name: "ERC721OwnableUpgradeableImports", 
+        name: "ERC721OwnableImports", 
         content: `import "@openzeppelin/contracts/access/Ownable.sol";`
     },
     { 
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
-        section: "upgradeableImports",  
+        section: "Imports",  
         tag: "Roles",
-        name: "ERC721RolesUpgradeableImports", 
+        name: "ERC721RolesImports", 
         content: `import "@openzeppelin/contracts/access/AccessControl.sol";`
     },
     { 
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
-        section: "upgradeableImports",  
+        section: "Imports",  
         tag: "Managed",
-        name: "ERC721ManagedUpgradeableImports", 
+        name: "ERC721ManagedImports", 
         content: `import "@openzeppelin/contracts/access/manager/AccessManaged.sol";`
     },
+
+    //.........................
+
     { 
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
-        section: "upgradeableImports",  
-        tag: "UUPS",
-        name: "ERC721UUPSUpgradeableImports", 
-        content: `import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";`
-    },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "upgradeableImports",  
-        tag: "Transparent",
-        name: "TransparentUpgradeableImports", 
+        section: "UpgradableImports",  
+        tag: "Default",
+        name: "ERC721DefaultUpgradableImports", 
         content: `import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
     },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "UpgradableImports",  
+        tag: "Burnable",
+        name: "ERC721BurnableUpgradableImports", 
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721BurnableUpgradeable.sol";`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "UpgradableImports",  
+        tag: "Pausable",
+        name: "ERC721PausableUpgradableImports", 
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721PausableUpgradeable.sol";`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "UpgradableImports",  
+        tag: "URIStorage",
+        name: "ERC721URIStorageUpgradableImports", 
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "UpgradableImports",  
+        tag: "Enumerable",
+        name: "ERC721EnumerableUpgradableImports", 
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721EnumerableUpgradeable.sol";`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "UpgradableImports",  
+        tag: "Votes",
+        name: "ERC721VotesUpgradableImports", 
+        content:`import "@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721VotesUpgradeable.sol";`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "UpgradableImports",  
+        tag: "Ownable",
+        name: "ERC721OwnableUpgradableImports", 
+        content: `import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "UpgradableImports",  
+        tag: "Roles",
+        name: "ERC721RolesUpgradableImports", 
+        content: `import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "UpgradableImports",  
+        tag: "Managed",
+        name: "ERC721ManagedUpgradableImports", 
+        content: `import "@openzeppelin/contracts-upgradeable/access/manager/AccessManagedUpgradeable.sol";`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "UpgradableImports",  
+        tag: "UUPS",
+        name: "ERC721UUPSUpgradeableImports", 
+        content: `import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";`
+    },
+
     // { 
     //     snippet_id: 1, 
     //     wizard_id: 1,
@@ -367,19 +436,28 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         wizard_id: 1,
         contractType_id: 1, 
         section: "Constructor",  
-        tag: "Default",
-        name: "ERC721DefaultConstructor", 
-        content: `      constructor() ERC721("${ERC721SName}", "${ERC721SLicense}") {}`
+        tag: "MintableInit",
+        name: "Mintable", 
+        content: `bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");`
      },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "Constructor",  
-        tag: "Votes",
-        name: "ERC721VotesConstructor", 
-        content: `EIP712("${ERC721SName}", "1")`
-     },
+    // { 
+    //     snippet_id: 1, 
+    //     wizard_id: 1,
+    //     contractType_id: 1, 
+    //     section: "Constructor",  
+    //     tag: "Default",
+    //     name: "ERC721DefaultConstructor", 
+    //     content: `      constructor() ERC721("${ERC721SName}", "${ERC721SLicense}") {}`
+    //  },
+    // { 
+    //     snippet_id: 1, 
+    //     wizard_id: 1,
+    //     contractType_id: 1, 
+    //     section: "Constructor",  
+    //     tag: "Votes",
+    //     name: "ERC721VotesConstructor", 
+    //     content: `EIP712("${ERC721SName}", "1")`
+    //  },
     { 
         snippet_id: 1, 
         wizard_id: 1,
@@ -591,16 +669,16 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         name: "ERC721URIStorageupgradeableFunctions", 
         content: `__ERC721URIStorage_init();`
     },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "upgradeableFunctions",  
-        tag: "Votes",
-        name: "ERC721VotesupgradeableFunctions", 
-        content: `__EIP712_init(${ERC721SName}, "1");
-            __ERC721Votes_init();`
-    },
+    // { 
+    //     snippet_id: 1, 
+    //     wizard_id: 1,
+    //     contractType_id: 1, 
+    //     section: "upgradeableFunctions",  
+    //     tag: "Votes",
+    //     name: "ERC721VotesupgradeableFunctions", 
+    //     content: `__EIP712_init(${ERC721SName}, "1");
+    //         __ERC721Votes_init();`
+    // },
     { 
         snippet_id: 1, 
         wizard_id: 1,

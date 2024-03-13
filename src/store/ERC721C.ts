@@ -19,3 +19,4 @@ export const ERC721CBurnable = createAtom<boolean>('ERC721CBurnable', false);
 export const ERC721CUpgradeable = createAtom<boolean>('ERC721CUpgradeable', false);
 export const ERC721CAccessControlRoles = createAtom<boolean>('ERC721CAccessControlRoles', false);
 export const ERC721CAccessControlOwnable = createAtom<boolean>('ERC721CAccessControlOwnable', false);
+export const ERC721CBaseURI = createAtom<string>('ERC721CBaseURI', '');
