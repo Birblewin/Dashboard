@@ -44,3 +44,29 @@ export type GovernorCodeSnippetDataType = SnippetCodeDataType & {
     wizardID: 2;
     contractID: 8
 }
+
+// A TYPE FOR THE GOVERNOR FORMDATA
+export type GovernorFormDataType = {
+    name: string, // INPUT
+    votingDelay: "1 day" | `${number} days`, // INPUT
+    votingPeriod: "1 week" | `${number} weeks`, // INPUT
+    blockValue: number, // INPUT(NUMBER)
+    proposalThreshold: number, // INPUT(NUMBER)
+    
+    quorumType:  "percentage" | "number", // RADIO
+    quorumValue: number, // INPUT(NUMBER)
+    
+    tokenDecimals: number, // INPUT(NUMBER)
+    updatableSettings: boolean, // CHECKBOX
+    storage: boolean, // CHECKBOX
+    votes: "ERC20Votes" | "ERC721Votes", // RADIO
+    
+    timelockValue: boolean, // CHECKBOX
+    timelockType: "TimelockController" | "Compound" | "", // RADIO
+    
+    upgradeabilityValue: boolean, // CHECKBOX
+    upgradeabilityType: "Transparent" | "UUPS" | "", // RADIO
+
+    securityContact: string, // INPUT
+    license: string // INPUT
+}
