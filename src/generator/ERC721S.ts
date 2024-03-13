@@ -377,9 +377,8 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
         Compatibility,
         CodeVersion,
         erc721upgradability? upgradableImports+'\n': defaultImports+'\n',
-
-        erc721security ? `
-/// @custom:security-contact ${securityContact}` : "",
+        erc721security ? 
+        `/// @custom:security-contact ${securityContact}` : "",
 
         erc721upgradability? UpgradeableContract: contract,
         erc721upgradability? upgradeableConstructor: '\t\t'+constructor,
