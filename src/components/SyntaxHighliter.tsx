@@ -14,7 +14,7 @@ import { ERC721InitialCode } from "@/generator/ERC721S";
 import { GovernorInitialCode } from "@/generator/Governor";
 import { generateCustomSCode } from "@/generator/CustomS";
 import { CustomSName, CustomSAccessControlManaged, CustomSAccessControlOwnable, CustomSAccessControlRoles, CustomSPauseable, CustomSSecurityContact, CustomSUpgradeability, CustomSUpgradeabilityTransparent, CustomSUpgradeabilityUUPS, CustomSUpgradeable, CustomSLicense } from "@/store/CustomS";
-import { CustomCPauseable, CustomCAccessControlRoles, CustomCAccessControlOwnable, CustomCUpgradeable, CustomCUpgradeability, CustomCUpgradeabilityUUPS } from "@/store/CustomC";
+import { CustomCPauseable, CustomCAccessControlRoles, CustomCAccessControlOwnable, CustomCUpgradeable, CustomCUpgradeability, CustomCUpgradeabilityUUPS, CustomCName, CustomCLicense } from "@/store/CustomC";
 import { ERC20CBurnable, ERC20CPauseable, ERC20CAccessControlRoles, ERC20CAccessControlOwnable, ERC20CMintable, ERC20CUpgradeable, ERC20CPremint } from "@/store/ERC20C";
 import { generateCustomCCode } from "@/generator/CustomC";
 import { generateERC20CCode } from "@/generator/ERC20C";
@@ -80,9 +80,11 @@ const CodeEditor: React.FC = () => {
   const [customcupgradeable] = useRecoilState(CustomCUpgradeable)
   const [customcupgradeability] = useRecoilState(CustomCUpgradeability);
   const [customcUUPS] = useRecoilState(CustomCUpgradeabilityUUPS);
+  const [customcname] = useRecoilState(CustomCName);
+  const [customclicense] = useRecoilState(CustomCLicense);
+  
 
-
-  const CustomCInitialCode = generateCustomCCode(customcupgradeable,customcpausable, customcroles, customcownable,  customcupgradeability, customcUUPS);
+  const CustomCInitialCode = generateCustomCCode(customcupgradeable,customcpausable, customcroles, customcownable,  customcupgradeability, customcUUPS, customcname, customclicense);
 
 
   //checking which page is active
