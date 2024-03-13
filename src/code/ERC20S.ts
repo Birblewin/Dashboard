@@ -254,7 +254,7 @@ export const ERC20SCode =[
         section: "ContractNames",  
         tag: "Default",
         name: "ERC20DefaultContractNames", 
-        content: `ERC20 `
+        content: ` ERC20 `
     },
     { 
         snippet_id: 1, 

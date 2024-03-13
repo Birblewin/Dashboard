@@ -1,16 +1,18 @@
 "use client"
 
 
-import { ERC20SName, ERC20SSecurityContact, ERC20SLicense, ERC20SSymbol, ERC20SPremint, ERC20SMintable, ERC20SVotes, ERC20SPauseable, ERC20SAccessControl, ERC20SBurnable, ERC20SUpgradeability, ERC20SFlashMinting, ERC20SUpgradeabilityTransparent, ERC20SUpgradeabilityUUPS, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPermit } from "@/store/ERC20S";
+import { ERC20SName, ERC20SSecurityContact, ERC20SLicense, ERC20SSymbol, ERC20SPremint, ERC20SMintable, ERC20SVotes, ERC20SPauseable, ERC20SAccessControl, ERC20SBurnable, ERC20SUpgradeability, ERC20SFlashMinting, ERC20SUpgradeabilityTransparent, ERC20SUpgradeabilityUUPS, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPermit, selectors } from "@/store/ERC20S";
 import Tool from "./Tool";
-import {atom, useRecoilState} from "recoil"
+import {atom, useRecoilState, useRecoilValue} from "recoil"
 
 
 
 
 
 const ERC20 = ()=>{
-   
+    const selectorValue = useRecoilValue(selectors);
+
+    console.log(selectorValue);
     const [name, setName] = useRecoilState(ERC20SName);
     const [securityContact, setSecurityContact] = useRecoilState(ERC20SSecurityContact);
     const [license, setLicense] = useRecoilState(ERC20SLicense);
@@ -153,6 +155,10 @@ const ERC20 = ()=>{
             e.preventDefault();
         }
       };
+
+      const handlePremint = (number: number)=>{
+           setPremint(number)
+      }
      
       
 
@@ -182,7 +188,7 @@ const ERC20 = ()=>{
                         </label>
                         <Tool tooltipText="Create an initial amount of tokens for the deployer." />
                     </div>
-                    <input  id="uri" type="number" placeholder="0" className="border border-1 border-[#333333] rounded-[6px] p-1  text-black" value={premint}  onChange={(e) => setPremint(parseFloat(e.target.value))}/>
+                    <input  id="uri" type="string" placeholder="0" className="border border-1 border-[#333333] rounded-[6px] p-1  text-black" value={premint}   onChange={(e) => handlePremint((e.target.value))}/>
                 </div>
             </div>
             <hr className="my-4"></hr>

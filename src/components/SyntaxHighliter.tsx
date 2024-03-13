@@ -13,7 +13,7 @@ import { ERC1155InitialCode } from "@/generator/ERC1155";
 import { ERC721InitialCode } from "@/generator/ERC721S";
 import { GovernorInitialCode } from "@/generator/Governor";
 import { generateCustomSCode } from "@/generator/CustomS";
-import { CustomSAccessControlManaged, CustomSAccessControlOwnable, CustomSAccessControlRoles, CustomSPauseable, CustomSSecurityContact, CustomSUpgradeability, CustomSUpgradeabilityTransparent, CustomSUpgradeabilityUUPS, CustomSUpgradeable } from "@/store/CustomS";
+import { CustomSName, CustomSAccessControlManaged, CustomSAccessControlOwnable, CustomSAccessControlRoles, CustomSPauseable, CustomSSecurityContact, CustomSUpgradeability, CustomSUpgradeabilityTransparent, CustomSUpgradeabilityUUPS, CustomSUpgradeable, CustomSLicense } from "@/store/CustomS";
 import { CustomCPauseable, CustomCAccessControlRoles, CustomCAccessControlOwnable, CustomCUpgradeable, CustomCUpgradeability, CustomCUpgradeabilityUUPS } from "@/store/CustomC";
 import { ERC20CBurnable, ERC20CPauseable, ERC20CAccessControlRoles, ERC20CAccessControlOwnable, ERC20CMintable, ERC20CUpgradeable, ERC20CPremint } from "@/store/ERC20C";
 import { generateCustomCCode } from "@/generator/CustomC";
@@ -66,10 +66,12 @@ const CodeEditor: React.FC = () => {
   const [customsupgradeable] = useRecoilState(CustomSUpgradeable)
   const [customsupgradeability] = useRecoilState(CustomSUpgradeabilityTransparent);
   const [customsUUPS] = useRecoilState(CustomSUpgradeabilityUUPS);
-  const [customssecuritycontact] = useRecoilState(CustomSSecurityContact)
+  const [customssecuritycontact] = useRecoilState(CustomSSecurityContact);
+  const [customsname] = useRecoilState(CustomSName);
+  const [customslicense] = useRecoilState(CustomSLicense);
 
 
-  const CustomSInitialCode = generateCustomSCode(customsupgradeable,customspausable, customsroles, customsownable, customsmanaged, customsupgradeability, customsUUPS, customssecuritycontact);
+  const CustomSInitialCode = generateCustomSCode(customsupgradeable,customspausable, customsroles, customsownable, customsmanaged, customsupgradeability, customsUUPS, customssecuritycontact, customsname, customslicense);
   
   //customC logic with props snippets
   const [customcpausable] = useRecoilState(CustomCPauseable);

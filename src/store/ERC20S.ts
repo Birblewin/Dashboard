@@ -1,4 +1,4 @@
-import{atom} from "recoil";
+import{atom, selector} from "recoil";
 
 // Define a type for your atom values
 type AtomValue = string | number | boolean;
@@ -10,7 +10,7 @@ default: defaultValue,
 });
 
 // Define atoms using the createAtom function
-export const ERC20SName = createAtom<string>('ERC20SName', 'My Token');
+export const ERC20SName = createAtom<string>('ERC20SNames', 'MyToken');
 export const ERC20SSecurityContact = createAtom<string>('ERC20SSecurityContact', '');
 export const ERC20SLicense = createAtom<string>('ERC20SLicense', 'MIT');
 export const ERC20SSymbol = createAtom<string>('ERC20SSymbol', 'MTK');
@@ -28,3 +28,10 @@ export const ERC20SUpgradeabilityUUPS = createAtom<boolean>('ERC20SUpgradeabilit
 export const ERC20SAccessControlRoles = createAtom<boolean>('ERC20SAccessControlRoles', false);
 export const ERC20SAccessControlOwnable = createAtom<boolean>('ERC20SAccessControlOwnable', false);
 export const ERC20SAccessControlManaged = createAtom<boolean>('ERC20SAccessControlManaged', false);
+export const selectors = selector({
+    key: "Calculated",
+    get: ({get}) => {
+        const license = get(ERC20SLicense)
+        return `// SPDX-License-Identifier:${license}`
+    }
+})
