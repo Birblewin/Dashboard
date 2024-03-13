@@ -1,19 +1,19 @@
 // IMPORTING NECESSARY FILES
     // IMPORTING COMPONENTS
 "use client"
-import WizardHeader from "@/components/WizardHeader"
+import Navbar from "@/components/Navbar"
+import {RecoilRoot} from "recoil"
     // IMPORT MODULES
 import React from "react"
-import { RecoilRoot } from "recoil";
 
 // EXPORTING A FUNCTION THAT RETURNS THE LAYOUT OF THE WIZRD ROUTES
 export default function WizardLayout({children}: Readonly<{children: React.ReactNode}>){
-    return(
-        <main className="bg-[#f5f5f5] min-h-screen transition-all duration-500 ease-in-out">
+    return (
+      <main className="bg-[#050012] min-h-screen transition-all duration-500 ease-in-out">
         <RecoilRoot>
-          <WizardHeader />
+          <Navbar />
           {children}
         </RecoilRoot>
-        </main>
-    )
+      </main>
+    );
 }

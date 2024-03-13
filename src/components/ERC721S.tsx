@@ -4,8 +4,6 @@ import { useRecoilState} from "recoil"
 import { ERC721SAccessControl, ERC721SAccessControlManaged, ERC721SAccessControlOwnable, ERC721SAccessControlRoles, ERC721SAutoIncrementIds, ERC721SBaseURI, ERC721SBurnable, ERC721SEnumerable, ERC721SLicense, ERC721SMintable, ERC721SName, ERC721SPauseable, ERC721SSecurityContact, ERC721SSymbol, ERC721SURIStorage, ERC721SUpgradeability, ERC721SUpgradeabilityTransparent, ERC721SUpgradeabilityUUPS, ERC721SVotes } from "../store/ERC721S";
 
 const ERC721S = ()=>{
-
-
     const [name, setName] = useRecoilState(ERC721SName);
     const [securityContact, setSecurityContact] = useRecoilState(ERC721SSecurityContact);
     const [license, setLicense] = useRecoilState(ERC721SLicense);
