@@ -4,6 +4,7 @@
 import { ERC20SName, ERC20SSecurityContact, ERC20SLicense, ERC20SSymbol, ERC20SPremint, ERC20SMintable, ERC20SVotes, ERC20SPauseable, ERC20SAccessControl, ERC20SBurnable, ERC20SUpgradeability, ERC20SFlashMinting, ERC20SUpgradeabilityTransparent, ERC20SUpgradeabilityUUPS, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPermit, selectors } from "@/store/ERC20S";
 import Tool from "./Tool";
 import {atom, useRecoilState, useRecoilValue} from "recoil"
+import { useState } from "react";
 
 
 
@@ -11,6 +12,7 @@ import {atom, useRecoilState, useRecoilValue} from "recoil"
 
 const ERC20 = ()=>{
     const selectorValue = useRecoilValue(selectors);
+    const [premintError, setPremintError] = useState(false);
 
     console.log(selectorValue);
     const [name, setName] = useRecoilState(ERC20SName);
@@ -156,9 +158,9 @@ const ERC20 = ()=>{
         }
       };
 
-      const handlePremint = (number: string)=>{
-           setPremint(number)
-      }
+      
+     
+    
      
       
 
@@ -188,7 +190,7 @@ const ERC20 = ()=>{
                         </label>
                         <Tool tooltipText="Create an initial amount of tokens for the deployer." />
                     </div>
-                    <input  id="uri" type="string" placeholder="0" className="border border-1 border-[#333333] rounded-[6px] p-1  text-black" value={premint}   onChange={(e) => handlePremint((e.target.value))}/>
+                    <input  id="uri" type="string" placeholder="0" className={`border border-1 rounded-[6px] p-1 text-black border-[#333333]`} value={premint}   onChange={(e) => setPremint((e.target.value))}/>
                 </div>
             </div>
             <hr className="my-4"></hr>
