@@ -58,7 +58,6 @@ export default function ERC1155() {
     }
 
 
-    // Access controll auuto checkes when {mintable, pausable and updateableURI} are clicked
 
     if (isChecked || mintable || pauseable || updateableURI) {
       setAccessControl(true);
@@ -74,14 +73,12 @@ export default function ERC1155() {
     const isChecked = e.target.checked;
 
 
-    // If Mintable is true, set Access Control to true
     if (isChecked) {
       setAccessControl(true);
-      setOwnable(true)
+      setManaged(true)
 
 
     } else {
-      // If both Burnable and Pauseable are false, set Access Control to false
       if (!pauseable) {
         setAccessControl(false);
         setOwnable(false)
@@ -101,14 +98,12 @@ export default function ERC1155() {
     const isChecked = e.target.checked;
 
 
-    // If Mintable is true, set Access Control to true
     if (isChecked) {
       setAccessControl(true);
-      setOwnable(true)
+      setManaged(true)
 
 
     } else {
-      // If both Burnable and Pauseable are false, set Access Control to false
       if (!updateableURI) {
         setAccessControl(false);
         setOwnable(false)
@@ -127,15 +122,12 @@ export default function ERC1155() {
     setUpdateableURI(!updateableURI);
     const isChecked = e.target.checked;
 
-
-    // If Mintable is true, set Access Control to true
     if (isChecked) {
       setAccessControl(true);
-      setOwnable(true)
+      setManaged(true)
 
 
     } else {
-      // If both Burnable and Pauseable are false, set Access Control to false
       if (!mintable) {
         setAccessControl(false);
         setOwnable(false)
@@ -197,24 +189,24 @@ export default function ERC1155() {
         <h2 className="text-[#818998] font-semibold text-xs">SETTINGS</h2>
         <div className="flex flex-col p-[0.5rem]">
           <div className="flex item-center place-content-between">
-            <label htmlFor="uri" className="text-[#333333] text-[0.875rem]"> NAME </label>
+            <label htmlFor="uri" className="text-[#333333] text-[0.875rem]"> Name </label>
           </div>
           <input
             id="name"
             type="text"
-            placeholder="0"
+            placeholder=""
             className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"
             value={name} onChange={(e) => setName(e.target.value)} />
         </div>
         <div className="flex flex-col p-[0.5rem]">
           <div className="flex item-center place-content-between">
-            <label htmlFor="uri" className="text-[#333333] text-[0.875rem]"> URI </label>
+            <label htmlFor="uri" className="text-[#333333] text-[0.875rem]"> Uri </label>
             <Tool tooltipText="Restrict who can access the functions of a contract or when they can do it." link='https://docs.openzeppelin.com/contracts/5.x/api/access' linktext='Read more' />
           </div>
           <input
             id="uri"
             type="text"
-            placeholder="0"
+            placeholder="https://..."
             className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"
             value={baseURI} onChange={(e) => setBaseURI(e.target.value)}
           />
