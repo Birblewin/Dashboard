@@ -156,7 +156,7 @@ const ERC20 = ()=>{
         }
       };
 
-      const handlePremint = (number: number)=>{
+      const handlePremint = (number: string)=>{
            setPremint(number)
       }
      
