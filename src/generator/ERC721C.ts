@@ -175,7 +175,7 @@ mod MyToken {
     }
 
     #[constructor]
-    fn constructor(ref self: ContractState, ${erc721cownable? OwnableConstructor:""}${erc721croles?RolesConstructor+',':""}${erc721croles?'\n\t'+Roles:""}) {
+    fn constructor(ref self: ContractState${erc721cownable? OwnableConstructor:""}${erc721croles?RolesConstructor+',':""}${erc721croles?'\n\t'+Roles:""}) {
         self.erc721.initializer("${name}", "${symbol}", "${BaseURI}");
         ${erc721cownable? OwnableConstructorInit:''}${erc721croles? RolesConstructorInit:""}
         ${erc721croles? RolesInit:""}
