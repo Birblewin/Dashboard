@@ -67,7 +67,8 @@ const SuperImport: string[] = getCodeContent("SuperImports", "Default");
    
   
 export function generateCustomCCode(customcupgradeable: boolean,customcpausable: boolean, customcroles: boolean, customcownable: boolean,  customcupgradeability: boolean, customcUUPS: boolean): string {
-    const Variables = [
+  
+  const Variables = [
     customcpausable? PausableVariable : "",
     customcupgradeable? UpgradeableVariable : "",
     "\n"

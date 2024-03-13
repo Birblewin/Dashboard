@@ -12,7 +12,7 @@ const getCodeContent = (section: string, tag?: string): string[] => {
   return CustomSCode.filter((code: CodeSection) => code.section === section && (!tag || code.tag === tag)).map(filteredCode => filteredCode.content);
 }
 
-export const License: string[] = getCodeContent("license");
+
 export const Compatibility: string[] = getCodeContent("compatibility");
 export const CodeVersion: string[] = getCodeContent("codeVersion");
 export const PausableUpgradeableImport: string[] = getCodeContent("upgradeableImports", "Pausable");
@@ -25,8 +25,6 @@ export const PausableImport: string[] = getCodeContent("Imports", "Pausable");
 export const OwnableImport: string[] = getCodeContent("Imports", "Ownable");
 export const RolesImport: string[] = getCodeContent("Imports", "Roles");
 export const ManagedImport: string[] = getCodeContent("Imports", "Managed");
-export const SecurityContact: string[] = getCodeContent("SecurityContact");
-export const ContractHeader: string[] = getCodeContent("ContractHeader");
 export const UpgradeableContractStart :  string[] = getCodeContent("UpgradeableContractStart");
 export const ContractStart :  string[] = getCodeContent("ContractStart");
 export const ContractName: string[] = getCodeContent("ContractNames", "Default");
@@ -54,7 +52,15 @@ export const UUPSSection1: string[] = getCodeContent("upgradeableFunctions", "UU
 
    
   
-export function generateCustomSCode(customsupgradeable: boolean,customspausable: boolean, customsroles : boolean, customsownable : boolean, customsmanaged : boolean, customsupgradeability : boolean, customsUUPS : boolean, customssecuritycontact : string): string {
+export function generateCustomSCode(customsupgradeable: boolean,customspausable: boolean, customsroles : boolean, customsownable : boolean, customsmanaged : boolean, customsupgradeability : boolean, customsUUPS : boolean, customssecuritycontact : string, customsname: string, customslicense: string): string {
+
+  const License = `
+  // SPDX-License-Identifier: ${customslicense}`;
+  const SecurityContact = `/// @custom:security-contact ${customssecuritycontact}`;
+  const ContractHeader = `contract ${customsname}`;
+      
+
+
     const upgradeableImports = [
     customspausable? PausableUpgradeableImport: "",
     customsownable? OwnableUpgradeableImport: "",
@@ -75,21 +81,25 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
   ].filter(Boolean).join('\n').trim(); 
 
   const upgradeableContractnames = [
-    customsmanaged || customsownable || customsroles || customspausable ? UpgradeableContractStart: "",
+    UpgradeableContractStart,
+    customsownable? ",": "",
     customsownable? OwnableUpgradeableContractName : "",
+    customsroles? ",": "",
     customsroles ?RolesUpgradeableContractName : "",
+    customsmanaged? ",": "",
     customsmanaged ?ManagedUpgradeableContractName : "",
+    customspausable? ",": "",
     customspausable ?PausableUpgradeableContractName : "",
     
-  ].filter(Boolean).join(',').trim();
+  ].filter(Boolean).join('').trim();
 
   const contractnames = [
-    customsmanaged || customsownable || customsroles || customspausable ? ContractStart: "",
-    customsownable? ",": "",
+    ContractStart ,
+    customsownable? " ": "",
     customsownable? OwnableContractName : "",
-    customsroles? ",": "",
+    customsroles && customsownable? ",": " ",
     customsroles ?RolesContractName : "",
-    customsmanaged? ",": "",
+    customsmanaged && (customsroles || customsownable)? ",": "",
     customsmanaged ?ManagedContractName : "",
     customspausable? ",": "",
     customspausable ?PausableContractName : "",
@@ -100,10 +110,10 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
 
   const contract = [
     ContractHeader,
-    !customsupgradeable? ContractName : "",
-    customsupgradeable ?  upgradeableContractnames: "",
-    !customsupgradeable ? contractnames : "",
-    customsupgradeable ?  upgradeableContractnames : "",
+    !customsupgradeability? ContractName : "",
+    customsupgradeability ?  upgradeableContractnames: "",
+    !customsupgradeability ? contractnames : "",
+    customsupgradeability ?  upgradeableContractnames : "",
     " {"
   ].filter(Boolean).join("").trim();
 
@@ -115,9 +125,10 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
     License,
     Compatibility,
     CodeVersion,
-    customsupgradeability? Imports: "",
-    !customsupgradeability? upgradeableImports: "",
+    !customsupgradeability? Imports: "",
+    customsupgradeability? upgradeableImports: "",
     "  ",
+    customssecuritycontact? SecurityContact : "",
     contract,
     customspausable && customsroles ? "\t" + PausableRolesByte: "",
     customsUUPS && customsroles ? "\t"+UUPSRolesByte: "",
