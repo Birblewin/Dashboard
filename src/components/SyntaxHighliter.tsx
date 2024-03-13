@@ -15,7 +15,7 @@ import { GovernorInitialCode } from "@/generator/Governor";
 import { generateCustomSCode } from "@/generator/CustomS";
 import { CustomSName, CustomSAccessControlManaged, CustomSAccessControlOwnable, CustomSAccessControlRoles, CustomSPauseable, CustomSSecurityContact, CustomSUpgradeability, CustomSUpgradeabilityTransparent, CustomSUpgradeabilityUUPS, CustomSUpgradeable, CustomSLicense } from "@/store/CustomS";
 import { CustomCPauseable, CustomCAccessControlRoles, CustomCAccessControlOwnable, CustomCUpgradeable, CustomCUpgradeability, CustomCUpgradeabilityUUPS, CustomCName, CustomCLicense } from "@/store/CustomC";
-import { ERC20CBurnable, ERC20CPauseable, ERC20CAccessControlRoles, ERC20CAccessControlOwnable, ERC20CMintable, ERC20CUpgradeable, ERC20CPremint } from "@/store/ERC20C";
+import { ERC20CBurnable, ERC20CPauseable, ERC20CAccessControlRoles, ERC20CAccessControlOwnable, ERC20CMintable, ERC20CUpgradeable, ERC20CPremint, ERC20CLicense, ERC20CName, ERC20CSymbol } from "@/store/ERC20C";
 import { generateCustomCCode } from "@/generator/CustomC";
 import { generateERC20CCode } from "@/generator/ERC20C";
 import { PrismLight } from 'react-syntax-highlighter';
@@ -52,11 +52,13 @@ const CodeEditor: React.FC = () => {
   const [erc20croles] = useRecoilState(ERC20CAccessControlRoles);
   const [erc20cownable] = useRecoilState(ERC20CAccessControlOwnable);
   const [erc20cupgradeable] = useRecoilState(ERC20CUpgradeable);
-  const [erc20cmintable] = useRecoilState(ERC20CMintable)
-  const [erc20cpremint] = useRecoilState(ERC20CPremint)
+  const [erc20cmintable] = useRecoilState(ERC20CMintable);
+  const [erc20cpremint] = useRecoilState(ERC20CPremint);
+  const [erc20clicense] = useRecoilState(ERC20CLicense);
+  const [erc20cname] = useRecoilState(ERC20CName);
+  const [erc20csymbol] = useRecoilState(ERC20CSymbol);
 
-
-  const ERC20CInitialCode = generateERC20CCode(erc20cburnable,erc20cmintable,  erc20cpausable,  erc20croles, erc20cownable,  erc20cupgradeable, erc20cpremint);
+  const ERC20CInitialCode = generateERC20CCode(erc20cburnable,erc20cmintable,  erc20cpausable,  erc20croles, erc20cownable,  erc20cupgradeable, erc20cpremint, erc20cname, erc20clicense, erc20csymbol);
 
   //customS logic with props snippets
   const [customspausable] = useRecoilState(CustomSPauseable);
@@ -117,7 +119,7 @@ const CodeEditor: React.FC = () => {
       const [CairoERC20] = useRecoilState(ERC20);
       const [CairoCustom] = useRecoilState(Custom);
 
-      let CairoInitialCode = ERC20CInitialCode;
+      let CairoInitialCode = ERC20CInitialCode;;
 
       if (CairoERC721) {
         CairoInitialCode = ERC721InitialCairoCode;

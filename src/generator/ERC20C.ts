@@ -12,7 +12,7 @@ const getCodeContent = (section: string, tag?: string): string[] => {
     return ERC20CCode.filter((code: CodeSection) => code.section === section && (!tag || code.tag === tag)).map(filteredCode => filteredCode.content);
 }
 
-export const License: string[] = getCodeContent("license");
+
 export const Compatibility: string[] = getCodeContent("compatibility");
 export const PausableVariable: string[] = getCodeContent("Variables", "Pausable");
 export const MintableVariable: string[] = getCodeContent("Variables", "Mintable");
@@ -32,7 +32,6 @@ export const SuperImports: string[] = getCodeContent("SuperImports", "Default");
 export const PausableSuperImport: string[] = getCodeContent("SuperImports", "Pausable");
 export const MintableSuperImport: string[] = getCodeContent("SuperImports", "Mintable");
 export const UpgradeableSuperImport: string[] = getCodeContent("SuperImports", "Upgradeable");
-export const ContractHeader: string[] = getCodeContent("ContractHeader");
 export const Component: string[] = getCodeContent("Components", "Default");
 export const PausableComponent: string[] = getCodeContent("Components", "Pausable");
 export const OwnableComponent: string[] = getCodeContent("Components", "Ownable");
@@ -61,11 +60,9 @@ export const UpgradeableEvent: string[] = getCodeContent("Events", "Upgradeable"
 export const Constructor: string[] = getCodeContent("Constructor", "Default");
 export const PausableConstructor: string[] = getCodeContent("Constructor", "Pausable");
 export const MintableConstructor: string[] = getCodeContent("Constructor", "Mintable");
-export const PremintConstructor: string[] = getCodeContent("Constructor", "Premint");
 export const OwnableConstructor: string[] = getCodeContent("Constructor", "Ownable");
 export const RolesConstructor: string[] = getCodeContent("Constructor", "Roles");
 export const UpgradeableConstructor: string[] = getCodeContent("Constructor", "Upgradeable");
-export const ConstructorReturn: string[] = getCodeContent("ConstructorReturns", "Default");
 export const OwnableConstructorReturns: string[] = getCodeContent("ConstructorReturns", "Ownable");
 export const RolesConstructorReturns: string[] = getCodeContent("ConstructorReturns", "Roles");
 export const PausableConstructorReturns: string[] = getCodeContent("ConstructorReturns", "Pausable");
@@ -85,7 +82,15 @@ export const RolesUpgradeableABI: string[] = getCodeContent("UpgradeableABI", "R
 
    
   
-export function generateERC20CCode(erc20cburnable: boolean,erc20cmintable: boolean,  erc20cpausable: boolean,  erc20croles: boolean, erc20cownable: boolean,  erc20cupgradeable: boolean, erc20cpremint: string): string {
+export function generateERC20CCode(erc20cburnable: boolean,erc20cmintable: boolean,  erc20cpausable: boolean,  erc20croles: boolean, erc20cownable: boolean,  erc20cupgradeable: boolean, erc20cpremint: string, erc20cname: string, erc20clicense: string, erc20csymbol: string): string {
+
+  const License = `
+  // SPDX-License-Identifier: ${erc20clicense}`;
+  const ContractHeader = `mod ${erc20cname} {`;
+  const PremintConstructor = `self.erc20._mint(recipient, ${erc20cpremint}000000000000000000);`;
+  const ConstructorReturn = `self.erc20.initializer(${erc20cname}, ${erc20csymbol});`
+
+
     const Variables = [
     "\n",
     erc20cpausable? PausableVariable : "",
