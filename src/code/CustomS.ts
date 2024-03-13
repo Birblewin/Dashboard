@@ -162,7 +162,7 @@ export const CustomSCode =[
         section: "ContractStart",  
         tag: "Default",
         name: "ERC20DefaultContractNames", 
-        content: `is`
+        content: ` is`
     },
     { 
         snippet_id: 1, 
@@ -171,7 +171,7 @@ export const CustomSCode =[
         section: "UpgradeableContractStart",  
         tag: "Default",
         name: "ERC20DefaultContractNames", 
-        content: `is Initializable`
+        content: ` is Initializable`
     },
    
     { 
