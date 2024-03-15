@@ -2,23 +2,23 @@
     // IMPORTING MODULES
 import { atom } from "recoil";
     // IMPORTING TYPES
-import { GovernorFormDataType } from "@/types/types";
+import { GovernorFormDataType, GovernorErrorsType } from "@/types/types";
 
 // GENERATING AN ATOM TO HOLD THE GOVERNOR FORM STATE
-const governorFormData = atom<GovernorFormDataType>({
+export const governorFormData = atom<GovernorFormDataType>({
     key: "governorFormData",
     
     default: {
-        name: "",
-        votingDelay: "1 day",
-        votingPeriod: "1 week",
-        blockValue: 0,
-        proposalThreshold: 0,
+        name: "MyGovernor", // NO PLACEHOLDER
+        votingDelay: "1 day",// NO PLACEHOLDER
+        votingPeriod: "1 week",// NO PLACEHOLDER
+        blockValue: "12",//PLACEHOLDER=12
+        proposalThreshold: "0",//PLACEHOLDER=0
         
         quorumType: "percentage",
-        quorumValue: 0,
+        quorumValue: "4",//PLACEHOLDER=4
         
-        tokenDecimals: 0,
+        tokenDecimals: "18",//PLACEHOLDER=18
         updatableSettings: false,
         storage: false,
         votes: "ERC20Votes",
@@ -29,9 +29,19 @@ const governorFormData = atom<GovernorFormDataType>({
         upgradeabilityValue: false,
         upgradeabilityType: "",
 
-        securityContact: "",
-        license: ""
+        securityContact: "",//PLACEHOLDER=security@example.com
+        license: "MIT"//PLACEHOLDER=MIT
     }
 })
 
-export default governorFormData
+// GENERATING AN ATOM TO HOLD THE GOVERNOR ERROR STATE
+export const governorErrors = atom<GovernorErrorsType>({
+    key: "governorErrors",
+
+    default: {
+        proposalThreshold: "",
+        quorumValue: "",
+        votingDelay: "",
+        votingPeriod: ""
+    }
+})

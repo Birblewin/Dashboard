@@ -50,13 +50,13 @@ export type GovernorFormDataType = {
     name: string, // INPUT
     votingDelay: "1 day" | `${number} days`, // INPUT
     votingPeriod: "1 week" | `${number} weeks`, // INPUT
-    blockValue: number, // INPUT(NUMBER)
-    proposalThreshold: number, // INPUT(NUMBER)
+    blockValue: `${number}` | "", // INPUT
+    proposalThreshold: `${number}`, // INPUT
     
     quorumType:  "percentage" | "number", // RADIO
-    quorumValue: number, // INPUT(NUMBER)
+    quorumValue: `${number}`, // INPUT
     
-    tokenDecimals: number, // INPUT(NUMBER)
+    tokenDecimals: `${number}` | "", // INPUT
     updatableSettings: boolean, // CHECKBOX
     storage: boolean, // CHECKBOX
     votes: "ERC20Votes" | "ERC721Votes", // RADIO
@@ -70,3 +70,6 @@ export type GovernorFormDataType = {
     securityContact: string, // INPUT
     license: string // INPUT
 }
+
+// A TYPE FOR THE GOVERNONR ERRORS
+export type GovernorErrorsType = Pick<Record<keyof GovernorFormDataType, string>, "proposalThreshold" | "quorumValue" | "votingDelay" | "votingPeriod">
