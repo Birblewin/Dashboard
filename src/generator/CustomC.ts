@@ -94,7 +94,7 @@ export function generateCustomCCode(customcupgradeable: boolean,customcpausable:
   const  Superimport = [
     SuperImport,
     customcpausable? PausableSuperImport: "",
-    customcupgradeable? ", ": "",
+    customcpausable && customcupgradeable? ", ": "",
     customcupgradeable? UpgradeableSuperImport: "",
     "}"
   ].filter(Boolean).join(''); 
@@ -110,8 +110,7 @@ export function generateCustomCCode(customcupgradeable: boolean,customcpausable:
   const  Embeds = [
     customcpausable? "\t"+PausableEmbed: "",
     customcownable  ? "\t"+OwnableEmbed: "",
-    customcroles ? "\t"+RolesEmbed: "",
-    
+    customcroles ? "\t"+RolesEmbed: "", 
   ].filter(Boolean).join('\n'); 
 
   const IMPLS = [
@@ -119,17 +118,16 @@ export function generateCustomCCode(customcupgradeable: boolean,customcpausable:
     customcownable? "\t"+OwnableIMPL: "",
     customcroles ? "\t"+RolesIMPL: "",
     customcupgradeable? "\t"+UpgradeableIMPL : ""
-
   ].filter(Boolean).join('\n');
 
 
   const Storages = [
-    "\n"+"\t"+Storage,
+    "\t"+Storage,
     customcpausable? "\t"+"\t"+PausableStorage : "",
     customcownable? "\t"+"\t"+OwnableStorage: "",
     customcroles ? "\t"+"\t"+RolesStorage: "",
     customcupgradeable? "\t"+"\t"+UpgradeableStorage : "",
-    "\t"+"}"+"\n"
+    "\t"+"}"
   ].filter(Boolean).join('\n');
 
   const Events = [
@@ -179,14 +177,14 @@ export function generateCustomCCode(customcupgradeable: boolean,customcpausable:
     ContractHeader,
     Zeppelin,
     Starknet,
-    "\t"+Superimport,
+    customcroles || customcownable? "\t"+Superimport: "",
     Components,
     Embeds,
     IMPLS,
     Storages,
-    Events,
-    Constructors,
-    ConstructorReturns,
+    customcroles || customcownable? Events: "",
+    customcroles || customcownable? Constructors: "",
+    customcroles || customcownable? ConstructorReturns: "",
     customcpausable ?  Traits: "",
     customcupgradeable? UpgradeableABIs : "",
     "}"
