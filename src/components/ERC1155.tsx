@@ -75,7 +75,7 @@ export default function ERC1155() {
 
     if (isChecked) {
       setAccessControl(true);
-      setManaged(true)
+      setOwnable(true)
 
 
     } else {
@@ -100,7 +100,7 @@ export default function ERC1155() {
 
     if (isChecked) {
       setAccessControl(true);
-      setManaged(true)
+      setOwnable(true)
 
 
     } else {
@@ -124,7 +124,7 @@ export default function ERC1155() {
 
     if (isChecked) {
       setAccessControl(true);
-      setManaged(true)
+      setOwnable(true)
 
 
     } else {

@@ -418,7 +418,8 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "Constructor",  
         tag: "Managed2",
         name: "ERC1155Managed2Constructor", 
-        content: `AccessManaged(initialAuthority)`
+        content: `\t\t\tAccessManaged(initialAuthority)
+        `
      },
     { 
         snippet_id: 1, 
@@ -484,31 +485,51 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         }
     `
     },
-
+    //// Functions values For mintable Acces Control
     { 
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
         section: "Functions",  
-        tag: "URIStorageMintable",
-        name: "ERC1155URIStorageMintableFunctions", 
-        content: `_setTokenURI(tokenId, uri);`
+        tag: "Ownable",
+        name: "ERC1155OwnableMintableFunctions", 
+        content:`onlyOwner`
     },
     { 
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
         section: "Functions",  
-        tag: "Pausable",
-        name: "ERC1155PausableFunctions", 
-        content: `
-        function pause() public onlyOwner {
-            _pause();
-        }
-    
-        function unpause() public onlyOwner {
-            _unpause();
-        }`
+        tag: "Roles",
+        name: "ERC1155RolesMintableFunctions", 
+        content:`\t\t\t\ onlyRole(MINTER_ROLE)`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Functions",  
+        tag: "Managed",
+        name: "ERC1155ManagedMintableFunctions", 
+        content:`restricted`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Functions",  
+        tag: "Upgradable",
+        name: "ERC1155ManagedMintableFunctions", 
+        content:`Upgradable`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Functions",  
+        tag: "UpdatableURI",
+        name: "ERC1155UpdatableURIFunctions", 
+        content:`onlyRole(URI_SETTER_ROLE)`
     },
 
     //..............
@@ -530,24 +551,6 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         name: "ERC1155PausableupgradeableFunctions", 
         content: `__ERC1155Pausable_init()`
     },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "upgradeableFunctions",  
-        tag: "Enumerable",
-        name: "ERC1155EnumerableupgradeableFunctions", 
-        content: ` __ERC1155Enumerable_init();`
-    },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "upgradeableFunctions",  
-        tag: "URIStorage",
-        name: "ERC1155URIStorageupgradeableFunctions", 
-        content: `__ERC1155URIStorage_init();`
-    },
 
     { 
         snippet_id: 1, 
@@ -556,7 +559,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",  
         tag: "Ownable",
         name: "ERC1155OwnableupgradeableFunctions", 
-        content: `__Ownable_init(initialOwner);`
+        content: `\t\  __Ownable_init(initialOwner);`
     },
     { 
         snippet_id: 1, 
@@ -565,7 +568,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",  
         tag: "Roles",
         name: "ERC1155RolesupgradeableFunctions", 
-        content: `__AccessControl_init();`
+        content: `\t\  __AccessControl_init();`
     },
     { 
         snippet_id: 1, 
@@ -574,17 +577,18 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",  
         tag: "RolesRole",
         name: "ERC1155RolesRoleupgradeableFunctions", 
-        content: `_grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);`
+        content: `\t\  _grantRole(MINTER_ROLE, minter);
+        \t\t\  _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);`
     },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "upgradeableFunctions",  
-        tag: "MintableRoles",
-        name: "ERC1155MintableRolesupgradeableFunctions", 
-        content: `_grantRole(MINTER_ROLE, minter);`
-    },
+    // { 
+    //     snippet_id: 1, 
+    //     wizard_id: 1,
+    //     contractType_id: 1, 
+    //     section: "upgradeableFunctions",  
+    //     tag: "MintableRoles",
+    //     name: "ERC1155MintableRolesupgradeableFunctions", 
+    //     content: `_grantRole(MINTER_ROLE, minter);`
+    // },
     { 
         snippet_id: 1, 
         wizard_id: 1,
@@ -592,7 +596,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",  
         tag: "PausableRoles",
         name: "ERC1155PausableRolesupgradeableFunctions", 
-        content: `_grantRole(PAUSER_ROLE, pauser);`
+        content: `\t\  _grantRole(PAUSER_ROLE, pauser);`
     },
     { 
         snippet_id: 1, 
@@ -601,8 +605,8 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",  
         tag: "Managed",
         name: "ERC1155ManagedupgradeableFunctions", 
-        content: `__AccessManaged_init(initialAuthority);`
-    },
+        content: `\t\ __AccessManaged_init(initialAuthority);`
+    }, 
     { 
         snippet_id: 1, 
         wizard_id: 1,
@@ -610,8 +614,17 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",  
         tag: "UUPS",
         name: "ERC1155UUPSupgradeableFunctions", 
-        content: `__UUPSUpgradeable_init();`
+        content: `\t\  __UUPSUpgradeable_init();`
     },
+    // { 
+    //     snippet_id: 1, 
+    //     wizard_id: 1,
+    //     contractType_id: 1, 
+    //     section: "upgradeableFunctions",  
+    //     tag: "Pausable",
+    //     name: "ERC1155UUPSupgradeableFunctions", 
+    //     content: `\n\t\  __UUPSUpgradeable_init();`
+    // },
     { 
         snippet_id: 1, 
         wizard_id: 1,
@@ -643,7 +656,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
-        section: "Section2",  
+        section: "Sections",  
         tag: "Mintable",
         name: "ERC1155MintableSection2", 
         content: `function mint(address to, uint256 amount) public onlyOwner {
@@ -658,69 +671,9 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         tag: "UUPS",
         name: "ERC1155UUPSSection2", 
         content: `function _authorizeUpgrade(address newImplementation)
-        internal
+            internal
         onlyRole(UPGRADER_ROLE)
         override
     {}`
     },
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "Section2",  
-//         tag: "Pausable",
-//         name: "ERC1155PausableSection2", 
-//         content: `function pause() public onlyOwner {
-//             _pause();
-//         }
-    
-//         function unpause() public onlyOwner {
-//             _unpause();`
-//     },
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "Section3",  
-//         tag: "Pausable",
-//         name: "ERC1155PausableSection3", 
-//         content: `function nonces(address owner)
-//         public
-//         view
-//         override(ERC1155PermitUpgradeable, NoncesUpgradeable)
-//         returns (uint256)
-//     {
-//         return super.nonces(owner);
-//     }
-// `
-//     },
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "Section3",  
-//         tag: "Votes",
-//         name: "ERC1155VotesSection3", 
-//         content: `// The following functions are overrides required by Solidity.
-
-//         function _update(address from, address to, uint256 value)
-//             internal
-//             override(ERC1155Upgradeable, ERC1155PausableUpgradeable)
-//         {
-//             super._update(from, to, value);
-//         }`
-//     }
-];
-  
-  const Wizards =[
-    {wizard_id: 2, wizard_name: "Solidity"}
-  ];
-
-  const ContractType =[
-    {contractType_id: 1, contractType: "ERC71155"},
-    {contractType_id: 2, contractType: "ERC71155"}
-  ];
-
-const VariableName= [
-    {Variable_id: 1, variable_Section: {name} }
-]
+]; 
