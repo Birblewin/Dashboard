@@ -68,7 +68,7 @@ const SuperImport: string[] = getCodeContent("SuperImports", "Default");
   
 export function generateCustomCCode(customcupgradeable: boolean,customcpausable: boolean, customcroles: boolean, customcownable: boolean,  customcupgradeability: boolean, customcUUPS: boolean, customcname : string, customclicense: string): string {
   const License = `
-  // SPDX-License-Identifier: ${customclicense}`;
+// SPDX-License-Identifier: ${customclicense}`;
   const ContractHeader = `mod ${customcname} {`;
       
   const Variables = [
@@ -188,7 +188,7 @@ export function generateCustomCCode(customcupgradeable: boolean,customcpausable:
     customcpausable ?  Traits: "",
     customcupgradeable? UpgradeableABIs : "",
     "}"
-  ].filter(Boolean).join('\n'); 
+  ].filter(Boolean).join('\n').trim(); 
 
     return `
      ${result}

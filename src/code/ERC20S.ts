@@ -666,17 +666,3 @@ export const ERC20SCode =[
     }`
     }
 ];
-  
-  const Wizards =[
-    {wizard_id: 1, wizard_name: "Cairo"},
-    {wizard_id: 2, wizard_name: "Solidity"}
-  ];
-
-  const ContractType =[
-    {contractType_id: 1, contractType: "ERC20"},
-    {contractType_id: 2, contractType: "ERC20"}
-  ];
-
-const VariableName= [
-    {Variable_id: 1, variable_Section: {name} }
-]
