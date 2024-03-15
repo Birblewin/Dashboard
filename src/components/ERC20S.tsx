@@ -11,10 +11,6 @@ import { useState } from "react";
 
 
 const ERC20 = ()=>{
-    const selectorValue = useRecoilValue(selectors);
-    const [premintError, setPremintError] = useState(false);
-
-    console.log(selectorValue);
     const [name, setName] = useRecoilState(ERC20SName);
     const [securityContact, setSecurityContact] = useRecoilState(ERC20SSecurityContact);
     const [license, setLicense] = useRecoilState(ERC20SLicense);

@@ -55,9 +55,6 @@ export const PausableUpgradeableContractName: string[] = getCodeContent("upgrade
 export const FlashMintUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "flashMinting");
 export const RolesByte: string[] = getCodeContent("RolesByte");
 export const PermitConstructor: string[] = getCodeContent("Constructor", "Permit");
-export const OwnableConstructor: string[] = getCodeContent("Constructor", "Ownable");
-export const RolesConstructor: string[] = getCodeContent("Constructor", "Roles");
-export const ManagedConstructor: string[] = getCodeContent("Constructor", "Managed");
 export const UpgradeableConstructor: string[] = getCodeContent("upgradeableConstructor");
 export const MintableSection2: string[] = getCodeContent("Section2", "Mintable");
 export const PausableSection2: string[] = getCodeContent("Section2", "Pausable");
@@ -78,18 +75,71 @@ export const FlashMintingSection1: string[] = getCodeContent("upgradeableFunctio
 
    
   
-export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spermit: boolean, erc20supgradeable: boolean, erc20sUUPS: boolean, erc20ssecutitycontact: string , erc20slicense: string, erc20sname: string, erc20ssymbol: string): string {
+export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spermit: boolean, erc20supgradeable: boolean, erc20sUUPS: boolean, erc20ssecutitycontact: string , erc20slicense: string, erc20sname: string, erc20ssymbol: string, erc20spremint: string): string {
 
     const License = `
 // SPDX-License-Identifier: ${erc20slicense}`
     const SecurityContact = `/// @custom:security-contact ${erc20ssecutitycontact}`
-    const ContractHeader = `contract ${erc20sname} is`
+    const ContractHeader = `contract ${erc20sname} is `
     const DefaultConstructor = `constructor() ERC20("${erc20sname}", "${erc20ssymbol}") ` + (erc20spermit ? `ERC20Permit("${erc20ssymbol}")` : "");
     const Section1 = `initializer public
     {
         __ERC20_init("${erc20sname}", "${erc20ssymbol}");`
+
     const PermitSection1 = `    __ERC20Permit_init("${erc20sname}");`
 
+    const PremintConstructor = `{
+        _mint(msg.sender, ${erc20spremint} * 10 ** decimals());
+    }`
+
+  const unPremintConstructor = `{}`
+
+  const endingOwnableConstructor = [
+    erc20spremint ? PremintConstructor : "",
+    !erc20spremint? unPremintConstructor: ""
+  ].filter(Boolean).join("").trim();
+
+  const ownableConstructor1 = `constructor(address initialOwner)
+        ERC20("${erc20sname}", "${erc20ssymbol}")`
+  const OwnableConstructor2 = `ERC20Permit("${erc20sname}")`
+  const OwnableConstructor3 = `Ownable(initialOwner)`
+
+    const OwnableConstructor = [
+      ownableConstructor1,
+      erc20spermit ? "\t" + "\t" + OwnableConstructor2 : "",
+      "\t" + "\t" + OwnableConstructor3     
+].filter(Boolean).join("\n");
+
+const RolesConstructor1 = `constructor(address defaultAdmin)
+        ERC20("${erc20sname}", "${erc20ssymbol}")`
+const RolesConstructor2 = `ERC20Permit("${erc20ssymbol}")`
+const RolesConstructor3 = `{
+        _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);`
+const RolesConstructor4 = `_grantRole(PAUSER_ROLE, pauser);`;
+const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
+
+
+
+  const RolesConstructor = [
+    RolesConstructor1,
+    erc20spermit? "\t" +"\t" +RolesConstructor2: "",
+    "\t" +RolesConstructor3,
+    erc20spausable? "\t" +"\t" +RolesConstructor4: "",
+    erc20smintable? "\t" +"\t" +RolesConstructor5: "",
+    "\t" + "}"
+  ].filter(Boolean).join('\n');
+
+  const ManagedConstructor1 = `constructor(address initialAuthority)
+        ERC20("${erc20sname}", "${erc20ssymbol}")`
+  const ManagedConstructor2 = `ERC20Permit("${erc20ssymbol}")`
+  const ManagedConstructor3 = `AccessManaged(initialAuthority)`
+
+  const ManagedConstructor = [
+    ManagedConstructor1,
+    erc20spermit? "\t" +"\t" +ManagedConstructor2: "",
+    "\t" +"\t" +ManagedConstructor3 
+  ].filter(Boolean).join('\n');
+    
 
     const upgradeableImports = [
     StartUpgradeableImport,
@@ -128,7 +178,7 @@ export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: bool
     erc20spermit?  PermitUpgradeableContractName : "",
     erc20svotes? VotesUpgradeableContractName : "",
     erc20sflashMinting? FlashMintUpgradeableContractName : ""
-  ].filter(Boolean).join(',').trim();
+  ].filter(Boolean).join(', ').trim();
 
   const contractnames = [
     erc20sownable? OwnableContractName : "",
@@ -139,32 +189,33 @@ export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: bool
     erc20spermit?  PermitContractName : "",
     erc20svotes? VotesContractName : "",
     erc20sflashMinting? FlashMintContractName : ""
-  ].filter(Boolean).join(',').trim();
+  ].filter(Boolean).join(', ').trim();
 
 
 
   const contract = [
     ContractHeader,
     !erc20supgradeable? ContractName : "",
+    erc20sownable || erc20sburnable || erc20spermit || erc20svotes || erc20sflashMinting ? ", ": "",
     erc20supgradeable ?  UpgradeableContractName: "",
-    !erc20supgradeable ? contractnames : "",
+    !erc20supgradeable ? contractnames : "", 
     erc20supgradeable ?  upgradeableContractnames : "",
     " {"
   ].filter(Boolean).join("").trim();
 
 
   const constructor = [
-      "\t" + DefaultConstructor,
+      !erc20sownable && !erc20sroles && !erc20smanaged?  "\t" + DefaultConstructor : "",
       erc20spermit? PermitConstructor: "",
       erc20sownable? "\t" + OwnableConstructor : "",
       erc20sroles? "\t" + RolesConstructor : "",
       erc20smanaged? "\t" + ManagedConstructor : "",
-
+      "\t" + endingOwnableConstructor
   ].filter(Boolean).join("\n");
 
 
   const section1header = [
-    "\t" + Section1Header,
+    Section1Header,
     erc20spausable? PausableSection1Header: "",
     erc20smintable? MintableSection1Header: "",
     ")"
@@ -172,7 +223,7 @@ export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: bool
 
 
   const section1 = [
-    "\t" + Section1,
+    "\t" + "\t" + Section1,
     erc20sownable? "\t" + OwnableSection1: "",
     erc20sroles? "\t" + RolesSection1: "",
     erc20smanaged? "\t" + ManagedSection1 : "",

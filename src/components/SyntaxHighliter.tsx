@@ -20,11 +20,11 @@ import { generateCustomCCode } from "@/generator/CustomC";
 import { generateERC20CCode } from "@/generator/ERC20C";
 import { PrismLight } from 'react-syntax-highlighter';
 import cairo from 'prismjs-cairo';
-
 PrismLight.registerLanguage('cairo', cairo);
 
 
 const CodeEditor: React.FC = () => {
+
 
   //erc20 logic with props snippets
   const [erc20sburnable] = useRecoilState(ERC20SBurnable);
@@ -41,10 +41,11 @@ const CodeEditor: React.FC = () => {
   const [erc20ssecuritycontact] = useRecoilState(ERC20SSecurityContact)
   const [erc20slicense] = useRecoilState(ERC20SLicense);
   const [erc20sname] = useRecoilState(ERC20SName);
-  const [erc20ssymbol]= useRecoilState(ERC20SSymbol)
+  const [erc20ssymbol]= useRecoilState(ERC20SSymbol);
+  const [erc20spremint] = useRecoilState(ERC20SPremint)
 
 
-  const ERC20InitialCode = generateERC20SCode(erc20sburnable,erc20smintable, erc20svotes, erc20spausable, erc20sflashMinting, erc20sroles, erc20sownable, erc20smanaged, erc20spermit, erc20supgradeable, erc20sUUPS, erc20ssecuritycontact, erc20slicense, erc20sname, erc20ssymbol);
+  const ERC20InitialCode = generateERC20SCode(erc20sburnable,erc20smintable, erc20svotes, erc20spausable, erc20sflashMinting, erc20sroles, erc20sownable, erc20smanaged, erc20spermit, erc20supgradeable, erc20sUUPS, erc20ssecuritycontact, erc20slicense, erc20sname, erc20ssymbol, erc20spremint);
  
   //erc20C logic with props snippets
   const [erc20cburnable] = useRecoilState(ERC20CBurnable);
