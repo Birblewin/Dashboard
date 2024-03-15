@@ -7,7 +7,7 @@ const contact = CustomSSecurityContact;
 
 
 
-export const CustomSCode =[
+const CustomSCode =[
     { 
         snippet_id: 1, 
         wizard_id: 1,
@@ -379,5 +379,8 @@ export const CustomSCode =[
 `
     }
 ];
+
+
+export default CustomSCode;
 
 

@@ -1,15 +1,15 @@
-import { CustomSCode } from "@/code/CustomS";
-
-
-
+import CustomSCode from "@/code/CustomS";
 
 
 interface CodeSection {
     section: string;
     tag?: string;
 }
+
 const getCodeContent = (section: string, tag?: string): string[] => {
-  return CustomSCode.filter((code: CodeSection) => code.section === section && (!tag || code.tag === tag)).map(filteredCode => filteredCode.content);
+  return CustomSCode.filter((code: CodeSection) => 
+    code.section === section && (!tag || code.tag === tag)
+  ).map(filteredCode => filteredCode.content || ''); // Handle possible undefined content
 }
 
 
