@@ -162,7 +162,7 @@ const CustomSCode =[
         section: "ContractStart",  
         tag: "Default",
         name: "ERC20DefaultContractNames", 
-        content: ` is`
+        content: `is`
     },
     { 
         snippet_id: 1, 
@@ -171,7 +171,7 @@ const CustomSCode =[
         section: "UpgradeableContractStart",  
         tag: "Default",
         name: "ERC20DefaultContractNames", 
-        content: ` is Initializable`
+        content: `is Initializable`
     },
    
     { 
@@ -181,7 +181,7 @@ const CustomSCode =[
         section: "ContractNames",  
         tag: "Pausable",
         name: "ERC20PausableContractNames", 
-        content: `Pausable `
+        content: `Pausable`
     },
     { 
         snippet_id: 1, 
@@ -190,7 +190,7 @@ const CustomSCode =[
         section: "ContractNames",  
         tag: "Ownable",
         name: "ERC20OwnableContractNames", 
-        content: `Ownable `
+        content: `Ownable`
     },
     { 
         snippet_id: 1, 
@@ -199,7 +199,7 @@ const CustomSCode =[
         section: "ContractNames",  
         tag: "Roles",
         name: "ERC20RolesContractNames", 
-        content: `AccessControl `
+        content: `AccessControl`
     },
     { 
         snippet_id: 1, 
@@ -208,7 +208,7 @@ const CustomSCode =[
         section: "ContractNames",  
         tag: "Managed",
         name: "ERC20ManagedContractNames", 
-        content: `AccessManaged `
+        content: `AccessManaged`
     },
     { 
         snippet_id: 1, 
@@ -217,7 +217,7 @@ const CustomSCode =[
         section: "upgradeableContractNames",  
         tag: "Default",
         name: "ERC20DefaultContractNames", 
-        content: `Initializable `
+        content: `Initializable`
     },
     
     { 
@@ -227,7 +227,7 @@ const CustomSCode =[
         section: "upgradeableContractNames",  
         tag: "Pausable",
         name: "ERC20PausableContractNames", 
-        content: ` PausableUpgradeable `
+        content: `PausableUpgradeable`
     },
     
     { 
@@ -237,7 +237,7 @@ const CustomSCode =[
         section: "upgradeableContractNames",  
         tag: "Ownable",
         name: "OwnableContractNames", 
-        content: ` OwnableUpgradeable `
+        content: `OwnableUpgradeable`
     },
     { 
         snippet_id: 1, 
@@ -246,7 +246,7 @@ const CustomSCode =[
         section: "upgradeableContractNames",  
         tag: "Roles",
         name: "RolesContractNames", 
-        content: ` AccessControlUpgradeable `
+        content: `AccessControlUpgradeable`
     },
     { 
         snippet_id: 1, 
@@ -255,7 +255,7 @@ const CustomSCode =[
         section: "upgradeableContractNames",  
         tag: "Managed",
         name: "ManagedContractNames", 
-        content: ` AccessManagedUpgradeable `
+        content: `AccessManagedUpgradeable`
     },
     { 
         snippet_id: 1, 

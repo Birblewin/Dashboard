@@ -82,13 +82,13 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
 
   const upgradeableContractnames = [
     UpgradeableContractStart,
-    customsownable? ",": "",
+    customsownable? ", ": "",
     customsownable? OwnableUpgradeableContractName : "",
-    customsroles? ",": "",
+    customsroles? ", ": "",
     customsroles ?RolesUpgradeableContractName : "",
-    customsmanaged? ",": "",
+    customsmanaged? ", ": "",
     customsmanaged ?ManagedUpgradeableContractName : "",
-    customspausable? ",": "",
+    customspausable? ", ": "",
     customspausable ?PausableUpgradeableContractName : "",
     
   ].filter(Boolean).join('').trim();
@@ -97,11 +97,11 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
     ContractStart ,
     customsownable? " ": "",
     customsownable? OwnableContractName : "",
-    customsroles && customsownable? ",": " ",
+    customsroles && customsownable? ", ": " ",
     customsroles ?RolesContractName : "",
-    customsmanaged && (customsroles || customsownable)? ",": "",
+    customsmanaged && (customsroles || customsownable)? ", ": "",
     customsmanaged ?ManagedContractName : "",
-    customspausable? ",": "",
+    customspausable? ", ": "",
     customspausable ?PausableContractName : "",
     
   ].filter(Boolean).join('');
@@ -110,8 +110,6 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
 
   const contract = [
     ContractHeader,
-    !customsupgradeability? ContractName : "",
-    customsupgradeability ?  upgradeableContractnames: "",
     !customsupgradeability ? contractnames : "",
     customsupgradeability ?  upgradeableContractnames : "",
     " {"
