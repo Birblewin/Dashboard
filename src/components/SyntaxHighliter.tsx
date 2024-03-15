@@ -12,15 +12,7 @@ import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20
 import { ERC1155InitialCode } from "@/generator/ERC1155";
 import { ERC721InitialCode } from "@/generator/ERC721S";
 import { GovernorInitialCode } from "@/generator/Governor";
-import { generateCustomSCode } from "@/generator/CustomS";
-import { CustomSName, CustomSAccessControlManaged, CustomSAccessControlOwnable, CustomSAccessControlRoles, CustomSPauseable, CustomSSecurityContact, CustomSUpgradeability, CustomSUpgradeabilityTransparent, CustomSUpgradeabilityUUPS, CustomSUpgradeable, CustomSLicense } from "@/store/CustomS";
-import { CustomCPauseable, CustomCAccessControlRoles, CustomCAccessControlOwnable, CustomCUpgradeable, CustomCUpgradeability, CustomCUpgradeabilityUUPS, CustomCName, CustomCLicense } from "@/store/CustomC";
-import { ERC20CBurnable, ERC20CPauseable, ERC20CAccessControlRoles, ERC20CAccessControlOwnable, ERC20CMintable, ERC20CUpgradeable, ERC20CPremint, ERC20CLicense, ERC20CName, ERC20CSymbol } from "@/store/ERC20C";
-import { generateCustomCCode } from "@/generator/CustomC";
-import { generateERC20CCode } from "@/generator/ERC20C";
-import { PrismLight } from 'react-syntax-highlighter';
-import cairo from 'prismjs-cairo';
-PrismLight.registerLanguage('cairo', cairo);
+import { CustomInitialCode } from "@/generator/CustomS";
 
 
 const CodeEditor: React.FC = () => {
@@ -94,7 +86,6 @@ const CodeEditor: React.FC = () => {
   const [isWizard] = useRecoilState(wizard)
   const [isCairo] = useRecoilState(cairos)
 
-  //wizard templates
   const [IsERC1155] = useRecoilState(ERC1155Atom);
   const [IsERC721] = useRecoilState(ERC721Atom);
   const [IsERC20] = useRecoilState(ERC20Atom);

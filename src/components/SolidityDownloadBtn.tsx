@@ -29,7 +29,7 @@ function Download() {
   return (
     <div>
       <button
-        className="font-bold text-black border p-2 rounded hover:bg-gray-200"
+        className="font-bold text-black border p-2 rounded hover:bg-gray-200 flex items-center justify-around w-[85%] mx-auto gap-4"
         onClick={handleButtonClick}
       >
         <DownloadIcon width={15} height={15} />

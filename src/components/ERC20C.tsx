@@ -146,7 +146,7 @@ const ERC20 = ()=>{
                 <h1 className="text-[#818998] font-semibold text-xs">SETTINGS</h1>
                 <div className="flex flex-row">
                     <div className="flex flex-col w-[60%] p-[0.5rem]">
-                        <label htmlFor="name" className="text-[#333333] text-[0.875rem]  text-black">
+                        <label htmlFor="name" className="text-[0.875rem]  text-black">
                             Name
                         </label>
                         <input  id="name" type="text" placeholder="My Token" className="border border-1 border-[#333333] rounded-[6px] p-1" value={name}  onChange={(e) => setName(e.target.value)}/>
