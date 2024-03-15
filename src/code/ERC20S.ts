@@ -1,5 +1,12 @@
 import { ERC20SSecurityContact, ERC20SLicense, ERC20SName} from "@/store/ERC20S";
+import { getRecoil } from "recoil-nexus";
 
+const name = ERC20SName;
+const license = ERC20SLicense;
+const contact = ERC20SSecurityContact;
+
+
+console.log(ERC20SName);
 
 const PermitConstructor =
     { 
@@ -9,7 +16,7 @@ const PermitConstructor =
         section: "Constructor",  
         tag: "Permit",
         name: "ERC20PermitConstructor", 
-        content: `ERC20Permit("${ERC20SLicense}")`
+        content: `ERC20Permit("${license}")`
     };
 
 
@@ -21,7 +28,7 @@ export const ERC20SCode =[
         section: "license",  
         tag: "Default",
         name: "ERC20DefaultLicense", 
-        content: `// SPDX-License-Identifier: ${ERC20SLicense}`
+        content:`// SPDX-License-Identifier: `
     },
     { 
         snippet_id: 1, 
@@ -39,7 +46,8 @@ export const ERC20SCode =[
         section: "codeVersion",  
         tag: "Default",
         name: "ERC20codeVersion", 
-        content: `pragma solidity ^0.8.20;`
+        content: `pragma solidity ^0.8.20;
+        `
     },
     { 
         snippet_id: 1, 
@@ -48,7 +56,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "DefaultStart",
         name: "ERC20DefaultUpgradeableImports", 
-        content: `"@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";`
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -57,7 +65,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Burnable",
         name: "ERC20BurnableUpgradeableImports", 
-        content: `import"@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20BurnableUpgradeable.sol";`
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20BurnableUpgradeable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -66,7 +74,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Pausable",
         name: "ERC20PausableUpgradeableImports", 
-        content: `import"@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PausableUpgradeable.sol";`
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PausableUpgradeable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -84,7 +92,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Permit",
         name: "ERC20PermitUpgradeableImports", 
-        content: `import"@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol"`
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol"`
     },
     { 
         snippet_id: 1, 
@@ -102,7 +110,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Ownable",
         name: "ERC20OwnableUpgradeableImports", 
-        content: `import"@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";`
+        content: `import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -111,7 +119,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Roles",
         name: "ERC20RolesUpgradeableImports", 
-        content: `import"@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";`
+        content: `import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -120,7 +128,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Managed",
         name: "ERC20ManagedUpgradeableImports", 
-        content: `import"@openzeppelin/contracts-upgradeable/access/manager/AccessManagedUpgradeable.sol";`
+        content: `import "@openzeppelin/contracts-upgradeable/access/manager/AccessManagedUpgradeable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -165,7 +173,7 @@ export const ERC20SCode =[
         section: "Imports",  
         tag: "Pausable",
         name: "ERC20PausableImports", 
-        content: `import       "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";`
+        content: `import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -228,7 +236,7 @@ export const ERC20SCode =[
         section: "SecurityContact",  
         tag: "Default",
         name: "ERC20SecurityContact", 
-        content: `/// @custom:security-contact ${ERC20SSecurityContact}`
+        content: `/// @custom:security-contact ${contact}`
     },
     { 
         snippet_id: 1, 
@@ -237,7 +245,7 @@ export const ERC20SCode =[
         section: "ContractHeader",  
         tag: "Default",
         name: "ERC20ContractHeader", 
-        content: `contract ${ERC20SName} is`
+        content: `contract ${name} is `
     },
     { 
         snippet_id: 1, 
@@ -246,7 +254,7 @@ export const ERC20SCode =[
         section: "ContractNames",  
         tag: "Default",
         name: "ERC20DefaultContractNames", 
-        content: `ERC20,`
+        content: `ERC20`
     },
     { 
         snippet_id: 1, 
@@ -264,7 +272,7 @@ export const ERC20SCode =[
         section: "ContractNames",  
         tag: "Pausable",
         name: "ERC20PausableContractNames", 
-        content: `ERC20Pausable `
+        content: `ERC20Pausable`
     },
     { 
         snippet_id: 1, 
@@ -273,7 +281,7 @@ export const ERC20SCode =[
         section: "ContractNames",  
         tag: "flashMinting",
         name: "ERC20FlashMintingContractNames", 
-        content: `ERC20FlashMint `
+        content: `ERC20FlashMint`
     },
     { 
         snippet_id: 1, 
@@ -282,7 +290,7 @@ export const ERC20SCode =[
         section: "ContractNames",  
         tag: "Permit",
         name: "ERC20PermitContractNames", 
-        content: `ERC20Permit `
+        content: `ERC20Permit`
     },
     { 
         snippet_id: 1, 
@@ -291,7 +299,7 @@ export const ERC20SCode =[
         section: "ContractNames",  
         tag: "Votes",
         name: "ERC20VotesContractNames", 
-        content: `ERC20Votes `
+        content: `ERC20Votes`
     },
     { 
         snippet_id: 1, 
@@ -300,7 +308,7 @@ export const ERC20SCode =[
         section: "ContractNames",  
         tag: "Ownable",
         name: "ERC20OwnableContractNames", 
-        content: `Ownable `
+        content: `Ownable`
     },
     { 
         snippet_id: 1, 
@@ -309,7 +317,7 @@ export const ERC20SCode =[
         section: "ContractNames",  
         tag: "Roles",
         name: "ERC20RolesContractNames", 
-        content: `AccessControl `
+        content: `AccessControl`
     },
     { 
         snippet_id: 1, 
@@ -318,7 +326,7 @@ export const ERC20SCode =[
         section: "ContractNames",  
         tag: "Managed",
         name: "ERC20ManagedContractNames", 
-        content: `AccessManaged `
+        content: `AccessManaged`
     },
     { 
         snippet_id: 1, 
@@ -327,7 +335,7 @@ export const ERC20SCode =[
         section: "upgradeableContractNames",  
         tag: "Default",
         name: "ERC20DefaultContractNames", 
-        content: `Initializable, ERC20Upgradeable `
+        content: ` Initializable, ERC20Upgradeable`
     },
     { 
         snippet_id: 1, 
@@ -336,7 +344,7 @@ export const ERC20SCode =[
         section: "upgradeableContractNames",  
         tag: "Burnable",
         name: "ERC20BurnableContractNames", 
-        content: ` ERC20BurnableUpgradeable`
+        content: `ERC20BurnableUpgradeable`
     },
     { 
         snippet_id: 1, 
@@ -345,7 +353,7 @@ export const ERC20SCode =[
         section: "upgradeableContractNames",  
         tag: "Pausable",
         name: "ERC20PausableContractNames", 
-        content: ` ERC20PausableUpgradeable `
+        content: `ERC20PausableUpgradeable`
     },
     { 
         snippet_id: 1, 
@@ -354,7 +362,7 @@ export const ERC20SCode =[
         section: "upgradeableContractNames",  
         tag: "flashMinting",
         name: "ERC20FlashMintingContractNames", 
-        content: ` ERC20FlashMintUpgradeable `
+        content: `ERC20FlashMintUpgradeable`
     },
     { 
         snippet_id: 1, 
@@ -363,7 +371,7 @@ export const ERC20SCode =[
         section: "upgradeableContractNames",  
         tag: "Permit",
         name: "ERC20PermitContractNames", 
-        content: ` ERC20PermitUpgradeable `
+        content: `ERC20PermitUpgradeable`
     },
     { 
         snippet_id: 1, 
@@ -372,7 +380,7 @@ export const ERC20SCode =[
         section: "upgradeableContractNames",  
         tag: "Votes",
         name: "ERC20VotesContractNames", 
-        content: ` ERC20VotesUpgradeable `
+        content: `ERC20VotesUpgradeable`
     },
     { 
         snippet_id: 1, 
@@ -381,7 +389,7 @@ export const ERC20SCode =[
         section: "upgradeableContractNames",  
         tag: "Ownable",
         name: "ERC20OwnableContractNames", 
-        content: ` OwnableUpgradeable `
+        content: `OwnableUpgradeable`
     },
     { 
         snippet_id: 1, 
@@ -390,7 +398,7 @@ export const ERC20SCode =[
         section: "upgradeableContractNames",  
         tag: "Roles",
         name: "ERC20RolesContractNames", 
-        content: ` AccessControlUpgradeable `
+        content: `AccessControlUpgradeable`
     },
     { 
         snippet_id: 1, 
@@ -399,7 +407,7 @@ export const ERC20SCode =[
         section: "upgradeableContractNames",  
         tag: "Managed",
         name: "ERC20ManagedContractNames", 
-        content: ` AccessManagedUpgradeable `
+        content: `AccessManagedUpgradeable`
     },
     { 
         snippet_id: 1, 
@@ -416,7 +424,7 @@ export const ERC20SCode =[
         section: "Constructor",  
         tag: "Default",
         name: "ERC20DefaultConstructor", 
-        content: `constructor() ERC20("${ERC20SName}", "${ERC20SLicense}")${PermitConstructor.content}`
+        content: `constructor() ERC20("${name}", "${license}")${PermitConstructor.content}`
     },
     { 
         snippet_id: 1, 
@@ -426,7 +434,7 @@ export const ERC20SCode =[
         tag: "Ownable",
         name: "ERC20OwnableConstructor", 
         content: `constructor(address initialOwner)
-        ERC20("${ERC20SName}", "${ERC20SLicense}")
+        ERC20("${name}", "${license}")
         ${PermitConstructor.content}
         Ownable(initialOwner)
     {}
@@ -440,7 +448,7 @@ export const ERC20SCode =[
         tag: "Roles",
         name: "ERC20RolesConstructor", 
         content: `constructor(address defaultAdmin)
-        ERC20("${ERC20SName}", "${ERC20SLicense}")
+        ERC20("${name}", "${license}")
          ${PermitConstructor.content}
     {
         _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);
@@ -455,7 +463,7 @@ export const ERC20SCode =[
         tag: "Managed",
         name: "ERC20ManagedConstructor", 
         content: `constructor(address initialAuthority)
-        ERC20("${ERC20SName}", "${ERC20SLicense}")
+        ERC20("${name}", "${license}")
          ${PermitConstructor.content}
         AccessManaged(initialAuthority)
  {}
@@ -473,6 +481,34 @@ export const ERC20SCode =[
         }
     `
     },
+
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctionsHeader",  
+        tag: "Default",
+        name: "ERC20DefaultupgradeableFunctions", 
+        content: `function initialize(address defaultAdmin `
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctionsHeader",  
+        tag: "Pausable",
+        name: "ERC20DefaultupgradeableFunctions", 
+        content: `,  address pauser`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctionsHeader",  
+        tag: "Mintable",
+        name: "ERC20DefaultupgradeableFunctions", 
+        content: `,  address minter`
+    },
     { 
         snippet_id: 1, 
         wizard_id: 1,
@@ -480,9 +516,9 @@ export const ERC20SCode =[
         section: "upgradeableFunctions",  
         tag: "Default",
         name: "ERC20DefaultupgradeableFunctions", 
-        content: `function initialize(address initialOwner) initializer public {
-            __ERC20_init("${ERC20SName}", "${ERC20SLicense}");
-    `
+        content: `       initializer public
+    {
+    __ERC20_init("${name}", "${license}");`
     },
     { 
         snippet_id: 1, 
@@ -491,7 +527,7 @@ export const ERC20SCode =[
         section: "upgradeableFunctions",  
         tag: "Burnable",
         name: "ERC20BurnableupgradeableFunctions", 
-        content: `__ERC20Burnable_init();`
+        content: `    __ERC20Burnable_init();`
     },
     { 
         snippet_id: 1, 
@@ -500,7 +536,7 @@ export const ERC20SCode =[
         section: "upgradeableFunctions",  
         tag: "Pausable",
         name: "ERC20PausableupgradeableFunctions", 
-        content: `__ERC20Pausable_init();`
+        content: `    __ERC20Pausable_init();`
     },
     { 
         snippet_id: 1, 
@@ -509,7 +545,7 @@ export const ERC20SCode =[
         section: "upgradeableFunctions",  
         tag: "flashMinting",
         name: "ERC20FlashMintingupgradeableFunctions", 
-        content: `__ERC20FlashMint_init();`
+        content: `    __ERC20FlashMint_init();`
     },
     { 
         snippet_id: 1, 
@@ -518,7 +554,7 @@ export const ERC20SCode =[
         section: "upgradeableFunctions",  
         tag: "Permit",
         name: "ERC20PermitupgradeableFunctions", 
-        content: `__ERC20Permit_init("${ERC20SName}");`
+        content: `    __ERC20Permit_init("${name}");`
     },
     { 
         snippet_id: 1, 
@@ -527,7 +563,7 @@ export const ERC20SCode =[
         section: "upgradeableFunctions",  
         tag: "Votes",
         name: "ERC20VotesupgradeableFunctions", 
-        content: `__ERC20Votes_init();`
+        content: `    __ERC20Votes_init();`
     },
     { 
         snippet_id: 1, 
@@ -536,7 +572,7 @@ export const ERC20SCode =[
         section: "upgradeableFunctions",  
         tag: "Ownable",
         name: "ERC20OwnableupgradeableFunctions", 
-        content: `__Ownable_init(initialOwner);`
+        content: `    __Ownable_init(initialOwner);`
     },
     { 
         snippet_id: 1, 
@@ -545,7 +581,7 @@ export const ERC20SCode =[
         section: "upgradeableFunctions",  
         tag: "Roles",
         name: "ERC20RolesupgradeableFunctions", 
-        content: `__AccessControl_init();
+        content: `    __AccessControl_init();
         _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);`
     },
     { 
@@ -555,7 +591,7 @@ export const ERC20SCode =[
         section: "upgradeableFunctions",  
         tag: "Managed",
         name: "ERC20ManagedupgradeableFunctions", 
-        content: `__AccessManaged_init(initialAuthority);`
+        content: `    __AccessManaged_init(initialAuthority);`
     },
     { 
         snippet_id: 1, 
@@ -565,8 +601,8 @@ export const ERC20SCode =[
         tag: "Mintable",
         name: "ERC20MintableSection2", 
         content: `function mint(address to, uint256 amount) public onlyOwner {
-            _mint(to, amount);
-        }`
+         _mint(to, amount);
+    }`
     },
     { 
         snippet_id: 1, 
@@ -589,11 +625,12 @@ export const ERC20SCode =[
         tag: "Pausable",
         name: "ERC20PausableSection2", 
         content: `function pause() public onlyOwner {
-            _pause();
-        }
+         _pause();
+    }
     
-        function unpause() public onlyOwner {
-            _unpause();`
+    function unpause() public onlyOwner {
+        _unpause();
+    }`
     },
     { 
         snippet_id: 1, 
@@ -621,12 +658,12 @@ export const ERC20SCode =[
         name: "ERC20VotesSection3", 
         content: `// The following functions are overrides required by Solidity.
 
-        function _update(address from, address to, uint256 value)
-            internal
-            override(ERC20Upgradeable, ERC20PausableUpgradeable)
-        {
-            super._update(from, to, value);
-        }`
+    function _update(address from, address to, uint256 value)
+        internal
+        override(ERC20Upgradeable, ERC20PausableUpgradeable)
+    {
+        super._update(from, to, value);
+    }`
     }
 ];
   
