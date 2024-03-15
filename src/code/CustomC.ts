@@ -268,8 +268,7 @@ const CustomCCode =[
             tag: "Default",
             name: "RolesComponent", 
             content: `#[storage]
-    struct Storage {
-        `
+    struct Storage {`
         },
         { 
             snippet_id: 1, 
