@@ -40,4 +40,4 @@ function CopyBtn() {
   )
 }
 
-export default CopyBtn
+export default CopyBtn;

@@ -9,10 +9,20 @@ import {wizard, cairos} from '../store/headerBtns'
 import {ERC721, ERC20,Custom } from '../store/cairoBtns'
 import {ERC20InitialCairoCode, ERC721InitialCairoCode, CustomInitialCairoCode} from './cairoSnippets'
 import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPremint, ERC20SUpgradeability, ERC20SUpgradeabilityUUPS, ERC20SPermit, ERC20SMintable, ERC20SSecurityContact, ERC20SLicense, ERC20SName, ERC20SSymbol } from "@/store/ERC20S";
-import { ERC1155InitialCode } from "@/generator/ERC1155";
+import { GenerateERC1155Code} from "@/generator/ERC1155";
 import { ERC721InitialCode } from "@/generator/ERC721S";
 import { GovernorInitialCode } from "@/generator/Governor";
-import { CustomInitialCode } from "@/generator/CustomS";
+import { generateCustomSCode } from "@/generator/CustomS";
+import { generateCustomCCode } from "@/generator/CustomC";
+import { generateERC20CCode } from "@/generator/ERC20C";
+import { CustomCPauseable, CustomCAccessControlRoles, CustomCAccessControlOwnable, CustomCUpgradeable, CustomCUpgradeability, CustomCUpgradeabilityUUPS, CustomCName, CustomCLicense } from "@/store/CustomC";
+import { CustomSPauseable, CustomSAccessControlRoles, CustomSAccessControlOwnable, CustomSAccessControlManaged, CustomSUpgradeable, CustomSUpgradeabilityTransparent, CustomSUpgradeabilityUUPS, CustomSSecurityContact, CustomSName, CustomSLicense } from "@/store/CustomS";
+import { ERC20CBurnable, ERC20CPauseable, ERC20CAccessControlRoles, ERC20CAccessControlOwnable, ERC20CUpgradeable, ERC20CMintable, ERC20CPremint, ERC20CLicense, ERC20CName, ERC20CSymbol } from "@/store/ERC20C";
+import { PrismLight } from 'react-syntax-highlighter';
+import cairo from 'prismjs-cairo';
+import { ERC1155BaseURI, ERC1155Mintable, ERC1155Burnable, ERC1155Pauseable, ERC1155SupplyTracking, ERC1155UpdateableURI, ERC1155AccessControlRoles, ERC1155AccessControlOwnable, ERC1155AccessControlManaged, ERC1155Upgradeability, ERC1155UpgradeabilityTransparent, ERC1155UpgradeabilityUUPS, ERC1155SecurityContact } from "@/store/ERC1155";
+PrismLight.registerLanguage('cairo', cairo);
+
 
 
 const CodeEditor: React.FC = () => {
@@ -81,6 +91,23 @@ const CodeEditor: React.FC = () => {
 
   const CustomCInitialCode = generateCustomCCode(customcupgradeable,customcpausable, customcroles, customcownable,  customcupgradeability, customcUUPS, customcname, customclicense);
 
+   //ERC1155
+   const [erc1155baseUrl] = useRecoilState(ERC1155BaseURI);
+   const [erc1155mintable] = useRecoilState(ERC1155Mintable);
+   const [erc1155burnable] = useRecoilState(ERC1155Burnable);
+   const [erc1155pausable] = useRecoilState(ERC1155Pauseable);
+   const [erc1155supplyTracking] = useRecoilState(ERC1155SupplyTracking);
+   const [erc1155updatableURI] = useRecoilState(ERC1155UpdateableURI);
+   const [erc1155roles] = useRecoilState(ERC1155AccessControlRoles);
+   const [erc1155ownable] = useRecoilState(ERC1155AccessControlOwnable);
+   const [erc1155managed] = useRecoilState(ERC1155AccessControlManaged);
+   const [erc1155upgradability] = useRecoilState(ERC1155Upgradeability);
+   const [erc1155transparent] = useRecoilState(ERC1155UpgradeabilityTransparent);
+   const [erc1155UUPS] = useRecoilState(ERC1155UpgradeabilityUUPS);
+   const [erc1155security] = useRecoilState(ERC1155SecurityContact);
+ 
+   const ERC1155InitialCode = GenerateERC1155Code(erc1155burnable, erc1155supplyTracking, erc1155pausable, erc1155updatableURI, erc1155roles, erc1155ownable, erc1155managed, erc1155transparent, erc1155UUPS, erc1155security, erc1155upgradability, erc1155mintable, erc1155baseUrl);
+ 
 
   //checking which page is active
   const [isWizard] = useRecoilState(wizard)
