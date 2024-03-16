@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import {ERC1155 as ERC1155Atom, ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom, Governor as GovernorAtom} from '../store/solidityBtns'
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {generateERC20SCode} from "../generator/ERC20S";
 import {wizard, cairos} from '../store/headerBtns'
 import {ERC721, ERC20,Custom } from '../store/cairoBtns'
@@ -11,7 +11,12 @@ import {ERC20InitialCairoCode, ERC721InitialCairoCode, CustomInitialCairoCode} f
 import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPremint, ERC20SUpgradeability, ERC20SUpgradeabilityUUPS, ERC20SPermit, ERC20SMintable, ERC20SSecurityContact, ERC20SLicense, ERC20SName, ERC20SSymbol } from "@/store/ERC20S";
 import { GenerateERC1155Code} from "@/generator/ERC1155";
 import { ERC721InitialCode } from "@/generator/ERC721S";
-import { GovernorInitialCode } from "@/generator/Governor";
+
+// IMPORTING GOVERNOR CODE GENERATOR AND THE GOVERNORFORMDATA ATOM
+import governorCodeGenerator from "@/generator/Governor";
+import { governorFormData } from "@/store/Governor";
+import { GovernorFormDataType } from "@/types/types";
+
 import { generateCustomSCode } from "@/generator/CustomS";
 import { generateCustomCCode } from "@/generator/CustomC";
 import { generateERC20CCode } from "@/generator/ERC20C";
@@ -107,7 +112,9 @@ const CodeEditor: React.FC = () => {
    const [erc1155security] = useRecoilState(ERC1155SecurityContact);
  
    const ERC1155InitialCode = GenerateERC1155Code(erc1155burnable, erc1155supplyTracking, erc1155pausable, erc1155updatableURI, erc1155roles, erc1155ownable, erc1155managed, erc1155transparent, erc1155UUPS, erc1155security, erc1155upgradability, erc1155mintable, erc1155baseUrl);
- 
+
+  // OBTAINING CURRENT GOVERNOR FORM DATA
+  const governorData = useRecoilValue<GovernorFormDataType>(governorFormData)
 
   //checking which page is active
   const [isWizard] = useRecoilState(wizard)
@@ -128,7 +135,7 @@ const CodeEditor: React.FC = () => {
   } else if (IsERC20) {
     initialCode = ERC20InitialCode;
   } else if (IsGovernor) {
-    initialCode = GovernorInitialCode;
+    initialCode = governorCodeGenerator(governorData);
   } else if (IsCustom) {
     initialCode = CustomSInitialCode;
   }

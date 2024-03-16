@@ -18,13 +18,18 @@ export function objIsContract(object: unknown): object is ContractDataType{
 }
 
 // A TYPE GUARD FOR THE SNIPPET CODE DATA
-export function objIsSnippetCode(object: unknown): object is GovernorCodeSnippetDataType{
-    return (typeof object === "object" && object !== null &&
-        "snippetID" in object && typeof object.snippetID === "number" &&
-        "wizardID" in object && object.wizardID === 2 &&
-        "contractID" in object && object.contractID === 8 &&
-        "name" in object && typeof object.name === "string" &&
-        "section" in object && typeof object.section === "string" &&
-        "content" in object && typeof object.content === "string"
-    )
+export function arrayHasGovernorSnippetCode(array: unknown): array is GovernorCodeSnippetDataType[]{
+    if(Array.isArray(array) && array.length){
+        return array.every(object => (
+            typeof object === "object" && object !== null &&
+            "snippetID" in object && typeof object.snippetID === "number" &&
+            "wizardID" in object && object.wizardID === 2 &&
+            "contractID" in object && object.contractID === 8 &&
+            "name" in object && typeof object.name === "string" &&
+            "section" in object && typeof object.section === "string" &&
+            "content" in object && typeof object.content === "string"
+        ))
+    }else{
+        return false
+    }
 }

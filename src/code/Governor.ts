@@ -107,7 +107,7 @@ export const defaultSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorDefaultConstructorHead",
         section: "default",
         tag: "constructor head",
-        content: `constructor(IVotes _token)\n\tGovernor({name=Governor})\n\tGovernorVotes(_token)`
+        content: `constructor(IVotes _token) Governor({name=Governor}) GovernorVotes(_token)`
     },
     
     // DEFAULT CONTRACT BODY
@@ -563,7 +563,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorDefaultConstructor",
         section: "default",
         tag: "constructor",
-        content: `/// @custom:oz-upgrades-unsafe-allow constructor\nconstructor() {\n\t _disableInitializers();\n}`
+        content: `/// @custom:oz-upgrades-unsafe-allow constructor\n\tconstructor() {\n\t\t _disableInitializers();\n\t}`
     },
 
     // DEFAULT INITIALIZER
@@ -574,7 +574,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorDefaultInitializer",
         section: "default",
         tag: "initializer",
-        content: `function initialize(IVotes _token) initializer public {\n\t__Governor_init({name=Governor});\n\t__GovernorCountingSimple_init();\n\t__GovernorVotes_init(_token);\n}`
+        content: `function initialize(IVotes _token) initializer public {\n\t\t__Governor_init({name=Governor});\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);\n\t}`
     },
 
     // DEFAULT CONTRACT BODY
