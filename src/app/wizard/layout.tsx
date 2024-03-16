@@ -2,7 +2,6 @@
     // IMPORTING COMPONENTS
 "use client"
 import Navbar from "@/components/Navbar"
-import WizardHeader from "@/components/WizardHeader";
 import React from "react"
 import { RecoilRoot } from "recoil";
 import RecoilNexus from "recoil-nexus";
@@ -12,7 +11,7 @@ export default function WizardLayout({children}: Readonly<{children: React.React
     return(
         <main className="bg-[#f5f5f5] min-h-screen transition-all duration-500 ease-in-out">
         <RecoilRoot>
-          <WizardHeader />
+          <Navbar />
           {children}
         </RecoilRoot>
       </main>
