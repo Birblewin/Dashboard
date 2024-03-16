@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import Popover from "@/components/Popover"
-import { cairo, wizard } from "../store/headerBtns";
+import { cairos, wizard } from "../store/headerBtns";
   // IMPORTING MODULES
 import React from "react";
 import {atom, useRecoilState} from "recoil"

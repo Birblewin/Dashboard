@@ -5,7 +5,7 @@ import { useState } from "react";
 import Download from "@/components/CairoDownloadBtn";
 import CopyBtn from "@/components/CopyBtn";
 import Custom2 from "@/components/Custom2";
-import ERC20Cairo from "@/components/ERC20C"
+import ERC20 from "@/components/ERC20C"
 import ERC721C from "@/components/ERC721C";
 import {atom, useRecoilState} from "recoil"
 import {ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom} from "@/store/cairoBtns"

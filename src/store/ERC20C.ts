@@ -14,7 +14,7 @@ export const ERC20CName = createAtom<string>('ERC20CName', 'My Token');
 
 export const ERC20CLicense = createAtom<string>('ERC20CLicense', 'MIT');
 export const ERC20CSymbol = createAtom<string>('ERC20CSymbol', 'MTK');
-export const ERC20CPremint = createAtom<string>('ERC20CPremint', '0');
+export const ERC20CPremint = createAtom<string>('ERC20CPremint', '');
 export const ERC20CMintable = createAtom<boolean>('ERC20CMintable', false);
 
 export const ERC20CPauseable = createAtom<boolean>('ERC20CPauseable', false);

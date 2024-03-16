@@ -1,15 +1,14 @@
 "use client";
 
-// IMPORTING NECESSARY FILES
-// IMPORTING COMPONENETS
 import CodeEditor from "@/components/SyntaxHighliter";
-import ERC20Solidity from "@/components/ERC20S";
+import { useState } from "react";
+import ERC20 from "@/components/ERC20S";
 import Download from "@/components/SolidityDownloadBtn";
 import RenderBtn from "@/components/RenderBtn";
 import Governor from "@/components/Governor";
 import CopyBtn from "@/components/CopyBtn";
 import DefenderBtn from "@/components/DefenderBtn";
-import ERC721S from "@/components/ERC721S";
+import ERC721 from "@/components/ERC721S";
 
 import ERC1155 from "@/components/ERC1155";
 import Custom from "@/components/Custom";
@@ -44,7 +43,8 @@ export default function Home() {
   })
 
   // Define atoms using the createAtom function
-
+ 
+  
   const [IsERC721, setIsERC721] = useRecoilState(ERC721Atom);
   const [IsERC20, setIsERC20] = useRecoilState(ERC20Atom);
   const [IsERC1155, setIsERC1155] = useRecoilState(ERC1155Atom);
@@ -353,9 +353,10 @@ export default function Home() {
           </div>
 
           {/* TABS SHOWING ACTION BUTTONS FROM LARGE UP */}
-          <div className="lg:flex gap-2 hidden">
+          <div className="action flex flex-row gap-2 shrink-0">
             <CopyBtn handleClick={() => null} />
             <Download />
+            <DefenderBtn/>
 
             <Popover
               imageComponent={

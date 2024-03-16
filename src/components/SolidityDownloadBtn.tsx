@@ -35,7 +35,7 @@ function Download({handleClick}: ButtonProps) {
   return (
     <div>
       <button
-        className="font-bold text-black border p-2 rounded hover:bg-gray-200 flex items-center justify-between w-4/5 mx-auto lg:w-36 gap-4 lg:justify-around"
+        className="font-bold text-black border p-2 rounded hover:bg-gray-200"
         onClick={handleButtonClick}
       >
         <DownloadIcon width={15} height={15} />
