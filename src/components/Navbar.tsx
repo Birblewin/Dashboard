@@ -31,7 +31,7 @@ export default function Navbar() {
   // DETERMINING STATES
     // A STATE TO KEEP TRACK OF THE TAB BEING CLICKED
   const [currentTab, setCurrentTab] = React.useState<"Solidity" | "Cairo" | "Other">(getCurrentTab(pathName));
-  const [Cairo, setCairo] = useRecoilState(cairo);
+  const [Cairo, setCairo] = useRecoilState(cairos);
   const [Wizard, setWizard] = useRecoilState(wizard);
     // A STATE TO KEEP TRACK OF WHETHER OR NOT THE POPUP IS OPEN
   const [isOpen, setIsOpen] = React.useState<Pick<IsOpenType, "linksPopup">>({ linksPopup: false })
