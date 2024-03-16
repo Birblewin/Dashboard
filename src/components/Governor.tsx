@@ -231,6 +231,36 @@ export default function Governor(){
         timelockType: value as "TimelockController" | "Compound",
         timelockValue: true
       }))
+    }else if(name === "upgradeabilityValue"){
+      // SEE IF CHECKED IS TRUE, IF SO CHECK THE DEFAULT, IF NOT, CANCEL EVERYTHING
+      if (checked) {
+        return setFormData((prevFormData) => ({
+          ...prevFormData,
+          upgradeabilityValue: true,
+          upgradeabilityType: "Transparent",
+        }));
+      } else {
+        return setFormData((prevFormData) => ({
+          ...prevFormData,
+          upgradeabilityValue: false,
+          upgradeabilityType: "",
+        }));
+      }
+    }else if(name === "upgradeabilityType"){
+      // IF ANY UPGRADEABILITYTYPE IS CHECKED, CHECK THE UPGRADEABILITYVALUE FIELD
+      return setFormData((prevFormData) => ({
+        ...prevFormData,
+        upgradeabilityType: value as "Transparent" | "UUPS",
+        upgradeabilityValue: true,
+      }));
+    }else if(name === "quorumValue"){
+      // CHECK IF VALUE IS A NUMBER, IF NOT MAKE THE VALUE AN EMPTY STRING
+      if (!checkString(value, true)) {
+        return setFormData((prevFormData) => ({
+          ...prevFormData,
+          quorumValue: "",
+        }));
+      }
     }
 
     setFormData((prevFormData) => ({
@@ -658,27 +688,43 @@ export default function Governor(){
 
       {/* UPGRADEABILITY */}
       <div>
+        {/* UPGRADEABILITY VALUE */}
         <div className=" flex items-center place-content-between mr-[0.5rem]">
           <div className="flex items-center">
-            <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">
+            <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]" htmlFor="upgradeabilityValue">
               UPGRADEABILITY
             </label>
-            <input type="checkbox" className="form-checkbox h-3 w-3 rounded" />
+
+            <input 
+              type="checkbox" 
+              className="form-checkbox h-3 w-3 rounded"
+              id="upgradeabilityValue" 
+              name="upgradeabilityValue"
+              checked={formData.upgradeabilityValue}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+            />
           </div>
+
           <Tool
             tooltipText="Smart contracts are immutable by default unless deployed behind an upgradeable proxy."
             link="https://docs.openzeppelin.com/upgrades"
             linktext="Read more"
           />
         </div>
+
+        {/* UPGRADEABILITY TYPE */}
         <div className="m-[0.5rem] flex items-center place-content-between">
           <div className="flex items-center">
             <input
               type="radio"
               className="form-checkbox h-3 w-3"
-              name="upgradeability"
+              name="upgradeabilityType"
+              id="Transparent"
+              checked={formData.upgradeabilityType === "Transparent"}
+              value="Transparent"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
             />
-            <label className="ml-2 text-[#333333] ">Transparent</label>
+            <label className="ml-2 text-[#333333]" htmlFor="Transparent">Transparent</label>
           </div>
           <Tool
             tooltipText="Uses more complex proxy with higher overhead, requires less changes in your contract. Can also be used with beacons."
@@ -686,14 +732,20 @@ export default function Governor(){
             linktext="Read more"
           />
         </div>
+
         <div className="m-[0.5rem] mb-0 flex items-center place-content-between">
           <div className="flex items-center">
             <input
               type="radio"
               className="radio h-3 w-3"
-              name="upgradeability"
+              name="upgradeabilityType"
+              id="UUPS"
+              checked={formData.upgradeabilityType === "UUPS"}
+              value="UUPS"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
             />
-            <label className="ml-2 text-[#333333] ">UUPS</label>
+
+            <label className="ml-2 text-[#333333]" htmlFor="UUID">UUPS</label>
           </div>
           <Tool
             tooltipText="Uses simpler proxy with less overhead, requires including extra code in your contract. Allows flexibility for authorizing upgrades."
@@ -711,7 +763,7 @@ export default function Governor(){
         <div className="flex flex-col mt-[0.75rem]">
           <div className="flex items-center place-content-between">
             <label
-              htmlFor="Security Contact"
+              htmlFor="securityContact"
               className="text-[#333333] text-sm"
             >
               Security Contact
@@ -722,11 +774,15 @@ export default function Governor(){
               linktext="Read more"
             />
           </div>
+          
           <input
-            id="Security Contact"
+            id="securityContact"
             type="text"
             placeholder="security@example.com"
-            className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"
+            className="border border-1 border-[#333333] rounded-[6px] p-1 text-black"
+            name="securityContact"
+            value={formData.securityContact}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
           />
         </div>
 
@@ -735,11 +791,15 @@ export default function Governor(){
           <label htmlFor="license" className="text-[#333333] text-sm">
             License
           </label>
+
           <input
             id="license"
             type="text"
             placeholder="MIT"
             className="border border-1 border-[#333333] rounded-[6px] p-1 text-black"
+            name="license"
+            value={formData.license}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
           />
         </div>
       </div>

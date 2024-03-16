@@ -54,7 +54,7 @@ export type GovernorFormDataType = {
     proposalThreshold: `${number}`, // INPUT
     
     quorumType:  "percentage" | "number", // RADIO
-    quorumValue: `${number}`, // INPUT
+    quorumValue: `${number}` | "", // INPUT
     
     tokenDecimals: `${number}` | "", // INPUT
     updatableSettings: boolean, // CHECKBOX
