@@ -5,7 +5,7 @@ import { useState } from "react";
 import Download from "@/components/CairoDownloadBtn";
 import CopyBtn from "@/components/CopyBtn";
 import Custom2 from "@/components/Custom2";
-import ERC20 from "@/components/ERC20C"
+import ERC20Cairo from "@/components/ERC20C"
 import ERC721C from "@/components/ERC721C";
 import {atom, useRecoilState} from "recoil"
 import {ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom} from "@/store/cairoBtns"
@@ -227,7 +227,7 @@ export default function Cairo() {
         </div>
 
         {/* TABS SHOWING ACTION BUTTONS FROM LARGE UP */}
-        <div className="lg:flex gap-2 hidden">
+        <div className="lg:flex lg:flex-row gap-2 shrink-0 hidden">
           <CopyBtn handleClick={() => null}/>
           <Download />
         </div>
