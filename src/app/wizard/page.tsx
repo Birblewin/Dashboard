@@ -366,6 +366,7 @@ export default function Home() {
           <div className="flex flex-col shrink-0 justify-between overflow-auto  h-[calc(100vh-84px)] rounded shadow-md">
             {selected === "ERC20" && <ERC20Solidity />}
             {selected === "ERC721" && <ERC721S />}
+
             {selected === "ERC1155" && <ERC1155 />}
             {selected === "Custom" && <Custom />}
             {selected === "Governor" && <Governor />}
