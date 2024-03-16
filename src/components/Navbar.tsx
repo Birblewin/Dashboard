@@ -1,59 +1,63 @@
-"use client"
+"use client";
 
 // IMPORTING NECESSARY FILES
-  // IMPORTING COMPONENTS
+// IMPORTING COMPONENTS
 import Image from "next/image";
 import Link from "next/link";
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import Popover from "@/components/Popover"
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import Popover from "@/components/Popover";
 import { cairos, wizard } from "../store/headerBtns";
-  // IMPORTING MODULES
+// IMPORTING MODULES
 import React from "react";
-import {atom, useRecoilState} from "recoil"
-import {usePathname} from "next/navigation"
-  // IMPORTING TYPES
+import { atom, useRecoilState } from "recoil";
+import { usePathname } from "next/navigation";
+// IMPORTING TYPES
 import { IsOpenType } from "@/types/types";
 
 // A FUNCTION TO DETERMINE THE TAB VISITED
-function getCurrentTab(url: string): "Solidity" | "Cairo" | "Other"{
-  if(url.endsWith('/wizard')){
-    return "Solidity"
-  }else if(url.endsWith('/cairo')){
-    return "Cairo"
-  }else return "Other"
+function getCurrentTab(url: string): "Solidity" | "Cairo" | "Other" {
+  if (url.endsWith("/wizard")) {
+    return "Solidity";
+  } else if (url.endsWith("/cairo")) {
+    return "Cairo";
+  } else return "Other";
 }
 
 // A FUNCTION THAT GENERATES A NAVBAR COMPONENT
 export default function Navbar() {
   // GETTING THE CURRENT URL PATH VISITED
-  const pathName: string = usePathname()
+  const pathName: string = usePathname();
 
   // DETERMINING STATES
-    // A STATE TO KEEP TRACK OF THE TAB BEING CLICKED
-  const [currentTab, setCurrentTab] = React.useState<"Solidity" | "Cairo" | "Other">(getCurrentTab(pathName));
+  // A STATE TO KEEP TRACK OF THE TAB BEING CLICKED
+  const [currentTab, setCurrentTab] = React.useState<
+    "Solidity" | "Cairo" | "Other"
+  >(getCurrentTab(pathName));
   const [Cairo, setCairo] = useRecoilState(cairos);
   const [Wizard, setWizard] = useRecoilState(wizard);
-    // A STATE TO KEEP TRACK OF WHETHER OR NOT THE POPUP IS OPEN
-  const [isOpen, setIsOpen] = React.useState<Pick<IsOpenType, "linksPopup">>({ linksPopup: false })
+  // A STATE TO KEEP TRACK OF WHETHER OR NOT THE POPUP IS OPEN
+  const [isOpen, setIsOpen] = React.useState<Pick<IsOpenType, "linksPopup">>({
+    linksPopup: false,
+  });
 
   // A FUNCTION IN CASE THE SOL WIZARD IS CLICKED
   const handleWizardClick = () => {
-    setIsOpen(prevState => ({...prevState, linksPopup: false}))
+    setIsOpen((prevState) => ({ ...prevState, linksPopup: false }));
     setWizard(true);
     setCairo(false);
   };
 
   // A FUNCTION IN CASE CAIRO WIZARD IS CLICKED
   const handleCairoClick = () => {
-    setIsOpen(prevState => ({...prevState, linksPopup: false}))
+    setIsOpen((prevState) => ({ ...prevState, linksPopup: false }));
     setCairo(true);
     setWizard(false);
   };
 
   // A USEEFFECT TO RESET THE CURRENT TAB IN CASE THE CURRENT LINK CHANGES
   React.useEffect(() => {
-    setCurrentTab(getCurrentTab(pathName))
-  }, [pathName])
+    setCurrentTab(getCurrentTab(pathName));
+  }, [pathName]);
 
   return (
     <nav className="flex flex-row items-center p-4 justify-between bg-[#ffffff] mb-8">
