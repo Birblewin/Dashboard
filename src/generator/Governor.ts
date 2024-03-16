@@ -5,7 +5,6 @@ import { defaultSnippets, upgradeableSnippets } from "@/code/Governor"
 import { GovernorFormDataType, GovernorCodeSnippetDataType } from "@/types/types"
     // IMPORTING GUARDS
 import { arrayHasGovernorSnippetCode } from "@/types/guards" 
-import { LegendToggleSharp } from "@mui/icons-material"
 
 // A FUNCTION TO VERIFY IF AN ARRAY CONTAINS GOVERNOR SNIPPET CODES
 function clarifyData(data: unknown): GovernorCodeSnippetDataType[] | undefined{
@@ -111,7 +110,7 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
     // GETTING DEFAULT VERSIONS
     const defaultVersion = getCodeSnippets(codeSource, {tag: "version", section: "default"}, true).join("\n")
 
-    // FORMING A COMMENTS ARRAY
+    // FORMING AN IMPORTS ARRAY
         // GETTING DEFAULT IMPORTS
     const defaultImports = getCodeSnippets(codeSource, {tag: "imports", section: "default"}, true).join("\n")
 
