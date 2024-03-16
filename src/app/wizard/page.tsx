@@ -1,14 +1,13 @@
 "use client";
 
 import CodeEditor from "@/components/SyntaxHighliter";
-import { useState } from "react";
-import ERC20 from "@/components/ERC20S";
+import ERC20Solidity from "@/components/ERC20S";
 import Download from "@/components/SolidityDownloadBtn";
 import RenderBtn from "@/components/RenderBtn";
 import Governor from "@/components/Governor";
 import CopyBtn from "@/components/CopyBtn";
 import DefenderBtn from "@/components/DefenderBtn";
-import ERC721 from "@/components/ERC721S";
+import ERC721S from "@/components/ERC721S";
 
 import ERC1155 from "@/components/ERC1155";
 import Custom from "@/components/Custom";
@@ -17,7 +16,7 @@ import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import Popover from "@/components/Popover";
 // IMPORTING MODULES
 import { useState } from "react";
-import { atom, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import {
   ERC1155 as ERC1155Atom,
   ERC20 as ERC20Atom,
@@ -353,70 +352,11 @@ export default function Home() {
           </div>
 
           {/* TABS SHOWING ACTION BUTTONS FROM LARGE UP */}
-          <div className="action flex flex-row gap-2 shrink-0">
+          <div className="lg:flex lg:flex-row gap-2 shrink-0 hidden">
             <CopyBtn handleClick={() => null} />
             <Download />
-            <DefenderBtn/>
-
-            <Popover
-              imageComponent={
-                <BuildRoundedIcon
-                  fontSize="large"
-                  className="border-2 border-slate-600 p-2 rounded-full cursor-pointer transition-all duration-500 ease-in-out"
-                  onClick={() =>
-                    setIsOpen(
-                      ({
-                        actionButtonsPopup: { largeScreens, smallScreens },
-                        editorPopup,
-                      }) => ({
-                        editorPopup,
-                        actionButtonsPopup: {
-                          smallScreens,
-                          largeScreens: !largeScreens,
-                        },
-                      })
-                    )
-                  }
-                />
-              }
-              isOpen={isOpen.actionButtonsPopup.largeScreens}
-            >
-              <div className="flex flex-col gap-2">
-                <DefenderBtn
-                  handleClick={() =>
-                    setIsOpen(
-                      ({
-                        actionButtonsPopup: { smallScreens },
-                        editorPopup,
-                      }) => ({
-                        editorPopup,
-                        actionButtonsPopup: {
-                          smallScreens,
-                          largeScreens: false,
-                        },
-                      })
-                    )
-                  }
-                />
-
-                <RenderBtn
-                  handleClick={() =>
-                    setIsOpen(
-                      ({
-                        actionButtonsPopup: { smallScreens },
-                        editorPopup,
-                      }) => ({
-                        editorPopup,
-                        actionButtonsPopup: {
-                          smallScreens,
-                          largeScreens: false,
-                        },
-                      })
-                    )
-                  }
-                />
-              </div>
-            </Popover>
+            <DefenderBtn handleClick={() => null}/>
+            <RenderBtn handleClick={() => null}/>
           </div>
         </div>
 
