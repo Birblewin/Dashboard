@@ -2,14 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import {useRecoilState} from "recoil"
+import { useEffect, useState } from "react";
+import {atom, useRecoilState} from "recoil"
 
 import { cairos, wizard } from "../store/headerBtns";
+import { useRouter } from "next/router";
 
 // A FUNCTION THAT GENERATES A WIZARDHEADER COMPONENT
 export default function WizardHeader() {
-  const [isHome, setIsHome] = useState(true);
+  
+
+  const [isHome, setIsHome] = useState(true); // Initial state set to true
+
+  useEffect(() => {
+    // This useEffect will only run on the client-side
+    setIsHome(window.location.pathname === '/wizard');
+  }, []); 
+
+
   const svg = "/logo.svg";
 
 
