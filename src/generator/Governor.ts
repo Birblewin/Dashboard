@@ -114,6 +114,16 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
     // FETCHING OPTIONAL SECTIONS
         // QUORUM
     const quorumSnippets = getCodeSnippets(codeSource, {section: "quorum"}) as GovernorCodeSnippetDataType[]
+        // UPDATABLE SETTINGS
+    const updatableSettingsSnippets = getCodeSnippets(codeSource, {section: "updatable settings"}) as GovernorCodeSnippetDataType[]
+        // STORAGE
+    const storageSnippets = getCodeSnippets(codeSource, {section: "storage"}) as GovernorCodeSnippetDataType[]
+        // TIMELOCK
+    const timelockSnippets = getCodeSnippets(codeSource, {section: "timelock"}) as GovernorCodeSnippetDataType[]
+    
+    const verifiedTimelockSnippets = timelockSnippets.filter(
+        item => (item.tag as string[]).includes(timelockType === "Compound" ? "timelockCompound" : "timelockController")
+    )
 
     // GETTING DEFAULT COMMENTS, AND WORK ON THE LICENSE IMPORT TO RETURN UPDATED COMMENTS
     const comments = getCodeSnippets(codeSource, {tag: "comments", section: "default"}) as GovernorCodeSnippetDataType[]
@@ -133,18 +143,33 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
     const defaultImports = getCodeSnippets(codeSource, {tag: "imports", section: "default"}, true).join("\n")
         // GETTING QUORUM IMPORTS
     const defaultQuorumImport = quorumSnippets.find(item => item.name === "GovernorQuorumDefaultFunctionImport")?.content
+        // GETTING UPDATABLESETTINGS IMPORTS
+    const updatableSettingsImport = updatableSettingsSnippets.find(item => item.name === "GovernorUpdatableSettingsImport")?.content
+        // GETTING STORAGE IMPORTS
+    const storageImport = storageSnippets.find(item => item.name === "GovernorStorageImport")?.content
+        // GETTING TIMELOCK IMPORTS
+    const timelockImport = verifiedTimelockSnippets.find(item => item.name === "GovernorTimelockImport")?.content
+    
         // IMPORTS STRING
-    const imports = `${defaultImports}${quorumType === "percentage" ? "\n" : ""}${quorumType === "percentage" ? defaultQuorumImport : ""}`
+    const imports = `${defaultImports}${quorumType === "percentage" ? "\n" + defaultQuorumImport: ""}${updatableSettings ? "\n" + updatableSettingsImport : ""}${storage ? "\n" + storageImport : ""}${timelockValue ? "\n" + timelockImport : ""}`
 
     // FORMING A CONTRACT HEAD
         // GETTING DEFAULT CONTRACT HEAD
     const defaultContractHead = getCodeSnippets(codeSource, {section: "default", tag: "contract head"}, true)
         .join("\n")
         .replace("{name=Governor}", name ? `${name[0].toUpperCase()}${name.slice(1)}` : "MyGovernor")
-        // GETTINH QUORUM HEAD
+        
+        // GETTING QUORUM HEAD
     const quorumContractHead = quorumSnippets.find(item => item.name === "GovernorQuorumDefaultContractHead")?.content
+        // GETTING UPDATABLE SETTINGS HEAD
+    const updatableSettingsContractHead = updatableSettingsSnippets.find(item => item.name === "GovernorUpdatableSettingsContractHead")?.content
+        // GETTING STORAGE HEAD
+    const storageHead = storageSnippets.find(item => item.name === "GovernorStorageContractHead")?.content
+        // GETTING TIMELOCK HEAD
+    const timelockHead = verifiedTimelockSnippets.find(item => item.name === "GovernorTimelockContractHead")?.content
+        
         // CONTRACT HEAD
-    const contractHead: string = `${defaultContractHead} ${quorumType === "percentage" ? ", " + quorumContractHead : ""}`
+    const contractHead: string = `${defaultContractHead} ${quorumType === "percentage" ? ", " + quorumContractHead : ""}${updatableSettings ? ", " + updatableSettingsContractHead : ""}${storage ? ", " + storageHead : ""}${timelockValue ? ", " + timelockHead : ""}`
 
     // FORMING A CONSTRUCTOR 
         // GETTING CONSTRUCTOR HEAD WITHOUT UPGRADEABILITY
@@ -154,31 +179,67 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         
         // GETTING CONSTRUCTOR AS IS IF UPGRADEABILITY
     const defaultConstructor = getCodeSnippets(codeSource, {section: "default", tag: "constructor"}, true).join("\n")
+    
         // GETTING QUORUM CONSTRUCTOR FUNCTION
     const quorumConstructorFunction = quorumSnippets
         .find(item => item.name === "GovernorQuorumDefaultConstructorHead")
         ?.content.replace("{inputValue=4}", `${quorumValue && parseFloat(quorumValue) <= 100 ? quorumValue : 4}`)
+
+        // GETTING UPDATABLE SETTINGS FUNCTION
+    const updatableSettingsFunction = updatableSettingsSnippets
+        .find(item => item.name === "GovernorUpdatableSettingsConstructorHead")
+        ?.content.replace("{votingDelay={inputValue=1 day}*7200}", `${votingDelayValue ? votingDelayValue : 0 * 7200}`)
+        .replace("{inputValue=1} day", `${votingDelayValue ? votingDelayValue : 0} ${votingDelayCounts}`)
+
+        .replace(
+            "{votingPeriod={inputValue=1 week}(converted in seconds)/{blockValue=12 seconds}}", 
+            `${((votingPeriodValue ? votingPeriodValue : 0 * 604800)/parseFloat(blockValue ? blockValue : "12")).toFixed(2)}`
+        )
+
+        .replace("{inputValue = 1} week", `${votingPeriodValue ? votingPeriodValue : 0} ${votingPeriodCounts ? votingPeriodCounts : "week"}`)
+        .replace("{proposalThreshold=0}", `${proposalThresholdValue}`)
 
         // FORMING CONSTRUCTOR
     const constructor: string = upgradeabilityValue 
         ? 
     defaultConstructor 
         : 
-    `${defaultConstructorHead}{${quorumType === "percentage" ? "\n\t\t" : ""}${quorumType === "percentage" ? quorumConstructorFunction : ""}${quorumType === "percentage" ? "\n\t" : ""}}`
+    `${defaultConstructorHead}{${quorumType === "percentage" ? "\n\t\t" + quorumConstructorFunction : ""}${updatableSettings ? "\n\t\t" + updatableSettingsFunction : ""}
+    }`
 
     // FORMING AN INITIALIZER
         // GETTING DEFAULT INITIALIZER
     const defaultInitializer = getCodeSnippets(codeSource, {section: "default", tag: "initializer"}, true)
         .join("\n")
         .replace("{name=Governor}", name ? name : "MyGovernor")
+    
         // GETTING QUORUM INITIALIZER FUNCTION
-    const quorumInitializerFunction = quorumSnippets.find(item => item.name === "GovernorQuorumDefaultInitializer")?.content
+    const quorumInitializerFunction = quorumSnippets
+        .find(item => item.name === "GovernorQuorumDefaultInitializer")
+        ?.content.replace("{inputValue=4}", `${quorumValue && parseFloat(quorumValue) <= 100 ? quorumValue : 4}`)
+
+        // GETTING UPDATABLE SETTINGS INITIALIZER FUNCTION
+    const updatableSettingsInitializerFunction = updatableSettingsSnippets
+        .find(item => item.name === "GovernorUpdatableSettingsInitializer")
+        ?.content.replace("{votingDelay={inputValue=1 day}*7200}", `${votingDelayValue ? votingDelayValue : 0 * 7200}`)
+        .replace("{inputValue=1} day", `${votingDelayValue ? votingDelayValue : 0} ${votingDelayCounts}`)
+
+        .replace(
+            "{votingPeriod={inputValue=1 week}(converted in seconds)/{blockValue=12 seconds}}", 
+            `${((votingPeriodValue ? votingPeriodValue : 0 * 604800)/parseFloat(blockValue ? blockValue : "12")).toFixed(2)}`
+        )
+
+        .replace("{inputValue=1} week", `${votingPeriodValue ? votingPeriodValue : 0} ${votingPeriodCounts ? votingPeriodCounts : "week"}`)
+        .replace("{proposalThreshold=0}", `${proposalThresholdValue}`)
+
         // INITIALIZER STRING
-    const initializer: string = `${defaultInitializer}${quorumType ? "\n\t\t" : ""}${quorumType === "percentage" ? quorumInitializerFunction : ""}${quorumType === "percentage" ? "\n\t" : ""}}`
+    const initializer: string = `${defaultInitializer}${quorumType === "percentage" ? "\n\t\t" + quorumInitializerFunction : ""}${updatableSettings ? "\n\t\t" + updatableSettingsInitializerFunction : ""}
+    }`
 
     // FORMING A CONTRACT BODY
         // GETTING DEFAULT FUNCTIONS
     const defaultContractBody = getCodeSnippets(codeSource, {section: "default", tag: ["contract body"] }) as GovernorCodeSnippetDataType[]
+    
         // GETTING OPTIONAL FUNCTIONS
     const defaultProposalThreshold = getCodeSnippets(
         codeSource, 
@@ -197,7 +258,7 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         
         ?.content.replace(
             "{votingPeriod={input=1 week(convert to seconds)}/{blockValue=12 seconds}", 
-            `${blockValue ? ((votingPeriodValue ? votingPeriodValue : 0 * 604800)/parseFloat(blockValue)).toFixed(2) : 0}`
+            `${((votingPeriodValue ? votingPeriodValue : 0 * 604800)/parseFloat(blockValue ? blockValue : "12")).toFixed(2)}`
         )
 
         .replace("{votingPeriod = 1} week", `${votingPeriodValue ? votingPeriodValue : 0} ${votingPeriodCounts ? votingPeriodCounts : "week"}`)
@@ -207,18 +268,29 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         .find(item => item.name === "GovernorQuorumOptionalFunction")
         ?.content.replace("{inputValue=4}", `${quorumValue ? quorumValue : 4}`)
         .replace("e{tokenDecimals=18}", `${votes === "ERC721Votes" || !tokenDecimals ? "" : "e" + tokenDecimals}`)
+    
     const percentageQuorumFunction = quorumSnippets.find(item => item.name === "GovernorQuorumDefaultFunction")?.content
+
+        // GETTING UPDATABLE SETTINGS FUNCTIONS
+    const updatableVotingDelayFunction = updatableSettingsSnippets.find(item => item.name === "GovernorUpdatableSettingsVotingDelay")?.content
+    const updatableVotingPeriodFunction = updatableSettingsSnippets.find(item => item.name === "GovernorUpdatableSettingsVotingPeriod")?.content
+    const updatableProposalThresholdFunction = updatableSettingsSnippets.find(item => item.name === "GovernorUpdatableSettingsProposalThreshold")?.content
+
+        // GETTING STORAGE FUNCTION
+    const storageFunction = storageSnippets.find(item => item.name === "GovernorStorageFunction")?.content
         
         // CONTRACT BODY
-    const contractBody = `${votingDelayFunction}\n
-    ${votingPeriodFunction}\n
-    ${defaultProposalThreshold}\n
-    ${quorumType === "number" ? numericalQuorumFunction : percentageQuorumFunction}`
+    const contractBody = `${updatableSettings ? updatableVotingDelayFunction : votingDelayFunction}\n
+    ${updatableSettings ?  updatableVotingPeriodFunction : votingPeriodFunction}${
+        updatableSettings ? "\n\n\t" + updatableProposalThresholdFunction : 
+        checkIfNumber(proposalThreshold) ? "\n\n\t" + defaultProposalThreshold : ""
+    }
+    ${quorumType === "number" ? "\n\t" + numericalQuorumFunction : "\n\t" + percentageQuorumFunction}${storage ? "\n\n\t" + storageFunction : ""}`
 
     // FORMING A CONTRACT
     const contract: string = `${contractHead}{
-    ${constructor}${upgradeabilityValue ? "\n" : ""}
-    ${upgradeabilityValue ? initializer + "\n" : ""}
+    ${constructor}
+    ${upgradeabilityValue ? "\n\t" + initializer + "\n" : ""}
     ${contractBody}     
 }`
     
@@ -229,114 +301,3 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         contract
     ].join("\n")
 }
-
-// export const GovernorInitialCode = `
-// // SPDX-License-Identifier: MIT
-// // Compatible with OpenZeppelin Contracts ^5.0.0
-// pragma solidity ^0.8.20;
-
-// import "@openzeppelin/contracts/governance/Governor.sol";
-// import "@openzeppelin/contracts/governance/extensions/GovernorSettings.sol";
-// import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol";
-// import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
-// import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
-// import "@openzeppelin/contracts/governance/extensions/GovernorTimelockControl.sol";
-
-// contract MyGovernor is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction, GovernorTimelockControl {
-//     constructor(IVotes _token, TimelockController _timelock)
-//         Governor("MyGovernor")
-//         GovernorSettings(7200 /* 1 day */, 50400 /* 1 week */, 0)
-//         GovernorVotes(_token)
-//         GovernorVotesQuorumFraction(4)
-//         GovernorTimelockControl(_timelock)
-//     {}
-
-//     // The following functions are overrides required by Solidity.
-
-//     function votingDelay()
-//         public
-//         view
-//         override(Governor, GovernorSettings)
-//         returns (uint256)
-//     {
-//         return super.votingDelay();
-//     }
-
-//     function votingPeriod()
-//         public
-//         view
-//         override(Governor, GovernorSettings)
-//         returns (uint256)
-//     {
-//         return super.votingPeriod();
-//     }
-
-//     function quorum(uint256 blockNumber)
-//         public
-//         view
-//         override(Governor, GovernorVotesQuorumFraction)
-//         returns (uint256)
-//     {
-//         return super.quorum(blockNumber);
-//     }
-
-//     function state(uint256 proposalId)
-//         public
-//         view
-//         override(Governor, GovernorTimelockControl)
-//         returns (ProposalState)
-//     {
-//         return super.state(proposalId);
-//     }
-
-//     function proposalNeedsQueuing(uint256 proposalId)
-//         public
-//         view
-//         override(Governor, GovernorTimelockControl)
-//         returns (bool)
-//     {
-//         return super.proposalNeedsQueuing(proposalId);
-//     }
-
-//     function proposalThreshold()
-//         public
-//         view
-//         override(Governor, GovernorSettings)
-//         returns (uint256)
-//     {
-//         return super.proposalThreshold();
-//     }
-
-//     function _queueOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)
-//         internal
-//         override(Governor, GovernorTimelockControl)
-//         returns (uint48)
-//     {
-//         return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
-//     }
-
-//     function _executeOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)
-//         internal
-//         override(Governor, GovernorTimelockControl)
-//     {
-//         super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
-//     }
-
-//     function _cancel(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)
-//         internal
-//         override(Governor, GovernorTimelockControl)
-//         returns (uint256)
-//     {
-//         return super._cancel(targets, values, calldatas, descriptionHash);
-//     }
-
-//     function _executor()
-//         internal
-//         view
-//         override(Governor, GovernorTimelockControl)
-//         returns (address)
-//     {
-//         return super._executor();
-//     }
-// }
-// `
