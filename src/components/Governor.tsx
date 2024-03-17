@@ -10,21 +10,8 @@ import React from "react";
 import { GovernorFormDataType, GovernorErrorsType } from "@/types/types";
   // IMPORTING ATOMS
 import {governorFormData, governorErrors} from "@/store/Governor";
-
-// A FUNCTION TO LOOP THROUGH A STRING TO CHECK IF A VALUE IS A NUMBER
-function checkString(string: string, float?: true): boolean{
-  if(!string) return false
-
-  for(const letter of string){
-    if(letter === "0" || float && letter === '.'){
-      continue
-    }else if(!parseFloat(letter)){
-      return false
-    }
-  }
-
-  return true
-}
+  // IMPORTING LIB FUNCTIONS
+import checkIfNumber from "@/lib/checkIfNumber";
 
 // A FUNCTION THAT RETURNS A GOVERNOR COMPONENT
 export default function Governor(){
@@ -40,7 +27,7 @@ export default function Governor(){
       const [numberPart, daysPart] = value.split(" ");
 
       // CHECK IF THE VALUE ENTERED IS OF RIGHT FORMAT
-      if (!checkString(numberPart, true)) {
+      if (!checkIfNumber(numberPart, true)) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           votingDelay: "Bad duration format",
@@ -105,7 +92,7 @@ export default function Governor(){
       const [numberPart, weeksPart] = value.split(" ");
 
       // CHECK IF THE VALUE ENTERED IS OF RIGHT FORMAT
-      if (!checkString(numberPart, true)) {
+      if (!checkIfNumber(numberPart, true)) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           votingPeriod: "Bad duration format",
@@ -167,7 +154,7 @@ export default function Governor(){
       }
     }else if(name === "blockValue"){
       // CHECK IF VALUE IS A NUMBER, IF NOT MAKE THE VALUE AN EMPTY STRING
-      if (!checkString(value, true)) {
+      if (!checkIfNumber(value, true)) {
         return setFormData((prevFormData) => ({
           ...prevFormData,
           blockValue: "",
@@ -175,7 +162,7 @@ export default function Governor(){
       }
     }else if(name === "proposalThreshold"){
       // CHECK IF VALUE IS AN INTEGER, IF NOT THROW ERROR
-      if(!checkString(value)){
+      if(!checkIfNumber(value)){
         setErrors(prevErrors => ({
           ...prevErrors,
           proposalThreshold: "Not a valid number"
@@ -203,7 +190,7 @@ export default function Governor(){
       }));
     }else if(name === "tokenDecimals"){
       // CHECK IF VALUE IS A NUMBER, IF NOT MAKE THE VALUE AN EMPTY STRING
-      if (!checkString(value, true)) {
+      if (!checkIfNumber(value, true)) {
         return setFormData((prevFormData) => ({
           ...prevFormData,
           tokenDecimals: "",
@@ -255,7 +242,7 @@ export default function Governor(){
       }));
     }else if(name === "quorumValue"){
       // CHECK IF VALUE IS A NUMBER, IF NOT MAKE THE VALUE AN EMPTY STRING
-      if (!checkString(value, true)) {
+      if (!checkIfNumber(value, true)) {
         return setFormData((prevFormData) => ({
           ...prevFormData,
           quorumValue: "",

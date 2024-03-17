@@ -4,7 +4,9 @@ import { defaultSnippets, upgradeableSnippets } from "@/code/Governor"
     // IMPORTING TYPES
 import { GovernorFormDataType, GovernorCodeSnippetDataType } from "@/types/types"
     // IMPORTING GUARDS
-import { arrayHasGovernorSnippetCode } from "@/types/guards" 
+import { arrayHasGovernorSnippetCode } from "@/types/guards"
+    // IMPORTING LIB FUNCTIONS
+import checkIfNumber from "@/lib/checkIfNumber"
 
 // A FUNCTION TO VERIFY IF AN ARRAY CONTAINS GOVERNOR SNIPPET CODES
 function clarifyData(data: unknown): GovernorCodeSnippetDataType[] | undefined{
@@ -90,12 +92,28 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         votingPeriod
     } = governorFormData
 
+    // GETTING NUMERIC VALUES FOR VOTINGDELAY AND VOTING PERIOD
+    const [delayNumberPart, daysPart] = votingDelay.split(" ")
+    const votingDelayValue: number = delayNumberPart ? parseFloat(delayNumberPart) : 0
+    const votingDelayCounts: string = daysPart ? daysPart : "day"
+
+    const [periodNumberPart, weeksPart] = votingPeriod.split(" ")
+    const votingPeriodValue: number = periodNumberPart ? parseFloat(periodNumberPart) : 0
+    const votingPeriodCounts: string = weeksPart ? weeksPart : "week"
+
+    // GETTING NUMERICAL VALUE FOR PROPOSAL THRESHOLD
+    const proposalThresholdValue: number = checkIfNumber(proposalThreshold) ? parseInt(proposalThreshold) : 0
+
     // DECLARING THE SOURCE CODE BASED ON THE UPGRADEABILITY VALUE
     const codeSource: GovernorCodeSnippetDataType[] | undefined = upgradeabilityValue ? clarifyData(upgradeableSnippets) : clarifyData(defaultSnippets)
 
     if(!codeSource){
         return "Check console for more info"
     }
+
+    // FETCHING OPTIONAL SECTIONS
+        // QUORUM
+    const quorumSnippets = getCodeSnippets(codeSource, {section: "quorum"}) as GovernorCodeSnippetDataType[]
 
     // GETTING DEFAULT COMMENTS, AND WORK ON THE LICENSE IMPORT TO RETURN UPDATED COMMENTS
     const comments = getCodeSnippets(codeSource, {tag: "comments", section: "default"}) as GovernorCodeSnippetDataType[]
@@ -110,15 +128,23 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
     // GETTING DEFAULT VERSIONS
     const defaultVersion = getCodeSnippets(codeSource, {tag: "version", section: "default"}, true).join("\n")
 
-    // FORMING AN IMPORTS ARRAY
+    // FORMING AN IMPORTS STRING
         // GETTING DEFAULT IMPORTS
     const defaultImports = getCodeSnippets(codeSource, {tag: "imports", section: "default"}, true).join("\n")
+        // GETTING QUORUM IMPORTS
+    const defaultQuorumImport = quorumSnippets.find(item => item.name === "GovernorQuorumDefaultFunctionImport")?.content
+        // IMPORTS STRING
+    const imports = `${defaultImports}${quorumType === "percentage" ? "\n" : ""}${quorumType === "percentage" ? defaultQuorumImport : ""}`
 
     // FORMING A CONTRACT HEAD
         // GETTING DEFAULT CONTRACT HEAD
     const defaultContractHead = getCodeSnippets(codeSource, {section: "default", tag: "contract head"}, true)
         .join("\n")
         .replace("{name=Governor}", name ? `${name[0].toUpperCase()}${name.slice(1)}` : "MyGovernor")
+        // GETTINH QUORUM HEAD
+    const quorumContractHead = quorumSnippets.find(item => item.name === "GovernorQuorumDefaultContractHead")?.content
+        // CONTRACT HEAD
+    const contractHead: string = `${defaultContractHead} ${quorumType === "percentage" ? ", " + quorumContractHead : ""}`
 
     // FORMING A CONSTRUCTOR 
         // GETTING CONSTRUCTOR HEAD WITHOUT UPGRADEABILITY
@@ -128,30 +154,78 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         
         // GETTING CONSTRUCTOR AS IS IF UPGRADEABILITY
     const defaultConstructor = getCodeSnippets(codeSource, {section: "default", tag: "constructor"}, true).join("\n")
+        // GETTING QUORUM CONSTRUCTOR FUNCTION
+    const quorumConstructorFunction = quorumSnippets
+        .find(item => item.name === "GovernorQuorumDefaultConstructorHead")
+        ?.content.replace("{inputValue=4}", `${quorumValue && parseFloat(quorumValue) <= 100 ? quorumValue : 4}`)
 
         // FORMING CONSTRUCTOR
     const constructor: string = upgradeabilityValue 
         ? 
     defaultConstructor 
         : 
-    `${defaultConstructorHead}{\n\t}`
+    `${defaultConstructorHead}{${quorumType === "percentage" ? "\n\t\t" : ""}${quorumType === "percentage" ? quorumConstructorFunction : ""}${quorumType === "percentage" ? "\n\t" : ""}}`
 
     // FORMING AN INITIALIZER
         // GETTING DEFAULT INITIALIZER
     const defaultInitializer = getCodeSnippets(codeSource, {section: "default", tag: "initializer"}, true)
         .join("\n")
         .replace("{name=Governor}", name ? name : "MyGovernor")
+        // GETTING QUORUM INITIALIZER FUNCTION
+    const quorumInitializerFunction = quorumSnippets.find(item => item.name === "GovernorQuorumDefaultInitializer")?.content
+        // INITIALIZER STRING
+    const initializer: string = `${defaultInitializer}${quorumType ? "\n\t\t" : ""}${quorumType === "percentage" ? quorumInitializerFunction : ""}${quorumType === "percentage" ? "\n\t" : ""}}`
+
+    // FORMING A CONTRACT BODY
+        // GETTING DEFAULT FUNCTIONS
+    const defaultContractBody = getCodeSnippets(codeSource, {section: "default", tag: ["contract body"] }) as GovernorCodeSnippetDataType[]
+        // GETTING OPTIONAL FUNCTIONS
+    const defaultProposalThreshold = getCodeSnippets(
+        codeSource, 
+        {section: "optional", tag: ["proposal threshold", "contract body"]}, 
+        true
+    ).join("\n").replace("{input=0}", `${proposalThresholdValue}`)
+        
+        // GETTING VOTING DELAY AND VOTING PERIOD FUNCTIONS
+    const votingDelayFunction = defaultContractBody
+        .find(action => action.name === "GovernorDefaultVotingDelay")
+        ?.content.replace("{votingDelay={1 day} * 7200}", `${votingDelayValue ? votingDelayValue : 0 * 7200}`)
+        .replace("{votingDelay=1} day", `${votingDelayValue ? votingDelayValue : 0} ${votingDelayCounts}`)
+
+    const votingPeriodFunction = defaultContractBody
+        .find(action => action.name === "GovernorDefaultVotingPeriod")
+        
+        ?.content.replace(
+            "{votingPeriod={input=1 week(convert to seconds)}/{blockValue=12 seconds}", 
+            `${blockValue ? ((votingPeriodValue ? votingPeriodValue : 0 * 604800)/parseFloat(blockValue)).toFixed(2) : 0}`
+        )
+
+        .replace("{votingPeriod = 1} week", `${votingPeriodValue ? votingPeriodValue : 0} ${votingPeriodCounts ? votingPeriodCounts : "week"}`)
+
+        // GETTING QUORUM FUNCTIONS
+    const numericalQuorumFunction = quorumSnippets
+        .find(item => item.name === "GovernorQuorumOptionalFunction")
+        ?.content.replace("{inputValue=4}", `${quorumValue ? quorumValue : 4}`)
+        .replace("e{tokenDecimals=18}", `${votes === "ERC721Votes" || !tokenDecimals ? "" : "e" + tokenDecimals}`)
+    const percentageQuorumFunction = quorumSnippets.find(item => item.name === "GovernorQuorumDefaultFunction")?.content
+        
+        // CONTRACT BODY
+    const contractBody = `${votingDelayFunction}\n
+    ${votingPeriodFunction}\n
+    ${defaultProposalThreshold}\n
+    ${quorumType === "number" ? numericalQuorumFunction : percentageQuorumFunction}`
 
     // FORMING A CONTRACT
-    const contract: string = `${defaultContractHead}{
-    ${constructor}\n
-    ${upgradeabilityValue ? defaultInitializer + "\n" : ""}        
+    const contract: string = `${contractHead}{
+    ${constructor}${upgradeabilityValue ? "\n" : ""}
+    ${upgradeabilityValue ? initializer + "\n" : ""}
+    ${contractBody}     
 }`
     
     return [
         updatedComments, "",
         defaultVersion, "",
-        defaultImports, "",
+        imports, "",
         contract
     ].join("\n")
 }

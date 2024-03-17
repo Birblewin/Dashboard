@@ -118,7 +118,7 @@ export const defaultSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorDefaultVotingDelay",
         section: "default",
         tag: ["voting delay", "contract body"],
-        content: `function votingDelay() public pure override returns (uint256) {\n\treturn {votingDelay={1 day} * 7200}; // {votingDelay=1} day\n}`
+        content: `function votingDelay() public pure override returns (uint256) {\n\t\treturn {votingDelay={1 day} * 7200}; \t// {votingDelay=1} day\n\t}`
     },
 
     {
@@ -128,7 +128,7 @@ export const defaultSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorDefaultVotingPeriod",
         section: "default",
         tag: ["voting period", "contract body"],
-        content: `function votingPeriod() public pure override returns (uint256) {\n\treturn {votingPeriod={input=1 week(convert to seconds)}/{blockValue=12 seconds}; // {votingPeriod = 1} week\n}`
+        content: `function votingPeriod() public pure override returns (uint256) {\n\t\treturn {votingPeriod={input=1 week(convert to seconds)}/{blockValue=12 seconds}; \t// {votingPeriod = 1} week\n\t}`
     },
 
     // OPTIONAL CONTRACT BODY
@@ -139,7 +139,7 @@ export const defaultSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorDefaultProposalThreshold",
         section: "optional",
         tag: ["proposal threshold", "contract body"],
-        content: `function proposalThreshold() public pure override returns (uint256) {\n\treturn {input=0};\n}`
+        content: `function proposalThreshold() public pure override returns (uint256) {\n\t\treturn {input=0};\n\t}`
     },
 
     // QUORUM FUNCTIONS
@@ -151,7 +151,7 @@ export const defaultSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorQuorumOptionalFunction",
         section: "quorum",
         tag: ["optional", "contract body"],
-        content: `function quorum(uint256 blockNumber) public pure override returns (uint256) {\n\treturn {inputValue=4}e{tokenDecimals=18};\n}`
+        content: `function quorum(uint256 blockNumber) public pure override returns (uint256) {\n\t\treturn {inputValue=4}e{tokenDecimals=18};\n\t}`
     },
 
         // DEFAULT -> %
@@ -192,7 +192,7 @@ export const defaultSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorQuorumDefaultFunction",
         section: "quorum",
         tag: ["default", "contract body"],
-        content: `function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {\n\treturn super.quorum(blockNumber);\n}`
+        content: `function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {\n\t\treturn super.quorum(blockNumber);\n\t}`
     },
 
     // UPDATABLE SETTINGS
@@ -574,7 +574,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorDefaultInitializer",
         section: "default",
         tag: "initializer",
-        content: `function initialize(IVotes _token) initializer public {\n\t\t__Governor_init({name=Governor});\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);\n\t}`
+        content: `function initialize(IVotes _token) initializer public {\n\t\t__Governor_init({name=Governor});\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);`
     },
 
     // DEFAULT CONTRACT BODY
@@ -585,7 +585,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorDefaultVotingDelay",
         section: "default",
         tag: ["voting delay", "contract body"],
-        content: `function votingDelay() public pure override returns (uint256) {\n\treturn {votingDelay={1 day} * 7200}; // {votingDelay=1} day\n}`
+        content: `function votingDelay() public pure override returns (uint256) {\n\t\treturn {votingDelay={1 day} * 7200}; \t// {votingDelay=1} day\n\t}`
     },
 
     {
@@ -595,7 +595,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorDefaultVotingPeriod",
         section: "default",
         tag: ["voting period", "contract body"],
-        content: `function votingPeriod() public pure override returns (uint256) {\n\treturn {votingPeriod={input=1 week(convert to seconds)}/{blockValue=12 seconds}; // {votingPeriod = 1} week\n}`
+        content: `function votingPeriod() public pure override returns (uint256) {\n\t\treturn {votingPeriod={input=1 week(convert to seconds)}/{blockValue=12 seconds}; \t// {votingPeriod = 1} week\n\t}`
     },
 
     // OPTIONAL CONTRACT BODY
@@ -606,7 +606,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorDefaultProposalThreshold",
         section: "optional",
         tag: ["proposal threshold", "contract body"],
-        content: `function proposalThreshold() public pure override returns (uint256) {\n\treturn {input=0};\n}`
+        content: `function proposalThreshold() public pure override returns (uint256) {\n\t\treturn {input=0};\n\t}`
     },
 
     // QUORUM FUNCTIONS
@@ -618,7 +618,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorQuorumOptionalFunction",
         section: "quorum",
         tag: ["optional", "contract body"],
-        content: `function quorum(uint256 blockNumber) public pure override returns (uint256) {\n\treturn {inputValue=4}e{tokenDecimals=18};\n}`
+        content: `function quorum(uint256 blockNumber) public pure override returns (uint256) {\n\t\treturn {inputValue=4}e{tokenDecimals=18};\n\t}`
     },
 
         // DEFAULT -> %
@@ -659,7 +659,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorQuorumDefaultFunction",
         section: "quorum",
         tag: ["default", "contract body"],
-        content: `function quorum(uint256 blockNumber) public view override(GovernorUpgradeable, GovernorVotesQuorumFractionUpgradeable) returns (uint256) {\n\treturn super.quorum(blockNumber);\n}`
+        content: `function quorum(uint256 blockNumber) public view override(GovernorUpgradeable, GovernorVotesQuorumFractionUpgradeable) returns (uint256) {\n\t\treturn super.quorum(blockNumber);\n\t}`
     },
 
     // UPDATABLE SETTINGS
