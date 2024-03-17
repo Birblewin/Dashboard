@@ -440,6 +440,24 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721VotesU
         name: "Mintable", 
         content: `bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");`
      },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Constructor",  
+        tag: "PausableInit",
+        name: "Pausable", 
+        content: `bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");`
+     },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Constructor",  
+        tag: "UUPSInit",
+        name: "UUPS", 
+        content: `bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");`
+     },
     // { 
     //     snippet_id: 1, 
     //     wizard_id: 1,

@@ -34,6 +34,8 @@ const ERC721S = ()=>{
           setAccessControl(true);
           setOwnable(true);
           setTransparent(false);
+          setRoles(false);
+          setManaged(false);
         }
         setUpgradeability(true); // Set the checkbox to true if either radio input is true
       };
@@ -75,9 +77,14 @@ const ERC721S = ()=>{
         if (isChecked) {
             setAccessControl(true);
             setOwnable(true)
+            setManaged(false)
+            setRoles(false)
             
             
-        } else {
+        }else if(!isChecked){
+            setAutoIncrementIds(false)
+        }
+         else {
             // If both Burnable and Pauseable are false, set Access Control to false
             if (!pauseable) {
                 setAccessControl(false);
@@ -95,6 +102,8 @@ const ERC721S = ()=>{
             setMintable(true);
             setAccessControl(true);
             setOwnable(true)
+            setManaged(false)
+            setRoles(false)
         }
     }
     const handlePauseableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,6 +114,8 @@ const ERC721S = ()=>{
         if (isChecked) {
             setAccessControl(true);
             setOwnable(true)
+            setManaged(false)
+            setRoles(false)
             
         } else {
             // If both Burnable and Pauseable are false, set Access Control to false

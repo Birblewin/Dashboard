@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import Popover from "@/components/Popover"
-import { cairo, wizard } from "../store/headerBtns";
+import { cairos, wizard } from "../store/headerBtns";
   // IMPORTING MODULES
 import { useState } from "react";
 import {atom, useRecoilState} from "recoil"
@@ -14,7 +14,7 @@ import {atom, useRecoilState} from "recoil"
 // A FUNCTION THAT GENERATES A NAVBAR COMPONENT
 export default function Navbar() {
   const [isHome, setIsHome] = useState(true);
-  const [Cairo, setCairo] = useRecoilState(cairo);
+  const [Cairo, setCairo] = useRecoilState(cairos);
   const [Wizard, setWizard] = useRecoilState(wizard);
 
   const handleWizardClick = () => {

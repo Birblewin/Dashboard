@@ -80,6 +80,8 @@ export const UpgradableTransparent: string[] = getCodeContent("upgradeableContra
 //export const DefaultConstructor: string[] = getCodeContent("Constructor", "Default");
 export const AutoIncrementIds: string[] = getCodeContent("Constructor", "AutoIncrement");
 export const MintableConstructor: string[] = getCodeContent("Constructor", "MintableInit");
+export const PausableConstructor: string[] = getCodeContent("Constructor", "PausableInit");
+export const UUPSConstructor: string[] = getCodeContent("Constructor", "UUPSInit");
 //export const VotesConstructor: string[] = getCodeContent("Constructor", "Votes");
 export const OwnableConstructor1: string[] = getCodeContent("Constructor", "Ownable1");
 export const OwnableConstructor2: string[] = getCodeContent("Constructor", "Ownable2");
@@ -269,7 +271,8 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
         ].join('').trim();
         
         const MintableFunctions = [
-            `function safeMint(address to, string memory uri) public onlyOwner {
+            `    
+            function safeMint(address to, string memory uri) public onlyOwner {
                 ${erc721autoincrement? AutoIncrementFunc : ""}
                 _safeMint(to, tokenId);
                 ${erc721sUriStorage? URIStorageMint : ""}
@@ -278,7 +281,7 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
         
         const upgradeableFunctions = [
             erc721upgradability? TransparentFunction : "",
-            erc721mintable? MintableFunctions : "" , 
+            erc721mintable? '\n'+MintableFunctions : "" , 
             erc721spausable? PausableFunctions : "",
             erc721sBaseUrl ? '\n\t\t'+(`function _baseURI() internal pure override returns (string memory) {
                 return "${baseUrl}";
@@ -293,7 +296,7 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
 
 
         const functions = [
-             erc721mintable ? MintableFunctions : "" , 
+             erc721mintable ? '\n'+MintableFunctions : "" , 
              erc721spausable ? PausableFunctions : "",
              erc721sBaseUrl ? '\n\t\t'+(`function _baseURI() internal pure override returns (string memory) {
                 return "${baseUrl}";
@@ -305,17 +308,25 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
              erc721sUriStorage ? '\n\t\t' + tokenURIFunction : "",
         ].join('\n').trim();   
 
+        const constructorRoles = [
+            erc721mintable? MintableConstructor : "",
+            erc721spausable? PausableConstructor : "",
+            erc721uups? UUPSConstructor : "",
+        ].join('\n\t\t').trim();
+
         const upgradeableConstructor = [
-              UpgradableConstructor
-        ]
+            erc721autoincrement? '\t\t'+AutoIncrementIds : "",
+            erc721sroles? '\t\t'+constructorRoles : "",
+            UpgradableConstructor
+        ].join('\n').trim();
         const Roles2 = [
             erc721mintable? MintableRoles2 : "" ,
             erc721spausable? PausableRoles2 : ""
         ].join('\n\t\t').trim();
         const constructor = [
         `${erc721autoincrement ? AutoIncrementIds : ""}
-        ${erc721mintable? MintableConstructor : ""} 
-        constructor(${erc721smanaged?ManagedConstructor1:""}${erc721sownable?OwnableConstructor1:""}${erc721sroles?RolesConstructor1:""}) ERC721("${name}", "${symbol}") ${erc721svotes?VotesConstructor:""} ${erc721sownable?'\n\t\t'+OwnableConstructor2+'\n\t\t':''}${erc721smanaged?'\n\t\t'+ManagedConstructor2+'\n\t\t':''}{${erc721sroles?'\n\t\t'+RolesConstructor2+'\n\t\t':""}${erc721sroles?Roles2:""}}`
+        ${erc721sroles? constructorRoles : ""} 
+        constructor(${erc721smanaged?ManagedConstructor1:""}${erc721sownable?OwnableConstructor1:""}${erc721sroles?RolesConstructor1:""}) ERC721("${name}", "${symbol}") ${erc721svotes?VotesConstructor:""} ${erc721sownable?'\n\t\t'+OwnableConstructor2+'\n\t\t':''}${erc721smanaged?'\n\t\t'+ManagedConstructor2+'\n\t\t':''}{${erc721sroles?'\n\t\t'+RolesConstructor2+'\n\t\t':""}${erc721sroles?'\n\t\t'+Roles2+'\n\t\t':""}}`
         ].join('\n').trim();
 
        const UpgradeableContract = [
