@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import {ERC1155 as ERC1155Atom, ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom, Governor as GovernorAtom} from '../store/solidityBtns'
@@ -7,10 +7,12 @@ import { useRecoilState } from "recoil";
 import {generateERC20SCode} from "../generator/ERC20S";
 import {wizard, cairos} from '../store/headerBtns'
 import {ERC721, ERC20,Custom } from '../store/cairoBtns'
-import {ERC20InitialCairoCode, ERC721InitialCairoCode, CustomInitialCairoCode} from './cairoSnippets'
+import { GenerateERC721SCode } from "@/generator/ERC721S";
+import { ERC721SBurnable, ERC721SPauseable, ERC721SVotes, ERC721SAccessControlRoles, ERC721SAccessControlOwnable, ERC721SAccessControlManaged, ERC721SEnumerable, ERC721SURIStorage, ERC721SUpgradeabilityTransparent, ERC721SUpgradeabilityUUPS, ERC721SSecurityContact, ERC721SUpgradeability, ERC721SAutoIncrementIds, ERC721SMintable, ERC721SBaseURI } from "@/store/ERC721S";
+import { GenerateERC721CCode } from "@/generator/ERC721C";
+import { ERC721CAccessControlOwnable, ERC721CAccessControlRoles, ERC721CBurnable, ERC721CMintable, ERC721CPauseable, ERC721CUpgradeable } from "@/store/ERC721C";
 import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPremint, ERC20SUpgradeability, ERC20SUpgradeabilityUUPS, ERC20SPermit, ERC20SMintable, ERC20SSecurityContact, ERC20SLicense, ERC20SName, ERC20SSymbol } from "@/store/ERC20S";
 import { GenerateERC1155Code} from "@/generator/ERC1155";
-import { ERC721InitialCode } from "@/generator/ERC721S";
 import { GovernorInitialCode } from "@/generator/Governor";
 import { generateCustomSCode } from "@/generator/CustomS";
 import { generateCustomCCode } from "@/generator/CustomC";
@@ -22,8 +24,6 @@ import { PrismLight } from 'react-syntax-highlighter';
 import cairo from 'prismjs-cairo';
 import { ERC1155BaseURI, ERC1155Mintable, ERC1155Burnable, ERC1155Pauseable, ERC1155SupplyTracking, ERC1155UpdateableURI, ERC1155AccessControlRoles, ERC1155AccessControlOwnable, ERC1155AccessControlManaged, ERC1155Upgradeability, ERC1155UpgradeabilityTransparent, ERC1155UpgradeabilityUUPS, ERC1155SecurityContact } from "@/store/ERC1155";
 PrismLight.registerLanguage('cairo', cairo);
-
-
 
 const CodeEditor: React.FC = () => {
 
@@ -109,6 +109,35 @@ const CodeEditor: React.FC = () => {
    const ERC1155InitialCode = GenerateERC1155Code(erc1155burnable, erc1155supplyTracking, erc1155pausable, erc1155updatableURI, erc1155roles, erc1155ownable, erc1155managed, erc1155transparent, erc1155UUPS, erc1155security, erc1155upgradability, erc1155mintable, erc1155baseUrl);
  
 
+  const [erc721sburnable] = useRecoilState(ERC721SBurnable);
+  const [erc721spausable] = useRecoilState(ERC721SPauseable);
+  const [erc721svotes] = useRecoilState(ERC721SVotes);
+  const [erc721sUriStorage] = useRecoilState(ERC721SURIStorage);
+  const [erc721sroles] = useRecoilState(ERC721SAccessControlRoles);
+  const [erc721sownable] = useRecoilState(ERC721SAccessControlOwnable);
+  const [erc721smanaged] = useRecoilState(ERC721SAccessControlManaged);
+  const [erc721senumerable] = useRecoilState(ERC721SEnumerable);
+  const [erc721transparent] = useRecoilState(ERC721SUpgradeabilityTransparent)
+  const [erc721uups] = useRecoilState(ERC721SUpgradeabilityUUPS)
+  const [erc721security] = useRecoilState(ERC721SSecurityContact)
+  const [erc721upgradability] = useRecoilState(ERC721SUpgradeability)
+  const [erc721autoincrement] = useRecoilState(ERC721SAutoIncrementIds)
+  const [erc721mintable] = useRecoilState(ERC721SMintable)
+  const [erc721sBaseUrl] = useRecoilState(ERC721SBaseURI)
+  
+  const ERC721InitialCode = GenerateERC721SCode(erc721sburnable, erc721svotes, erc721spausable, erc721sUriStorage, erc721sroles, erc721sownable, erc721smanaged, erc721senumerable, erc721transparent, erc721uups, erc721security, erc721upgradability,erc721autoincrement, erc721mintable, erc721sBaseUrl );
+
+
+  const [erc721cburnable] = useRecoilState(ERC721CBurnable);
+  const [erc721cpausable] = useRecoilState(ERC721CPauseable);
+  const [erc721croles] = useRecoilState(ERC721CAccessControlRoles);
+  const [erc721cownable] = useRecoilState(ERC721CAccessControlOwnable);
+  const [erc721cupgradable] = useRecoilState(ERC721CUpgradeable);
+  const [erc721cmintable] = useRecoilState(ERC721CMintable);
+
+  const ERC721InitialCairoCode = GenerateERC721CCode(erc721cburnable, erc721cpausable, erc721croles, erc721cownable, erc721cupgradable, erc721cmintable);
+
+
   //checking which page is active
   const [isWizard] = useRecoilState(wizard)
   const [isCairo] = useRecoilState(cairos)
@@ -164,16 +193,14 @@ const CodeEditor: React.FC = () => {
       </div>
     )}
     {isCairo && (
-      <div className="w-full h-full" >
-        <pre>
-          <SyntaxHighlighter
-            language="cairo"
-            style={dracula}
-            className="w-full h-full font-bold"
-          >
-            {CairoInitialCode}
-          </SyntaxHighlighter>
-        </pre>
+      <div className="w-full h-full">
+        <SyntaxHighlighter
+          language="cairo"
+          style={dracula}
+          className="w-full h-full font-bold"
+        >
+          {CairoInitialCode}
+        </SyntaxHighlighter>
       </div>
     )}
     </>
