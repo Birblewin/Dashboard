@@ -62,6 +62,7 @@ export const UpgradableTransparent: string[] = getCodeContent("upgradeableContra
 
 export const DefaultConstructor: string[] = getCodeContent("Constructor", "Default");
 export const MintableConstructor: string[] = getCodeContent("Constructor", "MintableInit");
+export const UupsConstructor2: string[] = getCodeContent("Constructor", "UupsInit");
 export const OwnableConstructor1: string[] = getCodeContent("Constructor", "Ownable1");
 export const OwnableConstructor2: string[] = getCodeContent("Constructor", "Ownable2");
 export const MintableRoles2: string[] = getCodeContent("Constructor", "MintableRoles2");
@@ -75,16 +76,18 @@ export const UpgradableConstructor: string[] = getCodeContent("Constructor", "Up
 export const MintableFunctions: string[] = getCodeContent("Functions", "Mintable");
 export const PausableFunctions: string[] = getCodeContent("Functions", "Pausable");
 export const Ownable: string[] = getCodeContent("Functions", "Ownable");
-export const Roles: string[] = getCodeContent("Functions", "Roles");
+export const Roles1: string[] = getCodeContent("Functions", "Roles1");
+export const AccesRoles2: string[] = getCodeContent("Functions", "AccessRoles2");
 export const Managed: string[] = getCodeContent("Functions", "Managed");
 export const InterfaceUpgrade: string[] = getCodeContent("Functions", "Upgradable");
 export const UpdatableURIRoleFunction: string[] = getCodeContent("Functions", "UpdatableURI");
 
-export const InitializeMintableFunctions: string[] = getCodeContent("upgradeableFunctions", "Burnable");
+export const InitializeMintableFunctions: string[] = getCodeContent("upgradeableFunctions", "Mintable");
 export const InitializePausableFunctions: string[] = getCodeContent("upgradeableFunctions", "Pausable");
 export const InitializeSupplyTrackingFunctions: string[] = getCodeContent("upgradeableFunctions", "UpgradableSupplyTracking");
 export const InitializeUpdatableURIFunctions: string[] = getCodeContent("upgradeableFunctions", "UpdatableURI");
 export const InitializeOwnableFunctions: string[] = getCodeContent("upgradeableFunctions", "Ownable");
+export const InitializeBurnableFunctions: string[] = getCodeContent("upgradeableFunctions", "Burnable");
 export const InitializeRolesFunctions: string[] = getCodeContent("upgradeableFunctions", "Roles");
 export const InitializeRolesFunctions2: string[] = getCodeContent("upgradeableFunctions", "RolesRole");
 export const InitializeManagedFunctions: string[] = getCodeContent("upgradeableFunctions", "Managed");
@@ -120,7 +123,7 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
         ]
         const UUPSFunctions = [
             `function _authorizeUpgrade(address newImplementation)
-        \t\t\  internal
+        \t\t\   internal
          ${erc1155ownable? OwnableUUPS : ""}${erc1155roles? RolesUUPS : ""}${erc1155managed? ManagedUUPS : ""}
          override
         {}`
@@ -132,19 +135,20 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
             erc1155pausable? '\t'+PausableRoles : "",
         ].join('\n\t\t').trim();
         const initializedStrings = [
-            erc1155supplyTracking? '\t'+InitializeSupplyTrackingFunctions:"",
-            erc1155updatableURI? InitializeUpdatableURIFunctions:"",
+            erc1155supplyTracking? InitializeSupplyTrackingFunctions:"",
+            erc1155updatableURI?  InitializeUpdatableURIFunctions:"",
             erc1155pausable? InitializePausableFunctions:"",
+            erc1155burnable? InitializeBurnableFunctions:"",
             erc1155managed? InitializeManagedFunctions:"",
-            erc1155roles? InitializeRolesFunctions:"",
+            erc1155roles? '\n\t\t'+InitializeRolesFunctions:"",
             erc1155ownable? InitializeOwnableFunctions:"",
-            erc1155uups? InitializeUUPSFunctions:"",
-            erc1155roles? InitializeRolesFunctions2:"",
+            erc1155uups? '\n\t\t'+InitializeUUPSFunctions:"",
+            erc1155roles? '\n\t\t'+InitializeRolesFunctions2:"",
             erc1155ownable? Roles:"",  
-        ].join('\n\t\t\t').trim();
+        ].join('').trim();
         const TransparentFunction = [
             `  function initialize() initializer public {
-        \t\t\ __ERC1155_init(${baseUrl});
+        \t\t\ __ERC1155_init("${baseUrl}");
          \t\t\ ${initializedStrings}
         }`
         ]
@@ -159,9 +163,9 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
       `function _update(address from, address to, uint256[] memory ids, uint256[] memory values)
                 internal
                 override(ERC1155${erc1155supplyTracking? SupplyTrackingContractName : ""} ${erc1155pausable? PausableContractName : ""})
-       {
-                super._update(to, tokenId, auth);
-       }`
+         {
+                super._update(from, to, ids, values);
+        }`
         ].join('').trim(); 
 
         const upgradableUpdateFunction = [
@@ -169,42 +173,42 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
                     internal
                     override(ERC1155Upgradeable${erc1155supplyTracking? UpgradableSupplyTracking : ""}${erc1155pausable? UpgradablePausable : ""})
             {
-              super._update(to, tokenId, auth);
-         }`
+                  super._update(from, to, ids, values);
+            }`
          ].join('').trim(); 
 
         
         const MintableFunctions = [
         `function mint(address account, uint256 id, uint256 amount, bytes memory data)
-            \tpublic
-        ${erc1155ownable? Ownable : ""}${erc1155roles? Roles : ""}${erc1155managed? Managed : ""}
+            \t public
+        ${erc1155ownable? Ownable : ""}${erc1155roles? Roles1 : ""}${erc1155managed? Managed : ""}
          {
-            _mint(account, id, amount, data);
-         }
+           \t\t_mint(account, id, amount, data);
+          }
     
-           function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
-                \tpublic
-         ${erc1155ownable? Ownable : ""}${erc1155roles? Roles : ""}${erc1155managed? Managed : ""}
-         {
+         function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
+            \t public
+        ${erc1155ownable? Ownable : ""}${erc1155roles? Roles1 : ""}${erc1155managed? Managed : ""}
+           {
             \t_mintBatch(to, ids, amounts, data);
-         }
+           }
     `
         ]
        
         const SetURIFunctions= [
-        `\t\t  function setURI(string memory newuri) public ${erc1155ownable ? Ownable : ""} ${erc1155roles ? UpdatableURIRoleFunction : ""}${erc1155managed ? Managed : ""}{
+        `\n\t\t function setURI(string memory newuri) public ${erc1155ownable ? Ownable : ""} ${erc1155roles ? UpdatableURIRoleFunction : ""}${erc1155managed ? Managed : ""}{
              \t\t_setURI(newuri);
            }`
         ]
 
         const SupportInterfaceFunctions = [
-        `\t\t   function supportsInterface(bytes4 interfaceId)
-                public
-                view
-                override(ERC1155, AccessControl)
-                returns (bool)
+        `\n\t\t\tfunction supportsInterface(bytes4 interfaceId)
+                  public
+                  view
+                  override(ERC1155, AccessControl)
+                  returns (bool)
             {
-                return super.supportsInterface(interfaceId);
+             \t\   return super.supportsInterface(interfaceId);
             }`
         ]
 
@@ -218,12 +222,22 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
             return super.supportsInterface(interfaceId);
         }`
         ]
+        const PausableFunctions = [
+
+        `function pause() public ${erc1155ownable? Ownable : ""}${erc1155roles? AccesRoles2 : ""}${erc1155managed? Managed : ""} {
+                _pause();
+            }
+        
+         function unpause() public ${erc1155ownable? Ownable : ""}${erc1155roles? AccesRoles2 : ""}${erc1155managed? Managed : ""}{
+                _unpause();
+            }`
+        ].join('\n').trim();
 
         
         const upgradeableFunctions = [
             erc1155upgradability? TransparentFunction : "",
-            erc1155mintable? MintableFunctions : "" , 
-            erc1155pausable? PausableFunctions : "",
+            erc1155mintable? '\n\t\t '+MintableFunctions : "" , 
+            erc1155pausable? '\n\t\t '+PausableFunctions : "",
             erc1155uups? '\n\t\t'+UUPSFunctions : "",
             erc1155roles? '\n\n\t\t'+UpgradableSupportInterfaceFunctions : "",
             shouldRenderStarter? '\n\t\t'+starter : "",
@@ -249,9 +263,9 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
         ].join('\n\t\t').trim();
         const constructor = [
         `
-         ${erc1155mintable? MintableConstructor : ""} 
-        constructor(${erc1155managed?ManagedConstructor1:""}${erc1155ownable?OwnableConstructor1:""}${erc1155roles?RolesConstructor1:""}) ERC1155("${baseUrl}") ${erc1155ownable?'  '+OwnableConstructor2+'\n\t\t':''}${erc1155managed?'\n\t\t'+ManagedConstructor2+'\n\t\t':''}{${erc1155roles?'\n\t\t'+RolesConstructor2+'\n\t\t':""}${erc1155roles?Roles2:"" }}`
-        ].join('\n').trim();
+         ${erc1155uups? UupsConstructor2 : ""}
+        constructor(${erc1155managed?ManagedConstructor1:""}${erc1155ownable?OwnableConstructor1:""}${erc1155roles?RolesConstructor1:""}) ERC1155("${baseUrl}") ${erc1155ownable?'  '+OwnableConstructor2+'\n\t\t\t\t':''}${erc1155managed? ManagedConstructor2+'\n\t\t\t\t':''}{${erc1155roles?'\n\t\t\t\t'+RolesConstructor2+'\n\t\t\t\t':""}${erc1155roles?Roles2:""}}`
+        ].join('').trim();
 
        const UpgradeableContract = [
             ContractHeader,
