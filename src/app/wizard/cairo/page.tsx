@@ -126,7 +126,7 @@ export default function Cairo() {
         </div>
 
         {/* FOR MEDIUM TO LARGE SCREENS, ERC TABS */}
-        <div className="md:flex hidden gap-2 items-center">
+        <div className="md:flex hidden gap-0 items-center">
           <button
             type="button"
             className={`font-bold py-2 px-4 rounded-md ${

@@ -73,3 +73,6 @@ export type GovernorFormDataType = {
 
 // A TYPE FOR THE GOVERNONR ERRORS
 export type GovernorErrorsType = Pick<Record<keyof GovernorFormDataType, string>, "proposalThreshold" | "quorumValue" | "votingDelay" | "votingPeriod">
+
+// A TYPE FOR THE ERC20SOLIDITY ERRORS
+export type ERC20SolidityErrorsType = { premint: string }

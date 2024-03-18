@@ -175,7 +175,7 @@ export default function Governor(){
         }));
       }
 
-      // IF VALUE IS NONE, AUTO SET 0
+      // IF VALUE IS NONE, AUTO SET NULL ERRORS
       if (!value) {
         setErrors((prevErrors) => ({
           ...prevErrors,
