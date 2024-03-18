@@ -120,6 +120,8 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
     const storageSnippets = getCodeSnippets(codeSource, {section: "storage"}) as GovernorCodeSnippetDataType[]
         // TIMELOCK
     const timelockSnippets = getCodeSnippets(codeSource, {section: "timelock"}) as GovernorCodeSnippetDataType[]
+        // UUPS
+    const UUPSSnippets = getCodeSnippets(codeSource, {section: "UUPS"}) as GovernorCodeSnippetDataType[]
     
     const verifiedTimelockSnippets = timelockSnippets.filter(
         item => (item.tag as string[]).includes(timelockType === "Compound" ? "timelockCompound" : "timelockController")
@@ -133,7 +135,12 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
     const licenseComment = comments.find(comment => comment.name === "GovernorDefaultLicenseComment")
         ?.content.replace("{Info License=MIT}", license ? license : "MIT")
 
-    const updatedComments: string = [licenseComment as string, ...defaultComments.map(comment => comment.content)].join("\n")
+    const updatedDefaultComments: string = [licenseComment as string, ...defaultComments.map(comment => comment.content)].join("\n")
+
+    // GETTING OPTIONAL COMMENTS
+    const optionalComment = getCodeSnippets(codeSource, {section: "optional", tag: "comments"}, true)
+        .join("\n")
+        .replace("{inputValue}", securityContact)
 
     // GETTING DEFAULT VERSIONS
     const defaultVersion = getCodeSnippets(codeSource, {tag: "version", section: "default"}, true).join("\n")
@@ -149,9 +156,17 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
     const storageImport = storageSnippets.find(item => item.name === "GovernorStorageImport")?.content
         // GETTING TIMELOCK IMPORTS
     const timelockImport = verifiedTimelockSnippets.find(item => item.name === "GovernorTimelockImport")?.content
+        // GETTING TRANSPARENT IMPORT
+    const transparentImport = getCodeSnippets(codeSource, {section: "transparent"}, true).join("\n")
+        
+        // GETTING UUPS IMPORTS
+    const UUPSImports = UUPSSnippets
+        .filter(item => (item.tag as string[]).includes("imports"))
+        .map(item => item.content)
+        .join("\n")
     
         // IMPORTS STRING
-    const imports = `${defaultImports}${quorumType === "percentage" ? "\n" + defaultQuorumImport: ""}${updatableSettings ? "\n" + updatableSettingsImport : ""}${storage ? "\n" + storageImport : ""}${timelockValue ? "\n" + timelockImport : ""}`
+    const imports = `${defaultImports}${quorumType === "percentage" ? "\n" + defaultQuorumImport: ""}${updatableSettings ? "\n" + updatableSettingsImport : ""}${storage ? "\n" + storageImport : ""}${timelockValue ? "\n" + timelockImport : ""}${upgradeabilityValue ? "\n" + transparentImport : ""}${upgradeabilityType === "UUPS" ? "\n" + UUPSImports : ""}`
 
     // FORMING A CONTRACT HEAD
         // GETTING DEFAULT CONTRACT HEAD
@@ -164,12 +179,14 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         // GETTING UPDATABLE SETTINGS HEAD
     const updatableSettingsContractHead = updatableSettingsSnippets.find(item => item.name === "GovernorUpdatableSettingsContractHead")?.content
         // GETTING STORAGE HEAD
-    const storageHead = storageSnippets.find(item => item.name === "GovernorStorageContractHead")?.content
+    const storageContractHead = storageSnippets.find(item => item.name === "GovernorStorageContractHead")?.content
         // GETTING TIMELOCK HEAD
-    const timelockHead = verifiedTimelockSnippets.find(item => item.name === "GovernorTimelockContractHead")?.content
+    const timelockContractHead = verifiedTimelockSnippets.find(item => item.name === "GovernorTimelockContractHead")?.content
+        // GETTING UUPS HEAD
+    const UUPSContractHead = UUPSSnippets.find(item => item.name === "GovernorUUPSContractHead")?.content
         
         // CONTRACT HEAD
-    const contractHead: string = `${defaultContractHead} ${quorumType === "percentage" ? ", " + quorumContractHead : ""}${updatableSettings ? ", " + updatableSettingsContractHead : ""}${storage ? ", " + storageHead : ""}${timelockValue ? ", " + timelockHead : ""}`
+    const contractHead: string = `${defaultContractHead} ${quorumType === "percentage" ? ", " + quorumContractHead : ""}${updatableSettings ? ", " + updatableSettingsContractHead : ""}${storage ? ", " + storageContractHead : ""}${timelockValue ? ", " + timelockContractHead : ""}${upgradeabilityType === "UUPS" ? ", " + UUPSContractHead: ""}`
 
     // FORMING A CONSTRUCTOR 
         // GETTING CONSTRUCTOR HEAD WITHOUT UPGRADEABILITY
@@ -183,7 +200,7 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         // GETTING QUORUM CONSTRUCTOR FUNCTION
     const quorumConstructorFunction = quorumSnippets
         .find(item => item.name === "GovernorQuorumDefaultConstructorHead")
-        ?.content.replace("{inputValue=4}", `${quorumValue && parseFloat(quorumValue) <= 100 ? quorumValue : 4}`)
+        ?.content.replace("{inputValue=4}", `${quorumValue && parseFloat(quorumValue) <= 100 ? quorumValue.replace('.', '') : 4}`)
 
         // GETTING UPDATABLE SETTINGS FUNCTION
     const updatableSettingsFunction = updatableSettingsSnippets
@@ -197,15 +214,20 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         )
 
         .replace("{inputValue = 1} week", `${votingPeriodValue ? votingPeriodValue : 0} ${votingPeriodCounts ? votingPeriodCounts : "week"}`)
-        .replace("{proposalThreshold=0}", `${proposalThresholdValue}`)
+        .replace("{proposalThreshold=0}", `${proposalThresholdValue}${votes === "ERC721Votes" ? "" : "e" + (tokenDecimals ? tokenDecimals : "18")}`)
+
+        // GETTING TIMELOCK CONSTRUNCTOR
+    const timelockConstructorHead = verifiedTimelockSnippets
+        .find(item => item.name === "GovernorTimelockConstructor")
+        ?.content.replace("{name=Governor}", name ? name : "MyGovernor")
 
         // FORMING CONSTRUCTOR
     const constructor: string = upgradeabilityValue 
         ? 
     defaultConstructor 
         : 
-    `${defaultConstructorHead}{${quorumType === "percentage" ? "\n\t\t" + quorumConstructorFunction : ""}${updatableSettings ? "\n\t\t" + updatableSettingsFunction : ""}
-    }`
+    `${timelockValue ? timelockConstructorHead : defaultConstructorHead}${quorumType === "percentage" ? "\n\t\t" + quorumConstructorFunction : ""}${updatableSettings ? "\n\t\t" + updatableSettingsFunction : ""}
+    {}`
 
     // FORMING AN INITIALIZER
         // GETTING DEFAULT INITIALIZER
@@ -216,7 +238,7 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         // GETTING QUORUM INITIALIZER FUNCTION
     const quorumInitializerFunction = quorumSnippets
         .find(item => item.name === "GovernorQuorumDefaultInitializer")
-        ?.content.replace("{inputValue=4}", `${quorumValue && parseFloat(quorumValue) <= 100 ? quorumValue : 4}`)
+        ?.content.replace("{inputValue=4}", `${quorumValue && parseFloat(quorumValue) <= 100 ? quorumValue.replace('.', '') : 4}`)
 
         // GETTING UPDATABLE SETTINGS INITIALIZER FUNCTION
     const updatableSettingsInitializerFunction = updatableSettingsSnippets
@@ -230,10 +252,33 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         )
 
         .replace("{inputValue=1} week", `${votingPeriodValue ? votingPeriodValue : 0} ${votingPeriodCounts ? votingPeriodCounts : "week"}`)
-        .replace("{proposalThreshold=0}", `${proposalThresholdValue}`)
+        .replace("{proposalThreshold=0}", `${proposalThresholdValue}${votes === "ERC721Votes" ? "" : "e" + (tokenDecimals ? tokenDecimals : "18")}`)
+
+        // GETTING TIMELOCK INITIALIZER
+    const timelockInitializer = verifiedTimelockSnippets
+        .find(item => item.name === "GovernorTimelockInitializer")
+        ?.content.replace("{name=Governor}", name ? name : "MyGovernor")
+
+        // GETTING UUPS INITIALIZER'
+    const UUPSInitializer = UUPSSnippets
+        .find(item => item.name === "GovernorUUPSInitializer")
+        ?.content.replace("{name=Governor}", name ? name : "MyGovernor")
+        
+        .replace("(IVotes _token, address initialOwner)", `(IVotes _token, ${
+            !timelockValue ? "" :
+            timelockType === "TimelockController" ? "TimelockControllerUpgradeable_timelock" : "ICompoundTimelock_timelock"
+        } ,address initialOwner)`)
+
+        .concat(`${
+            !timelockValue ? "" :
+            timelockType === "TimelockController" ? "\n\t\t__GovernorTimelockControl_init(_timelock);" : "\n\t\t__GovernorTimelockCompound_init(_timelock);"
+        }`)
 
         // INITIALIZER STRING
-    const initializer: string = `${defaultInitializer}${quorumType === "percentage" ? "\n\t\t" + quorumInitializerFunction : ""}${updatableSettings ? "\n\t\t" + updatableSettingsInitializerFunction : ""}
+    const initializer: string = `${
+        upgradeabilityType === "UUPS" ? UUPSInitializer :
+        timelockValue ? timelockInitializer : defaultInitializer
+    }${quorumType === "percentage" ? "\n\t\t" + quorumInitializerFunction : ""}${updatableSettings ? "\n\t\t" + updatableSettingsInitializerFunction : ""}
     }`
 
     // FORMING A CONTRACT BODY
@@ -245,7 +290,7 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         codeSource, 
         {section: "optional", tag: ["proposal threshold", "contract body"]}, 
         true
-    ).join("\n").replace("{input=0}", `${proposalThresholdValue}`)
+    ).join("\n").replace("{input=0}", `${proposalThresholdValue}${votes === "ERC721Votes" ? "" : "e" + (tokenDecimals ? tokenDecimals : "18")}`)
         
         // GETTING VOTING DELAY AND VOTING PERIOD FUNCTIONS
     const votingDelayFunction = defaultContractBody
@@ -267,9 +312,10 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
     const numericalQuorumFunction = quorumSnippets
         .find(item => item.name === "GovernorQuorumOptionalFunction")
         ?.content.replace("{inputValue=4}", `${quorumValue ? quorumValue : 4}`)
-        .replace("e{tokenDecimals=18}", `${votes === "ERC721Votes" || !tokenDecimals ? "" : "e" + tokenDecimals}`)
+        .replace("e{tokenDecimals=18}", `${votes === "ERC721Votes" ? "" : "e" + (tokenDecimals ? tokenDecimals : "18")}`)
     
     const percentageQuorumFunction = quorumSnippets.find(item => item.name === "GovernorQuorumDefaultFunction")?.content
+    const quorumDenominatorFunction = quorumSnippets.find(item => item.name === "GovernorQuorumDenominatorFunction")?.content
 
         // GETTING UPDATABLE SETTINGS FUNCTIONS
     const updatableVotingDelayFunction = updatableSettingsSnippets.find(item => item.name === "GovernorUpdatableSettingsVotingDelay")?.content
@@ -278,14 +324,23 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
 
         // GETTING STORAGE FUNCTION
     const storageFunction = storageSnippets.find(item => item.name === "GovernorStorageFunction")?.content
-        
+    
+        // GETTING TIMELOCK FUNCTIONS
+    const timelockFunctions = verifiedTimelockSnippets
+        .filter(item => (item.tag as string[]).includes("contract body"))
+        .map(item => item.content)
+        .join("\n\n\t")
+
+        // GETTING UUPS FUNCTIONS
+    const UUPSFunction = UUPSSnippets.find(item => item.name === "GovernorUUPSContractBody")?.content
+
         // CONTRACT BODY
     const contractBody = `${updatableSettings ? updatableVotingDelayFunction : votingDelayFunction}\n
     ${updatableSettings ?  updatableVotingPeriodFunction : votingPeriodFunction}${
         updatableSettings ? "\n\n\t" + updatableProposalThresholdFunction : 
-        checkIfNumber(proposalThreshold) ? "\n\n\t" + defaultProposalThreshold : ""
-    }
-    ${quorumType === "number" ? "\n\t" + numericalQuorumFunction : "\n\t" + percentageQuorumFunction}${storage ? "\n\n\t" + storageFunction : ""}`
+        checkIfNumber(proposalThreshold) && proposalThreshold !== "0" ? "\n\n\t" + defaultProposalThreshold : ""
+    }${quorumType === "percentage" ? "\n\n\t" + quorumDenominatorFunction : ""}
+    ${quorumType === "number" ? "\n\t" + numericalQuorumFunction : "\n\t" + percentageQuorumFunction}${storage ? "\n\n\t" + storageFunction : ""}${timelockValue ? "\n\n\t" + timelockFunctions : ""}${upgradeabilityType === "UUPS" ? "\n\n\t" + UUPSFunction : ""}`
 
     // FORMING A CONTRACT
     const contract: string = `${contractHead}{
@@ -295,9 +350,10 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
 }`
     
     return [
-        updatedComments, "",
+        updatedDefaultComments,
         defaultVersion, "",
-        imports, "",
+        imports,
+        securityContact ? "\n" + optionalComment : "",
         contract
     ].join("\n")
 }
