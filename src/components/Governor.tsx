@@ -732,7 +732,7 @@ export default function Governor(){
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
             />
 
-            <label className="ml-2 text-[#333333]" htmlFor="UUID">UUPS</label>
+            <label className="ml-2 text-[#333333]" htmlFor="UUPS">UUPS</label>
           </div>
           <Tool
             tooltipText="Uses simpler proxy with less overhead, requires including extra code in your contract. Allows flexibility for authorizing upgrades."
