@@ -1,40 +1,22 @@
 
+import { ERC721CName, ERC721CLicense, ERC721CSymbol, ERC721CMintable, ERC721CPauseable, ERC721CAccessControl, ERC721CBurnable, ERC721CUpgradeable, ERC721CAccessControlRoles, ERC721CAccessControlOwnable, ERC721CBaseURI } from "@/store/ERC721C";
 import Tool from "./Tool";
 import {atom, useRecoilState} from "recoil"
 
 const ERC721C = ()=>{
 
-
-    type AtomValue = string | number | boolean;
-
-    // Function to generate atoms with default values
-    const createAtom = <T extends AtomValue>(key: string, defaultValue: T) => atom({
-    key: key,
-    default: defaultValue,
-    });
-
-    // Define atoms using the createAtom function
-    const ERC721SName = createAtom<string>('ERC721SName', 'My Token');
-    const ERC721SLicense = createAtom<string>('ERC721SLicense', 'MIT');
-    const ERC721SSymbol = createAtom<string>('ERC721SSymbol', 'MTK');
-    const ERC721SMintable = createAtom<boolean>('ERC721SMintable', false);
-    const ERC721SPauseable = createAtom<boolean>('ERC721SPauseable', false);
-    const ERC721SAccessControl = createAtom<boolean>('ERC721SAccessControl', false);
-    const ERC721SBurnable = createAtom<boolean>('ERC721SBurnable', false);
-    const ERC721SUpgradeable = createAtom<boolean>('ERC721SUpgradeable', false);
-    const ERC721SAccessControlRoles = createAtom<boolean>('ERC721SAccessControlRoles', false);
-    const ERC721SAccessControlOwnable = createAtom<boolean>('ERC721SAccessControlOwnable', false);
-
-    const [name, setName] = useRecoilState(ERC721SName);
-    const [license, setLicense] = useRecoilState(ERC721SLicense);
-    const [symbol, setSymbol] = useRecoilState(ERC721SSymbol);
-    const [mintable, setMintable] = useRecoilState(ERC721SMintable);
-    const [pauseable, setPauseable] = useRecoilState(ERC721SPauseable);
-    const [accessControl, setAccessControl] = useRecoilState(ERC721SAccessControl);
-    const [burnable, setBurnable] = useRecoilState(ERC721SBurnable);
-    const [upgradeable, setUpgradeable] = useRecoilState(ERC721SUpgradeable);
-    const [roles, setRoles] = useRecoilState(ERC721SAccessControlRoles);
-    const [ownable, setOwnable] = useRecoilState(ERC721SAccessControlOwnable);
+    const [name, setName] = useRecoilState(ERC721CName);
+    const [license, setLicense] = useRecoilState(ERC721CLicense);
+    const [symbol, setSymbol] = useRecoilState(ERC721CSymbol);
+    const [mintable, setMintable] = useRecoilState(ERC721CMintable);
+    const [pauseable, setPauseable] = useRecoilState(ERC721CPauseable);
+    const [accessControl, setAccessControl] = useRecoilState(ERC721CAccessControl);
+    const [burnable, setBurnable] = useRecoilState(ERC721CBurnable);
+    const [upgradeable, setUpgradeable] = useRecoilState(ERC721CUpgradeable);
+    const [roles, setRoles] = useRecoilState(ERC721CAccessControlRoles);
+    const [ownable, setOwnable] = useRecoilState(ERC721CAccessControlOwnable);
+    const [BaseURI, setBaseURI] = useRecoilState(ERC721CBaseURI);
+    
 
 
       const handleAccessControlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -165,6 +147,19 @@ const ERC721C = ()=>{
                          value={symbol}  onChange={(e) => setSymbol(e.target.value)}
                         />
                     </div>
+                   
+                </div>
+                <div className="flex flex-col p-[0.5rem]">
+                    <div className="flex justify-between">
+                        <label htmlFor="uri" className="text-[#333333] text-[0.875rem]">
+                            Base URI
+                        </label>
+                        <Tool tooltipText="Will be concatenated with token IDs to generate the token URIs."/>
+                    </div>
+                    
+                    <input  id="uri" type="text" placeholder="https://..." className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"
+                    value={BaseURI}  onChange={(e) => setBaseURI(e.target.value)}
+                    />
                 </div>
             </div>
             <hr className="my-4"></hr>
@@ -285,7 +280,7 @@ const ERC721C = ()=>{
                     <label htmlFor="license" className="text-[#333333] text-sm">
                         License
                     </label>
-                    <input  id="license" type="text" placeholder="MIT" className="border border-1 border-[#333333] rounded-[6px] p-1  text-black" />
+                    <input  id="license" type="text" placeholder="MIT" className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"  value={license}  onChange={(e) => setLicense(e.target.value)}/>
                 </div>
             </div>
         </div>
