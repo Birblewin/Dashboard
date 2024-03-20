@@ -1,12 +1,16 @@
 "use client"
 
+// IMPORTING NECESSARY FILES
+  // IMPORTING COMPONENTS
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CheckIcon from '@mui/icons-material/Check';
 import { useState } from 'react';
 import copy from 'clipboard-copy';
 
+  // IMPORTING PROPS
+import { CopyButtonProps } from '@/types/props';
 
-function CopyBtn() {
+function CopyBtn({handleClick}: CopyButtonProps) {
   const [isCopied, setIsCopied] = useState(false);
   const text = "code"
 
@@ -37,7 +41,7 @@ function CopyBtn() {
           )}
         </button>
     </div>
-  )
+  );
 }
 
 export default CopyBtn;
