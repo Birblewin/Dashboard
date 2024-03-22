@@ -247,11 +247,11 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
 
         const functions = [
              erc1155mintable ? MintableFunctions : "" , 
-             erc1155pausable ? PausableFunctions : "",
+             erc1155pausable ? '\t\t'+PausableFunctions : "",
              erc1155updatableURI ? SetURIFunctions : "",
              erc1155roles ? SupportInterfaceFunctions : "",
              shouldRenderStarter ? '\n\t\t' + starter : "",
-             shouldRenderUpdateFunction ? '\n\t\t' + updateFunction : "",
+             shouldRenderUpdateFunction ? '\n\t\t  ' + updateFunction : "",
         ].join('').trim();   
 
         const upgradeableConstructor = [

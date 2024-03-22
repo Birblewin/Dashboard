@@ -158,9 +158,6 @@ const ERC20 = ()=>{
      
     
      
-      
-
-
     return(
         <div className="p-4 overflow-visible">
             <div>
