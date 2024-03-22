@@ -21,6 +21,10 @@ hue-6-2: #e6c07b
 .hljs {
   color: #abb2bf;
   background: #282c34;
+  padding-left: 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 1rem;
 }
 
 .hljs-comment,
