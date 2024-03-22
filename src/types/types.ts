@@ -51,7 +51,7 @@ export type GovernorFormDataType = {
     votingDelay: "1 day" | `${number} days`, // INPUT
     votingPeriod: "1 week" | `${number} weeks`, // INPUT
     blockValue: `${number}` | "", // INPUT
-    proposalThreshold: `${number}`, // INPUT
+    proposalThreshold: `${number}` | "", // INPUT
     
     quorumType:  "percentage" | "number", // RADIO
     quorumValue: `${number}` | "", // INPUT
