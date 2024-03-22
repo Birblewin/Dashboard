@@ -1,4 +1,8 @@
+// IMPORTING NECESSARY FILES
+    // IMPORTING MODULES
 import{atom, selector} from "recoil";
+    // IMPORTING TYPES
+import { ERC20SolidityErrorsType } from "@/types/types";
 
 // Define a type for your atom values
 type AtomValue = string | number | boolean;
@@ -34,4 +38,10 @@ export const selectors = selector({
         const license = get(ERC20SLicense)
         return `// SPDX-License-Identifier:${license}`
     }
+})
+
+// GENERATING AN ERC20SOLIDITYERRORS ATOM
+export const ERC20SolidityErrors = atom<ERC20SolidityErrorsType>({
+    key: "ERC20SolidityErrors",
+    default: { premint: "" }
 })
