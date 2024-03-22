@@ -677,4 +677,54 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
             override
     {}`
     },
+//     { 
+//         snippet_id: 1, 
+//         wizard_id: 1,
+//         contractType_id: 1, 
+//         section: "Section2",  
+//         tag: "Pausable",
+//         name: "ERC1155PausableSection2", 
+//         content: `function pause() public onlyOwner {
+//             _pause();
+//         }
+    
+//         function unpause() public onlyOwner {
+//             _unpause();`
+//     },
+//     { 
+//         snippet_id: 1, 
+//         wizard_id: 1,
+//         contractType_id: 1, 
+//         section: "Section3",  
+//         tag: "Pausable",
+//         name: "ERC1155PausableSection3", 
+//         content: `function nonces(address owner)
+//         public
+//         view
+//         override(ERC1155PermitUpgradeable, NoncesUpgradeable)
+//         returns (uint256)
+//     {
+//         return super.nonces(owner);
+//     }
+// `
+//     },
+//     { 
+//         snippet_id: 1, 
+//         wizard_id: 1,
+//         contractType_id: 1, 
+//         section: "Section3",  
+//         tag: "Votes",
+//         name: "ERC1155VotesSection3", 
+//         content: `// The following functions are overrides required by Solidity.
+
+//         function _update(address from, address to, uint256 value)
+//             internal
+//             override(ERC1155Upgradeable, ERC1155PausableUpgradeable)
+//         {
+//             super._update(from, to, value);
+//         }`
+//     }
+];
+  
+ 
 ]; 

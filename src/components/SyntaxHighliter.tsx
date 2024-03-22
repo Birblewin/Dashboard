@@ -1,17 +1,24 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import {ERC1155 as ERC1155Atom, ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom, Governor as GovernorAtom} from '../store/solidityBtns'
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {generateERC20SCode} from "../generator/ERC20S";
 import {wizard, cairos} from '../store/headerBtns'
 import {ERC721, ERC20,Custom } from '../store/cairoBtns'
-import {ERC20InitialCairoCode, ERC721InitialCairoCode, CustomInitialCairoCode} from './cairoSnippets'
+import { GenerateERC721SCode } from "@/generator/ERC721S";
+import { ERC721SBurnable, ERC721SPauseable, ERC721SVotes, ERC721SAccessControlRoles, ERC721SAccessControlOwnable, ERC721SAccessControlManaged, ERC721SEnumerable, ERC721SURIStorage, ERC721SUpgradeabilityTransparent, ERC721SUpgradeabilityUUPS, ERC721SSecurityContact, ERC721SUpgradeability, ERC721SAutoIncrementIds, ERC721SMintable, ERC721SBaseURI } from "@/store/ERC721S";
+import { GenerateERC721CCode } from "@/generator/ERC721C";
+import { ERC721CAccessControlOwnable, ERC721CAccessControlRoles, ERC721CBurnable, ERC721CMintable, ERC721CPauseable, ERC721CUpgradeable } from "@/store/ERC721C";
 import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPremint, ERC20SUpgradeability, ERC20SUpgradeabilityUUPS, ERC20SPermit, ERC20SMintable, ERC20SSecurityContact, ERC20SLicense, ERC20SName, ERC20SSymbol } from "@/store/ERC20S";
 import { GenerateERC1155Code} from "@/generator/ERC1155";
-import { ERC721InitialCode } from "@/generator/ERC721S";
-import { GovernorInitialCode } from "@/generator/Governor";
+
+// IMPORTING GOVERNOR-RELATED CODES
+import governorCodeGenerator from "@/generator/Governor";
+import { governorFormData } from "@/store/Governor";
+import { GovernorFormDataType } from "@/types/types";
+
 import { generateCustomSCode } from "@/generator/CustomS";
 import { generateCustomCCode } from "@/generator/CustomC";
 import { generateERC20CCode } from "@/generator/ERC20C";
@@ -22,12 +29,21 @@ import { PrismLight } from 'react-syntax-highlighter';
 import cairo from 'prismjs-cairo';
 import { ERC1155BaseURI, ERC1155Mintable, ERC1155Burnable, ERC1155Pauseable, ERC1155SupplyTracking, ERC1155UpdateableURI, ERC1155AccessControlRoles, ERC1155AccessControlOwnable, ERC1155AccessControlManaged, ERC1155Upgradeability, ERC1155UpgradeabilityTransparent, ERC1155UpgradeabilityUUPS, ERC1155SecurityContact } from "@/store/ERC1155";
 PrismLight.registerLanguage('cairo', cairo);
+import hljs from '../highlightjs';
+import '../app/atom-one-dark.css';
 
-
+interface SolidityCodeHighlighterProps {
+  code: string;
+}
+const SolidityCodeHighlighter:React.FC<SolidityCodeHighlighterProps> = ({ code }) => {
+  return (
+    <pre className="hljs">
+      <code dangerouslySetInnerHTML={{ __html: code }} />
+    </pre>
+  );
+};
 
 const CodeEditor: React.FC = () => {
-
-
   //erc20 logic with props snippets
   const [erc20sburnable] = useRecoilState(ERC20SBurnable);
   const [erc20spausable] = useRecoilState(ERC20SPauseable);
@@ -39,16 +55,32 @@ const CodeEditor: React.FC = () => {
   const [erc20spermit] = useRecoilState(ERC20SPermit);
   const [erc20supgradeable] = useRecoilState(ERC20SUpgradeability);
   const [erc20sUUPS] = useRecoilState(ERC20SUpgradeabilityUUPS);
-  const [erc20smintable] = useRecoilState(ERC20SMintable)
-  const [erc20ssecuritycontact] = useRecoilState(ERC20SSecurityContact)
+  const [erc20smintable] = useRecoilState(ERC20SMintable);
+  const [erc20ssecuritycontact] = useRecoilState(ERC20SSecurityContact);
   const [erc20slicense] = useRecoilState(ERC20SLicense);
   const [erc20sname] = useRecoilState(ERC20SName);
-  const [erc20ssymbol]= useRecoilState(ERC20SSymbol);
-  const [erc20spremint] = useRecoilState(ERC20SPremint)
+  const [erc20ssymbol] = useRecoilState(ERC20SSymbol);
+  const [erc20spremint] = useRecoilState(ERC20SPremint);
 
+  const ERC20InitialCode = generateERC20SCode(
+    erc20sburnable,
+    erc20smintable,
+    erc20svotes,
+    erc20spausable,
+    erc20sflashMinting,
+    erc20sroles,
+    erc20sownable,
+    erc20smanaged,
+    erc20spermit,
+    erc20supgradeable,
+    erc20sUUPS,
+    erc20ssecuritycontact,
+    erc20slicense,
+    erc20sname,
+    erc20ssymbol,
+    erc20spremint
+  );
 
-  const ERC20InitialCode = generateERC20SCode(erc20sburnable,erc20smintable, erc20svotes, erc20spausable, erc20sflashMinting, erc20sroles, erc20sownable, erc20smanaged, erc20spermit, erc20supgradeable, erc20sUUPS, erc20ssecuritycontact, erc20slicense, erc20sname, erc20ssymbol, erc20spremint);
- 
   //erc20C logic with props snippets
   const [erc20cburnable] = useRecoilState(ERC20CBurnable);
   const [erc20cpausable] = useRecoilState(ERC20CPauseable);
@@ -61,35 +93,66 @@ const CodeEditor: React.FC = () => {
   const [erc20cname] = useRecoilState(ERC20CName);
   const [erc20csymbol] = useRecoilState(ERC20CSymbol);
 
-  const ERC20CInitialCode = generateERC20CCode(erc20cburnable,erc20cmintable,  erc20cpausable,  erc20croles, erc20cownable,  erc20cupgradeable, erc20cpremint, erc20cname, erc20clicense, erc20csymbol);
+  const ERC20CInitialCode = generateERC20CCode(
+    erc20cburnable,
+    erc20cmintable,
+    erc20cpausable,
+    erc20croles,
+    erc20cownable,
+    erc20cupgradeable,
+    erc20cpremint,
+    erc20cname,
+    erc20clicense,
+    erc20csymbol
+  );
 
   //customS logic with props snippets
   const [customspausable] = useRecoilState(CustomSPauseable);
   const [customsroles] = useRecoilState(CustomSAccessControlRoles);
   const [customsownable] = useRecoilState(CustomSAccessControlOwnable);
   const [customsmanaged] = useRecoilState(CustomSAccessControlManaged);
-  const [customsupgradeable] = useRecoilState(CustomSUpgradeable)
-  const [customsupgradeability] = useRecoilState(CustomSUpgradeabilityTransparent);
+  const [customsupgradeable] = useRecoilState(CustomSUpgradeable);
+  const [customsupgradeability] = useRecoilState(
+    CustomSUpgradeabilityTransparent
+  );
   const [customsUUPS] = useRecoilState(CustomSUpgradeabilityUUPS);
   const [customssecuritycontact] = useRecoilState(CustomSSecurityContact);
   const [customsname] = useRecoilState(CustomSName);
   const [customslicense] = useRecoilState(CustomSLicense);
 
+  const CustomSInitialCode = generateCustomSCode(
+    customsupgradeable,
+    customspausable,
+    customsroles,
+    customsownable,
+    customsmanaged,
+    customsupgradeability,
+    customsUUPS,
+    customssecuritycontact,
+    customsname,
+    customslicense
+  );
 
-  const CustomSInitialCode = generateCustomSCode(customsupgradeable,customspausable, customsroles, customsownable, customsmanaged, customsupgradeability, customsUUPS, customssecuritycontact, customsname, customslicense);
-  
   //customC logic with props snippets
   const [customcpausable] = useRecoilState(CustomCPauseable);
   const [customcroles] = useRecoilState(CustomCAccessControlRoles);
   const [customcownable] = useRecoilState(CustomCAccessControlOwnable);
-  const [customcupgradeable] = useRecoilState(CustomCUpgradeable)
+  const [customcupgradeable] = useRecoilState(CustomCUpgradeable);
   const [customcupgradeability] = useRecoilState(CustomCUpgradeability);
   const [customcUUPS] = useRecoilState(CustomCUpgradeabilityUUPS);
   const [customcname] = useRecoilState(CustomCName);
   const [customclicense] = useRecoilState(CustomCLicense);
-  
 
-  const CustomCInitialCode = generateCustomCCode(customcupgradeable,customcpausable, customcroles, customcownable,  customcupgradeability, customcUUPS, customcname, customclicense);
+  const CustomCInitialCode = generateCustomCCode(
+    customcupgradeable,
+    customcpausable,
+    customcroles,
+    customcownable,
+    customcupgradeability,
+    customcUUPS,
+    customcname,
+    customclicense
+  );
 
    //ERC1155
    const [erc1155baseUrl] = useRecoilState(ERC1155BaseURI);
@@ -109,9 +172,40 @@ const CodeEditor: React.FC = () => {
    const ERC1155InitialCode = GenerateERC1155Code(erc1155burnable, erc1155supplyTracking, erc1155pausable, erc1155updatableURI, erc1155roles, erc1155ownable, erc1155managed, erc1155transparent, erc1155UUPS, erc1155security, erc1155upgradability, erc1155mintable, erc1155baseUrl);
  
 
+  const [erc721sburnable] = useRecoilState(ERC721SBurnable);
+  const [erc721spausable] = useRecoilState(ERC721SPauseable);
+  const [erc721svotes] = useRecoilState(ERC721SVotes);
+  const [erc721sUriStorage] = useRecoilState(ERC721SURIStorage);
+  const [erc721sroles] = useRecoilState(ERC721SAccessControlRoles);
+  const [erc721sownable] = useRecoilState(ERC721SAccessControlOwnable);
+  const [erc721smanaged] = useRecoilState(ERC721SAccessControlManaged);
+  const [erc721senumerable] = useRecoilState(ERC721SEnumerable);
+  const [erc721transparent] = useRecoilState(ERC721SUpgradeabilityTransparent)
+  const [erc721uups] = useRecoilState(ERC721SUpgradeabilityUUPS)
+  const [erc721security] = useRecoilState(ERC721SSecurityContact)
+  const [erc721upgradability] = useRecoilState(ERC721SUpgradeability)
+  const [erc721autoincrement] = useRecoilState(ERC721SAutoIncrementIds)
+  const [erc721mintable] = useRecoilState(ERC721SMintable)
+  const [erc721sBaseUrl] = useRecoilState(ERC721SBaseURI)
+  
+  const ERC721InitialCode = GenerateERC721SCode(erc721sburnable, erc721svotes, erc721spausable, erc721sUriStorage, erc721sroles, erc721sownable, erc721smanaged, erc721senumerable, erc721transparent, erc721uups, erc721security, erc721upgradability,erc721autoincrement, erc721mintable, erc721sBaseUrl );
+
+
+  const [erc721cburnable] = useRecoilState(ERC721CBurnable);
+  const [erc721cpausable] = useRecoilState(ERC721CPauseable);
+  const [erc721croles] = useRecoilState(ERC721CAccessControlRoles);
+  const [erc721cownable] = useRecoilState(ERC721CAccessControlOwnable);
+  const [erc721cupgradable] = useRecoilState(ERC721CUpgradeable);
+  const [erc721cmintable] = useRecoilState(ERC721CMintable);
+
+  const ERC721InitialCairoCode = GenerateERC721CCode(erc721cburnable, erc721cpausable, erc721croles, erc721cownable, erc721cupgradable, erc721cmintable);
+
+  // EXTRACTING THE GOVERNOR FORM DATA
+  const governorData = useRecoilValue<GovernorFormDataType>(governorFormData)
+
   //checking which page is active
-  const [isWizard] = useRecoilState(wizard)
-  const [isCairo] = useRecoilState(cairos)
+  const [isWizard] = useRecoilState(wizard);
+  const [isCairo] = useRecoilState(cairos);
 
   const [IsERC1155] = useRecoilState(ERC1155Atom);
   const [IsERC721] = useRecoilState(ERC721Atom);
@@ -128,17 +222,17 @@ const CodeEditor: React.FC = () => {
   } else if (IsERC20) {
     initialCode = ERC20InitialCode;
   } else if (IsGovernor) {
-    initialCode = GovernorInitialCode;
+    initialCode = governorCodeGenerator(governorData);
   } else if (IsCustom) {
     initialCode = CustomSInitialCode;
   }
 
-     //cairo templates
-      const [CairoERC721] = useRecoilState(ERC721);
-      const [CairoERC20] = useRecoilState(ERC20);
-      const [CairoCustom] = useRecoilState(Custom);
+  //cairo templates
+  const [CairoERC721] = useRecoilState(ERC721);
+  const [CairoERC20] = useRecoilState(ERC20);
+  const [CairoCustom] = useRecoilState(Custom);
 
-      let CairoInitialCode = ERC20CInitialCode;;
+  let CairoInitialCode = ERC20CInitialCode;
 
       if (CairoERC721) {
         CairoInitialCode = ERC721InitialCairoCode;
@@ -148,36 +242,28 @@ const CodeEditor: React.FC = () => {
         CairoInitialCode = CustomCInitialCode;
       }
   
+      const highlightedCode = hljs.highlight('solidity', initialCode).value;
 
   return (
     <>
 
 {isWizard && (
       <div className="w-full h-full">
-        <SyntaxHighlighter
-          language="solidity"
-          style={dracula}
-          className="w-full h-full font-bold"
-        >
-          {initialCode}
-        </SyntaxHighlighter>
+        <SolidityCodeHighlighter code={highlightedCode} />;
       </div>
     )}
     {isCairo && (
-      <div className="w-full h-full" >
-        <pre>
-          <SyntaxHighlighter
-            language="cairo"
-            style={dracula}
-            className="w-full h-full font-bold"
-          >
-            {CairoInitialCode}
-          </SyntaxHighlighter>
-        </pre>
+      <div className="w-full h-full">
+        <SyntaxHighlighter
+          language="cairo"
+          style={dracula}
+          className="w-full h-full font-bold"
+        >
+          {CairoInitialCode}
+        </SyntaxHighlighter>
       </div>
     )}
     </>
-   
   );
 };
 

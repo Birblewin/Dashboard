@@ -1,14 +1,16 @@
 "use client"
 
-
-import { ERC20SName, ERC20SSecurityContact, ERC20SLicense, ERC20SSymbol, ERC20SPremint, ERC20SMintable, ERC20SVotes, ERC20SPauseable, ERC20SAccessControl, ERC20SBurnable, ERC20SUpgradeability, ERC20SFlashMinting, ERC20SUpgradeabilityTransparent, ERC20SUpgradeabilityUUPS, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPermit, selectors } from "@/store/ERC20S";
+// IMPORTING NECESSARY FILES
+    // IMPORTING ATOMS
+import { ERC20SName, ERC20SSecurityContact, ERC20SLicense, ERC20SSymbol, ERC20SPremint, ERC20SMintable, ERC20SVotes, ERC20SPauseable, ERC20SAccessControl, ERC20SBurnable, ERC20SUpgradeability, ERC20SFlashMinting, ERC20SUpgradeabilityTransparent, ERC20SUpgradeabilityUUPS, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPermit, ERC20SolidityErrors } from "@/store/ERC20S";
+    // IMPORTING COMPONENTS
 import Tool from "./Tool";
-import {atom, useRecoilState, useRecoilValue} from "recoil"
-import { useState } from "react";
-
-
-
-
+    // IMPORTING MODULES
+import {useRecoilState} from "recoil"
+    // IMPORTING TYPES
+import { ERC20SolidityErrorsType } from "@/types/types";
+    // IMPORTING LIB FUNCTIONS
+import checkIfNumber from "@/lib/checkIfNumber";
 
 const ERC20 = ()=>{
     const [name, setName] = useRecoilState(ERC20SName);
@@ -30,6 +32,8 @@ const ERC20 = ()=>{
     const [ownable, setOwnable] = useRecoilState(ERC20SAccessControlOwnable);
     const [managed, setManaged] = useRecoilState(ERC20SAccessControlManaged);
 
+    // A STATE TO MANAGE THE CURRENT ERRORS
+    const [errors, setErrors] = useRecoilState<ERC20SolidityErrorsType>(ERC20SolidityErrors)
 
     const handleUpgradeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.value === 'transparent') {
