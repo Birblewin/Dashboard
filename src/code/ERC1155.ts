@@ -712,15 +712,4 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
 //     }
 ];
   
-  const Wizards =[
-    {wizard_id: 2, wizard_name: "Solidity"}
-  ];
-
-  const ContractType =[
-    {contractType_id: 1, contractType: "ERC71155"},
-    {contractType_id: 2, contractType: "ERC71155"}
-  ];
-
-const VariableName= [
-    {Variable_id: 1, variable_Section: {name} }
-]
+ 

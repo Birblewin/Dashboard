@@ -29,6 +29,19 @@ import { PrismLight } from 'react-syntax-highlighter';
 import cairo from 'prismjs-cairo';
 import { ERC1155BaseURI, ERC1155Mintable, ERC1155Burnable, ERC1155Pauseable, ERC1155SupplyTracking, ERC1155UpdateableURI, ERC1155AccessControlRoles, ERC1155AccessControlOwnable, ERC1155AccessControlManaged, ERC1155Upgradeability, ERC1155UpgradeabilityTransparent, ERC1155UpgradeabilityUUPS, ERC1155SecurityContact } from "@/store/ERC1155";
 PrismLight.registerLanguage('cairo', cairo);
+import hljs from '../highlightjs';
+import '../app/atom-one-dark.css';
+
+interface SolidityCodeHighlighterProps {
+  code: string;
+}
+const SolidityCodeHighlighter:React.FC<SolidityCodeHighlighterProps> = ({ code }) => {
+  return (
+    <pre className="hljs">
+      <code dangerouslySetInnerHTML={{ __html: code }} />
+    </pre>
+  );
+};
 
 const CodeEditor: React.FC = () => {
   //erc20 logic with props snippets
@@ -221,26 +234,22 @@ const CodeEditor: React.FC = () => {
 
   let CairoInitialCode = ERC20CInitialCode;
 
-  if (CairoERC721) {
-    CairoInitialCode = ERC721InitialCairoCode;
-  } else if (CairoERC20) {
-    CairoInitialCode = ERC20CInitialCode;
-  } else if (CairoCustom) {
-    CairoInitialCode = CustomCInitialCode;
-  }
+      if (CairoERC721) {
+        CairoInitialCode = ERC721InitialCairoCode;
+      } else if (CairoERC20) {
+        CairoInitialCode = ERC20CInitialCode;
+      } else if (CairoCustom) {
+        CairoInitialCode = CustomCInitialCode;
+      }
+  
+      const highlightedCode = hljs.highlight('solidity', initialCode).value;
 
   return (
     <>
 
 {isWizard && (
       <div className="w-full h-full">
-        <SyntaxHighlighter
-          language="solidity"
-          style={dracula}
-          className="w-full h-full font-bold"
-        >
-          {initialCode}
-        </SyntaxHighlighter>
+        <SolidityCodeHighlighter code={highlightedCode} />;
       </div>
     )}
     {isCairo && (
