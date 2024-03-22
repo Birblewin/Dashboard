@@ -363,7 +363,7 @@ export default function Home() {
         {/* FOR SMALL SCREENS, COLS */}
         {/* FOR MEDIUM TO LARGE SCREENS, 2 ROWS */}
         <div className="grid md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 md:grid-rows-1 gap-4 grid-flow-col grid-rows-2">
-          <div className="flex flex-col shrink-0 justify-between overflow-auto  h-[calc(100vh-84px)] rounded shadow-md">
+          <div className="flex flex-col shrink-0 justify-between overflow-auto  h-[calc(100vh-240px)] rounded shadow-md">
             {selected === "ERC20" && <ERC20Solidity />}
             {selected === "ERC721" && <ERC721S />}
 
@@ -372,7 +372,7 @@ export default function Home() {
             {selected === "Governor" && <Governor />}
           </div>
 
-          <div className="output flex flex-col grow overflow-auto  h-[calc(100vh-84px)] md:col-span-2 lg:col-span-3">
+          <div className="output flex flex-col grow overflow-auto  h-[calc(100vh-240px)] md:col-span-2 lg:col-span-3">
             <CodeEditor />
           </div>
         </div>
