@@ -37,7 +37,7 @@ interface SolidityCodeHighlighterProps {
 }
 const SolidityCodeHighlighter:React.FC<SolidityCodeHighlighterProps> = ({ code }) => {
   return (
-    <pre>
+    <pre className="hljs">
       <code dangerouslySetInnerHTML={{ __html: code }} />
     </pre>
   );
