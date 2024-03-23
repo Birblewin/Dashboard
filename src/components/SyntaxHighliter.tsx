@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import {ERC1155 as ERC1155Atom, ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom, Governor as GovernorAtom} from '../store/solidityBtns'
@@ -32,16 +32,6 @@ PrismLight.registerLanguage('cairo', cairo);
 import hljs from '../highlightjs';
 import '../app/atom-one-dark.css';
 
-interface SolidityCodeHighlighterProps {
-  code: string;
-}
-const SolidityCodeHighlighter:React.FC<SolidityCodeHighlighterProps> = ({ code }) => {
-  return (
-    <pre className="hljs">
-      <code dangerouslySetInnerHTML={{ __html: code }} />
-    </pre>
-  );
-};
 
 const CodeEditor: React.FC = () => {
   //erc20 logic with props snippets
@@ -241,15 +231,26 @@ const CodeEditor: React.FC = () => {
       } else if (CairoCustom) {
         CairoInitialCode = CustomCInitialCode;
       }
-  
-      const highlightedCode = hljs.highlight('solidity', initialCode).value;
+
+    
+      function injectHyperlinks(code: string) {
+        
+        // We are modifying HTML, so use HTML escaped chars. The pattern excludes paths that include /../ in the URL.
+        const importRegex = /&quot;(@openzeppelin\/)(contracts-upgradeable\/|contracts\/)((?:(?!\.\.)[^/]+\/)*?[^/]*?)&quot;/g
+      
+        return code.replace(importRegex, `&quot;<a class="import-link" style="text-decoration: underline;" href="https://github.com/OpenZeppelin/openzeppelin-$2blob/v5.0.2/contracts/$3" target="_blank" rel="noopener noreferrer">$1$2$3</a>&quot;`);
+      }
+
+      const injectedCode = injectHyperlinks(hljs.highlight('solidity', initialCode).value)
 
   return (
     <>
 
 {isWizard && (
       <div className="w-full h-full">
-        <SolidityCodeHighlighter code={highlightedCode} />;
+        <pre className="hljs ">
+        <code dangerouslySetInnerHTML={{ __html: injectedCode }} />
+        </pre>
       </div>
     )}
     {isCairo && (
