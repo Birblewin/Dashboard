@@ -438,9 +438,9 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         tag: "Upgradable",
         name: "ERC1155UpgradableConstructor", 
         content: `/// @custom:oz-upgrades-unsafe-allow constructor
-        constructor() {
-            _disableInitializers();
-        }`
+    constructor() {
+        _disableInitializers();
+    }`
      },
     { 
         snippet_id: 1, 
@@ -577,7 +577,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",  
         tag: "Ownable",
         name: "ERC1155OwnableupgradeableFunctions", 
-        content: `\n\t\t\t\t __Ownable_init(initialOwner);`
+        content: `\n\t\t __Ownable_init(initialOwner);`
     },
     { 
         snippet_id: 1, 
@@ -586,7 +586,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",  
         tag: "Roles",
         name: "ERC1155RolesupgradeableFunctions", 
-        content: `\t\t\ __AccessControl_init();`
+        content: ` __AccessControl_init();`
     },
     { 
         snippet_id: 1, 
@@ -595,8 +595,8 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",  
         tag: "RolesRole",
         name: "ERC1155RolesRoleupgradeableFunctions", 
-        content: `\n\t\t\t\t _grantRole(MINTER_ROLE, minter);
-        \t\t\ _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);`
+        content: `\n\t\t _grantRole(MINTER_ROLE, minter);
+         _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);`
     },
 
     { 
@@ -606,7 +606,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",  
         tag: "PausableRoles",
         name: "ERC1155PausableRolesupgradeableFunctions", 
-        content: `\t\  _grantRole(PAUSER_ROLE, pauser);`
+        content: `_grantRole(PAUSER_ROLE, pauser);`
     },
     { 
         snippet_id: 1, 
@@ -615,7 +615,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",  
         tag: "Managed",
         name: "ERC1155ManagedupgradeableFunctions", 
-        content: `\n\t\t\t\t\ __AccessManaged_init(initialAuthority);`
+        content: `\n\t\t\ __AccessManaged_init(initialAuthority);`
     }, 
     { 
         snippet_id: 1, 
@@ -624,7 +624,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",  
         tag: "UUPS",
         name: "ERC1155UUPSupgradeableFunctions", 
-        content: `\t\t\ __UUPSUpgradeable_init();`
+        content: ` __UUPSUpgradeable_init();`
     },
     { 
         snippet_id: 1, 
@@ -677,54 +677,5 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
             override
     {}`
     },
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "Section2",  
-//         tag: "Pausable",
-//         name: "ERC1155PausableSection2", 
-//         content: `function pause() public onlyOwner {
-//             _pause();
-//         }
-    
-//         function unpause() public onlyOwner {
-//             _unpause();`
-//     },
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "Section3",  
-//         tag: "Pausable",
-//         name: "ERC1155PausableSection3", 
-//         content: `function nonces(address owner)
-//         public
-//         view
-//         override(ERC1155PermitUpgradeable, NoncesUpgradeable)
-//         returns (uint256)
-//     {
-//         return super.nonces(owner);
-//     }
-// `
-//     },
-//     { 
-//         snippet_id: 1, 
-//         wizard_id: 1,
-//         contractType_id: 1, 
-//         section: "Section3",  
-//         tag: "Votes",
-//         name: "ERC1155VotesSection3", 
-//         content: `// The following functions are overrides required by Solidity.
-
-//         function _update(address from, address to, uint256 value)
-//             internal
-//             override(ERC1155Upgradeable, ERC1155PausableUpgradeable)
-//         {
-//             super._update(from, to, value);
-//         }`
-//     }
 ];
   
- 
-]; 
