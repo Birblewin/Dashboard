@@ -10,7 +10,7 @@ default: defaultValue,
 });
 
 // Define atoms using the createAtom function
-export const ERC1155Name = createAtom<string>('ERC1155Name', 'My Token');
+export const ERC1155Name = createAtom<string>('ERC1155Name', 'MyToken');
 export const ERC1155BaseURI = createAtom<string>('ERC1155BaseURI', '');
 // Features
 export const ERC1155Mintable = createAtom<boolean>('ERC1155Mintable', false);
