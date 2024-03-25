@@ -332,7 +332,7 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
         const constructor = [
         `${erc721autoincrement ? AutoIncrementIds : ""}
         ${erc721sroles? constructorRoles : ""} 
-        constructor(${erc721smanaged?ManagedConstructor1:""}${erc721sownable?OwnableConstructor1:""}${erc721sroles?RolesConstructor1:""}${erc721sroles?PauserMint:""}) ${erc721svotes?'\n\t\t\t\t\t':""}ERC721("${name}", "${symbol}") ${erc721svotes?'\n\t\t\t\t\t'+VotesConstructor+'\n\t\t\t\t\t':""} ${erc721sownable?'\n\t\t\t\t\t'+OwnableConstructor2+'\n\t\t':''}${erc721smanaged?'\n\t\t\t\t\t'+ManagedConstructor2+'\n\t\t':''}${!erc721sroles?'\t\t\t':""}{${erc721sroles?'\n\t\t\t'+RolesConstructor2+'\t\t':""}${erc721sroles?'\n\t\t\t'+Roles2+'\n\t\t':""}  }`
+        constructor(${erc721smanaged?ManagedConstructor1:""}${erc721sownable?OwnableConstructor1:""}${erc721sroles?RolesConstructor1:""}${erc721sroles?PauserMint:""}) ${erc721svotes?'\n\t\t\t\t\t':""}ERC721("${name}", "${symbol}") ${erc721svotes?'\n\t\t\t\t\t'+VotesConstructor+'\n\t\t\t\t\t':""} ${erc721sownable?'\n\t\t\t\t\t'+OwnableConstructor2+'\n\t\t':''}${erc721smanaged?'\n\t\t\t\t\t'+ManagedConstructor2+'\n\t\t':''}${erc721sownable?'\t\t\t':""}{${erc721sroles?'\n\t\t\t'+RolesConstructor2+'\t\t':""}${erc721sroles?'\n\t\t\t'+Roles2+'\n\t\t':""}}`
         ].join('\n').trim();
 
        const UpgradeableContract = [
