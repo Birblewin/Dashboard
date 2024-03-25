@@ -164,53 +164,53 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
                 internal
                 override(ERC1155${erc1155supplyTracking ? SupplyTrackingContractName : ""} ${erc1155pausable ? PausableContractName : ""})
          {
-                super._update(from, to, ids, values);
-        }`
+        super._update(from, to, ids, values);
+     }`
     ].join('').trim();
 
     const upgradableUpdateFunction = [
         `function _update(address to, uint256 tokenId, address auth)
-                    internal
-                    override(ERC1155Upgradeable${erc1155supplyTracking ? UpgradableSupplyTracking : ""}${erc1155pausable ? UpgradablePausable : ""})
-            {
-                  super._update(from, to, ids, values);
-            }`
+                  internal
+                  override(ERC1155Upgradeable${erc1155supplyTracking ? UpgradableSupplyTracking : ""}${erc1155pausable ? UpgradablePausable : ""})
+         {
+         super._update(from, to, ids, values);
+     }`
     ].join('').trim();
 
 
     const MintableFunctions = [
     `
-     function mint(address account, uint256 id, uint256 amount, bytes memory data)
-            \t\t public
-         \t\t\t ${erc1155ownable ? Ownable : ""}${erc1155roles ? Roles1 : ""}${erc1155managed ? Managed : ""}
-          {
-          _mint(account, id, amount, data);
-     }`,
+    function mint(address account, uint256 id, uint256 amount, bytes memory data)
+            \t\tpublic
+         \t\t\t${erc1155ownable ? Ownable : ""}${erc1155roles ? Roles1 : ""}${erc1155managed ? Managed : ""}
+        {
+        _mint(account, id, amount, data);
+    }`,
 
-        `\n\t  function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
-            \t\t\tpublic
-        \t\t\t\t${erc1155ownable ? Ownable : ""}${erc1155roles ? Roles1 : ""}${erc1155managed ? Managed : ""}
-           {
-            _mintBatch(to, ids, amounts, data);
-     }`
+    `\n\tfunction mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
+        \t\t   public
+    \t\t\t   ${erc1155ownable ? Ownable : ""}${erc1155roles ? Roles1 : ""}${erc1155managed ? Managed : ""}
+         {
+        _mintBatch(to, ids, amounts, data);
+    }`
 
     ]
 
     const SetURIFunctions = [
-        `\n\t\t function setURI(string memory newuri) public ${erc1155ownable ? Ownable : ""} ${erc1155roles ? UpdatableURIRoleFunction : ""}${erc1155managed ? Managed : ""}{
-             \t\t_setURI(newuri);
-           }`
+    `\n\tfunction setURI(string memory newuri) public ${erc1155ownable ? Ownable : ""} ${erc1155roles ? UpdatableURIRoleFunction : ""}${erc1155managed ? Managed : ""}{
+         _setURI(newuri);
+    }`
     ]
 
     const SupportInterfaceFunctions = [
-        `\n\t\t\tfunction supportsInterface(bytes4 interfaceId)
+        `function supportsInterface(bytes4 interfaceId)
                   public
                   view
                   override(ERC1155, AccessControl)
                   returns (bool)
             {
-             \t\   return super.supportsInterface(interfaceId);
-            }`
+         return super.supportsInterface(interfaceId);
+      }`
     ]
 
     const UpgradableSupportInterfaceFunctions = [
@@ -219,20 +219,20 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
                 view
                 override(ERC1155${InterfaceUpgrade}, AccessControl${InterfaceUpgrade})
                 returns (bool)
-        {
-            return super.supportsInterface(interfaceId);
-        }`
+         {
+        return super.supportsInterface(interfaceId);
+    }`
     ]
     const PausableFunctions = [
 
-        `function pause() public ${erc1155ownable ? Ownable : ""}${erc1155roles ? AccesRoles2 : ""}${erc1155managed ? Managed : ""} {
-                _pause();
-            }
+    `function pause() public ${erc1155ownable ? Ownable : ""}${erc1155roles ? AccesRoles2 : ""}${erc1155managed ? Managed : ""} {
+         _pause();
+    }
         
-         function unpause() public ${erc1155ownable ? Ownable : ""}${erc1155roles ? AccesRoles2 : ""}${erc1155managed ? Managed : ""}{
-                _unpause();
-            }`
-    ].join('\n').trim();
+    function unpause() public ${erc1155ownable ? Ownable : ""}${erc1155roles ? AccesRoles2 : ""}${erc1155managed ? Managed : ""}{
+        _unpause();
+    }`
+    ].join('').trim();
 
 
     const upgradeableFunctions = [
@@ -240,19 +240,19 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
         erc1155mintable ? '\n\t\t ' + MintableFunctions : "",
         erc1155pausable ? ' ' + PausableFunctions : "",
         erc1155uups ? '\n\t  ' + UUPSFunctions : "",
-        erc1155roles ? '\n\n\t\t' + UpgradableSupportInterfaceFunctions : "",
+        erc1155roles ? '\n\n\t' + UpgradableSupportInterfaceFunctions : "",
         shouldRenderStarter ? '\n\t\t' + starter : "",
-        shouldRenderUpdateFunction ? '\n\t\t' + upgradableUpdateFunction : "",
+        shouldRenderUpdateFunction ? '\n\t' + upgradableUpdateFunction : "",
     ].join('').trim();
 
 
     const functions = [
-        erc1155mintable ? MintableFunctions : "",
-        erc1155pausable ? '' + PausableFunctions : "",
         erc1155updatableURI ? SetURIFunctions : "",
-        erc1155roles ? SupportInterfaceFunctions : "",
-        shouldRenderStarter ? '\n\t\t' + starter : "",
-        shouldRenderUpdateFunction ? '\n\t\t  ' + updateFunction : "",
+        erc1155pausable ? '\n\t' + PausableFunctions : "",
+        erc1155mintable ? MintableFunctions : "",
+        shouldRenderStarter ? '\n\t' + starter : "",
+        shouldRenderUpdateFunction ? '\n\t' + updateFunction : "",
+        erc1155roles ? '\n\t ' + SupportInterfaceFunctions : "",
     ].join('').trim();
 
     const upgradeableConstructor = [
@@ -309,7 +309,6 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
         erc1155burnable ? '\n' + BurnableUpgradableImport : "",
         erc1155pausable ? '\n' + PausableUpgradableImport : "",
         erc1155supplyTracking ? '\n' + SupplyTrackingUpgradableImport : "",
-        erc1155updatableURI ? '\n' + UpdatableURIUpgradableImport : "",
         erc1155ownable ? '\n' + OwnableUpgradableImport : "",
         erc1155roles ? '\n' + RolesUpgradableImport : "",
         erc1155managed ? '\n' + ManagedUpgradableImport : "",
@@ -329,7 +328,7 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
         erc1155upgradability ? upgradeableConstructor : '\t' + constructor,
         erc1155upgradability ? '\t' + upgradeableFunctions : '\t ' + functions,
 
-        "}"
+        "  }"
 
     ].filter(Boolean); // This removes any empty strings from the array
 
