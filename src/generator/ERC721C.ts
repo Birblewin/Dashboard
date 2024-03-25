@@ -82,7 +82,7 @@ export function GenerateERC721CCode(erc721cburnable: boolean, erc721cpausable: b
     const [BaseURI, setBaseURI] = useRecoilState(ERC721CBaseURI);
 
     const RolesImport2 = [
-        `use super::{${erc721cpausable?"PAUSER_ROLE":""}, ${erc721cmintable?"MINTER_ROLE":""}, ${erc721cupgradable?"UPGRADER_ROLE":""}};`
+        `use super::{${erc721cpausable?"PAUSER_ROLE":""}${erc721cmintable && (erc721cupgradable || erc721cpausable)?",":""} ${erc721cmintable?"MINTER_ROLE":""}${erc721cupgradable && (erc721cmintable || erc721cpausable)?",":""} ${erc721cupgradable?"UPGRADER_ROLE":""}};`
     ]
     const Imports = [
         erc721cownable? "\n"+OwnableImport:"",
@@ -90,7 +90,7 @@ export function GenerateERC721CCode(erc721cburnable: boolean, erc721cpausable: b
         erc721cburnable? "\n\t"+BurnableImport:"",
         erc721cpausable? "\n"+PausableImport:"",
         erc721cupgradable? "\n"+UpgradableImport:"",
-        erc721croles? "\n\t"+RolesImport2:""
+        erc721croles &&(erc721cmintable || erc721cpausable || erc721cupgradable)? "\n\t"+RolesImport2:""
     ].join("").trim();
     const Components = [
         erc721cownable? "\n"+OwnableComponent:"",

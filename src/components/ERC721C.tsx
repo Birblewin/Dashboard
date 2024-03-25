@@ -55,7 +55,7 @@ const ERC721C = ()=>{
             
         } else {
             // If both Burnable and Pauseable are false, set Access Control to false
-            if (!pauseable) {
+            if (!pauseable && !upgradeable) {
                 setAccessControl(false);
                 setOwnable(false)
                 setRoles(false)
@@ -74,7 +74,7 @@ const ERC721C = ()=>{
             
         } else {
             // If both Burnable and Pauseable are false, set Access Control to false
-            if (!mintable) {
+            if (!mintable && !upgradeable) {
                 setAccessControl(false);
                 setOwnable(false)
                 setRoles(false)
@@ -93,7 +93,7 @@ const ERC721C = ()=>{
             
         } else {
             // If both Burnable and Pauseable are false, set Access Control to false
-            if (!mintable) {
+            if (!mintable  && !pauseable) {
                 setAccessControl(false);
                 setOwnable(false)
                 setRoles(false)
@@ -243,6 +243,7 @@ const ERC721C = ()=>{
                     <input
                         title="Ownable"
                         type="radio"
+                        name="access"
                         className="form-checkbox h-3 w-3"
                         value="ownable"
                         checked={ownable}
@@ -258,6 +259,7 @@ const ERC721C = ()=>{
                     <input
                         title="Roles"
                         type="radio"
+                        name="access"
                         className="radio h-3 w-3"
                         value="roles"
                         checked={roles}
