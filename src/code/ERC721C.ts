@@ -3,12 +3,39 @@ export const ERC721CCode = [
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
+        section: "Const",  
+        tag: "Pausable",
+        name: "ERC721CConstPausable", 
+        content: `const PAUSER_ROLE: felt252 = selector!("PAUSER_ROLE");`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Const",  
+        tag: "Mintable",
+        name: "ERC721CConstMintable", 
+        content: `const MINTER_ROLE: felt252 = selector!("MINTER_ROLE");`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Const",  
+        tag: "Upgradeable",
+        name: "ERC721CConstUpgradeable", 
+        content: `const UPGRADER_ROLE: felt252 = selector!("UPGRADER_ROLE");`
+    },
+    //........................
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
         section: "Imports",  
         tag: "Ownable",
         name: "ERC721CImportsOwnable", 
         content: `use openzeppelin::access::ownable::OwnableComponent;
-    use starknet::ContractAddress;
-    `
+    use starknet::ContractAddress;`
     },
     { 
         snippet_id: 1, 
@@ -343,7 +370,7 @@ export const ERC721CCode = [
         contractType_id: 1, 
         section: "Functions",  
         tag: "Upgradeable",
-        name: "ERC721CFunctionsUpgradeable",
+        name: "ERC721CFunctionsUpgradeable",//...........func
         content: `#[abi(embed_v0)]
         impl UpgradeableImpl of IUpgradeable<ContractState> {
             fn upgrade(ref self: ContractState, new_class_hash: ClassHash) {
@@ -356,8 +383,25 @@ export const ERC721CCode = [
         wizard_id: 1,
         contractType_id: 1, 
         section: "Functions",  
+        tag: "Burnable",
+        name: "ERC721CFunctionsBurnable",//........func
+        content: `#[abi(per_item)]
+        impl ExternalImpl of ExternalTrait {
+            #[external(v0)]
+            fn burn(ref self: ContractState, token_id: u256) {
+                let caller = get_caller_address();
+                assert(self.erc721._is_approved_or_owner(caller, token_id), ERC721Component::Errors::UNAUTHORIZED);
+                self.erc721._burn(token_id);
+            }
+        }`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Functions",  
         tag: "Pausable",
-        name: "ERC721CFunctionsPausable",
+        name: "ERC721CFunctionsPausable",//...............not
         content: `#[abi(embed_v0)]
         impl ERC721Impl of interface::IERC721<ContractState> {
             fn balance_of(self: @ContractState, account: ContractAddress) -> u256 {
@@ -451,10 +495,16 @@ export const ERC721CCode = [
             fn isApprovedForAll(self: @ContractState, owner: ContractAddress, operator: ContractAddress) -> bool {
                 self.is_approved_for_all(owner, operator)
             }
-        }
-    
-        #[generate_trait]
-        #[abi(per_item)]
+        }`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Functions",  
+        tag: "Pausable2",
+        name: "ERC721CFunctionsPausable",//...............func
+        content: `#[abi(per_item)]
         impl ExternalImpl of ExternalTrait {
             #[external(v0)]
             fn pause(ref self: ContractState) {
@@ -466,18 +516,17 @@ export const ERC721CCode = [
             fn unpause(ref self: ContractState) {
                 self.ownable.assert_only_owner();
                 self.pausable._unpause();
-            }
-        }`
+            }`
     },
+
     { 
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
         section: "Functions",  
         tag: "Mintable",
-        name: "ERC721CFunctionsMintable",
-        content: `#[generate_trait]
-        #[abi(per_item)]
+        name: "ERC721CFunctionsMintable",//..........func
+        content: `#[abi(per_item)]
         impl ExternalImpl of ExternalTrait {
             #[external(v0)]
             fn safe_mint(
