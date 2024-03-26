@@ -4,6 +4,7 @@
   // IMPORTING MODULES
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { usePathname } from "next/navigation";
   // IMPORTING ATOMS
 import {
   ERC1155 as ERC1155Atom, 
@@ -132,6 +133,8 @@ import hljs from '../highlightjs';
 import "@/css/atom-one-dark.css";
   // IMPORTING COMPONENTS
 import CodeHighlighter from "./ui/CodeHighlighter";
+  // IMPORTING LIBS
+import getCurrentTab from "@/lib/getCurrentTab";
 
 // A FUNCTION THAT GENERATES HYPERLINKS FOR SOLIDITY
 function injectHyperlinksSolidity(code: string, version: string = "5.0.2"){
@@ -178,6 +181,25 @@ function injectHyperlinksCairo(code: string, version: string = "0.10.0") {
 
 // A FUNCTION THAT RETURNS THE CODE-EDITOR COMPONENT
 const CodeEditor = () => {
+  // GETTING THE CURRENT URL PATH VISITED
+  const pathName: string = usePathname();
+
+  //checking which page is active
+  const [isWizard, setIsWizard] = useRecoilState<boolean>(wizard);
+  const [isCairo, setIsCairo] = useRecoilState<boolean>(cairos);
+
+  // SETTING VALUES OF CAIRO AND WIZARD TAB ATOMS
+  if (getCurrentTab(pathName) === "Solidity") {
+    setIsCairo(false)
+    setIsWizard(true)
+  }else if(getCurrentTab(pathName) === "Cairo"){
+    setIsWizard(false)
+    setIsCairo(true)
+  }else{
+    setIsWizard(false);
+    setIsCairo(false);
+  }
+
   //erc20 logic with props snippets
   const [erc20sburnable] = useRecoilState(ERC20SBurnable);
   const [erc20spausable] = useRecoilState(ERC20SPauseable);
@@ -288,23 +310,36 @@ const CodeEditor = () => {
     customclicense
   );
 
-   //ERC1155
-   const [erc1155baseUrl] = useRecoilState(ERC1155BaseURI);
-   const [erc1155mintable] = useRecoilState(ERC1155Mintable);
-   const [erc1155burnable] = useRecoilState(ERC1155Burnable);
-   const [erc1155pausable] = useRecoilState(ERC1155Pauseable);
-   const [erc1155supplyTracking] = useRecoilState(ERC1155SupplyTracking);
-   const [erc1155updatableURI] = useRecoilState(ERC1155UpdateableURI);
-   const [erc1155roles] = useRecoilState(ERC1155AccessControlRoles);
-   const [erc1155ownable] = useRecoilState(ERC1155AccessControlOwnable);
-   const [erc1155managed] = useRecoilState(ERC1155AccessControlManaged);
-   const [erc1155upgradability] = useRecoilState(ERC1155Upgradeability);
-   const [erc1155transparent] = useRecoilState(ERC1155UpgradeabilityTransparent);
-   const [erc1155UUPS] = useRecoilState(ERC1155UpgradeabilityUUPS);
-   const [erc1155security] = useRecoilState(ERC1155SecurityContact);
- 
-   const ERC1155InitialCode = GenerateERC1155Code(erc1155burnable, erc1155supplyTracking, erc1155pausable, erc1155updatableURI, erc1155roles, erc1155ownable, erc1155managed, erc1155transparent, erc1155UUPS, erc1155security, erc1155upgradability, erc1155mintable, erc1155baseUrl);
- 
+  //ERC1155
+  const [erc1155baseUrl] = useRecoilState(ERC1155BaseURI);
+  const [erc1155mintable] = useRecoilState(ERC1155Mintable);
+  const [erc1155burnable] = useRecoilState(ERC1155Burnable);
+  const [erc1155pausable] = useRecoilState(ERC1155Pauseable);
+  const [erc1155supplyTracking] = useRecoilState(ERC1155SupplyTracking);
+  const [erc1155updatableURI] = useRecoilState(ERC1155UpdateableURI);
+  const [erc1155roles] = useRecoilState(ERC1155AccessControlRoles);
+  const [erc1155ownable] = useRecoilState(ERC1155AccessControlOwnable);
+  const [erc1155managed] = useRecoilState(ERC1155AccessControlManaged);
+  const [erc1155upgradability] = useRecoilState(ERC1155Upgradeability);
+  const [erc1155transparent] = useRecoilState(ERC1155UpgradeabilityTransparent);
+  const [erc1155UUPS] = useRecoilState(ERC1155UpgradeabilityUUPS);
+  const [erc1155security] = useRecoilState(ERC1155SecurityContact);
+
+  const ERC1155InitialCode = GenerateERC1155Code(
+    erc1155burnable,
+    erc1155supplyTracking,
+    erc1155pausable,
+    erc1155updatableURI,
+    erc1155roles,
+    erc1155ownable,
+    erc1155managed,
+    erc1155transparent,
+    erc1155UUPS,
+    erc1155security,
+    erc1155upgradability,
+    erc1155mintable,
+    erc1155baseUrl
+  );
 
   const [erc721sburnable] = useRecoilState(ERC721SBurnable);
   const [erc721spausable] = useRecoilState(ERC721SPauseable);
@@ -314,16 +349,31 @@ const CodeEditor = () => {
   const [erc721sownable] = useRecoilState(ERC721SAccessControlOwnable);
   const [erc721smanaged] = useRecoilState(ERC721SAccessControlManaged);
   const [erc721senumerable] = useRecoilState(ERC721SEnumerable);
-  const [erc721transparent] = useRecoilState(ERC721SUpgradeabilityTransparent)
-  const [erc721uups] = useRecoilState(ERC721SUpgradeabilityUUPS)
-  const [erc721security] = useRecoilState(ERC721SSecurityContact)
-  const [erc721upgradability] = useRecoilState(ERC721SUpgradeability)
-  const [erc721autoincrement] = useRecoilState(ERC721SAutoIncrementIds)
-  const [erc721mintable] = useRecoilState(ERC721SMintable)
-  const [erc721sBaseUrl] = useRecoilState(ERC721SBaseURI)
-  
-  const ERC721InitialCode = GenerateERC721SCode(erc721sburnable, erc721svotes, erc721spausable, erc721sUriStorage, erc721sroles, erc721sownable, erc721smanaged, erc721senumerable, erc721transparent, erc721uups, erc721security, erc721upgradability,erc721autoincrement, erc721mintable, erc721sBaseUrl );
+  const [erc721transparent] = useRecoilState(ERC721SUpgradeabilityTransparent);
+  const [erc721uups] = useRecoilState(ERC721SUpgradeabilityUUPS);
+  const [erc721security] = useRecoilState(ERC721SSecurityContact);
+  const [erc721upgradability] = useRecoilState(ERC721SUpgradeability);
+  const [erc721autoincrement] = useRecoilState(ERC721SAutoIncrementIds);
+  const [erc721mintable] = useRecoilState(ERC721SMintable);
+  const [erc721sBaseUrl] = useRecoilState(ERC721SBaseURI);
 
+  const ERC721InitialCode = GenerateERC721SCode(
+    erc721sburnable,
+    erc721svotes,
+    erc721spausable,
+    erc721sUriStorage,
+    erc721sroles,
+    erc721sownable,
+    erc721smanaged,
+    erc721senumerable,
+    erc721transparent,
+    erc721uups,
+    erc721security,
+    erc721upgradability,
+    erc721autoincrement,
+    erc721mintable,
+    erc721sBaseUrl
+  );
 
   const [erc721cburnable] = useRecoilState(ERC721CBurnable);
   const [erc721cpausable] = useRecoilState(ERC721CPauseable);
@@ -332,14 +382,17 @@ const CodeEditor = () => {
   const [erc721cupgradable] = useRecoilState(ERC721CUpgradeable);
   const [erc721cmintable] = useRecoilState(ERC721CMintable);
 
-  const ERC721InitialCairoCode = GenerateERC721CCode(erc721cburnable, erc721cpausable, erc721croles, erc721cownable, erc721cupgradable, erc721cmintable);
+  const ERC721InitialCairoCode = GenerateERC721CCode(
+    erc721cburnable,
+    erc721cpausable,
+    erc721croles,
+    erc721cownable,
+    erc721cupgradable,
+    erc721cmintable
+  );
 
   // EXTRACTING THE GOVERNOR FORM DATA
-  const governorData = useRecoilValue<GovernorFormDataType>(governorFormData)
-
-  //checking which page is active
-  const [isWizard] = useRecoilState(wizard);
-  const [isCairo] = useRecoilState(cairos);
+  const governorData = useRecoilValue<GovernorFormDataType>(governorFormData);
 
   const [IsERC1155] = useRecoilState(ERC1155Atom);
   const [IsERC721] = useRecoilState(ERC721Atom);
@@ -375,20 +428,22 @@ const CodeEditor = () => {
   } else if (CairoCustom) {
     CairoInitialCode = CustomCInitialCode;
   }
-  
+
   return (
     <div className="w-full h-full">
-      <CodeHighlighter code={
-        isWizard && !isCairo
-          ?
-        injectHyperlinksSolidity(hljs.highlight('solidity', initialCode).value)
-          :
-        isCairo && !isWizard
-            ?
-          injectHyperlinksCairo(hljs.highlight("cairo", CairoInitialCode).value)
-            :
-          "Error, no language detected"
-      }/>
+      <CodeHighlighter
+        code={
+          isWizard && !isCairo
+            ? injectHyperlinksSolidity(
+                hljs.highlight("solidity", initialCode).value
+              )
+            : isCairo && !isWizard
+              ? injectHyperlinksCairo(
+                  hljs.highlight("cairo", CairoInitialCode).value
+                )
+              : "Error, no language detected"
+        }
+      />
     </div>
   );
 };
