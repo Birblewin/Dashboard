@@ -167,7 +167,7 @@ function injectHyperlinksCairo(code: string, version: string = "0.10.0") {
       }
 
       if (libraryPathSegments !== undefined && libraryPathSegments.length > 0) {
-        const replacedImportLine = `use<\/span> <a class="import-link" href='${githubPrefix}${libraryPathSegments.join("/")}.cairo' target='_blank' rel='noopener noreferrer'>${libraryPrefix}::${libraryPath}</a>;`;
+        const replacedImportLine = `use<\/span> <a class="import-link" style="text-decoration: underline;" href='${githubPrefix}${libraryPathSegments.join("/")}.cairo' target='_blank' rel='noopener noreferrer'>${libraryPrefix}::${libraryPath}</a>;`;
         result = result.replace(line, replacedImportLine);
       }
     }
@@ -375,21 +375,20 @@ const CodeEditor = () => {
   } else if (CairoCustom) {
     CairoInitialCode = CustomCInitialCode;
   }
-
-  // CHECKING THE ALREADY CONVERTED CODE FOR LINKS 
-  const injectedCode = isWizard 
-    ? 
-  injectHyperlinksSolidity(hljs.highlight('solidity', initialCode).value)
-    :
-    isCairo
-      ?
-    injectHyperlinksCairo(hljs.highlight("cairo", CairoInitialCode).value)
-      :
-    "No registered language detected"
   
   return (
     <div className="w-full h-full">
-      <CodeHighlighter code={injectedCode}/>
+      <CodeHighlighter code={
+        isWizard && !isCairo
+          ?
+        injectHyperlinksSolidity(hljs.highlight('solidity', initialCode).value)
+          :
+        isCairo && !isWizard
+            ?
+          injectHyperlinksCairo(hljs.highlight("cairo", CairoInitialCode).value)
+            :
+          "Error, no language detected"
+      }/>
     </div>
   );
 };
