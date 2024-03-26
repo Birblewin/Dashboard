@@ -365,6 +365,15 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721VotesU
         wizard_id: 1,
         contractType_id: 1, 
         section: "upgradeableContractNames",  
+        tag: "Enumerable",
+        name: "ERC721BurnableContractNames", 
+        content: `, ERC721EnumerableUpgradeable`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableContractNames",  
         tag: "Pausable",
         name: "ERC721PausableContractNames", 
         content: `, ERC721PausableUpgradeable `
@@ -385,7 +394,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721VotesU
         section: "upgradeableContractNames",  
         tag: "Votes",
         name: "ERC721VotesContractNames", 
-        content: `, ERC721VotesUpgradeable`
+        content: `, EIP712Upgradeable, ERC721VotesUpgradeable`
     },
     { 
         snippet_id: 1, 

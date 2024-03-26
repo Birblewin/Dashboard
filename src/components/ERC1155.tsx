@@ -62,7 +62,7 @@ export default function ERC1155() {
     if (isChecked || mintable || pauseable || updateableURI) {
       setAccessControl(true);
 
-    } else {
+    }  {
       setAccessControl(false);
     }
 
@@ -75,7 +75,7 @@ export default function ERC1155() {
 
     if (isChecked) {
       setAccessControl(true);
-      setManaged(true)
+      setOwnable(true)
 
 
     } else {
@@ -100,7 +100,7 @@ export default function ERC1155() {
 
     if (isChecked) {
       setAccessControl(true);
-      setManaged(true)
+      setOwnable(true)
 
 
     } else {
@@ -124,7 +124,7 @@ export default function ERC1155() {
 
     if (isChecked) {
       setAccessControl(true);
-      setManaged(true)
+      setOwnable(true)
 
 
     } else {
@@ -215,10 +215,11 @@ export default function ERC1155() {
 
       <hr className="my-4"></hr>
 
-      <div>
+      <div>  
         <h1 className="text-[#818998] font-semibold text-xs">FEATURES</h1>
-        <div className="m-[0.5rem] flex items-center justify-between">
-          <div className=" flex items-center">
+      <div className="mt-2">
+        <label className={`flex items-center justify-between cursor-pointer ${mintable ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
             <input
               title="Mintable"
               type="checkbox"
@@ -226,41 +227,42 @@ export default function ERC1155() {
               checked={mintable}
               onChange={handleMintableChange}
             />
-            <label className="ml-[0.5rem] text-[#333333]">Mintable</label>
+            <span className="ml-[0.5rem] text-[#333333] select-text">Mintable</span>
           </div>
           <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </div>
+        </label>
 
-        <div className="m-[0.5rem] flex items-center justify-between">
-          <div className=" flex items-center">
+        <label className={`flex items-center justify-between cursor-pointer ${burnable ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
             <input
               title="Burnable"
               type="checkbox"
               className="form-checkbox h-3 w-3 text-indigo-600 rounded"
               checked={burnable}
-              onChange={(e) => setBurnable(!burnable)}
+              onChange={() => setBurnable(!burnable)}
             />
-            <label className="ml-[0.5rem] text-[#333333] ">Burnable</label>
+            <span className="ml-[0.5rem] text-[#333333] select-text">Burnable</span>
           </div>
           <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </div>
+        </label>
 
-        <div className="m-[0.5rem] flex items-center justify-between">
-          <div className=" flex items-center">
+        <label className={`flex items-center justify-between cursor-pointer ${supplyTracking ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
             <input
               title="Supply Tracking"
               type="checkbox"
               className="form-checkbox h-3 w-3 text-indigo-600 rounded"
               checked={supplyTracking}
-              onChange={(e) => setSupplyTracking(!supplyTracking)}
+              onChange={() => setSupplyTracking(!supplyTracking)}
             />
-            <label className="ml-2 text-[#333333]">Supply Tracking</label>
+            <span className="ml-2 text-[#333333] select-text">Supply Tracking</span>
           </div>
           <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </div>
+        </label>
 
-        <div className="m-[0.5rem] flex items-center justify-between">
-          <div className=" flex items-center">
+
+        <label className={`flex items-center justify-between cursor-pointer ${pauseable ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
             <input
               title="Pauseable"
               type="checkbox"
@@ -268,13 +270,13 @@ export default function ERC1155() {
               checked={pauseable}
               onChange={handlePausableChange}
             />
-            <label className="ml-[0.5rem] text-[#333333] ">Pauseable</label>
+            <span className="ml-[0.5rem] text-[#333333] select-text">Pauseable</span>
           </div>
           <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </div>
+        </label>
 
-        <div className="m-[0.5rem] flex items-center justify-between">
-          <div className=" flex items-center">
+        <label className={`flex items-center justify-between cursor-pointer ${updateableURI ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
             <input
               title="Updateable URI"
               type="checkbox"
@@ -282,16 +284,17 @@ export default function ERC1155() {
               checked={updateableURI}
               onChange={handleUpdateableURIChange}
             />
-            <label className="ml-[0.5rem] text-[#333333] "> Updateable URI </label>
+            <span className="ml-[0.5rem] text-[#333333] select-text">Updateable URI</span>
           </div>
           <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
+        </label>          
         </div>
       </div>
 
       <hr className="my-4"></hr>
 
       <div>
-        <div className=" mt-0  flex items-center place-content-between mr-[0.5rem]">
+        <div className=" mt-0  flex items-center place-content-between">
           <div className="flex items-center mr-[0.5rem]">
             <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">ACCESS CONTROL</label>
             <input
@@ -305,50 +308,53 @@ export default function ERC1155() {
           <Tool tooltipText="Restrict who can access the functions of a contract or when they can do it." link='https://docs.openzeppelin.com/contracts/5.x/api/access' linktext='Read more' />
         </div>
 
-        <div className="m-[0.5rem]  flex items-center justify-between">
-          <div className="flex items-center">
+      <div className="mt-2">
+        <label className={`flex items-center justify-between cursor-pointer ${ownable ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
             <input
               title="Ownable"
               type="radio"
-              className="form-checkbox h-3 w-3"
+              className="form-radio h-3 w-3"
               value="ownable"
               checked={ownable}
               onChange={handleAccessControlChange}
             />
-            <label className="ml-2 text-[#333333] ">Ownable</label>
+            <span className="ml-2 text-[#333333] select-text">Ownable</span>
           </div>
           <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </div>
+        </label>
 
-        <div className="m-[0.5rem]  flex items-center justify-between">
-          <div className="  flex items-center">
-            <input title="Roles"
+        <label className={`flex items-center justify-between cursor-pointer ${roles ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
+            <input
+              title="Roles"
               type="radio"
-              className="radio h-3 w-3 "
+              className="form-radio h-3 w-3"
               value="roles"
               checked={roles}
               onChange={handleAccessControlChange}
             />
-            <label className="ml-2 text-[#333333] ">Roles</label>
+            <span className="ml-2 text-[#333333] select-text">Roles</span>
           </div>
           <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </div>
+        </label>
 
-        <div className=" flex items-center m-[0.5rem]  mb-0 justify-between">
-          <div className=" flex items-center ">
+        <label className={`flex items-center mb-0 justify-between cursor-pointer ${managed ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
             <input
               title="Managed"
               type="radio"
-              className="form-checkbox h-3 w-3"
+              className="form-radio h-3 w-3"
               value="managed"
               checked={managed}
               onChange={handleAccessControlChange}
             />
-            <label className="ml-2 text-[#333333] ">Managed</label>
+            <span className="ml-2 text-[#333333] select-text">Managed</span>
           </div>
           <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </div>
+        </label>
       </div>
+    </div>
 
       <hr className="my-4" />
 
@@ -369,23 +375,25 @@ export default function ERC1155() {
           </div>
         </div>
 
-        <div className="m-[0.5rem] flex items-center justify-between">
-          <div className="flex items-center">
+      <div className="mt-2">
+        <label className={`flex items-center justify-between cursor-pointer ${transparent ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
             <input
               title="transparent"
               type="radio"
-              className="form-checkbox h-3 w-3"
+              className="form-radio h-3 w-3"
               value='transparent'
               checked={transparent}
               onChange={handleUpgradeChange}
             />
-            <label className="ml-2 text-[#333333] ">Transparent</label>
+            <span className="ml-2 text-[#333333] select-text">Transparent</span>
           </div>
           <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </div>
+        </label>
 
-        <div className="m-[0.5rem] mb-0 flex items-center justify-between">
-          <div className=" flex items-center">
+
+        <label className={`mb-0 flex items-center justify-between cursor-pointer ${UUPS ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
             <input
               title="uups"
               type="radio"
@@ -394,11 +402,12 @@ export default function ERC1155() {
               checked={UUPS}
               onChange={handleUpgradeChange}
             />
-            <label className="ml-2 text-[#333333] ">UUPS</label>
+            <span className="ml-2 text-[#333333] select-text">UUPS</span>
           </div>
           <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </div>
+        </label>          
       </div>
+    </div>
 
       <hr className="my-4" />
 

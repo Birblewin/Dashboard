@@ -1,50 +1,148 @@
 "use client";
+
+// IMPORTING NECESSARY FILES
+  // IMPORTING MODULES
 import React from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import {ERC1155 as ERC1155Atom, ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom, Governor as GovernorAtom} from '../store/solidityBtns'
 import { useRecoilState, useRecoilValue } from "recoil";
-import {generateERC20SCode} from "../generator/ERC20S";
-import {wizard, cairos} from '../store/headerBtns'
-import {ERC721, ERC20,Custom } from '../store/cairoBtns'
-import { GenerateERC721SCode } from "@/generator/ERC721S";
-import { ERC721SBurnable, ERC721SPauseable, ERC721SVotes, ERC721SAccessControlRoles, ERC721SAccessControlOwnable, ERC721SAccessControlManaged, ERC721SEnumerable, ERC721SURIStorage, ERC721SUpgradeabilityTransparent, ERC721SUpgradeabilityUUPS, ERC721SSecurityContact, ERC721SUpgradeability, ERC721SAutoIncrementIds, ERC721SMintable, ERC721SBaseURI } from "@/store/ERC721S";
-import { GenerateERC721CCode } from "@/generator/ERC721C";
-import { ERC721CAccessControlOwnable, ERC721CAccessControlRoles, ERC721CBurnable, ERC721CMintable, ERC721CPauseable, ERC721CUpgradeable } from "@/store/ERC721C";
-import { ERC20SBurnable, ERC20SPauseable, ERC20SVotes, ERC20SFlashMinting, ERC20SAccessControlRoles, ERC20SAccessControlOwnable, ERC20SAccessControlManaged, ERC20SPremint, ERC20SUpgradeability, ERC20SUpgradeabilityUUPS, ERC20SPermit, ERC20SMintable, ERC20SSecurityContact, ERC20SLicense, ERC20SName, ERC20SSymbol } from "@/store/ERC20S";
-import { GenerateERC1155Code} from "@/generator/ERC1155";
+  // IMPORTING ATOMS
+import {
+  ERC1155 as ERC1155Atom, 
+  ERC20 as ERC20Atom, 
+  ERC721 as ERC721Atom, 
+  Custom as CustomAtom, 
+  Governor as GovernorAtom
+} from '../store/solidityBtns'
 
-// IMPORTING GOVERNOR-RELATED CODES
-import governorCodeGenerator from "@/generator/Governor";
+import { wizard, cairos } from "../store/headerBtns";
+import { ERC721, ERC20, Custom } from "../store/cairoBtns";
+
+import {
+  ERC721SBurnable,
+  ERC721SPauseable,
+  ERC721SVotes,
+  ERC721SAccessControlRoles,
+  ERC721SAccessControlOwnable,
+  ERC721SAccessControlManaged,
+  ERC721SEnumerable,
+  ERC721SURIStorage,
+  ERC721SUpgradeabilityTransparent,
+  ERC721SUpgradeabilityUUPS,
+  ERC721SSecurityContact,
+  ERC721SUpgradeability,
+  ERC721SAutoIncrementIds,
+  ERC721SMintable,
+  ERC721SBaseURI,
+} from "@/store/ERC721S";
+
+import {
+  ERC721CAccessControlOwnable,
+  ERC721CAccessControlRoles,
+  ERC721CBurnable,
+  ERC721CMintable,
+  ERC721CPauseable,
+  ERC721CUpgradeable,
+} from "@/store/ERC721C";
+
+import {
+  ERC20SBurnable,
+  ERC20SPauseable,
+  ERC20SVotes,
+  ERC20SFlashMinting,
+  ERC20SAccessControlRoles,
+  ERC20SAccessControlOwnable,
+  ERC20SAccessControlManaged,
+  ERC20SPremint,
+  ERC20SUpgradeability,
+  ERC20SUpgradeabilityUUPS,
+  ERC20SPermit,
+  ERC20SMintable,
+  ERC20SSecurityContact,
+  ERC20SLicense,
+  ERC20SName,
+  ERC20SSymbol,
+} from "@/store/ERC20S";
+
 import { governorFormData } from "@/store/Governor";
-import { GovernorFormDataType } from "@/types/types";
 
+import {
+  CustomCPauseable,
+  CustomCAccessControlRoles,
+  CustomCAccessControlOwnable,
+  CustomCUpgradeable,
+  CustomCUpgradeability,
+  CustomCUpgradeabilityUUPS,
+  CustomCName,
+  CustomCLicense,
+} from "@/store/CustomC";
+
+import {
+  CustomSPauseable,
+  CustomSAccessControlRoles,
+  CustomSAccessControlOwnable,
+  CustomSAccessControlManaged,
+  CustomSUpgradeable,
+  CustomSUpgradeabilityTransparent,
+  CustomSUpgradeabilityUUPS,
+  CustomSSecurityContact,
+  CustomSName,
+  CustomSLicense,
+} from "@/store/CustomS";
+
+import {
+  ERC20CBurnable,
+  ERC20CPauseable,
+  ERC20CAccessControlRoles,
+  ERC20CAccessControlOwnable,
+  ERC20CUpgradeable,
+  ERC20CMintable,
+  ERC20CPremint,
+  ERC20CLicense,
+  ERC20CName,
+  ERC20CSymbol,
+} from "@/store/ERC20C";
+
+import {
+  ERC1155BaseURI,
+  ERC1155Mintable,
+  ERC1155Burnable,
+  ERC1155Pauseable,
+  ERC1155SupplyTracking,
+  ERC1155UpdateableURI,
+  ERC1155AccessControlRoles,
+  ERC1155AccessControlOwnable,
+  ERC1155AccessControlManaged,
+  ERC1155Upgradeability,
+  ERC1155UpgradeabilityTransparent,
+  ERC1155UpgradeabilityUUPS,
+  ERC1155SecurityContact,
+} from "@/store/ERC1155";
+  // IMPORTING CODE GENERATORS
+import {generateERC20SCode} from "../generator/ERC20S";
+import { GenerateERC721SCode } from "@/generator/ERC721S";
+import { GenerateERC721CCode } from "@/generator/ERC721C";
+import { GenerateERC1155Code} from "@/generator/ERC1155";
+import governorCodeGenerator from "@/generator/Governor";
 import { generateCustomSCode } from "@/generator/CustomS";
 import { generateCustomCCode } from "@/generator/CustomC";
 import { generateERC20CCode } from "@/generator/ERC20C";
-import { CustomCPauseable, CustomCAccessControlRoles, CustomCAccessControlOwnable, CustomCUpgradeable, CustomCUpgradeability, CustomCUpgradeabilityUUPS, CustomCName, CustomCLicense } from "@/store/CustomC";
-import { CustomSPauseable, CustomSAccessControlRoles, CustomSAccessControlOwnable, CustomSAccessControlManaged, CustomSUpgradeable, CustomSUpgradeabilityTransparent, CustomSUpgradeabilityUUPS, CustomSSecurityContact, CustomSName, CustomSLicense } from "@/store/CustomS";
-import { ERC20CBurnable, ERC20CPauseable, ERC20CAccessControlRoles, ERC20CAccessControlOwnable, ERC20CUpgradeable, ERC20CMintable, ERC20CPremint, ERC20CLicense, ERC20CName, ERC20CSymbol } from "@/store/ERC20C";
+  // IMPORTING TYPES
+import { GovernorFormDataType } from "@/types/types";
+  // IMPORTING PRISM
+import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { PrismLight } from 'react-syntax-highlighter';
 import cairo from 'prismjs-cairo';
-import { ERC1155BaseURI, ERC1155Mintable, ERC1155Burnable, ERC1155Pauseable, ERC1155SupplyTracking, ERC1155UpdateableURI, ERC1155AccessControlRoles, ERC1155AccessControlOwnable, ERC1155AccessControlManaged, ERC1155Upgradeability, ERC1155UpgradeabilityTransparent, ERC1155UpgradeabilityUUPS, ERC1155SecurityContact } from "@/store/ERC1155";
-PrismLight.registerLanguage('cairo', cairo);
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+  // IMPORTING HIGHLIGHT-JS CODES
 import hljs from '../highlightjs';
-import '../app/atom-one-dark.css';
+import "@/css/atom-one-dark.css";
+  // IMPORTING LIBS
+import injectHyperlinks from "@/lib/injectHyperlinks";
 
-interface SolidityCodeHighlighterProps {
-  code: string;
-}
+// RESGISTERING CAIRO AS A LANGUAGE TO PRISM
+PrismLight.registerLanguage('cairo', cairo);
 
-const SolidityCodeHighlighter:React.FC<SolidityCodeHighlighterProps> = ({ code }) => {
-  return (
-    <pre className="hljs">
-      <code dangerouslySetInnerHTML={{ __html: code }} />
-    </pre>
-  );
-};
-
-const CodeEditor: React.FC = () => {
+// A FUNCTION THAT RETURNS THE CODE-EDITOR COMPONENT
+const CodeEditor = () => {
   //erc20 logic with props snippets
   const [erc20sburnable] = useRecoilState(ERC20SBurnable);
   const [erc20spausable] = useRecoilState(ERC20SPauseable);
@@ -235,35 +333,38 @@ const CodeEditor: React.FC = () => {
 
   let CairoInitialCode = ERC20CInitialCode;
 
-      if (CairoERC721) {
-        CairoInitialCode = ERC721InitialCairoCode;
-      } else if (CairoERC20) {
-        CairoInitialCode = ERC20CInitialCode;
-      } else if (CairoCustom) {
-        CairoInitialCode = CustomCInitialCode;
-      }
-  
-      const highlightedCode = hljs.highlight('solidity', initialCode).value;
+  if (CairoERC721) {
+    CairoInitialCode = ERC721InitialCairoCode;
+  } else if (CairoERC20) {
+    CairoInitialCode = ERC20CInitialCode;
+  } else if (CairoCustom) {
+    CairoInitialCode = CustomCInitialCode;
+  }
+
+  // CHECKING THE ALREADY CONVERTED CODE FOR LINKS 
+  const injectedCode = injectHyperlinks(hljs.highlight('solidity', initialCode).value)
 
   return (
     <>
+      {isWizard && (
+        <div className="w-full h-full">
+          <pre className="hljs ">
+          <code dangerouslySetInnerHTML={{ __html: injectedCode }} />
+          </pre>
+        </div>
+      )}
 
-{isWizard && (
-      <div className="w-full h-full">
-        <SolidityCodeHighlighter code={highlightedCode} />;
-      </div>
-    )}
-    {isCairo && (
-      <div className="w-full h-full">
-        <SyntaxHighlighter
-          language="cairo"
-          style={dracula}
-          className="w-full h-full font-bold"
-        >
-          {CairoInitialCode}
-        </SyntaxHighlighter>
-      </div>
-    )}
+      {isCairo && (
+        <div className="w-full h-full">
+          <SyntaxHighlighter
+            language="cairo"
+            style={dracula}
+            className="w-full h-full font-bold"
+          >
+            {CairoInitialCode}
+          </SyntaxHighlighter>
+        </div>
+      )}
     </>
   );
 };
