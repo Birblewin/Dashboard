@@ -23,20 +23,25 @@ hue-6-2: #e6c07b
   background: #282c34;
   padding-left: 10px;
   border-radius: 5px;
-  font-family: monospace;
-  font-size: 1rem;
+  height: calc(100vh - 240px);
+  overflow: auto; 
 }
+
 
 .hljs-comment,
 .hljs-quote {
   color: #5c6370;
   font-style: italic;
+  font-size: 1rem;
+  font-family: monospace;
 }
 
 .hljs-doctag,
 .hljs-keyword,
 .hljs-formula {
   color: #c678dd;
+  font-size: 1rem;
+  font-family: monospace;
 }
 
 .hljs-section,
@@ -45,10 +50,14 @@ hue-6-2: #e6c07b
 .hljs-deletion,
 .hljs-subst {
   color: #e06c75;
+  font-size: 1rem;
+  font-family: monospace;
 }
 
 .hljs-literal {
   color: #56b6c2;
+  font-size: 1rem;
+  font-family: monospace;
 }
 
 .hljs-string,
@@ -57,6 +66,8 @@ hue-6-2: #e6c07b
 .hljs-attribute,
 .hljs-meta .hljs-string {
   color: #98c379;
+  font-size: 1rem;
+  font-family: monospace;
 }
 
 .hljs-attr,
@@ -68,6 +79,8 @@ hue-6-2: #e6c07b
 .hljs-selector-pseudo,
 .hljs-number {
   color: #d19a66;
+  font-size: 1rem;
+  font-family: monospace;
 }
 
 .hljs-symbol,
@@ -77,22 +90,32 @@ hue-6-2: #e6c07b
 .hljs-selector-id,
 .hljs-title {
   color: #61aeee;
+  font-size: 1rem;
+  font-family: monospace;
 }
 
 .hljs-built_in,
 .hljs-title.class_,
 .hljs-class .hljs-title {
   color: #e6c07b;
+  font-size: 1rem;
+  font-family: monospace;
 }
 
 .hljs-emphasis {
   font-style: italic;
+  font-size: 1rem;
+  font-family: monospace;
 }
 
 .hljs-strong {
   font-weight: bold;
+  font-size: 1rem;
+  font-family: monospace;
 }
 
 .hljs-link {
   text-decoration: underline;
+  font-size: 1rem;
+  font-family: monospace;
 }
