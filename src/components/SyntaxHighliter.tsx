@@ -127,19 +127,54 @@ import { generateCustomCCode } from "@/generator/CustomC";
 import { generateERC20CCode } from "@/generator/ERC20C";
   // IMPORTING TYPES
 import { GovernorFormDataType } from "@/types/types";
-  // IMPORTING PRISM
-import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import { PrismLight } from 'react-syntax-highlighter';
-import cairo from 'prismjs-cairo';
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
   // IMPORTING HIGHLIGHT-JS CODES
 import hljs from '../highlightjs';
 import "@/css/atom-one-dark.css";
-  // IMPORTING LIBS
-import injectHyperlinks from "@/lib/injectHyperlinks";
+  // IMPORTING COMPONENTS
+import CodeHighlighter from "./ui/CodeHighlighter";
 
-// RESGISTERING CAIRO AS A LANGUAGE TO PRISM
-PrismLight.registerLanguage('cairo', cairo);
+// A FUNCTION THAT GENERATES HYPERLINKS FOR SOLIDITY
+function injectHyperlinksSolidity(code: string, version: string = "5.0.2"){
+    // We are modifying HTML, so use HTML escaped chars. The pattern excludes paths that include /../ in the URL.
+    const importRegex = /&quot;(@openzeppelin\/)(contracts-upgradeable\/|contracts\/)((?:(?!\.\.)[^/]+\/)*?[^/]*?)&quot;/g
+
+    return code.replace(importRegex, `&quot;<a class="import-link" style="text-decoration: underline;" href="https://github.com/OpenZeppelin/openzeppelin-$2blob/v${version}/contracts/$3" target="_blank" rel="noopener noreferrer">$1$2$3</a>&quot;`);
+}
+
+// A FUNCTION THAT GENERATES HYPERLINKS FOR CAIRO
+function injectHyperlinksCairo(code: string, version: string = "0.10.0") {
+  const importRegex = /use<\/span> (openzeppelin)::([^\s]*);/g;
+  let result = code;
+  let match = importRegex.exec(code);
+
+  while (match != null) {
+    const [line, libraryPrefix, libraryPath] = match;
+
+    if (
+      line !== undefined &&
+      libraryPrefix !== undefined &&
+      libraryPath !== undefined
+    ) {
+      const githubPrefix = `https://github.com/OpenZeppelin/cairo-contracts/blob/v${version}/src/`;
+      let libraryPathSegments = libraryPath.split("::");
+
+      // Remove the component name
+      if (
+        libraryPathSegments.length > 0 &&
+        libraryPathSegments[libraryPathSegments.length - 1] !== "interface"
+      ) {
+        libraryPathSegments.pop();
+      }
+
+      if (libraryPathSegments !== undefined && libraryPathSegments.length > 0) {
+        const replacedImportLine = `use<\/span> <a class="import-link" href='${githubPrefix}${libraryPathSegments.join("/")}.cairo' target='_blank' rel='noopener noreferrer'>${libraryPrefix}::${libraryPath}</a>;`;
+        result = result.replace(line, replacedImportLine);
+      }
+    }
+    match = importRegex.exec(code);
+  }
+  return result;
+}
 
 // A FUNCTION THAT RETURNS THE CODE-EDITOR COMPONENT
 const CodeEditor = () => {
@@ -342,30 +377,20 @@ const CodeEditor = () => {
   }
 
   // CHECKING THE ALREADY CONVERTED CODE FOR LINKS 
-  const injectedCode = injectHyperlinks(hljs.highlight('solidity', initialCode).value)
-
+  const injectedCode = isWizard 
+    ? 
+  injectHyperlinksSolidity(hljs.highlight('solidity', initialCode).value)
+    :
+    isCairo
+      ?
+    injectHyperlinksCairo(hljs.highlight("cairo", CairoInitialCode).value)
+      :
+    "No registered language detected"
+  
   return (
-    <>
-      {isWizard && (
-        <div className="w-full h-full">
-          <pre className="hljs ">
-          <code dangerouslySetInnerHTML={{ __html: injectedCode }} />
-          </pre>
-        </div>
-      )}
-
-      {isCairo && (
-        <div className="w-full h-full">
-          <SyntaxHighlighter
-            language="cairo"
-            style={dracula}
-            className="w-full h-full font-bold"
-          >
-            {CairoInitialCode}
-          </SyntaxHighlighter>
-        </div>
-      )}
-    </>
+    <div className="w-full h-full">
+      <CodeHighlighter code={injectedCode}/>
+    </div>
   );
 };
 
