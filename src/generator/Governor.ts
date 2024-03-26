@@ -205,12 +205,12 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         // GETTING UPDATABLE SETTINGS FUNCTION
     const updatableSettingsFunction = updatableSettingsSnippets
         .find(item => item.name === "GovernorUpdatableSettingsConstructorHead")
-        ?.content.replace("{votingDelay={inputValue=1 day}*7200}", `${votingDelayValue ? votingDelayValue : 0 * 7200}`)
+        ?.content.replace("{votingDelay={inputValue=1 day}*7200}", `${votingDelayValue ? votingDelayValue * 7200 : 0}`)
         .replace("{inputValue=1} day", `${votingDelayValue ? votingDelayValue : 0} ${votingDelayCounts}`)
 
         .replace(
             "{votingPeriod={inputValue=1 week}(converted in seconds)/{blockValue=12 seconds}}", 
-            `${((votingPeriodValue ? votingPeriodValue : 0 * 604800)/parseFloat(blockValue ? blockValue : "12")).toFixed(2)}`
+            `${parseInt(((votingPeriodValue ? votingPeriodValue * 604800 : 0)/parseFloat(blockValue ? blockValue : "12")).toString())}`
         )
 
         .replace("{inputValue = 1} week", `${votingPeriodValue ? votingPeriodValue : 0} ${votingPeriodCounts ? votingPeriodCounts : "week"}`)
@@ -226,8 +226,8 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         ? 
     defaultConstructor 
         : 
-    `${timelockValue ? timelockConstructorHead : defaultConstructorHead}${quorumType === "percentage" ? "\n\t\t" + quorumConstructorFunction : ""}${updatableSettings ? "\n\t\t" + updatableSettingsFunction : ""}
-    {}`
+    `${timelockValue ? timelockConstructorHead : defaultConstructorHead}${
+        quorumType === "percentage" ? "\n\t\t\t\t" + quorumConstructorFunction : ""}${updatableSettings ? "\n\t\t\t\t" + updatableSettingsFunction : ""}\n\t\t{}`
 
     // FORMING AN INITIALIZER
         // GETTING DEFAULT INITIALIZER
@@ -243,12 +243,12 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         // GETTING UPDATABLE SETTINGS INITIALIZER FUNCTION
     const updatableSettingsInitializerFunction = updatableSettingsSnippets
         .find(item => item.name === "GovernorUpdatableSettingsInitializer")
-        ?.content.replace("{votingDelay={inputValue=1 day}*7200}", `${votingDelayValue ? votingDelayValue : 0 * 7200}`)
+        ?.content.replace("{votingDelay={inputValue=1 day}*7200}", `${votingDelayValue ? votingDelayValue  * 7200 : 0}`)
         .replace("{inputValue=1} day", `${votingDelayValue ? votingDelayValue : 0} ${votingDelayCounts}`)
 
         .replace(
             "{votingPeriod={inputValue=1 week}(converted in seconds)/{blockValue=12 seconds}}", 
-            `${((votingPeriodValue ? votingPeriodValue : 0 * 604800)/parseFloat(blockValue ? blockValue : "12")).toFixed(2)}`
+            `${parseInt(((votingPeriodValue ? votingPeriodValue  * 604800 : 0)/parseFloat(blockValue ? blockValue : "12")).toString())}`
         )
 
         .replace("{inputValue=1} week", `${votingPeriodValue ? votingPeriodValue : 0} ${votingPeriodCounts ? votingPeriodCounts : "week"}`)
@@ -295,7 +295,7 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         // GETTING VOTING DELAY AND VOTING PERIOD FUNCTIONS
     const votingDelayFunction = defaultContractBody
         .find(action => action.name === "GovernorDefaultVotingDelay")
-        ?.content.replace("{votingDelay={1 day} * 7200}", `${votingDelayValue ? votingDelayValue : 0 * 7200}`)
+        ?.content.replace("{votingDelay={1 day} * 7200}", `${votingDelayValue ? votingDelayValue * 7200 : 0}`)
         .replace("{votingDelay=1} day", `${votingDelayValue ? votingDelayValue : 0} ${votingDelayCounts}`)
 
     const votingPeriodFunction = defaultContractBody
@@ -303,7 +303,7 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         
         ?.content.replace(
             "{votingPeriod={input=1 week(convert to seconds)}/{blockValue=12 seconds}", 
-            `${((votingPeriodValue ? votingPeriodValue : 0 * 604800)/parseFloat(blockValue ? blockValue : "12")).toFixed(2)}`
+            `${parseInt(((votingPeriodValue ? votingPeriodValue * 604800 : 0)/parseFloat(blockValue ? blockValue : "12")).toString())}`
         )
 
         .replace("{votingPeriod = 1} week", `${votingPeriodValue ? votingPeriodValue : 0} ${votingPeriodCounts ? votingPeriodCounts : "week"}`)
@@ -315,7 +315,6 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         .replace("e{tokenDecimals=18}", `${votes === "ERC721Votes" ? "" : "e" + (tokenDecimals ? tokenDecimals : "18")}`)
     
     const percentageQuorumFunction = quorumSnippets.find(item => item.name === "GovernorQuorumDefaultFunction")?.content
-    const quorumDenominatorFunction = quorumSnippets.find(item => item.name === "GovernorQuorumDenominatorFunction")?.content
 
         // GETTING UPDATABLE SETTINGS FUNCTIONS
     const updatableVotingDelayFunction = updatableSettingsSnippets.find(item => item.name === "GovernorUpdatableSettingsVotingDelay")?.content
@@ -339,7 +338,7 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
     ${updatableSettings ?  updatableVotingPeriodFunction : votingPeriodFunction}${
         updatableSettings ? "\n\n\t" + updatableProposalThresholdFunction : 
         checkIfNumber(proposalThreshold) && proposalThreshold !== "0" ? "\n\n\t" + defaultProposalThreshold : ""
-    }${quorumType === "percentage" ? "\n\n\t" + quorumDenominatorFunction : ""}
+    }
     ${quorumType === "number" ? "\n\t" + numericalQuorumFunction : "\n\t" + percentageQuorumFunction}${storage ? "\n\n\t" + storageFunction : ""}${timelockValue ? "\n\n\t" + timelockFunctions : ""}${upgradeabilityType === "UUPS" ? "\n\n\t" + UUPSFunction : ""}`
 
     // FORMING A CONTRACT
