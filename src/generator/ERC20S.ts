@@ -194,7 +194,7 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
   const contract = [
     ContractHeader,
     !erc20supgradeable? ContractName : "",
-    erc20sownable || erc20sburnable || erc20spermit || erc20svotes || erc20sflashMinting ? ", ": "",
+    (erc20sownable || erc20sburnable || erc20spermit || erc20svotes || erc20sflashMinting) && !erc20supgradeable ? ", ": "",
     erc20supgradeable ?  UpgradeableContractName: "",
     !erc20supgradeable ? contractnames : "", 
     erc20supgradeable ?  upgradeableContractnames : "",

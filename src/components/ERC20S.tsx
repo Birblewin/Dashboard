@@ -158,6 +158,17 @@ const ERC20 = ()=>{
         }
       };
 
+      const handlePremintChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        if(value == ''){
+            setPremint(value);
+        }
+        else{
+            if (checkIfNumber(value, true)) {
+                setPremint(value);
+            }
+        }    
+      };
       
      
     
@@ -187,14 +198,14 @@ const ERC20 = ()=>{
                         </label>
                         <Tool tooltipText="Create an initial amount of tokens for the deployer." />
                     </div>
-                    <input  id="uri" type="string" placeholder="0" className={`border border-1 rounded-[6px] p-1 text-black border-[#333333]`} value={premint}   onChange={(e) => setPremint((e.target.value))}/>
+                    <input  id="uri" type="string" placeholder="0" className={`border border-1 rounded-[6px] p-1 text-black border-[#333333]`} value={premint}   onChange={ handlePremintChange}/>
                 </div>
             </div>
             <hr className="my-4"></hr>
             <div>
                 <h1 className="text-[#818998] font-semibold text-xs">FEATURES</h1>
-                <div className="m-[0.5rem] flex items-center place-content-between">
-                    <div className="flex items-center">
+                <div className={`m-[0.5rem] flex items-center place-content-between ${mintable ? 'bg-gray-100' : ''}`}>
+                    <div className={`flex items-center ${mintable ? 'bg-gray-100' : ''}`}>
                         <input
                             type="checkbox"
                             className="form-checkbox h-3 w-3 rounded"
@@ -205,7 +216,7 @@ const ERC20 = ()=>{
                     </div>
                     <Tool tooltipText="Privileged accounts will be able to create more supply." />
                 </div>
-                <div className="m-[0.5rem] flex items-center place-content-between">
+                <div className={`m-[0.5rem] flex items-center place-content-between ${burnable ? 'bg-gray-100' : ''}`}>
                     <div className="flex items-center">
                         <input
                             type="checkbox"
@@ -276,7 +287,7 @@ const ERC20 = ()=>{
                         <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">ACCESS CONTROL</label>
                         <input
                             type="checkbox"
-                            className="form-checkbox h-3 w-3 rounded"
+                            className={`form-checkbox h-3 w-3 rounded ${accessControl && (pauseable || mintable ) ? "accent-gray-300" : ""}`}
                             checked={accessControl}
                             value="access"
                             onChange={handleAccessControl}
