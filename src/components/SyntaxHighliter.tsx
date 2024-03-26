@@ -35,6 +35,7 @@ import '../app/atom-one-dark.css';
 interface SolidityCodeHighlighterProps {
   code: string;
 }
+
 const SolidityCodeHighlighter:React.FC<SolidityCodeHighlighterProps> = ({ code }) => {
   return (
     <pre className="hljs">
