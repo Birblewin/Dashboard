@@ -130,15 +130,6 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         wizard_id: 1,
         contractType_id: 1, 
         section: "UpgradableImports",  
-        tag: "UpdatableURI",
-        name: "ERC1155UpdatableURIUpgradableImports", 
-        content: `import "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155EnumerableUpgradeable.sol";`
-    },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "UpgradableImports",  
         tag: "Ownable",
         name: "ERC1155OwnableUpgradableImports", 
         content: `import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";`

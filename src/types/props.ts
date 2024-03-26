@@ -26,3 +26,8 @@ export type {
   CopyButtonProps as DefenderButtonProps,
   CopyButtonProps as RenderButtonProps,
 }
+
+// A PROP FOR THE CODE HIGHLIGHTER COMPONENT
+export type CodeHighlighterProps = {
+  code: string;
+}
