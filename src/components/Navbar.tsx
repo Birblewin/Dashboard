@@ -9,19 +9,12 @@ import Popover from "@/components/Popover";
 import { cairos, wizard } from "../store/headerBtns";
 // IMPORTING MODULES
 import React from "react";
-import { atom, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { usePathname } from "next/navigation";
 // IMPORTING TYPES
 import { IsOpenType } from "@/types/types";
-
-// A FUNCTION TO DETERMINE THE TAB VISITED
-function getCurrentTab(url: string): "Solidity" | "Cairo" | "Other" {
-  if (url.endsWith("/wizard")) {
-    return "Solidity";
-  } else if (url.endsWith("/cairo")) {
-    return "Cairo";
-  } else return "Other";
-}
+// IMPORTING LIBS
+import getCurrentTab from "@/lib/getCurrentTab"
 
 // A FUNCTION THAT GENERATES A NAVBAR COMPONENT
 export default function Navbar() {
