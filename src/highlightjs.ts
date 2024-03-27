@@ -1,8 +1,10 @@
-import hljs from 'highlight.js/lib/core';
+import hljs from "highlight.js";
 
 // @ts-ignore
 import hljsDefineSolidity from 'highlightjs-solidity';
-import './app/atom-one-dark.css';
+// @ts-ignore
+import hljsDefineCairo from "highlightjs-cairo"
 
 hljsDefineSolidity(hljs);
+hljsDefineCairo(hljs)
 export default hljs;
