@@ -161,7 +161,7 @@ export function GenerateERC721CCode(erc721cburnable: boolean, erc721cpausable: b
 // Compatible with OpenZeppelin Contracts for Cairo ^0.10.0
    ${erc721croles? '\n'+Const+'\n':""}
 #[starknet::contract]
-mod MyToken {
+mod ${name.replace(/\s/g, '')} {
     use openzeppelin::token::erc721::ERC721Component;
     use openzeppelin::introspection::src5::SRC5Component;
     ${Imports}

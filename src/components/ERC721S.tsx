@@ -171,7 +171,7 @@ const ERC721S = ()=>{
                         <label htmlFor="name" className="text-[#333333] text-[0.875rem]  ">
                             Name
                         </label>
-                        <input  id="name" type="text" placeholder="My Token" className="border border-1 border-[#333333] rounded-[6px] p-1"
+                        <input  id="name" type="text" placeholder="MyToken" className="border border-1 border-[#333333] rounded-[6px] p-1"
                         value={name}  onChange={(e) => setName(e.target.value)}
                         />
                     </div>

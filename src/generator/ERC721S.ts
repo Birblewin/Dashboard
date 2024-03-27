@@ -140,7 +140,7 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
         const [contractName, setContractName] = useRecoilState(ERC721SName);
 
         const ContractHeader = [
-            `contract ${contractName} is `
+            `contract ${contractName.replace(/\s/g, '')} is `
         ]
         const License = [
             `// SPDX-License-Identifier: ${license}`
