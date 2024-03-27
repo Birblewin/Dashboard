@@ -287,7 +287,7 @@ const ERC20 = ()=>{
                         <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">ACCESS CONTROL</label>
                         <input
                             type="checkbox"
-                            className={`form-checkbox h-3 w-3 rounded ${accessControl && (pauseable || mintable ) ? "accent-gray-300" : ""}`}
+                            className={`form-checkbox h-3 w-3 rounded ${accessControl && (pauseable || mintable ) ? "accent-grey-300 hover:accent-grey-300" : ""}`}
                             checked={accessControl}
                             value="access"
                             onChange={handleAccessControl}

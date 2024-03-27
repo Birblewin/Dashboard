@@ -26,7 +26,7 @@ export const OwnableImport: string[] = getCodeContent("Imports", "Ownable");
 export const RolesImport: string[] = getCodeContent("Imports", "Roles");
 export const ManagedImport: string[] = getCodeContent("Imports", "Managed");
 export const UpgradeableContractStart :  string[] = getCodeContent("UpgradeableContractStart");
-export const ContractStart :  string[] = getCodeContent("ContractStart");
+export const ContractStart :  string[] = getCodeContent("ContractStart", "Default");
 export const ContractName: string[] = getCodeContent("ContractNames", "Default");
 export const OwnableContractName: string[] = getCodeContent("ContractNames", "Ownable");
 export const RolesContractName: string[] = getCodeContent("ContractNames", "Roles");
@@ -41,6 +41,7 @@ export const PausableRolesByte: string[] = getCodeContent("RolesByte", "Pausable
 export const UUPSRolesByte: string[] = getCodeContent("RolesByte", "UUPS");
 export const OwnableConstructor: string[] = getCodeContent("Constructor", "Ownable");
 export const RolesConstructor: string[] = getCodeContent("Constructor", "Roles");
+export const PausableConstructor: string[] = getCodeContent("Constructor", "Pausable");
 export const ManagedConstructor: string[] = getCodeContent("Constructor", "Managed");
 export const UpgradeableConstructor: string[] = getCodeContent("upgradeableConstructor");
 export const PausableSection2: string[] = getCodeContent("Section2", "Pausable");
@@ -54,8 +55,7 @@ export const UUPSSection1: string[] = getCodeContent("upgradeableFunctions", "UU
   
 export function generateCustomSCode(customsupgradeable: boolean,customspausable: boolean, customsroles : boolean, customsownable : boolean, customsmanaged : boolean, customsupgradeability : boolean, customsUUPS : boolean, customssecuritycontact : string, customsname: string, customslicense: string): string {
 
-  const License = `
-  // SPDX-License-Identifier: ${customslicense}`;
+  const License = `// SPDX-License-Identifier: ${customslicense}`;
   const SecurityContact = `/// @custom:security-contact ${customssecuritycontact}`;
   const ContractHeader = `contract ${customsname}`;
       
@@ -94,7 +94,7 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
   ].filter(Boolean).join('').trim();
 
   const contractnames = [
-    ContractStart ,
+    (customsroles || customsownable || customsmanaged || customspausable)?   ContractStart: '' ,
     customsownable? " ": "",
     customsownable? OwnableContractName : "",
     customsroles && customsownable? ", ": " ",
@@ -115,27 +115,42 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
     " {"
   ].filter(Boolean).join("").trim();
 
+  const rolesconstructor = [
+    RolesConstructor,
+    customspausable? "\t"+"\t"+PausableConstructor: '',
+    "\t"+"}" 
+  ].filter(Boolean).join("\n");
+
+  console.log('rolesconstructor', rolesconstructor);
+
+  const constructor = [
+    customsownable? OwnableConstructor: "",
+    customsroles? rolesconstructor: "",
+    customsmanaged? ManagedConstructor: ""
+  ].filter(Boolean);
+
 
 
   
 
-  const result =[
-    License,
+  const result =[License,
     Compatibility,
     CodeVersion,
-    !customsupgradeability? Imports: "",
-    customsupgradeability? upgradeableImports: "",
+    !customsupgradeability && !customsUUPS? Imports: "",
+    customsupgradeability || customsUUPS? upgradeableImports: "",
     "  ",
     customssecuritycontact? SecurityContact : "",
     contract,
     customspausable && customsroles ? "\t" + PausableRolesByte: "",
     customsUUPS && customsroles ? "\t"+UUPSRolesByte: "",
+    !customsupgradeability && !customsUUPS? "\t"+constructor: '',
+    customsupgradeability || customsUUPS? "\t" + UpgradeableConstructor: '',
     customsupgradeability ? "\t"+TransparentSection1 : "",
     customsUUPS? "\t"+UUPSSection1 : "",
     customspausable? "\t"+PausableSection2 : "",
-    customsupgradeability ? "\t"+UUPSSection3 : "",
+    customsUUPS ? "\t"+UUPSSection3 : "",
    "}"
-  ].filter(Boolean).join('\n');
+  ].filter(Boolean).join('\n').trim();
 
     return `
      ${result}

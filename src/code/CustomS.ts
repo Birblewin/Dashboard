@@ -91,15 +91,6 @@ const CustomSCode =[
         name: "CustomSUUPSUpgradeableImports", 
         content: `import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";`
     },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "upgradeableImports",  
-        tag: "UUPS",
-        name: "ERC20UUPSUpgradeableImports", 
-        content: `import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";`
-    },
     
     { 
         snippet_id: 1, 
@@ -162,7 +153,7 @@ const CustomSCode =[
         section: "ContractStart",  
         tag: "Default",
         name: "ERC20DefaultContractNames", 
-        content: `is`
+        content: `${" "}is`
     },
     { 
         snippet_id: 1, 
@@ -209,17 +200,7 @@ const CustomSCode =[
         tag: "Managed",
         name: "ERC20ManagedContractNames", 
         content: `AccessManaged`
-    },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "upgradeableContractNames",  
-        tag: "Default",
-        name: "ERC20DefaultContractNames", 
-        content: `Initializable`
-    },
-    
+    },    
     { 
         snippet_id: 1, 
         wizard_id: 1,
@@ -291,10 +272,16 @@ const CustomSCode =[
         contractType_id: 1, 
         section: "Constructor",  
         tag: "Roles",
-        name: `constructor(address defaultAdmin) {
-            _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);
-        }
-    `
+        content: `constructor(address defaultAdmin) {
+        _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Constructor",  
+        tag: "Pausable",
+        content: `_grantRole(PAUSER_ROLE, pauser);`
     },
     { 
         snippet_id: 1, 
@@ -303,10 +290,7 @@ const CustomSCode =[
         section: "Constructor",  
         tag: "Managed",
         name: "ERC20ManagedConstructor", 
-        content: `constructor(address defaultAdmin) {
-            _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);
-        }
-    `
+        content: `constructor(address initialAuthority) AccessManaged(initialAuthority) {}`
     },
     { 
         snippet_id: 1, 
@@ -316,9 +300,9 @@ const CustomSCode =[
         tag: "Default",
         name: "ERC20upgradeableConstructor", 
         content: `/// @custom:oz-upgrades-unsafe-allow constructor
-        constructor() {
-            _disableInitializers();
-        }
+    constructor() {
+        _disableInitializers();
+    }
     `
     },
     { 
@@ -372,10 +356,10 @@ const CustomSCode =[
         tag: "UUPS",
         name: "ERC20UUPSSection2", 
         content: `function _authorizeUpgrade(address newImplementation)
-        internal
-        onlyOwner
-        override
-    {}
+                internal
+                onlyOwner
+                override
+        {}
 `
     }
 ];

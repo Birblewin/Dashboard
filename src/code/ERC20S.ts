@@ -487,9 +487,27 @@ export const ERC20SCode =[
         wizard_id: 1,
         contractType_id: 1, 
         section: "upgradeableFunctionsHeader",  
-        tag: "Default",
+        tag: "Roles",
         name: "ERC20DefaultupgradeableFunctions", 
         content: `function initialize(address defaultAdmin `
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctionsHeader",  
+        tag: "Managed",
+        name: "ERC20DefaultupgradeableFunctions", 
+        content: `function initialize(address initialAuthority`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctionsHeader",  
+        tag: "Ownable",
+        name: "ERC20DefaultupgradeableFunctions", 
+        content: `function initialize(address initialOwner`
     },
     { 
         snippet_id: 1, 

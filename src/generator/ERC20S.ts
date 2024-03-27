@@ -59,7 +59,9 @@ export const PausableSection2: string[] = getCodeContent("Section2", "Pausable")
 export const UUPSSection2: string[] = getCodeContent("Section2", "UUPS");
 export const PausableSection3: string[] = getCodeContent("Section3", "Pausable");
 export const VotesSection3: string[] = getCodeContent("Section3", "Votes");
-export const Section1Header: string[] = getCodeContent("upgradeableFunctionsHeader", "Default");
+export const Section1RolesHeader: string[] = getCodeContent("upgradeableFunctionsHeader", "Roles");
+export const Section1ManagedHeader: string[] = getCodeContent("upgradeableFunctionsHeader", "Managed");
+export const Section1OwnableHeader: string[] = getCodeContent("upgradeableFunctionsHeader", "Ownable");
 export const PausableSection1Header: string[] = getCodeContent("upgradeableFunctionsHeader", "Pausable");
 export const MintableSection1Header: string[] = getCodeContent("upgradeableFunctionsHeader", "Mintable");
 export const OwnableSection1: string[] = getCodeContent("upgradeableFunctions", "Ownable");
@@ -213,9 +215,11 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
 
 
   const section1header = [
-    Section1Header,
-    erc20spausable? PausableSection1Header: "",
-    erc20smintable? MintableSection1Header: "",
+    erc20smanaged? Section1ManagedHeader: '',
+    erc20sownable? Section1OwnableHeader: '',
+    erc20sroles? Section1RolesHeader: '',
+    erc20sroles && erc20spausable? PausableSection1Header: "",
+    erc20sroles && erc20smintable? MintableSection1Header: "",
     ")"
   ].filter(Boolean).join("");
 

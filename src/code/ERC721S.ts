@@ -869,7 +869,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721VotesU
 //     }
 ];
   
-  const Wizards =[
+ /*  const Wizards =[
     {wizard_id: 1, wizard_name: "Cairo"},
     {wizard_id: 2, wizard_name: "Solidity"}
   ];
@@ -882,3 +882,4 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721VotesU
 const VariableName= [
     {Variable_id: 1, variable_Section: {name} }
 ]
+ */

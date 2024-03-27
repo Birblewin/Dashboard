@@ -27,6 +27,10 @@ export default function Custom() {
       } else if (e.target.value === 'uups') {
         setUUPS(true);
         setTransparent(false);
+        if(!accessControl){
+          setAccessControl(true);
+          setOwnable(true)
+        }  
       }
       setUpgradeability(true); // Set the checkbox to true if either radio input is true
     };
@@ -51,7 +55,7 @@ export default function Custom() {
       
       // If either Burnable or Pauseable is true, set Access Control to true
   
-      if (isChecked ||  pauseable) {
+      if (isChecked ||  pauseable || UUPS) {
           setAccessControl(true);
           
       } else {
@@ -65,17 +69,18 @@ export default function Custom() {
       
       // If Pauseable is true, set Access Control to true
       if (isChecked) {
+        if(!accessControl){
           setAccessControl(true);
           setOwnable(true)
-          
+        }  
       } else {
           // If both Burnable and Pauseable are false, set Access Control to false
-          
+          if(!UUPS){
               setAccessControl(false);
               setOwnable(false)
               setManaged(false)
               setRoles(false)
-          
+          }
       }
   };
   const handleUpgradabilityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +104,7 @@ export default function Custom() {
     const value = e.target.value;
     const isChecked = e.target.checked;
 
-    if ( !pauseable) {
+    if ( !pauseable && !UUPS) {
     
         if (value === 'access') {
         
@@ -179,6 +184,7 @@ export default function Custom() {
               className="form-checkbox h-3 w-3"
               value="ownable"
               checked={ownable}
+              name="accesscontrol"
               onChange={handleAccessControlChange}
             />
             <label className="ml-2 text-[#333333] ">Ownable</label>
@@ -193,6 +199,7 @@ export default function Custom() {
           <div className="  flex items-center">
             <input title="Roles" type="radio" className="radio h-3 w-3 " value="roles"
               checked={roles}
+              name="accesscontrol"
               onChange={handleAccessControlChange}/>
             <label className="ml-2 text-[#333333] ">Roles</label>
           </div>
@@ -209,6 +216,7 @@ export default function Custom() {
               type="radio"
               className="form-checkbox h-3 w-3"
               value="managed"
+              name="accesscontrol"
               checked={managed}
               onChange={handleAccessControlChange}
             />
@@ -245,6 +253,7 @@ export default function Custom() {
               type="radio"
               className="form-checkbox h-3 w-3"
               value="transparent"
+              name = 'upgradeable'
               checked={transparent}
               onChange={handleUpgradeChange}
             />
@@ -261,6 +270,7 @@ export default function Custom() {
             <input title="uups" type="radio" className="radio h-3 w-3" 
             value="uups"
             checked={UUPS}
+            name = 'upgradeable'
             onChange={handleUpgradeChange}/>
             <label className="ml-2 text-[#333333] ">UUPS</label>
           </div>
