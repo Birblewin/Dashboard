@@ -123,7 +123,7 @@ export function GenerateERC721CCode(erc721cburnable: boolean, erc721cpausable: b
         erc721cupgradable? "\n\t"+UpgradableEvents:""
     ].join("").trim();
     const Functions = [
-        `#[generate_trait]`,
+        (erc721cmintable || erc721cburnable || erc721cpausable || erc721cupgradable)?`#[generate_trait]`:"",
         erc721cmintable? "\n\t"+MintableFunctions:"",
         erc721cburnable? "\n\t"+BurnableFunctions:"",
         erc721cpausable? "\n\t"+Pausable2Functions:"",
@@ -133,9 +133,9 @@ export function GenerateERC721CCode(erc721cburnable: boolean, erc721cpausable: b
         erc721cpausable? "\n\t"+PausableFunctions:"",
     ].join("").trim();
     const Roles = [
-        erc721cpausable? "\n\t"+PausableConstructor+',':"",
-        erc721cupgradable? "\n\t"+UpgradableConstructor+',':"",
-        erc721cmintable? "\n\t"+MintableConstructor:"",
+        erc721cpausable? "\n\t\t"+PausableConstructor+',':"",
+        erc721cupgradable? "\n\t\t"+UpgradableConstructor+',':"",
+        erc721cmintable? "\n\t\t"+MintableConstructor:"",
     ].join("").trim();
 
     const Const = [
@@ -201,10 +201,9 @@ mod ${name.replace(/\s/g, '')} {
     }
 
     #[constructor]
-    fn constructor(ref self: ContractState${erc721cownable? OwnableConstructor:""}${erc721croles?RolesConstructor+',':""}${erc721croles?'\n\t'+Roles:""}) {
+    fn constructor(${erc721croles?'\n\t\t':""}ref self: ContractState${(erc721cmintable||erc721cownable||erc721cupgradable||erc721cpausable)?",":""}${erc721croles?'\n\t':""} ${erc721cownable? OwnableConstructor:""}${erc721croles?RolesConstructor+',':""}${erc721croles?'\n\t\t'+Roles:""}${erc721croles?'\n\t':""}) {
         self.erc721.initializer("${name}", "${symbol}", "${BaseURI}");
-        ${erc721cownable? OwnableConstructorInit:''}${erc721croles? RolesConstructorInit:""}
-        ${erc721croles? RolesInit:""}
+        ${erc721cownable? OwnableConstructorInit:''}${erc721croles? '\n\t\t'+RolesConstructorInit:""}${erc721croles? '\n\t\t'+RolesInit:""}
     }
     ${Methods}
     ${Functions}

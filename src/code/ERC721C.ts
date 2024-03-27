@@ -277,7 +277,7 @@ export const ERC721CCode = [
         section: "Constructor",  
         tag: "Roles",
         name: "ERC721CConstructorRoles",
-        content: `default_admin: ContractAddress`
+        content: `   default_admin: ContractAddress`
     },
     { 
         snippet_id: 1, 
@@ -333,7 +333,6 @@ export const ERC721CCode = [
         tag: "Roles",
         name: "ERC721CConstructorInitRoles",
         content: `self.accesscontrol.initializer();
-
         self.accesscontrol._grant_role(DEFAULT_ADMIN_ROLE, default_admin);`
     },
     { 
