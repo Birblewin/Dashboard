@@ -201,7 +201,7 @@ mod ${name.replace(/\s/g, '')} {
     }
 
     #[constructor]
-    fn constructor(${erc721croles?'\n\t\t':""}ref self: ContractState${(erc721cmintable||erc721cownable||erc721cupgradable||erc721cpausable)?",":""}${erc721croles?'\n\t':""} ${erc721cownable? OwnableConstructor:""}${erc721croles?RolesConstructor+',':""}${erc721croles?'\n\t\t'+Roles:""}${erc721croles?'\n\t':""}) {
+    fn constructor(${erc721croles?'\n\t\t':""}ref self: ContractState${(erc721cmintable||erc721cownable||erc721cupgradable||erc721cpausable||erc721croles)?",":""}${erc721croles?'\n\t':""} ${erc721cownable? OwnableConstructor:""}${erc721croles?RolesConstructor+',':""}${erc721croles?'\n\t\t'+Roles:""}${erc721croles?'\n\t':""}) {
         self.erc721.initializer("${name}", "${symbol}", "${BaseURI}");
         ${erc721cownable? OwnableConstructorInit:''}${erc721croles? '\n\t\t'+RolesConstructorInit:""}${erc721croles? '\n\t\t'+RolesInit:""}
     }
