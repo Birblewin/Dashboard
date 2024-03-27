@@ -2,6 +2,7 @@
 import { ERC721CName, ERC721CLicense, ERC721CSymbol, ERC721CMintable, ERC721CPauseable, ERC721CAccessControl, ERC721CBurnable, ERC721CUpgradeable, ERC721CAccessControlRoles, ERC721CAccessControlOwnable, ERC721CBaseURI } from "@/store/ERC721C";
 import Tool from "./Tool";
 import {atom, useRecoilState} from "recoil"
+import { useEffect } from "react";
 
 const ERC721C = ()=>{
 
@@ -18,7 +19,12 @@ const ERC721C = ()=>{
     const [BaseURI, setBaseURI] = useRecoilState(ERC721CBaseURI);
     
 
-
+    useEffect(() => {
+        console.log("Ownable state",ownable);
+    }, [ownable]);
+    useEffect(() => {
+        console.log("Roles state",roles);
+    }, [roles]);
       const handleAccessControlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         const isChecked = e.target.checked;
@@ -85,7 +91,7 @@ const ERC721C = ()=>{
     const handleUpgradableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUpgradeable(!upgradeable);
         const isChecked = e.target.checked;
-        
+       
         // If Upgradable is true, set Access Control to true
         if (isChecked) {
             setAccessControl(true);
@@ -216,7 +222,7 @@ const ERC721C = ()=>{
                         checked={upgradeable}
                         onChange={handleUpgradableChange}
                     />
-                    <label className="ml-[0.5rem] text-[#333333] ">Upgradable</label>
+                    <label className="ml-[0.5rem] text-[#333333] ">Upgradeable</label>
                     </div>
                     <Tool tooltipText="Smart contracts are immutable by default unless they include code that allows them to be upgraded." link='https://docs.openzeppelin.com/contracts-cairo/upgrades' linktext='Read more'/>
                 </div>

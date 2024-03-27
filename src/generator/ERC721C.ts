@@ -173,13 +173,9 @@ mod ${name.replace(/\s/g, '')} {
     #[abi(embed_v0)]
     impl ERC721MetadataImpl = ERC721Component::ERC721MetadataImpl<ContractState>;
     #[abi(embed_v0)]
-    impl ERC721MetadataCamelOnly = ERC721Component::ERC721MetadataCamelOnlyImpl<ContractState>;
-    ${!erc721cpausable? pausable:""}
-    impl SRC5Impl = SRC5Component::SRC5Impl<ContractState>;
-    ${BeforeEmbed}
-
-    impl ERC721InternalImpl = ERC721Component::InternalImpl<ContractState>;
-    ${AfterEmbed}
+    impl ERC721MetadataCamelOnly = ERC721Component::ERC721MetadataCamelOnlyImpl<ContractState>;${!erc721cpausable? '\n\t'+pausable:""}
+    impl SRC5Impl = SRC5Component::SRC5Impl<ContractState>;${'\n\t'+BeforeEmbed+'\n'}
+    impl ERC721InternalImpl = ERC721Component::InternalImpl<ContractState>;${'\n\t'+AfterEmbed}
 
     #[storage]
     struct Storage {
