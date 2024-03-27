@@ -44,7 +44,7 @@ export const ERC721CCode = [
         section: "Imports",  
         tag: "Roles",
         name: "ERC721CImportsRoles", 
-        content: `use openzeppelin::access::accesscontrol::AccessControlComponent;
+        content: `    use openzeppelin::access::accesscontrol::AccessControlComponent;
     use openzeppelin::access::accesscontrol::DEFAULT_ADMIN_ROLE;
     use starknet::ContractAddress;`
     },
@@ -95,7 +95,7 @@ export const ERC721CCode = [
         section: "Component",  
         tag: "Roles",
         name: "ERC721CComponentRoles",
-        content: `component!(path: AccessControlComponent, storage: accesscontrol, event: AccessControlEvent);`
+        content: `    component!(path: AccessControlComponent, storage: accesscontrol, event: AccessControlEvent);`
     },
     { 
         snippet_id: 1, 
@@ -135,7 +135,7 @@ export const ERC721CCode = [
         section: "EmbedBefore",  
         tag: "Roles",
         name: "ERC721CEmbedBeforeRoles", 
-        content: `#[abi(embed_v0)]
+        content: `    #[abi(embed_v0)]
     impl AccessControlImpl = AccessControlComponent::AccessControlImpl<ContractState>;
     #[abi(embed_v0)]
     impl AccessControlCamelImpl = AccessControlComponent::AccessControlCamelImpl<ContractState>;`
@@ -167,7 +167,7 @@ export const ERC721CCode = [
         section: "EmbedAfter",  
         tag: "Roles",
         name: "ERC721CEmbedAfterRoles",
-        content: `impl AccessControlInternalImpl = AccessControlComponent::InternalImpl<ContractState>;`
+        content: `    impl AccessControlInternalImpl = AccessControlComponent::InternalImpl<ContractState>;`
     },
     { 
         snippet_id: 1, 
@@ -215,7 +215,7 @@ export const ERC721CCode = [
         section: "Storage",  
         tag: "Roles",
         name: "ERC721CStorageRoles",
-        content: `#[substorage(v0)]
+        content: `    #[substorage(v0)]
         accesscontrol: AccessControlComponent::Storage,`
     },
     { 
@@ -256,7 +256,7 @@ export const ERC721CCode = [
         section: "Events",  
         tag: "Roles",
         name: "ERC721CEventsRoles",
-        content: `#[flat]
+        content: `    #[flat]
         AccessControlEvent: AccessControlComponent::Event,`
     },
     { 
@@ -277,7 +277,7 @@ export const ERC721CCode = [
         section: "Constructor",  
         tag: "Roles",
         name: "ERC721CConstructorRoles",
-        content: `default_admin: ContractAddress`
+        content: `   default_admin: ContractAddress`
     },
     { 
         snippet_id: 1, 
@@ -333,7 +333,6 @@ export const ERC721CCode = [
         tag: "Roles",
         name: "ERC721CConstructorInitRoles",
         content: `self.accesscontrol.initializer();
-
         self.accesscontrol._grant_role(DEFAULT_ADMIN_ROLE, default_admin);`
     },
     { 
