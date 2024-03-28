@@ -214,7 +214,7 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         )
 
         .replace("{inputValue = 1} week", `${votingPeriodValue ? votingPeriodValue : 0} ${votingPeriodCounts ? votingPeriodCounts : "week"}`)
-        .replace("{proposalThreshold=0}", `${proposalThresholdValue}${votes === "ERC721Votes" ? "" : "e" + (tokenDecimals ? tokenDecimals : "18")}`)
+        .replace("{proposalThreshold=0}", `${proposalThresholdValue}${votes === "ERC20Votes" && proposalThresholdValue ? "e" + (tokenDecimals ? tokenDecimals : "18") : ""}`)
 
         // GETTING TIMELOCK CONSTRUNCTOR
     const timelockConstructorHead = verifiedTimelockSnippets
@@ -252,7 +252,7 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         )
 
         .replace("{inputValue=1} week", `${votingPeriodValue ? votingPeriodValue : 0} ${votingPeriodCounts ? votingPeriodCounts : "week"}`)
-        .replace("{proposalThreshold=0}", `${proposalThresholdValue}${votes === "ERC721Votes" ? "" : "e" + (tokenDecimals ? tokenDecimals : "18")}`)
+        .replace("{proposalThreshold=0}", `${proposalThresholdValue}${votes === "ERC20Votes" && proposalThresholdValue ? "e" + (tokenDecimals ? tokenDecimals : "18") : ""}`)
 
         // GETTING TIMELOCK INITIALIZER
     const timelockInitializer = verifiedTimelockSnippets

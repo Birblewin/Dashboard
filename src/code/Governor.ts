@@ -107,7 +107,7 @@ export const defaultSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorDefaultConstructorHead",
         section: "default",
         tag: "constructor head",
-        content: `constructor(IVotes _token)\n\t\t\t\tGovernor({name=Governor})\n\t\t\t\tGovernorVotes(_token)`
+        content: `constructor(IVotes _token)\n\t\t\t\tGovernor("{name=Governor}")\n\t\t\t\tGovernorVotes(_token)`
     },
     
     // DEFAULT CONTRACT BODY
@@ -335,7 +335,7 @@ export const defaultSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockConstructor",
         section: "timelock",
         tag: ["optional", "constructor", "timelockController"],
-        content: `constructor(IVotes _token, TimelockController _timelock)\n\t\t\t\tGovernor({name=Governor})\n\t\t\t\tGovernorVotes(_token)\n\t\t\t\tGovernorTimelockControl(_timelock)`
+        content: `constructor(IVotes _token, TimelockController _timelock)\n\t\t\t\tGovernor("{name=Governor}")\n\t\t\t\tGovernorVotes(_token)\n\t\t\t\tGovernorTimelockControl(_timelock)`
     },
 
     {
@@ -345,7 +345,7 @@ export const defaultSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockConstructor",
         section: "timelock",
         tag: ["optional", "constructor", "timelockCompound"],
-        content: `constructor(IVotes _token, ICompoundTimelock _timelock)\n\t\t\t\tGovernor({name=Governor})\n\t\t\t\tGovernorVotes(_token)\n\t\t\t\tGovernorTimelockCompound(_timelock)`
+        content: `constructor(IVotes _token, ICompoundTimelock _timelock)\n\t\t\t\tGovernor("{name=Governor}")\n\t\t\t\tGovernorVotes(_token)\n\t\t\t\tGovernorTimelockCompound(_timelock)`
     },
 
     {
@@ -574,7 +574,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorDefaultInitializer",
         section: "default",
         tag: "initializer",
-        content: `function initialize(IVotes _token) initializer public {\n\t\t__Governor_init({name=Governor});\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);`
+        content: `function initialize(IVotes _token) initializer public {\n\t\t__Governor_init("{name=Governor}");\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);`
     },
 
     // DEFAULT CONTRACT BODY
@@ -690,7 +690,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorUpdatableSettingsInitializer",
         section: "updatable settings",
         tag: ["optional", "initializer"],
-        content: `__GovernorSettings_init({votingDelay={inputValue=1 day}*7200} \t/* {inputValue=1} day */, \t{votingPeriod={inputValue=1 week}(converted in seconds)/{blockValue=12 seconds}} \t/* {inputValue=1} week */, \t{proposalThreshold=0});`
+        content: `__GovernorSettings_init({votingDelay={inputValue=1 day}*7200} /* {inputValue=1} day */ , {votingPeriod={inputValue=1 week}(converted in seconds)/{blockValue=12 seconds}} /* {inputValue=1} week */, {proposalThreshold=0});`
     },
 
     {
@@ -802,7 +802,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockInitializer",
         section: "timelock",
         tag: ["optional", "initializer", "timelockController"],
-        content: `function initialize(IVotes _token, TimelockControllerUpgradeable_timelock) initializer public {\n\t\t__Governor_init({name=Governor});\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);\n\t\t__GovernorTimelockControl_init(_timelock);`
+        content: `function initialize(IVotes _token, TimelockControllerUpgradeable_timelock) initializer public {\n\t\t__Governor_init("{name=Governor}");\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);\n\t\t__GovernorTimelockControl_init(_timelock);`
     },
 
     {
@@ -812,7 +812,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockInitializer",
         section: "timelock",
         tag: ["optional", "initializer", "timelockCompound"],
-        content: `function initialize(IVotes _token, ICompoundTimelock_timelock) initializer public {\n\t\t__Governor_init({name=Governor});\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);\n\t\t__GovernorTimelockCompound_init(_timelock);`
+        content: `function initialize(IVotes _token, ICompoundTimelock_timelock) initializer public {\n\t\t__Governor_init("{name=Governor}");\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);\n\t\t__GovernorTimelockCompound_init(_timelock);`
     },
 
     {
