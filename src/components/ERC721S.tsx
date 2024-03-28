@@ -34,8 +34,6 @@ const ERC721S = ()=>{
           setAccessControl(true);
           setOwnable(true);
           setTransparent(false);
-          setRoles(false);
-          setManaged(false);
         }
         setUpgradeability(true); // Set the checkbox to true if either radio input is true
       };
@@ -77,8 +75,6 @@ const ERC721S = ()=>{
         if (isChecked) {
             setAccessControl(true);
             setOwnable(true)
-            setManaged(false)
-            setRoles(false)
             
             
         }else if(!isChecked){
@@ -102,8 +98,6 @@ const ERC721S = ()=>{
             setMintable(true);
             setAccessControl(true);
             setOwnable(true)
-            setManaged(false)
-            setRoles(false)
         }
     }
     const handlePauseableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,8 +108,6 @@ const ERC721S = ()=>{
         if (isChecked) {
             setAccessControl(true);
             setOwnable(true)
-            setManaged(false)
-            setRoles(false)
             
         } else {
             // If both Burnable and Pauseable are false, set Access Control to false
@@ -140,8 +132,6 @@ const ERC721S = ()=>{
           } else {
             setUUPS(false);
             setTransparent(false);
-            setAccessControl(false);
-            setOwnable(false); setRoles(false);  setManaged(false); // Set all access control options to false
           }
           setUpgradeability(!upgradeability);
         }
@@ -157,8 +147,6 @@ const ERC721S = ()=>{
             
             if (isChecked) {
                 setOwnable(true);
-                setRoles(false);
-                setManaged(false)
             } else {
                 setOwnable(false);
                 setRoles(false);
@@ -180,10 +168,10 @@ const ERC721S = ()=>{
                 <h1 className="text-[#818998] font-semibold text-xs">SETTINGS</h1>
                 <div className="flex flex-row">
                     <div className="flex flex-col w-[60%] p-[0.5rem]">
-                        <label htmlFor="name" className="text-[#333333] text-[0.875rem]  ">
+                        <label htmlFor="name" className="text-[#333333] text-[0.875rem]">
                             Name
                         </label>
-                        <input  id="name" type="text" placeholder="My Token" className="border border-1 border-[#333333] rounded-[6px] p-1"
+                        <input  id="name" type="text" placeholder="MyToken" className="border border-1 border-[#333333] rounded-[6px] p-1"
                         value={name}  onChange={(e) => setName(e.target.value)}
                         />
                     </div>
@@ -334,6 +322,7 @@ const ERC721S = ()=>{
                     <input
                         title="Ownable"
                         type="radio"
+                        name="access"
                         className="form-checkbox h-3 w-3"
                         value="ownable"
                         checked={ownable}
@@ -350,6 +339,7 @@ const ERC721S = ()=>{
                     <input
                         title="Roles"
                         type="radio"
+                        name="access"
                         className="radio h-3 w-3 "
                         value="roles"
                         checked={roles}
@@ -365,6 +355,7 @@ const ERC721S = ()=>{
                     <input
                         title="Managed"
                         type="radio"
+                        name="access"
                         className="form-checkbox h-3 w-3"
                         value="managed"
                         checked={managed}
