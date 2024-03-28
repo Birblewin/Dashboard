@@ -313,6 +313,7 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         .find(item => item.name === "GovernorQuorumOptionalFunction")
         ?.content.replace("{inputValue=4}", `${quorumValue ? quorumValue : 4}`)
         .replace("e{tokenDecimals=18}", `${votes === "ERC721Votes" ? "" : "e" + (tokenDecimals ? tokenDecimals : "18")}`)
+        .replace("{comment}", storage || timelockValue ? "\n\n\t// The following functions are overrides required by Solidity." : "")
     
     const percentageQuorumFunction = quorumSnippets.find(item => item.name === "GovernorQuorumDefaultFunction")?.content
 
@@ -334,12 +335,13 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
     const UUPSFunction = UUPSSnippets.find(item => item.name === "GovernorUUPSContractBody")?.content
 
         // CONTRACT BODY
-    const contractBody = `${updatableSettings ? updatableVotingDelayFunction : votingDelayFunction}\n
-    ${updatableSettings ?  updatableVotingPeriodFunction : votingPeriodFunction}${
-        updatableSettings ? "\n\n\t" + updatableProposalThresholdFunction : 
+    const contractBody = `${updatableSettings ? "" : votingDelayFunction}${updatableSettings ? "" : "\n\n\t" + votingPeriodFunction}${
+        updatableSettings ? "" : 
         checkIfNumber(proposalThreshold) && proposalThreshold !== "0" ? "\n\n\t" + defaultProposalThreshold : ""
-    }
-    ${quorumType === "number" ? "\n\t" + numericalQuorumFunction : "\n\t" + percentageQuorumFunction}${storage ? "\n\n\t" + storageFunction : ""}${timelockValue ? "\n\n\t" + timelockFunctions : ""}${upgradeabilityType === "UUPS" ? "\n\n\t" + UUPSFunction : ""}`
+    }${upgradeabilityType === "UUPS" ? "\n\n\t" + UUPSFunction : ""}${
+        quorumType === "number" ? "\n\n\t" + numericalQuorumFunction : 
+        (updatableSettings ? "" : "\n\n\t") + percentageQuorumFunction
+    }${updatableSettings ? "\n\n\t" + updatableVotingDelayFunction : ""}${updatableSettings ? "\n\n\t" + updatableVotingPeriodFunction : ""}${updatableSettings ? "\n\n\t" + updatableProposalThresholdFunction : ""}${storage ? "\n\n\t" + storageFunction : ""}${timelockValue ? "\n\n\t" + timelockFunctions : ""}`
 
     // FORMING A CONTRACT
     const contract: string = `${contractHead}{

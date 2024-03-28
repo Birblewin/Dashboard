@@ -151,7 +151,7 @@ export const defaultSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorQuorumOptionalFunction",
         section: "quorum",
         tag: ["optional", "contract body"],
-        content: `function quorum(uint256 blockNumber) public pure override returns (uint256) {\n\t\treturn {inputValue=4}e{tokenDecimals=18};\n\t}\n\n\t// The following functions are overrides required by Solidity.`
+        content: `function quorum(uint256 blockNumber) public pure override returns (uint256) {\n\t\treturn {inputValue=4}e{tokenDecimals=18};\n\t}{comment}`
     },
 
         // DEFAULT -> %
@@ -415,7 +415,7 @@ export const defaultSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockExecuteOperationsFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockController"],
-        content: `function _executeOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\t\t\tinternal\n\t\t\t\toverride(Governor, GovernorTimelockControl)\n\t\t{\n\t  super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);\n\t}`
+        content: `function _executeOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\t\t\tinternal\n\t\t\t\toverride(Governor, GovernorTimelockControl)\n\t\t{\n\t   super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);\n\t}`
     },
 
     {
@@ -425,7 +425,7 @@ export const defaultSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockExecuteOperationsFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockCompound"],
-        content: `function _executeOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\t\t\tinternal\n\t\t\t\toverride(Governor, GovernorTimelockCompound)\n\t\t{\n\t  super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);\n\t}`
+        content: `function _executeOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\t\t\tinternal\n\t\t\t\toverride(Governor, GovernorTimelockCompound)\n\t\t{\n\t   super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);\n\t}`
     },
 
     {
@@ -618,7 +618,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorQuorumOptionalFunction",
         section: "quorum",
         tag: ["optional", "contract body"],
-        content: `function quorum(uint256 blockNumber) public pure override returns (uint256) {\n\t\treturn {inputValue=4}e{tokenDecimals=18};\n\t}\n\n\t// The following functions are overrides required by Solidity.`
+        content: `function quorum(uint256 blockNumber) public pure override returns (uint256) {\n\t\treturn {inputValue=4}e{tokenDecimals=18};\n\t}{comment}`
     },
 
         // DEFAULT -> %
@@ -659,7 +659,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorQuorumDefaultFunction",
         section: "quorum",
         tag: ["default", "contract body"],
-        content: `// The following functions are overrides required by Solidity.\n\n\tfunction quorum(uint256 blockNumber)\n\t\tpublic\n\t\tview\n\t\toverride(GovernorUpgradeable, GovernorVotesQuorumFractionUpgradeable)\n\t\treturns (uint256)\n\t{\n\t\treturn super.quorum(blockNumber);\n\t}`
+        content: `// The following functions are overrides required by Solidity.\n\n\tfunction quorum(uint256 blockNumber)\n\t\t\tpublic\n\t\t\tview\n\t\t\toverride(GovernorUpgradeable, GovernorVotesQuorumFractionUpgradeable)\n\t\t\treturns (uint256)\n\t\t{\n\t  return super.quorum(blockNumber);\n\t}`
     },
 
     // UPDATABLE SETTINGS
@@ -700,7 +700,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorUpdatableSettingsVotingDelay",
         section: "updatable settings",
         tag: ["optional", "contract body", "voting delay"],
-        content: `function votingDelay()\n\t\tpublic\n\t\tview\n\t\toverride(GovernorUpgradeable, GovernorSettingsUpgradeable)\n\t\treturns (uint256)\n\t{\n\t\treturn super.votingDelay();\n\t}`
+        content: `function votingDelay()\n\t\t\tpublic\n\t\t\tview\n\t\t\toverride(GovernorUpgradeable, GovernorSettingsUpgradeable)\n\t\t\treturns (uint256)\n\t\t{\n\t  return super.votingDelay();\n\t}`
     },
 
     {
@@ -710,7 +710,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorUpdatableSettingsVotingPeriod",
         section: "updatable settings",
         tag: ["optional", "contract body", "voting period"],
-        content: `function votingPeriod()\n\t\tpublic\n\t\tview\n\t\toverride(GovernorUpgradeable, GovernorSettingsUpgradeable)\n\t\treturns (uint256)\n\t{\n\t\treturn super.votingPeriod();\n\t}`
+        content: `function votingPeriod()\n\t\t\tpublic\n\t\t\tview\n\t\t\toverride(GovernorUpgradeable, GovernorSettingsUpgradeable)\n\t\t\treturns (uint256)\n\t\t{\n\t  return super.votingPeriod();\n\t}`
     },
 
     {
@@ -720,7 +720,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorUpdatableSettingsProposalThreshold",
         section: "updatable settings",
         tag: ["optional", "contract body", "proposal threshold"],
-        content: `function proposalThreshold()\n\t\tpublic\n\t\tview\n\t\toverride(GovernorUpgradeable, GovernorSettingsUpgradeable)\n\t\treturns (uint256)\n\t{\n\t\treturn super.proposalThreshold();\n\t}`
+        content: `function proposalThreshold()\n\t\t\tpublic\n\t\t\tview\n\t\t\toverride(GovernorUpgradeable, GovernorSettingsUpgradeable)\n\t\t\treturns (uint256)\n\t\t{\n\t  return super.proposalThreshold();\n\t}`
     },
 
     // STORAGE
@@ -751,7 +751,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorStorageFunction",
         section: "storage",
         tag: ["optional", "contract body"],
-        content: `function _propose(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, string memory description, address proposer)\n\t\tinternal\n\t\toverride(GovernorUpgradeable, GovernorStorageUpgradeable)\n\t\treturns (uint256)\n\t{\n\t\treturn super._propose(targets, values, calldatas, description, proposer);\n\t}`
+        content: `function _propose(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, string memory description, address proposer)\n\t\t\tinternal\n\t\t\toverride(GovernorUpgradeable, GovernorStorageUpgradeable)\n\t\t\treturns (uint256)\n\t\t{\n\t  return super._propose(targets, values, calldatas, description, proposer);\n\t}`
     },
 
     // TIMELOCK
@@ -822,7 +822,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockStateFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockController"],
-        content: `function state(uint256 proposalId)\n\t\tpublic\n\t\tview\n\t\toverride(GovernorUpgradeable, GovernorTimelockControlUpgradeable)\n\t\treturns (ProposalState)\n\t{\n\t\treturn super.state(proposalId);\n\t}`
+        content: `function state(uint256 proposalId)\n\t\t\tpublic\n\t\t\tview\n\t\t\toverride(GovernorUpgradeable, GovernorTimelockControlUpgradeable)\n\t\t\treturns (ProposalState)\n\t\t{\n\t  return super.state(proposalId);\n\t}`
     },
 
     {
@@ -832,7 +832,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockStateFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockCompound"],
-        content: `function state(uint256 proposalId)\n\t\tpublic\n\t\tview\n\t\toverride(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)\n\t\treturns (ProposalState)\n\t{\n\t\treturn super.state(proposalId);\n\t}`
+        content: `function state(uint256 proposalId)\n\t\t\tpublic\n\t\t\tview\n\t\t\toverride(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)\n\t\t\treturns (ProposalState)\n\t\t{\n\t  return super.state(proposalId);\n\t}`
     },
 
     {
@@ -842,7 +842,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockProposalFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockController"],
-        content: `function proposalNeedsQueuing(uint256 proposalId)\n\t\tpublic\n\t\tview\n\t\toverride(GovernorUpgradeable, GovernorTimelockControlUpgradeable)\n\t\treturns (bool)\n\t{\n\t\treturn super.proposalNeedsQueuing(proposalId);\n\t}`
+        content: `function proposalNeedsQueuing(uint256 proposalId)\n\t\t\tpublic\n\t\t\tview\n\t\t\toverride(GovernorUpgradeable, GovernorTimelockControlUpgradeable)\n\t\t\treturns (bool)\n\t\t{\n\t  return super.proposalNeedsQueuing(proposalId);\n\t}`
     },
 
     {
@@ -852,7 +852,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockProposalFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockCompound"],
-        content: `function proposalNeedsQueuing(uint256 proposalId)\n\t\tpublic\n\t\tview\n\t\toverride(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)\n\t\treturns (bool)\n\t{\n\t\treturn super.proposalNeedsQueuing(proposalId);\n\t}`
+        content: `function proposalNeedsQueuing(uint256 proposalId)\n\t\t\tpublic\n\t\t\tview\n\t\t\toverride(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)\n\t\t\treturns (bool)\n\t\t{\n\t  return super.proposalNeedsQueuing(proposalId);\n\t}`
     },
 
     {
@@ -862,7 +862,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockQueueFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockController"],
-        content: `function _queueOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\tinternal\n\t\toverride(GovernorUpgradeable, GovernorTimelockControlUpgradeable)\n\t\treturns (uint48)\n\t{\n\t\treturn super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);\n\t}`
+        content: `function _queueOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\t\tinternal\n\t\t\toverride(GovernorUpgradeable, GovernorTimelockControlUpgradeable)\n\t\t\treturns (uint48)\n\t\t{\n\t  return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);\n\t}`
     },
 
     {
@@ -872,7 +872,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockQueueFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockCompound"],
-        content: `function _queueOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\tinternal\n\t\toverride(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)\n\t\treturns (uint48)\n\t{\n\t\treturn super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);\n\t}`
+        content: `function _queueOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\t\tinternal\n\t\t\toverride(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)\n\t\t\treturns (uint48)\n\t\t{\n\t  return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);\n\t}`
     },
 
     {
@@ -882,7 +882,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockExecuteOperationsFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockController"],
-        content: `function _executeOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\tinternal\n\t\toverride(GovernorUpgradeable, GovernorTimelockControlUpgradeable)\n\t{\n\t\tsuper._executeOperations(proposalId, targets, values, calldatas, descriptionHash);\n\t}`
+        content: `function _executeOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\t\tinternal\n\t\t\toverride(GovernorUpgradeable, GovernorTimelockControlUpgradeable)\n\t\t{\n\t  super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);\n\t}`
     },
 
     {
@@ -892,7 +892,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockExecuteOperationsFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockCompound"],
-        content: `function _executeOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\tinternal\n\t\toverride(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)\n\t{\n\t\tsuper._executeOperations(proposalId, targets, values, calldatas, descriptionHash);\n\t}`
+        content: `function _executeOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\t\tinternal\n\t\t\toverride(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)\n\t\t{\n\t  super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);\n\t}`
     },
 
     {
@@ -902,7 +902,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockCancelFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockController"],
-        content: `function _cancel(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\tinternal\n\t\toverride(GovernorUpgradeable, GovernorTimelockControlUpgradeable)\n\t\treturns (uint256)\n\t{\n\t\treturn super._cancel(targets, values, calldatas, descriptionHash);\n\t}`
+        content: `function _cancel(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\t\tinternal\n\t\t\toverride(GovernorUpgradeable, GovernorTimelockControlUpgradeable)\n\t\t\treturns (uint256)\n\t\t{\n\t  return super._cancel(targets, values, calldatas, descriptionHash);\n\t}`
     },
 
     {
@@ -912,7 +912,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockCancelFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockCompound"],
-        content: `function _cancel(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\tinternal\n\t\toverride(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)\n\t\treturns (uint256)\n\t{\n\t\treturn super._cancel(targets, values, calldatas, descriptionHash);\n\t}`
+        content: `function _cancel(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)\n\t\t\tinternal\n\t\t\toverride(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)\n\t\t\treturns (uint256)\n\t\t{\n\t  return super._cancel(targets, values, calldatas, descriptionHash);\n\t}`
     },
 
     {
@@ -922,7 +922,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockExecuteFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockController"],
-        content: `function _executor()\n\t\tinternal\n\t\tview\n\t\toverride(GovernorUpgradeable, GovernorTimelockControlUpgradeable)\n\t\treturns (address)\n\t{\n\t\treturn super._executor();\n\t}`
+        content: `function _executor()\n\t\t\tinternal\n\t\t\tview\n\t\t\toverride(GovernorUpgradeable, GovernorTimelockControlUpgradeable)\n\t\t\treturns (address)\n\t\t{\n\t  return super._executor();\n\t}`
     },
 
     {
@@ -932,7 +932,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockExecuteFunction",
         section: "timelock",
         tag: ["optional", "contract body", "timelockCompound"],
-        content: `function _executor()\n\t\tinternal\n\t\tview\n\t\toverride(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)\n\t\treturns (address)\n\t{\n\t\treturn super._executor();\n\t}`
+        content: `function _executor()\n\t\t\tinternal\n\t\t\tview\n\t\t\toverride(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)\n\t\t\treturns (address)\n\t\t{\n\t  return super._executor();\n\t}`
     },
 
     // TRANSPARENT
@@ -994,7 +994,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorUUPSContractBody",
         section: "UUPS",
         tag: ["optional", "contract body"],
-        content: `function _authorizeUpgrade(address newImplementation) internal onlyOwner override {\n\t}`
+        content: `function _authorizeUpgrade(address newImplementation)\n\t\t\tinternal\n\t\t\tonlyOwner\n\t\t\toverride\n\t\t{}`
     },
 
     // OPTIONAL COMMENTS
