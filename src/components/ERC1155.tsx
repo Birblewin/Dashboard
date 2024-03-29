@@ -35,8 +35,64 @@ export default function ERC1155() {
     } else if (e.target.value === 'uups') {
       setUUPS(true);
       setTransparent(false);
+
+      if (!accessControl) {
+        setAccessControl(true);
+        setOwnable(true)
+      }
     }
     setUpgradeability(true); // Set the checkbox to true if either radio input is true
+  };
+
+  const handleMintableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    setMintable(isChecked);
+
+    if (isChecked) {
+      if (!accessControl) {
+        setAccessControl(true);
+        setOwnable(true)
+      }
+    } else if (!pauseable && !updateableURI && !UUPS) {
+      setAccessControl(false);
+      setOwnable(false);
+      setManaged(false);
+      setRoles(false);
+    }
+  };
+
+  const handlePausableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    setPauseable(isChecked);
+
+    if (isChecked) {
+      if (!accessControl) {
+        setAccessControl(true);
+        setOwnable(true)
+      }
+    } else if (!mintable && !updateableURI && !UUPS) {
+      setAccessControl(false);
+      setOwnable(false);
+      setManaged(false);
+      setRoles(false);
+    }
+  };
+
+  const handleUpdateableURIChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    setUpdateableURI(isChecked);
+
+    if (isChecked) {
+      if (!accessControl) {
+        setAccessControl(true);
+        setOwnable(true)
+      }
+    } else if (!mintable && !pauseable && !UUPS) {
+      setAccessControl(false);
+      setOwnable(false);
+      setManaged(false);
+      setRoles(false);
+    }
   };
 
   const handleAccessControlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,102 +100,23 @@ export default function ERC1155() {
     const isChecked = e.target.checked;
 
     if (value === 'ownable') {
-      setOwnable(true);
+      setOwnable(isChecked);
       setRoles(false);
       setManaged(false);
     } else if (value === 'roles') {
-      setRoles(true);
+      setRoles(isChecked);
       setOwnable(false);
       setManaged(false);
     } else if (value === 'managed') {
       setRoles(false);
       setOwnable(false);
-      setManaged(true);
+      setManaged(isChecked);
     }
-
-
 
     if (isChecked || mintable || pauseable || updateableURI) {
       setAccessControl(true);
-
-    }  {
+    } else {
       setAccessControl(false);
-    }
-
-  };
-
-  const handleMintableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMintable(!mintable);
-    const isChecked = e.target.checked;
-
-
-    if (isChecked) {
-      setAccessControl(true);
-      setOwnable(true)
-
-
-    } else {
-      if (!pauseable) {
-        setAccessControl(false);
-        setOwnable(false)
-        setManaged(false)
-        setRoles(false)
-      }
-      if (!updateableURI) {
-        setAccessControl(false);
-        setOwnable(false)
-        setManaged(false)
-        setRoles(false)
-      }
-    }
-  };
-  const handlePausableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPauseable(!pauseable);
-    const isChecked = e.target.checked;
-
-
-    if (isChecked) {
-      setAccessControl(true);
-      setOwnable(true)
-
-
-    } else {
-      if (!updateableURI) {
-        setAccessControl(false);
-        setOwnable(false)
-        setManaged(false)
-        setRoles(false)
-      }
-      if (!mintable) {
-        setAccessControl(false);
-        setOwnable(false)
-        setManaged(false)
-        setRoles(false)
-      }
-    }
-  };
-  const handleUpdateableURIChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdateableURI(!updateableURI);
-    const isChecked = e.target.checked;
-
-    if (isChecked) {
-      setAccessControl(true);
-      setOwnable(true)
-
-
-    } else {
-      if (!mintable) {
-        setAccessControl(false);
-        setOwnable(false)
-        setManaged(false)
-        setRoles(false)
-      }
-      if (!pauseable) {
-        setAccessControl(false);
-        setOwnable(false)
-        setManaged(false)
-        setRoles(false)
-      }
     }
   };
 
@@ -159,6 +136,7 @@ export default function ERC1155() {
       setUpgradeability(!upgradeability);
     }
   };
+
   const handleAccessControl = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const isChecked = e.target.checked;
@@ -201,7 +179,7 @@ export default function ERC1155() {
         <div className="flex flex-col p-[0.5rem]">
           <div className="flex item-center place-content-between">
             <label htmlFor="uri" className="text-[#333333] text-[0.875rem]"> Uri </label>
-            <Tool tooltipText="Restrict who can access the functions of a contract or when they can do it." link='https://docs.openzeppelin.com/contracts/5.x/api/access' linktext='Read more' />
+            <Tool tooltipText="Location of the metadata. Clients will replace any instance of {id} in this string with the tokenId." />
           </div>
           <input
             id="uri"
@@ -215,79 +193,79 @@ export default function ERC1155() {
 
       <hr className="my-4"></hr>
 
-      <div>  
+      <div>
         <h1 className="text-[#818998] font-semibold text-xs">FEATURES</h1>
-      <div className="mt-2">
-        <label className={`flex items-center justify-between cursor-pointer ${mintable ? 'bg-gray-100' : ''}`}>
-          <div className="m-[0.5rem] flex items-center">
-            <input
-              title="Mintable"
-              type="checkbox"
-              className="form-checkbox h-3 w-3 text-indigo-600 rounded"
-              checked={mintable}
-              onChange={handleMintableChange}
-            />
-            <span className="ml-[0.5rem] text-[#333333] select-text">Mintable</span>
-          </div>
-          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </label>
+        <div className="mt-2">
+          <label className={`flex items-center justify-between cursor-pointer ${mintable ? 'bg-gray-100' : ''}`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="Mintable"
+                type="checkbox"
+                className="form-checkbox h-3 w-3 text-indigo-600 rounded"
+                checked={mintable}
+                onChange={handleMintableChange}
+              />
+              <span className="ml-[0.5rem] text-[#333333] select-text">Mintable</span>
+            </div>
+            <Tool tooltipText="Privileged accounts will be able to create more supply." />
+          </label>
 
-        <label className={`flex items-center justify-between cursor-pointer ${burnable ? 'bg-gray-100' : ''}`}>
-          <div className="m-[0.5rem] flex items-center">
-            <input
-              title="Burnable"
-              type="checkbox"
-              className="form-checkbox h-3 w-3 text-indigo-600 rounded"
-              checked={burnable}
-              onChange={() => setBurnable(!burnable)}
-            />
-            <span className="ml-[0.5rem] text-[#333333] select-text">Burnable</span>
-          </div>
-          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </label>
+          <label className={`flex items-center justify-between cursor-pointer ${burnable ? 'bg-gray-100' : ''}`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="Burnable"
+                type="checkbox"
+                className="form-checkbox h-3 w-3 text-indigo-600 rounded"
+                checked={burnable}
+                onChange={() => setBurnable(!burnable)}
+              />
+              <span className="ml-[0.5rem] text-[#333333] select-text">Burnable</span>
+            </div>
+            <Tool tooltipText="Token holders will be able to destroy their tokens." link="https://docs.openzeppelin.com/contracts/5.x/api/token/erc1155#ERC1155Burnable" linktext="Read more" />
+          </label>
 
-        <label className={`flex items-center justify-between cursor-pointer ${supplyTracking ? 'bg-gray-100' : ''}`}>
-          <div className="m-[0.5rem] flex items-center">
-            <input
-              title="Supply Tracking"
-              type="checkbox"
-              className="form-checkbox h-3 w-3 text-indigo-600 rounded"
-              checked={supplyTracking}
-              onChange={() => setSupplyTracking(!supplyTracking)}
-            />
-            <span className="ml-2 text-[#333333] select-text">Supply Tracking</span>
-          </div>
-          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </label>
+          <label className={`flex items-center justify-between cursor-pointer ${supplyTracking ? 'bg-gray-100' : ''}`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="Supply Tracking"
+                type="checkbox"
+                className="form-checkbox h-3 w-3 text-indigo-600 rounded"
+                checked={supplyTracking}
+                onChange={() => setSupplyTracking(!supplyTracking)}
+              />
+              <span className="ml-2 text-[#333333] select-text">Supply Tracking</span>
+            </div>
+            <Tool tooltipText="Keeps track of total supply of tokens." />
+          </label>
 
 
-        <label className={`flex items-center justify-between cursor-pointer ${pauseable ? 'bg-gray-100' : ''}`}>
-          <div className="m-[0.5rem] flex items-center">
-            <input
-              title="Pauseable"
-              type="checkbox"
-              className="form-checkbox h-3 w-3 text-indigo-600 rounded"
-              checked={pauseable}
-              onChange={handlePausableChange}
-            />
-            <span className="ml-[0.5rem] text-[#333333] select-text">Pauseable</span>
-          </div>
-          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </label>
+          <label className={`flex items-center justify-between cursor-pointer ${pauseable ? 'bg-gray-100' : ''}`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="Pauseable"
+                type="checkbox"
+                className="form-checkbox h-3 w-3 text-indigo-600 rounded"
+                checked={pauseable}
+                onChange={handlePausableChange}
+              />
+              <span className="ml-[0.5rem] text-[#333333] select-text">Pauseable</span>
+            </div>
+            <Tool tooltipText="Privileged accounts will be able to pause the functionality marked as whenNotPaused. Useful for emergency response." link="https://docs.openzeppelin.com/contracts/5.x/api/utils#Pausable" linktext="Read more" />
+          </label>
 
-        <label className={`flex items-center justify-between cursor-pointer ${updateableURI ? 'bg-gray-100' : ''}`}>
-          <div className="m-[0.5rem] flex items-center">
-            <input
-              title="Updateable URI"
-              type="checkbox"
-              className="form-checkbox h-3 w-3 text-indigo-600 rounded"
-              checked={updateableURI}
-              onChange={handleUpdateableURIChange}
-            />
-            <span className="ml-[0.5rem] text-[#333333] select-text">Updateable URI</span>
-          </div>
-          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </label>          
+          <label className={`flex items-center justify-between cursor-pointer ${updateableURI ? 'bg-gray-100' : ''}`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="Updateable URI"
+                type="checkbox"
+                className="form-checkbox h-3 w-3 text-indigo-600 rounded"
+                checked={updateableURI}
+                onChange={handleUpdateableURIChange}
+              />
+              <span className="ml-[0.5rem] text-[#333333] select-text">Updateable URI</span>
+            </div>
+            <Tool tooltipText="Privileged accounts will be able to set a new URI for all token types. Clients will replace any instance of {id} in the URI with the tokenId." link="https://docs.openzeppelin.com/contracts/5.x/api/token/erc1155#ERC1155-_setURI-string-" linktext="Read more" />
+          </label>
         </div>
       </div>
 
@@ -308,64 +286,64 @@ export default function ERC1155() {
           <Tool tooltipText="Restrict who can access the functions of a contract or when they can do it." link='https://docs.openzeppelin.com/contracts/5.x/api/access' linktext='Read more' />
         </div>
 
-      <div className="mt-2">
-        <label className={`flex items-center justify-between cursor-pointer ${ownable ? 'bg-gray-100' : ''}`}>
-          <div className="m-[0.5rem] flex items-center">
-            <input
-              title="Ownable"
-              type="radio"
-              className="form-radio h-3 w-3"
-              value="ownable"
-              checked={ownable}
-              onChange={handleAccessControlChange}
-            />
-            <span className="ml-2 text-[#333333] select-text">Ownable</span>
-          </div>
-          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </label>
+        <div className="mt-2">
+          <label className={`flex items-center justify-between cursor-pointer`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="Ownable"
+                type="radio"
+                className="form-radio h-3 w-3"
+                value="ownable"
+                checked={ownable}
+                name="access"
+                onChange={handleAccessControlChange}
+              />
+              <span className="ml-2 text-[#333333] select-text">Ownable</span>
+            </div>
+            <Tool tooltipText="Simple mechanism with a single account authorized for all privileged actions." link="https://docs.openzeppelin.com/contracts/5.x/api/access#Ownable" linktext="Read more" />
+          </label>
 
-        <label className={`flex items-center justify-between cursor-pointer ${roles ? 'bg-gray-100' : ''}`}>
-          <div className="m-[0.5rem] flex items-center">
-            <input
-              title="Roles"
-              type="radio"
-              className="form-radio h-3 w-3"
-              value="roles"
-              checked={roles}
-              onChange={handleAccessControlChange}
-            />
-            <span className="ml-2 text-[#333333] select-text">Roles</span>
-          </div>
-          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </label>
+          <label className={`flex items-center justify-between cursor-pointer ${roles ? 'bg-gray-100' : ''}`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="Roles"
+                type="radio"
+                className="form-radio h-3 w-3"
+                value="roles"
+                checked={roles}
+                name="access"
+                onChange={handleAccessControlChange}
+              />
+              <span className="ml-2 text-[#333333] select-text">Roles</span>
+            </div>
+            <Tool tooltipText="Flexible mechanism with a separate role for each privileged action. A role can have many authorized accounts." link="https://docs.openzeppelin.com/contracts/5.x/api/access#AccessControl" linktext="Read more" />
+          </label>
 
-        <label className={`flex items-center mb-0 justify-between cursor-pointer ${managed ? 'bg-gray-100' : ''}`}>
-          <div className="m-[0.5rem] flex items-center">
-            <input
-              title="Managed"
-              type="radio"
-              className="form-radio h-3 w-3"
-              value="managed"
-              checked={managed}
-              onChange={handleAccessControlChange}
-            />
-            <span className="ml-2 text-[#333333] select-text">Managed</span>
-          </div>
-          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </label>
+          <label className={`flex items-center mb-0 justify-between cursor-pointer ${managed ? 'bg-gray-100' : ''}`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="Managed"
+                type="radio"
+                className="form-radio h-3 w-3"
+                value="managed"
+                checked={managed}
+                name="access"
+                onChange={handleAccessControlChange}
+              />
+              <span className="ml-2 text-[#333333] select-text">Managed</span>
+            </div>
+            <Tool tooltipText="Enables a central contract to define a policy that allows certain callers to access certain functions." link="https://docs.openzeppelin.com/contracts/5.x/api/access#AccessManaged" linktext="Read more" />
+          </label>
+        </div>
       </div>
-    </div>
 
       <hr className="my-4" />
 
       <div>
-        <div className=" flex">
-          <div className=" flex items-center">
-            <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">
-              UPGRADEABILITY
-            </label>
+        <div className=" mt-0  flex items-center place-content-between">
+          <div className="flex items-center mr-[0.5rem]">
+            <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">UPGRADABILITY</label>
             <input
-              title="upgradability"
               type="checkbox"
               className="form-checkbox h-3 w-3 rounded"
               checked={upgradeability}
@@ -373,41 +351,43 @@ export default function ERC1155() {
               onChange={handleUpgradabilityChange}
             />
           </div>
+          <Tool tooltipText="Restrict who can access the functions of a contract or when they can do it." link='https://docs.openzeppelin.com/contracts/5.x/api/access' linktext='Read more' />
         </div>
 
-      <div className="mt-2">
-        <label className={`flex items-center justify-between cursor-pointer ${transparent ? 'bg-gray-100' : ''}`}>
-          <div className="m-[0.5rem] flex items-center">
-            <input
-              title="transparent"
-              type="radio"
-              className="form-radio h-3 w-3"
-              value='transparent'
-              checked={transparent}
-              onChange={handleUpgradeChange}
-            />
-            <span className="ml-2 text-[#333333] select-text">Transparent</span>
-          </div>
-          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </label>
+
+        <div className="mt-2">
+          <label className={`flex items-center justify-between cursor-pointer ${transparent ? 'bg-gray-100' : ''}`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="transparent"
+                type="radio"
+                className="form-radio h-3 w-3"
+                value='transparent'
+                checked={transparent}
+                onChange={handleUpgradeChange}
+              />
+              <span className="ml-2 text-[#333333] select-text">Transparent</span>
+            </div>
+            <Tool tooltipText="Uses more complex proxy with higher overhead, requires less changes in your contract. Can also be used with beacons." link="https://docs.openzeppelin.com/contracts/5.x/api/proxy#TransparentUpgradeableProxy" linktext="Read more" />
+          </label>
 
 
-        <label className={`mb-0 flex items-center justify-between cursor-pointer ${UUPS ? 'bg-gray-100' : ''}`}>
-          <div className="m-[0.5rem] flex items-center">
-            <input
-              title="uups"
-              type="radio"
-              className="radio h-3 w-3"
-              value="uups"
-              checked={UUPS}
-              onChange={handleUpgradeChange}
-            />
-            <span className="ml-2 text-[#333333] select-text">UUPS</span>
-          </div>
-          <Tool tooltipText="Tooltip Text Here" link="https://www.birbleai.com/" linktext="Read more" />
-        </label>          
+          <label className={`mb-0 flex items-center justify-between cursor-pointer ${UUPS ? 'bg-gray-100' : ''}`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="uups"
+                type="radio"
+                className="radio h-3 w-3"
+                value="uups"
+                checked={UUPS}
+                onChange={handleUpgradeChange}
+              />
+              <span className="ml-2 text-[#333333] select-text">UUPS</span>
+            </div>
+            <Tool tooltipText="Uses simpler proxy with less overhead, requires including extra code in your contract. Allows flexibility for authorizing upgrades." link="https://docs.openzeppelin.com/contracts/5.x/api/proxy#UUPSUpgradeable" linktext="Read more" />
+          </label>
+        </div>
       </div>
-    </div>
 
       <hr className="my-4" />
 

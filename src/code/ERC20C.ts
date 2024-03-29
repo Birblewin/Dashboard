@@ -77,19 +77,11 @@ export const ERC20CCode =[
         wizard_id: 2,
         contractType_id: 1, 
         section: "ZeppelinImports",  
-        tag: "Default",
+        tag: "DefaultStart",
         name: "DefaultImport", 
         content: `use openzeppelin::token::erc20::ERC20Component;`
     },
-    { 
-        snippet_id: 1, 
-        wizard_id: 2,
-        contractType_id: 1, 
-        section: "ZeppelinImports",  
-        tag: "Burnable",
-        name: "BurnableImport", 
-        content: `use starknet::get_caller_address; `
-    },
+   
     { 
         snippet_id: 1, 
         wizard_id: 2,
@@ -247,8 +239,7 @@ export const ERC20CCode =[
         tag: "Default",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-    impl ERC20MetadataImpl =ERC20Component::ERC20MetadataImpl<ContractState>;
-        `
+    impl ERC20MixinImpl = ERC20Component::ERC20ABI<ContractState>;`
     },
     { 
         snippet_id: 1, 
@@ -258,10 +249,7 @@ export const ERC20CCode =[
         tag: "Default2",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-    impl ERC20Impl = ERC20Component::ERC20Impl<ContractState>;
-    #[abi(embed_v0)]
-    impl ERC20CamelOnlyImpl = ERC20Component::ERC20CamelOnlyImpl<ContractState>;
-        `
+    impl ERC20MetadataImpl = ERC20Component::ERC20MetadataImpl<ContractState>;`
     },
     { 
         snippet_id: 1, 
@@ -271,8 +259,7 @@ export const ERC20CCode =[
         tag: "Pausable",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-    impl PausableImpl = PausableComponent::PausableImpl<ContractState>;
-    `
+    impl PausableImpl = PausableComponent::PausableImpl<ContractState>;`
     },
     { 
         snippet_id: 1, 
@@ -282,10 +269,7 @@ export const ERC20CCode =[
         tag: "Ownable",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-    impl OwnableImpl = OwnableComponent::OwnableImpl<ContractState>;
-    #[abi(embed_v0)]
-    impl OwnableCamelOnlyImpl = OwnableComponent::OwnableCamelOnlyImpl<ContractState>;
-        `
+    impl OwnableMixinImpl = OwnableComponent::OwnableMixinImpl<ContractState>;`
     },
     { 
         snippet_id: 1, 
@@ -295,12 +279,7 @@ export const ERC20CCode =[
         tag: "Roles",
         name: "RolesComponent", 
         content: `#[abi(embed_v0)]
-    impl AccessControlImpl = AccessControlComponent::AccessControlImpl<ContractState>;
-    #[abi(embed_v0)]
-    impl AccessControlCamelImpl = AccessControlComponent::AccessControlCamelImpl<ContractState>;
-    #[abi(embed_v0)]
-    impl SRC5Impl = SRC5Component::SRC5Impl<ContractState>;
-        `
+    impl AccessControlMixinImpl = AccessControlComponent::AccessControlMixinImpl<ContractState>;`
     },
     { 
         snippet_id: 1, 

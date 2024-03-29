@@ -10,7 +10,7 @@ default: defaultValue,
 });
 
 // Define atoms using the createAtom function
-export const CustomSName = createAtom<string>('CustomSName', 'MyContract ');
+export const CustomSName = createAtom<string>('CustomSName', 'MyContract');
 export const CustomSSecurityContact = createAtom<string>('CustomSSecurityContact', '');
 export const CustomSLicense = createAtom<string>('CustomSLicense', 'MIT');
 export const CustomSUpgradeable = createAtom<boolean>('CustomSUpgradeable', false);
