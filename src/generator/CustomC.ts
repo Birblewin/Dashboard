@@ -190,9 +190,7 @@ export function generateCustomCCode(customcupgradeable: boolean,customcpausable:
     "}"
   ].filter(Boolean).join('\n').trim(); 
 
-    return `
-     ${result}
-  `;
+    return `${result}`;
   }
   
 

@@ -188,7 +188,7 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
     !customsupgradeability && !customsUUPS? Imports: "",
     customsupgradeability || customsUUPS? upgradeableImports: "",
     customssecuritycontact? SecurityContact : "",
-    contract,
+    "\n"+contract,
     customspausable && customsroles ? "\t" + PausableRolesByte: "",
     customsUUPS && customsroles ? "\t"+UUPSRolesByte: "",
     !customsupgradeability && !customsUUPS? "\t"+constructor: '',

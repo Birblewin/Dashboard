@@ -24,7 +24,7 @@ export const PausableZeppelinImport: string[] = getCodeContent("ZeppelinImports"
 export const OwnableZeppelinImport: string[] = getCodeContent("ZeppelinImports", "Ownable");
 export const RolesZeppelinImport: string[] = getCodeContent("ZeppelinImports", "Roles");
 export const ManagedZeppelinImport: string[] = getCodeContent("ZeppelinImports", "Managed");
-export const UpgradeableZeppelinImport: string[] = getCodeContent("ZeppelimImports", "Upgradeable");
+export const UpgradeableZeppelinImport: string[] = getCodeContent("ZeppelinImports", "Upgradeable");
 export const BurnableStarknetImport: string[] = getCodeContent("StarknetImports", "Burnable");
 export const UpgradeableStarknetImport: string[] = getCodeContent("StarknetImports", "Upgradeable");
 export const AccessControlStarknetImport: string[] = getCodeContent("StarknetImports", "AccessControl");
@@ -45,7 +45,7 @@ export const RolesEmbed: string[] = getCodeContent("Embeds", "Roles");
 export const IMPL: string[] = getCodeContent("IMPLS", "Default");
 export const PausableIMPL: string[] = getCodeContent("IMPLS", "Pausable");
 export const OwnableIMPL: string[] = getCodeContent("IMPLS", "Ownable");
-export const RolesIMPL: string[] = getCodeContent("Components", "Roles");
+export const RolesIMPL: string[] = getCodeContent("IMPLS", "Roles");
 export const UpgradeableIMPL: string[] = getCodeContent("IMPLS", "Upgradeable");
 export const Storage: string[] = getCodeContent("Storage", "Default");
 export const PausableStorage: string[] = getCodeContent("Storage", "Pausable");
@@ -92,35 +92,34 @@ export function generateERC20CCode(erc20cburnable: boolean,erc20cmintable: boole
 
 
     const Variables = [
-    "\n",
-    erc20cpausable? PausableVariable : "",
+    erc20cpausable? "\n"+PausableVariable : "",
+    !erc20cpausable && erc20cmintable? "\n":'',
     erc20cmintable? MintableVariable: "",
+    !erc20cmintable && !erc20cpausable && erc20cupgradeable? "\n": '',
     erc20cupgradeable? UpgradeableVariable : "",
-    "\n"
   ].filter(Boolean).join('\n');
 
   const  Zeppelin = [
     "\t"+StartZeppelinImport,
-    erc20cburnable? "\t"+BurnableZeppelinImport: "",
     erc20cpausable? "\t"+PausableZeppelinImport: "",
     erc20cownable ? "\t"+OwnableZeppelinImport: "",
     erc20croles? "\t"+RolesZeppelinImport: "",
-    erc20cupgradeable? "\t"+UpgradeableZeppelinImport: ""
+    erc20cupgradeable? "\t"+UpgradeableZeppelinImport: "",
+    erc20croles? "\t"+RolesZeppelinImport: "",
   ].filter(Boolean).join('\n'); 
   
   const  Starknet = [
+    erc20cownable || erc20croles ? "\t"+AccessControlStarknetImport: "",
     erc20cburnable? "\t"+BurnableStarknetImport: "",
-    erc20cownable || erc20cownable || erc20cpremint ? "\t"+AccessControlStarknetImport: "",
-    erc20croles? "\t"+RolesZeppelinImport: "",
     erc20cupgradeable? "\t"+UpgradeableStarknetImport: ""
   ].filter(Boolean).join('\n'); 
 
   const  Superimport = [
     "\t"+SuperImports,
     erc20cpausable? PausableSuperImport: "",
-    erc20cmintable? ", ": "",
+    erc20cmintable && erc20cpausable? ", ": "",
     erc20cmintable ? MintableSuperImport: "",
-    erc20cupgradeable? ", ": "",
+    erc20cupgradeable && (erc20cmintable || erc20cpausable)? ", ": "",
     erc20cupgradeable? UpgradeableSuperImport: "",
     "}"
   ].filter(Boolean).join(''); 
@@ -128,14 +127,14 @@ export function generateERC20CCode(erc20cburnable: boolean,erc20cmintable: boole
   const  Components = [
     "\t"+Component,
     erc20cpausable? "\t"+PausableComponent: "",
-    erc20cownable  ? "\t"+OwnableZeppelinImport: "",
-    erc20croles ? "\t"+RolesZeppelinImport: "",
+    erc20cownable  ? "\t"+OwnableComponent: "",
+    erc20croles ? "\t"+RolesComponent: "",
     erc20cupgradeable ? "\t"+UpgradeableComponent: ""
   ].filter(Boolean).join('\n'); 
 
   const  Embeds = [
     "\t"+Embed,
-    !erc20cpausable? "\t"+UnpausableEmbed: "",
+    erc20cpausable? "\t"+UnpausableEmbed: "",
     erc20cpausable? "\t"+PausableEmbed: "",
     erc20cownable  ? "\t"+OwnableEmbed: "",
     erc20croles ? "\t"+RolesEmbed: "",
@@ -145,11 +144,14 @@ export function generateERC20CCode(erc20cburnable: boolean,erc20cmintable: boole
   const IMPLS = [
     "\t"+IMPL,
     erc20cpausable? "\t"+PausableIMPL : "",
-    erc20cownable? "\t"+OwnableIMPL: "",
+    erc20cownable ? "\t"+OwnableIMPL: "",
     erc20croles ? "\t"+RolesIMPL: "",
     erc20cupgradeable? "\t"+UpgradeableIMPL : ""
 
   ].filter(Boolean).join('\n');
+
+  console.log("ERC20CRoles", erc20croles);
+  console.log("ERC20COwnable", erc20cownable);
 
 
   const Storages = [
@@ -216,14 +218,14 @@ export function generateERC20CCode(erc20cburnable: boolean,erc20cmintable: boole
     License,
     Compatibility,
     Variables,
-    WizardTag,
+    "\n"+WizardTag,
     ContractHeader,
     Zeppelin,
     Starknet,
-    erc20cmintable || erc20cpausable || erc20cupgradeable?  Superimport: "",
-    Components,
-    Embeds,
-    IMPLS,
+    (erc20cmintable || erc20cpausable || erc20cupgradeable) && erc20croles?  Superimport: "",
+    "\n"+Components,
+    "\n"+Embeds,
+    "\n"+IMPLS,
     Storages,
     Events,
     Constructors,
@@ -234,9 +236,7 @@ export function generateERC20CCode(erc20cburnable: boolean,erc20cmintable: boole
     "}"
   ].filter(Boolean).join('\n').trim(); 
 
-    return `
-     ${result}
-  `;
+    return `${result}`;
   }
   
 
