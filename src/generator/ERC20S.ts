@@ -88,8 +88,8 @@ export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: bool
     const PermitSection1 = `    __ERC20Permit_init("${erc20sname}");`
 
     const PremintConstructor = `{
-        _mint(msg.sender, ${erc20spremint} * 10 ** decimals());
-    }`
+            _mint(msg.sender, ${erc20spremint} * 10 ** decimals());
+        }`
 
   const unPremintConstructor = `{}`
 
@@ -206,12 +206,12 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
  
   const constructor = [
       !erc20sownable && !erc20sroles && !erc20smanaged?  "\t" + DefaultConstructor : "",
-      erc20spermit? PermitConstructor: "",
-      erc20sownable? "\t" + OwnableConstructor : "",
-      erc20sroles? "\t" + RolesConstructor : "",
-      erc20smanaged? "\t" + ManagedConstructor : "",
-      "\t" + "\t"+endingOwnableConstructor
-  ].filter(Boolean).join("\n");
+      erc20sownable? "\n"+"\t" + OwnableConstructor : "",
+      erc20sroles? "\n"+"\t" + RolesConstructor : "",
+      erc20smanaged? "\n"+"\t" + ManagedConstructor : "",
+      erc20spremint || erc20sownable || erc20sroles || erc20smanaged ? "\n"+"\t" + "\t"+"\t" +"\t":"", 
+      endingOwnableConstructor
+  ].filter(Boolean).join("");
 
 
   const section1header = [
