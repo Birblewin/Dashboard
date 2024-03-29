@@ -10,7 +10,7 @@ default: defaultValue,
 });
 
 // Define atoms using the createAtom function
-export const ERC20CName = createAtom<string>('ERC20CName', 'My Token');
+export const ERC20CName = createAtom<string>('ERC20CName', 'MyToken');
 
 export const ERC20CLicense = createAtom<string>('ERC20CLicense', 'MIT');
 export const ERC20CSymbol = createAtom<string>('ERC20CSymbol', 'MTK');

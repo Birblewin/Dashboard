@@ -27,6 +27,10 @@ export default function Custom() {
       } else if (e.target.value === 'uups') {
         setUUPS(true);
         setTransparent(false);
+        if(!accessControl){
+          setAccessControl(true);
+          setOwnable(true)
+        }  
       }
       setUpgradeability(true); // Set the checkbox to true if either radio input is true
     };
@@ -51,7 +55,7 @@ export default function Custom() {
       
       // If either Burnable or Pauseable is true, set Access Control to true
   
-      if (isChecked ||  pauseable) {
+      if (isChecked ||  pauseable || UUPS) {
           setAccessControl(true);
           
       } else {
@@ -65,17 +69,18 @@ export default function Custom() {
       
       // If Pauseable is true, set Access Control to true
       if (isChecked) {
+        if(!accessControl){
           setAccessControl(true);
           setOwnable(true)
-          
+        }  
       } else {
           // If both Burnable and Pauseable are false, set Access Control to false
-          
+          if(!UUPS){
               setAccessControl(false);
               setOwnable(false)
               setManaged(false)
               setRoles(false)
-          
+          }
       }
   };
   const handleUpgradabilityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +104,7 @@ export default function Custom() {
     const value = e.target.value;
     const isChecked = e.target.checked;
 
-    if ( !pauseable) {
+    if ( !pauseable && !UUPS) {
     
         if (value === 'access') {
         
@@ -121,181 +126,191 @@ export default function Custom() {
   };
 
   return (
-    <div className=" flex flex-col rounded-lg overflow-y-visible p-4 bg-white ">
-      <h2 className="text-[#818998] font-semibold text-xs">SETTINGS</h2>
-      <form className="flex flex-col">
-        <label className="text-black mt-2 text-xs font-normal">Name</label>
-        <input
-          type="text"
-          placeholder="MyContract"
-          className="mt-2 p-1 rounded border border-gray-300 text-black"
-          value={name}  onChange={(e) => setName(e.target.value)}
-        />
-      </form>
-      <hr className="my-4"></hr>
+    <div className="p-4 overflow-visible">
       <div>
+        <h1 className="text-[#818998] font-semibold text-xs">SETTINGS</h1>
+        <form className="flex flex-col">
+          <label className="text-black mt-2 text-xs font-normal">Name</label>
+          <input
+            type="text"
+            placeholder="MyContract"
+            className="mt-2 p-1 rounded border border-gray-300 text-black"
+            value={name}  onChange={(e) => setName(e.target.value)}
+          />
+        </form>
+      </div>
+
+      <hr className="my-4"></hr>
+
+      <div>  
         <h1 className="text-[#818998] font-semibold text-xs">FEATURES</h1>
-        <div className="m-[0.5rem] flex items-center justify-between">
-          <div className=" flex items-center">
+      <div className="mt-2">
+        
+        <label className={`flex items-center justify-between cursor-pointer ${pauseable ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
             <input
-              title="Pausable"
+              title="Pauseable"
               type="checkbox"
               className="form-checkbox h-3 w-3 text-indigo-600 rounded"
               checked={pauseable}
               onChange={handlePauseableChange}
             />
-            <label className="ml-[0.5rem] text-[#333333]">Pausable</label>
+            <span className="ml-[0.5rem] text-[#333333] select-text">Pauseable</span>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-            
-          />
+          <Tool tooltipText="Privileged accounts will be able to pause the functionality marked as whenNotPaused. Useful for emergency response." link='https://docs.openzeppelin.com/contracts/5.x/api/utils#Pausable' linktext='Read more'/>
+        </label>
+        
         </div>
       </div>
+
       <hr className="my-4"></hr>
+
       <div>
-        <div className="flex">
-          <div className=" mt-0  flex items-center">
-            <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">
-              ACCESS CONTROL
-            </label>
+        <div className=" mt-0  flex items-center place-content-between">
+          <div className="flex items-center mr-[0.5rem]">
+            <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">ACCESS CONTROL</label>
             <input
-              title="Ownable"
               type="checkbox"
-              className="form-checkbox h-3 w-3 rounded"
+              className={`form-checkbox h-3 w-3 rounded ${accessControl && (pauseable || UUPS) ? "accent-grey-300 hover:accent-grey-300" : ""}`}
               checked={accessControl}
               value="access"
               onChange={handleAccessControl}
             />
           </div>
+          <Tool tooltipText="Restrict who can access the functions of a contract or when they can do it." link='https://docs.openzeppelin.com/contracts/5.x/api/access' linktext='Read more' />
         </div>
-        <div className="m-[0.5rem]  flex items-center justify-between">
-          <div className="flex items-center">
+
+      <div className="mt-2">
+        <label className={`flex items-center justify-between cursor-pointer ${ownable ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
             <input
               title="Ownable"
               type="radio"
-              className="form-checkbox h-3 w-3"
+              name="accessControl"
+              className="form-radio h-3 w-3"
               value="ownable"
               checked={ownable}
               onChange={handleAccessControlChange}
             />
-            <label className="ml-2 text-[#333333] ">Ownable</label>
+            <span className="ml-2 text-[#333333] select-text">Ownable</span>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
-        </div>
-        <div className="m-[0.5rem]  flex items-center justify-between">
-          <div className="  flex items-center">
-            <input title="Roles" type="radio" className="radio h-3 w-3 " value="roles"
+          <Tool tooltipText="Simple mechanism with a single account authorized for all privileged actions." link='https://docs.openzeppelin.com/contracts/5.x/api/access#Ownable' linktext='Read more'/>
+        </label>
+
+        <label className={`flex items-center justify-between cursor-pointer ${roles ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
+            <input
+              title="Roles"
+              type="radio"
+              className="form-radio h-3 w-3"
+              value="roles"
+              name="accessControl"
               checked={roles}
-              onChange={handleAccessControlChange}/>
-            <label className="ml-2 text-[#333333] ">Roles</label>
+              onChange={handleAccessControlChange}
+            />
+            <span className="ml-2 text-[#333333] select-text">Roles</span>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
-        </div>
-        <div className=" flex items-center m-[0.5rem]  mb-0 justify-between">
-          <div className=" flex items-center ">
+          <Tool tooltipText="Flexible mechanism with a separate role for each privileged action. A role can have many authorized accounts." link='https://docs.openzeppelin.com/contracts/5.x/api/access#AccessControl' linktext='Read more'/>
+        </label>
+
+        <label className={`flex items-center mb-0 justify-between cursor-pointer ${managed ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
             <input
               title="Managed"
               type="radio"
-              className="form-checkbox h-3 w-3"
+              className="form-radio h-3 w-3"
               value="managed"
+              name="accessControl"
               checked={managed}
               onChange={handleAccessControlChange}
             />
-            <label className="ml-2 text-[#333333] ">Managed</label>
+            <span className="ml-2 text-[#333333] select-text">Managed</span>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
-        </div>
+          <Tool tooltipText="Enables a central contract to define a policy that allows certain callers to access certain functions." link='https://docs.openzeppelin.com/contracts/5.x/api/access#AccessManag' linktext='Read more'/>
+        </label>
       </div>
+    </div>
+
       <hr className="my-4" />
+
       <div>
-        <div className=" flex">
-          <div className=" flex items-center">
-            <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">
-              UPGRADEABILITY
-            </label>
-            <input
-              title="upgradability"
-              type="checkbox"
-              className="form-checkbox h-3 w-3 rounded"
-              checked={upgradeability}
-              value="upgradeable"
-              onChange={handleUpgradabilityChange}
-            />
-          </div>
+        <div className=" flex items-center place-content-between ">
+            <div className="flex items-center">
+                <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">UPGRADEABILITY</label>
+                <input
+                    type="checkbox"
+                    className="form-checkbox h-3 w-3 rounded"
+                    checked={upgradeability}
+                    value="upgradeable"
+                    onChange={handleUpgradabilityChange}
+                    
+                />
+            </div>
+            <Tool tooltipText="Smart contracts are immutable by default unless deployed behind an upgradeable proxy." link='https://docs.openzeppelin.com/upgrades' linktext='Read more'/>
         </div>
-        <div className="m-[0.5rem] flex items-center justify-between">
-          <div className="flex items-center">
+
+      <div className="mt-2">
+        <label className={`flex items-center justify-between cursor-pointer ${transparent ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
             <input
               title="transparent"
               type="radio"
-              className="form-checkbox h-3 w-3"
-              value="transparent"
+              className="form-radio h-3 w-3"
+              value='transparent'
+              name="upgradeability"
               checked={transparent}
               onChange={handleUpgradeChange}
             />
-            <label className="ml-2 text-[#333333] ">Transparent</label>
+            <span className="ml-2 text-[#333333] select-text">Transparent</span>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
-        </div>
-        <div className="m-[0.5rem] mb-0 flex items-center justify-between">
-          <div className=" flex items-center">
-            <input title="uups" type="radio" className="radio h-3 w-3" 
-            value="uups"
-            checked={UUPS}
-            onChange={handleUpgradeChange}/>
-            <label className="ml-2 text-[#333333] ">UUPS</label>
+          <Tool tooltipText="Uses more complex proxy with higher overhead, requires less changes in your contract. Can also be used with beacons." link='https://docs.openzeppelin.com/contracts/5.x/api/proxy#TransparentUpgradeableProxy' linktext='Read more'/>
+        </label>
+
+
+        <label className={`mb-0 flex items-center justify-between cursor-pointer ${UUPS ? 'bg-gray-100' : ''}`}>
+          <div className="m-[0.5rem] flex items-center">
+            <input
+              title="uups"
+              type="radio"
+              className="radio h-3 w-3"
+              value="uups"
+              name="upgradeability"
+              checked={UUPS}
+              onChange={handleUpgradeChange}
+            />
+            <span className="ml-2 text-[#333333] select-text">UUPS</span>
           </div>
-          <Tool
-            tooltipText="Tooltip Text Here"
-            link="https://www.birbleai.com/"
-            linktext="Read more"
-          />
-        </div>
+          <Tool tooltipText="Uses simpler proxy with less overhead, requires including extra code in your contract. Allows flexibility for authorizing upgrades." link='https://docs.openzeppelin.com/contracts/5.x/api/proxy#UUPSUpgradeable' linktext='Read more'/>
+        </label>          
       </div>
+    </div>
+
       <hr className="my-4" />
-      <div>
+
+      <div className="px-2">
         <h1 className="text-[#818998] font-semibold text-xs ">INFO</h1>
         <div className="flex flex-col mt-[0.75rem]">
-          <label htmlFor="Security Contact" className="text-[#333333] text-sm">
-            Security Contact
-          </label>
+          <div className="flex items-center justify-between">
+            <label htmlFor="Security Contact" className="text-[#333333] text-sm">  Security Contact </label>
+            <Tool tooltipText="Where people can contact you to report security issues. Will only be visible if contract metadata is verified." link='https://github.com/ethereum-lists/contracts/blob/main/README.md#tracking-new-deployments' linktext='Read more' />
+          </div>
           <input
             id="Security Contact"
             type="text"
             placeholder="security@example.com"
             className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"
-            value={securityContact}  onChange={(e) => setSecurityContact(e.target.value)}
+            value={securityContact}
+            onChange={(e) => setSecurityContact(e.target.value)}
           />
         </div>
         <div className="flex flex-col mt-[0.75rem]">
-          <label htmlFor="license" className="text-[#333333] text-sm">
-            License
-          </label>
+          <label htmlFor="license" className="text-[#333333] text-sm"> License </label>
           <input
             id="license"
             type="text"
             placeholder="MIT"
             className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"
-            value={license}  onChange={(e) => setLicense(e.target.value)}
+            value={license} onChange={(e) => setLicense(e.target.value)}
           />
         </div>
       </div>

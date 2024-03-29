@@ -5,7 +5,6 @@ import "./globals.css";
 
 
 // IMPORTING COMPONENTS
-import Navbar from "@/components/Navbar"
 import { RecoilRoot } from "recoil";
 import RecoilNexus from "recoil-nexus";
 
