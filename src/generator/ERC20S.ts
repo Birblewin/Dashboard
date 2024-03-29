@@ -226,14 +226,14 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
 
 
   const section1 = [
-    erc20sownable? "\t" + OwnableSection1: "",
-    erc20sroles? "\t" + RolesSection1: "",
-    erc20smanaged? "\t" + ManagedSection1 : "",
     erc20sburnable? "\t" + BurnableSection1 : "",
     erc20spausable? "\t" + PausableSection1 : "",
     erc20spermit? "\t" + PermitSection1 : "",
     erc20svotes? "\t" + VotesSection1 : "",
     erc20sflashMinting? "\t" + FlashMintingSection1 : "",
+    erc20sownable? "\t" + OwnableSection1: "",
+    erc20sroles? "\t" + RolesSection1: "",
+    erc20smanaged? "\t" + ManagedSection1 : "",
     "\t}"
   ].filter(Boolean).join("\n");
 
@@ -244,14 +244,14 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
 
 
   const section2 = [
-    erc20smintable? "\t" + MintableSection2 : "",
     erc20spausable? "\t" + PausableSection2 : "",
+    erc20smintable? "\t" + MintableSection2 : "",
     erc20sUUPS ? "\t" + UUPSSection2: ""
   ].filter(Boolean).join("\n");
 
 
   const section3 = [
-    erc20spausable || erc20svotes ? "\t" + PausableSection3:"",
+    erc20spausable && !erc20svotes ? "\t" + PausableSection3:"",
     erc20svotes ? "\t" + VotesSection3: "",
   ].filter(Boolean).join("\n");
 
@@ -265,7 +265,7 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
     !erc20supgradeable ? Imports : "",
     erc20supgradeable ? upgradeableImports : "",
     erc20ssecutitycontact? SecurityContact : "",
-    contract ,
+    "\n"+contract ,
     erc20sroles? "\t" + RolesByte : "",
     !erc20supgradeable ? constructor : "",
     erc20supgradeable ? "\t" + UpgradeableConstructor : "",
