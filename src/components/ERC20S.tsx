@@ -42,8 +42,10 @@ const ERC20 = ()=>{
         } else if (e.target.value === 'uups') {
           setUUPS(true);
           setTransparent(false);
-          setAccessControl(true);
-          setOwnable(true);
+          if(!accessControl){
+            setAccessControl(true);
+            setOwnable(true)
+          }  
         }
         setUpgradeability(true); // Set the checkbox to true if either radio input is true
       };
