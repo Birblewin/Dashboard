@@ -95,13 +95,13 @@ export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: bool
 
   const endingOwnableConstructor = [
     erc20spremint ? PremintConstructor : "",
-    !erc20spremint? unPremintConstructor: ""
+    !erc20sroles && !erc20spremint? unPremintConstructor: ""
   ].filter(Boolean).join("").trim();
 
   const ownableConstructor1 = `constructor(address initialOwner)
-        ERC20("${erc20sname}", "${erc20ssymbol}")`
-  const OwnableConstructor2 = `ERC20Permit("${erc20sname}")`
-  const OwnableConstructor3 = `Ownable(initialOwner)`
+                ERC20("${erc20sname}", "${erc20ssymbol}")`
+  const OwnableConstructor2 = "\t"+"\t"+`ERC20Permit("${erc20sname}")`
+  const OwnableConstructor3 = "\t"+"\t"+`Ownable(initialOwner)`
 
     const OwnableConstructor = [
       ownableConstructor1,
@@ -122,7 +122,7 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
   const RolesConstructor = [
     RolesConstructor1,
     erc20spermit? "\t" +"\t" +RolesConstructor2: "",
-    "\t" +RolesConstructor3,
+    "\t" +"\t" +RolesConstructor3,
     erc20spausable? "\t" +"\t" +RolesConstructor4: "",
     erc20smintable? "\t" +"\t" +RolesConstructor5: "",
     "\t" + "}"
@@ -203,13 +203,14 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
   ].filter(Boolean).join("").trim();
 
 
+ 
   const constructor = [
       !erc20sownable && !erc20sroles && !erc20smanaged?  "\t" + DefaultConstructor : "",
       erc20spermit? PermitConstructor: "",
       erc20sownable? "\t" + OwnableConstructor : "",
       erc20sroles? "\t" + RolesConstructor : "",
       erc20smanaged? "\t" + ManagedConstructor : "",
-      "\t" + endingOwnableConstructor
+      "\t" + "\t"+endingOwnableConstructor
   ].filter(Boolean).join("\n");
 
 
@@ -263,7 +264,6 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
     CodeVersion,
     !erc20supgradeable ? Imports : "",
     erc20supgradeable ? upgradeableImports : "",
-    "   ",
     erc20ssecutitycontact? SecurityContact : "",
     contract ,
     erc20sroles? "\t" + RolesByte : "",
