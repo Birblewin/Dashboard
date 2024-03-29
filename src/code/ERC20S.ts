@@ -477,8 +477,8 @@ export const ERC20SCode =[
         tag: "Default",
         name: "ERC20upgradeableConstructor", 
         content: `constructor() {
-            _disableInitializers();
-        }
+        _disableInitializers();
+    }
     `
     },
 
