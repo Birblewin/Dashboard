@@ -108,8 +108,9 @@ export default function Custom2() {
       };
 
     return (
-        <div className=" flex flex-col rounded-lg overflow-y-visible p-4 bg-white ">
-          <h2 className="text-[#818998] font-semibold text-xs">SETTINGS</h2>
+        <div className="p-4 overflow-visible">
+        <div>
+            <h1 className="text-[#818998] font-semibold text-xs">SETTINGS</h1>
             <form className="flex flex-col">
                 <label className="text-black mt-2 text-xs font-normal">Name</label>
                 <input
@@ -119,93 +120,119 @@ export default function Custom2() {
                     value={name}  onChange={(e) => setName(e.target.value)}
                 />
             </form>
-            <hr className="my-4"></hr>
-            <div>
-                <h1 className="text-[#818998] font-semibold text-xs">FEATURES</h1>
-                <div className="m-[0.5rem] flex items-center justify-between">
-
-                    <div className=" flex items-center">
-                    <input
-                        title="Pausable"
-                        type="checkbox"
-                        className="form-checkbox h-3 w-3 text-indigo-600 rounded" 
-                        checked={pauseable}
-                        onChange={handlePauseableChange}  
-                    />
-                    <label className="ml-[0.5rem] text-[#333333]">Pausable</label>
-                    </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
-                </div>
-                <div className="m-[0.5rem] flex items-center justify-between">
-                    <div className=" flex items-center">
-                    <input
-                        title="Upgradeable"
-                        type="checkbox"
-                        className="form-checkbox h-3 w-3 text-indigo-600 rounded"
-                        checked={upgradeable}
-                        onChange={handleUpgradeable}
-                    />
-                    <label className="ml-[0.5rem] text-[#333333] ">Upgradeable</label>
-                    </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
-                </div>
-            </div>
-            <hr className="my-4"></hr>
-            <div>
-                <div className="flex">
-                    <div className=" mt-0  flex items-center">
-                    <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">ACCESS CONTROL</label>
-                    <input
-                        title="Ownable"
-                        type="checkbox"
-                        className="form-checkbox h-3 w-3 rounded"
-                        checked={accessControl}
-                            value="access"
-                            onChange={handleAccessControl}
-                    />
-                    </div>
-                </div>
-                <div className="m-[0.5rem]  flex items-center justify-between">
-                    <div className="flex items-center">
-                    <input
-                        title="Ownable"
-                        type="radio"
-                        className="form-checkbox h-3 w-3"
-                        value="ownable"
-                        checked={ownable}
-                        onChange={handleAccessControlChange}
-
-                    />
-                    <label className="ml-2 text-[#333333] ">Ownable</label>
-                    </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
-                </div>
-                <div className="m-[0.5rem]  flex items-center justify-between">
-                    <div className="  flex items-center">
-                    <input
-                        title="Roles"
-                        type="radio"
-                        className="radio h-3 w-3 "
-                        value="roles"
-                        checked={roles}
-                        onChange={handleAccessControlChange}
-                    />
-                    <label className="ml-2 text-[#333333] ">Roles</label>
-                    </div>
-                    <Tool tooltipText="Tooltip Text Here" link='https://www.birbleai.com/' linktext='Read more'/>
-                </div>
-            </div>
-            <hr className="my-4" />
-            <div>
-                <h1 className="text-[#818998] font-semibold text-xs ">INFO</h1>
-                <div className="flex flex-col mt-[0.75rem]">
-                    <label htmlFor="license" className="text-[#333333] text-sm">
-                        License
-                    </label>
-                    <input  id="license" type="text" placeholder="MIT" className="border border-1 border-[#333333] rounded-[6px] p-1  text-black" value={license}  onChange={(e) => setLicense(e.target.value)}/>
-                </div>
-            </div>
         </div>
+  
+        <hr className="my-4"></hr>
+  
+        <div>  
+          <h1 className="text-[#818998] font-semibold text-xs">FEATURES</h1>
+        <div className="mt-2">
+          
+  
+          <label className={`flex items-center justify-between cursor-pointer ${pauseable ? 'bg-gray-100' : ''}`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="Pauseable"
+                type="checkbox"
+                className="form-checkbox h-3 w-3 text-indigo-600 rounded"
+                checked={pauseable}
+                onChange={handlePauseableChange}
+              />
+              <span className="ml-[0.5rem] text-[#333333] select-text">Pauseable</span>
+            </div>
+            <Tool tooltipText="Privileged accounts will be able to pause the functionality marked with self.pausable.assert_not_paused(). Useful for emergency response." link='https://docs.openzeppelin.com/contracts-cairo/0.11.0/security#pausable' linktext='Read more'/>
+          </label>
+  
+          
+  
+          <label className={`flex items-center justify-between cursor-pointer ${upgradeable ? 'bg-gray-100' : ''}`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="Updateable URI"
+                type="checkbox"
+                className={`form-checkbox h-3 w-3 text-indigo-600 rounded `}
+                checked={upgradeable}
+                onChange={handleUpgradeable}
+              />
+              <span className="ml-[0.5rem] text-[#333333] select-text">Upgradeable</span>
+            </div>
+            <Tool tooltipText="Smart contracts are immutable by default unless they include code that allows them to be upgraded." link='https://docs.openzeppelin.com/contracts-cairo/0.11.0/upgrades' linktext='Read more'/>
+          </label>          
+          </div>
+        </div>
+  
+        <hr className="my-4"></hr>
+  
+        <div>
+          <div className=" mt-0  flex items-center place-content-between">
+            <div className="flex items-center mr-[0.5rem]">
+              <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">ACCESS CONTROL</label>
+              <input
+                type="checkbox"
+                className={`form-checkbox h-3 w-3 rounded ${accessControl && (pauseable || upgradeable) ? "accent-grey-300 hover:accent-grey-300" : ""}`}
+                checked={accessControl}
+                value="access"
+                onChange={handleAccessControl}
+              />
+            </div>
+            <Tool tooltipText="Restrict who can access the functions of a contract or when they can do it." link='https://docs.openzeppelin.com/contracts-cairo/0.11.0/access' linktext='Read more' />
+          </div>
+  
+        <div className="mt-2">
+          <label className={`flex items-center justify-between cursor-pointer ${ownable ? 'bg-gray-100' : ''}`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="Ownable"
+                type="radio"
+                name="accessControl"
+                className="form-radio h-3 w-3"
+                value="ownable"
+                checked={ownable}
+                onChange={handleAccessControlChange}
+              />
+              <span className="ml-2 text-[#333333] select-text">Ownable</span>
+            </div>
+            <Tool tooltipText="Simple mechanism with a single account authorized for all privileged actions." link='https://docs.openzeppelin.com/contracts-cairo/0.11.0/access#ownership_and_ownable' linktext='Read more'/>
+          </label>
+  
+          <label className={`flex items-center justify-between cursor-pointer ${roles ? 'bg-gray-100' : ''}`}>
+            <div className="m-[0.5rem] flex items-center">
+              <input
+                title="Roles"
+                type="radio"
+                className="form-radio h-3 w-3"
+                value="roles"
+                name="accessControl"
+                checked={roles}
+                onChange={handleAccessControlChange}
+              />
+              <span className="ml-2 text-[#333333] select-text">Roles</span>
+            </div>
+            <Tool tooltipText="Flexible mechanism with a separate role for each privileged action. A role can have many authorized accounts." link='https://docs.openzeppelin.com/contracts-cairo/0.11.0/access#role_based_accesscontrol' linktext='Read more'/>
+          </label>
+  
+          
+        </div>
+      </div>
+  
+        <hr className="my-4" />
+  
+         
+        <div className="px-2">
+          <h1 className="text-[#818998] font-semibold text-xs ">INFO</h1>
+          
+          <div className="flex flex-col mt-[0.75rem]">
+            <label htmlFor="license" className="text-[#333333] text-sm"> License </label>
+            <input
+              id="license"
+              type="text"
+              placeholder="MIT"
+              className="border border-1 border-[#333333] rounded-[6px] p-1  text-black"
+              value={license} onChange={(e) => setLicense(e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
 
     );
 }
