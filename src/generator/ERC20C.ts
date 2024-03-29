@@ -88,7 +88,7 @@ export function generateERC20CCode(erc20cburnable: boolean,erc20cmintable: boole
   // SPDX-License-Identifier: ${erc20clicense}`;
   const ContractHeader = `mod ${erc20cname} {`;
   const PremintConstructor = `self.erc20._mint(recipient, ${erc20cpremint}000000000000000000);`;
-  const ConstructorReturn = `self.erc20.initializer(${erc20cname}, ${erc20csymbol});`
+  const ConstructorReturn = `self.erc20.initializer("${erc20cname}", "${erc20csymbol}");`
 
 
     const Variables = [
