@@ -19,12 +19,6 @@ const ERC721C = ()=>{
     const [BaseURI, setBaseURI] = useRecoilState(ERC721CBaseURI);
     
 
-    useEffect(() => {
-        console.log("Ownable state",ownable);
-    }, [ownable]);
-    useEffect(() => {
-        console.log("Roles state",roles);
-    }, [roles]);
       const handleAccessControlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         const isChecked = e.target.checked;
