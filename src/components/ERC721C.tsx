@@ -55,8 +55,10 @@ const ERC721C = ()=>{
     
         // If Mintable is true, set Access Control to true
         if (isChecked) {
-            setAccessControl(true);
-            setOwnable(true)
+            if(!accessControl){
+                setAccessControl(true);
+                setOwnable(true)
+            } 
             
             
         } else {
@@ -75,8 +77,10 @@ const ERC721C = ()=>{
         
         // If Pauseable is true, set Access Control to true
         if (isChecked) {
-            setAccessControl(true);
-            setOwnable(true)
+            if(!accessControl){
+                setAccessControl(true);
+                setOwnable(true)
+            } 
             
         } else {
             // If both Burnable and Pauseable are false, set Access Control to false
@@ -94,9 +98,10 @@ const ERC721C = ()=>{
        
         // If Upgradable is true, set Access Control to true
         if (isChecked) {
-            setAccessControl(true);
-            setOwnable(true)
-            
+            if(!accessControl){
+                setAccessControl(true);
+                setOwnable(true)
+            } 
         } else {
             // If both Burnable and Pauseable are false, set Access Control to false
             if (!mintable  && !pauseable) {
@@ -171,8 +176,8 @@ const ERC721C = ()=>{
             <hr className="my-4"></hr>
             <div>
                 <h1 className="text-[#818998] font-semibold text-xs">FEATURES</h1>
-                <div className="justify-between m-[0.5rem] flex items-center">
-                    <div className=" flex items-center ">
+              <label className={`flex items-center justify-between cursor-pointer ${mintable ? 'bg-gray-100' : ''}`}>
+                    <div className="m-[0.5rem] flex items-center">
                         <input
                             title="Mintable"
                             type="checkbox"
@@ -181,13 +186,13 @@ const ERC721C = ()=>{
                             onChange={handleMintableChange}
                             
                         />
-                        <label className="ml-[0.5rem] text-[#333333] ">Mintable</label>
-                    </div>
-                    
+                        <span className="ml-[0.5rem] text-[#333333] ">Mintable</span>
+                        </div>
                     <Tool tooltipText="Privileged accounts will be able to emit new tokens." link='https://docs.openzeppelin.com/contracts-cairo/erc721' linktext='Read more'/>
-                </div>
-                <div className="m-[0.5rem] flex items-center justify-between">
-                    <div className=" flex items-center">
+                
+              </label>
+                <label className={`flex items-center justify-between cursor-pointer ${burnable ? 'bg-gray-100' : ''}`}>
+                    <div className="m-[0.5rem] flex items-center">
                     <input
                         title="Burnable"
                         type="checkbox"
@@ -195,12 +200,13 @@ const ERC721C = ()=>{
                         checked={burnable}
                         onChange={(e) => setBurnable(!burnable)}
                     />
-                    <label className="ml-[0.5rem] text-[#333333]">Burnable</label>
+                    <span className="ml-[0.5rem] text-[#333333]">Burnable</span>
                     </div>
                     <Tool tooltipText="Token holders will be able to destroy their tokens."/>
-                </div>
-                <div className="m-[0.5rem] flex items-center justify-between">
-                    <div className=" flex items-center">
+                
+                </label>
+                <label className={`flex items-center justify-between cursor-pointer ${pauseable ? 'bg-gray-100' : ''}`}>
+                    <div className="m-[0.5rem] flex items-center">
                     <input
                         title="Pauseable"
                         type="checkbox"
@@ -212,9 +218,9 @@ const ERC721C = ()=>{
                     <label className="ml-[0.5rem] text-[#333333] ">Pauseable</label>
                     </div>
                     <Tool tooltipText="Privileged accounts will be able to pause the functionality marked with self.pausable.assert_not_paused(). Useful for emergency response." link='https://docs.openzeppelin.com/contracts-cairo/security#pausable' linktext='Read more'/>
-                </div>
-                <div className="m-[0.5rem] flex items-center justify-between">
-                    <div className=" flex items-center">
+                </label>
+               <label className={`flex items-center justify-between cursor-pointer ${upgradeable ? 'bg-gray-100' : ''}`}>
+                    <div className="m-[0.5rem] flex items-center">
                     <input
                         title="upgradable"
                         type="checkbox"
@@ -222,10 +228,10 @@ const ERC721C = ()=>{
                         checked={upgradeable}
                         onChange={handleUpgradableChange}
                     />
-                    <label className="ml-[0.5rem] text-[#333333] ">Upgradeable</label>
+                    <span className="ml-[0.5rem] text-[#333333] ">Upgradeable</span>
                     </div>
                     <Tool tooltipText="Smart contracts are immutable by default unless they include code that allows them to be upgraded." link='https://docs.openzeppelin.com/contracts-cairo/upgrades' linktext='Read more'/>
-                </div>
+               </label>
             </div>
             <hr className="my-4"></hr>
             <div>
@@ -244,8 +250,8 @@ const ERC721C = ()=>{
                     <Tool tooltipText="Restrict who can access the functions of a contract or when they can do it." link='https://docs.openzeppelin.com/contracts-cairo/access' linktext='Read more'/>
             
                 </div>
-                <div className="m-[0.5rem]  flex items-center justify-between">
-                    <div className="flex items-center">
+               <label className={`flex items-center justify-between cursor-pointer ${ownable ? 'bg-gray-100' : ''}`}>
+                    <div className="m-[0.5rem] flex items-center">
                     <input
                         title="Ownable"
                         type="radio"
@@ -258,25 +264,22 @@ const ERC721C = ()=>{
                     <label className="ml-2 text-[#333333] ">Ownable</label>
                     </div>
                      <Tool tooltipText="Simple mechanism with a single account authorized for all privileged actions." link='https://docs.openzeppelin.com/contracts-cairo/access#ownership_and_ownable' linktext='Read more'/>
-                   
-                </div>
-                <div className="m-[0.5rem]  flex items-center justify-between">
-                    <div className="  flex items-center">
-                    <input
-                        title="Roles"
-                        type="radio"
-                        name="access"
-                        className="radio h-3 w-3"
-                        value="roles"
-                        checked={roles}
-                        onChange={handleAccessControlChange}
-                    />
-                    <label className="ml-2 text-[#333333] ">Roles</label>
-                    </div>
-                    <Tool tooltipText="Flexible mechanism with a separate role for each privileged action. A role can have many authorized accounts." link='https://docs.openzeppelin.com/contracts-cairo/access#role_based_accesscontrol' linktext='Read more'/>
-                    
-                </div>
-                
+               </label>
+                <label className={`flex items-center justify-between cursor-pointer ${roles ? 'bg-gray-100' : ''}`}>
+                        <div className="m-[0.5rem] flex items-center">
+                        <input
+                            title="Roles"
+                            type="radio"
+                            name="access"
+                            className="radio h-3 w-3"
+                            value="roles"
+                            checked={roles}
+                            onChange={handleAccessControlChange}
+                        />
+                        <span className="ml-2 text-[#333333] ">Roles</span>
+                        </div>
+                        <Tool tooltipText="Flexible mechanism with a separate role for each privileged action. A role can have many authorized accounts." link='https://docs.openzeppelin.com/contracts-cairo/access#role_based_accesscontrol' linktext='Read more'/>
+                </label>
                 
             </div>
             <hr className="my-4"></hr>
