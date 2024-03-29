@@ -59,7 +59,9 @@ export const PausableSection2: string[] = getCodeContent("Section2", "Pausable")
 export const UUPSSection2: string[] = getCodeContent("Section2", "UUPS");
 export const PausableSection3: string[] = getCodeContent("Section3", "Pausable");
 export const VotesSection3: string[] = getCodeContent("Section3", "Votes");
-export const Section1Header: string[] = getCodeContent("upgradeableFunctionsHeader", "Default");
+export const Section1RolesHeader: string[] = getCodeContent("upgradeableFunctionsHeader", "Roles");
+export const Section1ManagedHeader: string[] = getCodeContent("upgradeableFunctionsHeader", "Managed");
+export const Section1OwnableHeader: string[] = getCodeContent("upgradeableFunctionsHeader", "Ownable");
 export const PausableSection1Header: string[] = getCodeContent("upgradeableFunctionsHeader", "Pausable");
 export const MintableSection1Header: string[] = getCodeContent("upgradeableFunctionsHeader", "Mintable");
 export const OwnableSection1: string[] = getCodeContent("upgradeableFunctions", "Ownable");
@@ -75,32 +77,30 @@ export const FlashMintingSection1: string[] = getCodeContent("upgradeableFunctio
   
 export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spermit: boolean, erc20supgradeable: boolean, erc20sUUPS: boolean, erc20ssecutitycontact: string , erc20slicense: string, erc20sname: string, erc20ssymbol: string, erc20spremint: string): string {
 
-    const License = `
-// SPDX-License-Identifier: ${erc20slicense}`
+    const License = `// SPDX-License-Identifier: ${erc20slicense}`
     const SecurityContact = `/// @custom:security-contact ${erc20ssecutitycontact}`
     const ContractHeader = `contract ${erc20sname} is `
     const DefaultConstructor = `constructor() ERC20("${erc20sname}", "${erc20ssymbol}") ` + (erc20spermit ? `ERC20Permit("${erc20ssymbol}")` : "");
-    const Section1 = `initializer public
-    {
+    const Section1 = `initializer public{
         __ERC20_init("${erc20sname}", "${erc20ssymbol}");`
 
     const PermitSection1 = `    __ERC20Permit_init("${erc20sname}");`
 
     const PremintConstructor = `{
-        _mint(msg.sender, ${erc20spremint} * 10 ** decimals());
-    }`
+            _mint(msg.sender, ${erc20spremint} * 10 ** decimals());
+        }`
 
   const unPremintConstructor = `{}`
 
   const endingOwnableConstructor = [
     erc20spremint ? PremintConstructor : "",
-    !erc20spremint? unPremintConstructor: ""
+    !erc20sroles && !erc20spremint? unPremintConstructor: ""
   ].filter(Boolean).join("").trim();
 
   const ownableConstructor1 = `constructor(address initialOwner)
-        ERC20("${erc20sname}", "${erc20ssymbol}")`
-  const OwnableConstructor2 = `ERC20Permit("${erc20sname}")`
-  const OwnableConstructor3 = `Ownable(initialOwner)`
+                ERC20("${erc20sname}", "${erc20ssymbol}")`
+  const OwnableConstructor2 = "\t"+"\t"+`ERC20Permit("${erc20sname}")`
+  const OwnableConstructor3 = "\t"+"\t"+`Ownable(initialOwner)`
 
     const OwnableConstructor = [
       ownableConstructor1,
@@ -121,21 +121,21 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
   const RolesConstructor = [
     RolesConstructor1,
     erc20spermit? "\t" +"\t" +RolesConstructor2: "",
-    "\t" +RolesConstructor3,
+    "\t" +"\t" +RolesConstructor3,
     erc20spausable? "\t" +"\t" +RolesConstructor4: "",
     erc20smintable? "\t" +"\t" +RolesConstructor5: "",
     "\t" + "}"
   ].filter(Boolean).join('\n');
 
   const ManagedConstructor1 = `constructor(address initialAuthority)
-        ERC20("${erc20sname}", "${erc20ssymbol}")`
+                ERC20("${erc20sname}", "${erc20ssymbol}")`
   const ManagedConstructor2 = `ERC20Permit("${erc20ssymbol}")`
   const ManagedConstructor3 = `AccessManaged(initialAuthority)`
 
   const ManagedConstructor = [
     ManagedConstructor1,
-    erc20spermit? "\t" +"\t" +ManagedConstructor2: "",
-    "\t" +"\t" +ManagedConstructor3 
+    erc20spermit? "\t" +"\t" +"\t" +"\t" +ManagedConstructor2: "",
+    "\t" +"\t" +"\t" +"\t" +ManagedConstructor3 
   ].filter(Boolean).join('\n');
     
 
@@ -194,7 +194,7 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
   const contract = [
     ContractHeader,
     !erc20supgradeable? ContractName : "",
-    erc20sownable || erc20sburnable || erc20spermit || erc20svotes || erc20sflashMinting ? ", ": "",
+    (erc20sownable || erc20sburnable || erc20spermit || erc20svotes || erc20sflashMinting) && !erc20supgradeable ? ", ": "",
     erc20supgradeable ?  UpgradeableContractName: "",
     !erc20supgradeable ? contractnames : "", 
     erc20supgradeable ?  upgradeableContractnames : "",
@@ -202,35 +202,39 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
   ].filter(Boolean).join("").trim();
 
 
+ 
   const constructor = [
       !erc20sownable && !erc20sroles && !erc20smanaged?  "\t" + DefaultConstructor : "",
-      erc20spermit? PermitConstructor: "",
-      erc20sownable? "\t" + OwnableConstructor : "",
-      erc20sroles? "\t" + RolesConstructor : "",
-      erc20smanaged? "\t" + ManagedConstructor : "",
-      "\t" + endingOwnableConstructor
-  ].filter(Boolean).join("\n");
+      erc20sownable? "\n"+"\t" + OwnableConstructor : "",
+      erc20sroles? "\n"+"\t" + RolesConstructor : "",
+      erc20smanaged? "\n"+"\t" + ManagedConstructor : "",
+      erc20spremint || erc20sownable || erc20sroles || erc20smanaged ? "\n"+"\t" + "\t"+"\t" +"\t":"", 
+      endingOwnableConstructor
+  ].filter(Boolean).join("");
 
 
   const section1header = [
-    Section1Header,
-    erc20spausable? PausableSection1Header: "",
-    erc20smintable? MintableSection1Header: "",
-    ")"
+    !erc20smanaged && !erc20sownable && !erc20sroles ? "function initialize(":"",
+    erc20smanaged? Section1ManagedHeader: '',
+    erc20sownable? Section1OwnableHeader: '',
+    erc20sroles? Section1RolesHeader: '',
+    erc20sroles && erc20spausable? PausableSection1Header: "",
+    erc20sroles && erc20smintable? MintableSection1Header: "",
+    ")",
+    " "+Section1,
   ].filter(Boolean).join("");
 
 
   const section1 = [
-    "\t" + "\t" + Section1,
-    erc20sownable? "\t" + OwnableSection1: "",
-    erc20sroles? "\t" + RolesSection1: "",
-    erc20smanaged? "\t" + ManagedSection1 : "",
     erc20sburnable? "\t" + BurnableSection1 : "",
     erc20spausable? "\t" + PausableSection1 : "",
     erc20spermit? "\t" + PermitSection1 : "",
     erc20svotes? "\t" + VotesSection1 : "",
     erc20sflashMinting? "\t" + FlashMintingSection1 : "",
-    "\t }"
+    erc20sownable? "\t" + OwnableSection1: "",
+    erc20sroles? "\t" + RolesSection1: "",
+    erc20smanaged? "\t" + ManagedSection1 : "",
+    "\t}"
   ].filter(Boolean).join("\n");
 
   const upgradeableFunctions = [
@@ -240,14 +244,14 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
 
 
   const section2 = [
-    erc20smintable? "\t" + MintableSection2 : "",
     erc20spausable? "\t" + PausableSection2 : "",
+    erc20smintable? "\t" + MintableSection2 : "",
     erc20sUUPS ? "\t" + UUPSSection2: ""
   ].filter(Boolean).join("\n");
 
 
   const section3 = [
-    erc20spausable || erc20svotes ? "\t" + PausableSection3:"",
+    erc20spausable && !erc20svotes ? "\t" + PausableSection3:"",
     erc20svotes ? "\t" + VotesSection3: "",
   ].filter(Boolean).join("\n");
 
@@ -260,9 +264,8 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
     CodeVersion,
     !erc20supgradeable ? Imports : "",
     erc20supgradeable ? upgradeableImports : "",
-    "   ",
     erc20ssecutitycontact? SecurityContact : "",
-    contract ,
+    "\n"+contract ,
     erc20sroles? "\t" + RolesByte : "",
     !erc20supgradeable ? constructor : "",
     erc20supgradeable ? "\t" + UpgradeableConstructor : "",
@@ -270,11 +273,9 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
     section2,
     section3,
     "}"
-  ].filter(Boolean).join('\n'); 
+  ].filter(Boolean).join('\n').trim(); 
 
-    return `
-     ${result}
-  `;
+    return `${result}`;
   }
   
 

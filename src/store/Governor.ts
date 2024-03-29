@@ -13,18 +13,18 @@ export const governorFormData = atom<GovernorFormDataType>({
         votingDelay: "1 day",// NO PLACEHOLDER
         votingPeriod: "1 week",// NO PLACEHOLDER
         blockValue: "12",//PLACEHOLDER=12
-        proposalThreshold: "0",//PLACEHOLDER=0
+        proposalThreshold: "",//PLACEHOLDER=0
         
         quorumType: "percentage",
         quorumValue: "4",//PLACEHOLDER=4
         
         tokenDecimals: "18",//PLACEHOLDER=18
-        updatableSettings: false,
+        updatableSettings: true,
         storage: false,
         votes: "ERC20Votes",
 
-        timelockValue: false,
-        timelockType: "",
+        timelockValue: true,
+        timelockType: "TimelockController",
 
         upgradeabilityValue: false,
         upgradeabilityType: "",

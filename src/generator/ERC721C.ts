@@ -11,6 +11,11 @@ const getCodeContent = (section: string, tag?: string): string[] => {
     return ERC721CCode.filter((code: CodeSection) => code.section === section && (!tag || code.tag === tag)).map(filteredCode => filteredCode.content);
 }
 
+export const PausableConst: string[] = getCodeContent("Const", "Pausable");
+export const MintableConst: string[] = getCodeContent("Const", "Mintable");
+export const UpgradableConst: string[] = getCodeContent("Const", "Upgradeable");
+
+
 export const OwnableImport: string[] = getCodeContent("Imports", "Ownable");
 export const RolesImport: string[] = getCodeContent("Imports", "Roles");
 export const BurnableImport: string[] = getCodeContent("Imports", "Burnable");
@@ -49,7 +54,10 @@ export const UpgradableEvents: string[] = getCodeContent("Events", "Upgradeable"
 
 export const UpgradableFunctions: string[] = getCodeContent("Functions", "Upgradeable");
 export const PausableFunctions: string[] = getCodeContent("Functions", "Pausable");
+export const Pausable2Functions: string[] = getCodeContent("Functions", "Pausable2");
 export const MintableFunctions: string[] = getCodeContent("Functions", "Mintable");
+export const BurnableFunctions: string[] = getCodeContent("Functions", "Burnable");
+
 
 
 export const OwnableConstructor: string[] = getCodeContent("Constructor", "Ownable");
@@ -73,12 +81,16 @@ export function GenerateERC721CCode(erc721cburnable: boolean, erc721cpausable: b
     const [symbol, setSymbol] = useRecoilState(ERC721CSymbol);
     const [BaseURI, setBaseURI] = useRecoilState(ERC721CBaseURI);
 
+    const RolesImport2 = [
+        `use super::{${erc721cpausable?"PAUSER_ROLE":""}${erc721cmintable && (erc721cupgradable || erc721cpausable)?", ":""}${erc721cmintable?"MINTER_ROLE":""}${erc721cupgradable && (erc721cmintable || erc721cpausable)?", ":""}${erc721cupgradable?"UPGRADER_ROLE":""}};`
+    ]
     const Imports = [
         erc721cownable? "\n"+OwnableImport:"",
         erc721croles? "\n"+RolesImport:"",
         erc721cburnable? "\n\t"+BurnableImport:"",
         erc721cpausable? "\n"+PausableImport:"",
-        erc721cupgradable? "\n"+UpgradableImport:""
+        erc721cupgradable? "\n"+UpgradableImport:"",
+        erc721croles &&(erc721cmintable || erc721cpausable || erc721cupgradable)? "\n\t"+RolesImport2:""
     ].join("").trim();
     const Components = [
         erc721cownable? "\n"+OwnableComponent:"",
@@ -111,15 +123,34 @@ export function GenerateERC721CCode(erc721cburnable: boolean, erc721cpausable: b
         erc721cupgradable? "\n\t"+UpgradableEvents:""
     ].join("").trim();
     const Functions = [
+        (erc721cmintable || erc721cburnable || erc721cpausable || erc721cupgradable)?`#[generate_trait]`:"",
+        erc721cmintable? "\n\t"+MintableFunctions:"",
+        erc721cburnable? "\n\t"+BurnableFunctions:"",
+        erc721cpausable? "\n\t"+Pausable2Functions:"",
         erc721cupgradable? "\n\t"+UpgradableFunctions:"",
+    ].join("").trim();
+    const Methods = [
         erc721cpausable? "\n\t"+PausableFunctions:"",
-        erc721cmintable? "\n\t"+MintableFunctions:""
     ].join("").trim();
     const Roles = [
-        erc721cpausable? "\n\t"+PausableConstructor+',':"",
-        erc721cupgradable? "\n\t"+UpgradableConstructor+',':"",
-        erc721cmintable? "\n\t"+MintableConstructor:"",
+        erc721cpausable? "\n\t\t"+PausableConstructor+',':"",
+        erc721cupgradable? "\n\t\t"+UpgradableConstructor+',':"",
+        erc721cmintable? "\n\t\t"+MintableConstructor:"",
     ].join("").trim();
+
+    const Const = [
+        erc721cpausable? PausableConst:'',
+        erc721cupgradable? UpgradableConst:'',
+        erc721cmintable? MintableConst:''
+    ].join("\n").trim();
+    const pausable = [
+    `#[abi(embed_v0)]
+    impl ERC721Impl = ERC721Component::ERC721Impl<ContractState>;
+    #[abi(embed_v0)]
+    impl ERC721CamelOnly = ERC721Component::ERC721CamelOnlyImpl<ContractState>;
+    #[abi(embed_v0)]`
+    ]
+    
     const RolesInit = [
         erc721cpausable? "\n\t"+PausableConstructorInit:'',
         erc721cupgradable? "\n\t\t"+UpgradableConstructorInit:'',
@@ -127,11 +158,10 @@ export function GenerateERC721CCode(erc721cburnable: boolean, erc721cpausable: b
     ].join("").trim();
     const snippet = [
 `// SPDX-License-Identifier: ${license}
-// Compatible with OpenZeppelin Contracts for Cairo ^0.9.0
-// Cairo lang 2.5.3
-
+// Compatible with OpenZeppelin Contracts for Cairo ^0.10.0
+   ${erc721croles? '\n'+Const+'\n':""}
 #[starknet::contract]
-mod MyToken {
+mod ${name.replace(/\s/g, '')} {
     use openzeppelin::token::erc721::ERC721Component;
     use openzeppelin::introspection::src5::SRC5Component;
     ${Imports}
@@ -143,17 +173,9 @@ mod MyToken {
     #[abi(embed_v0)]
     impl ERC721MetadataImpl = ERC721Component::ERC721MetadataImpl<ContractState>;
     #[abi(embed_v0)]
-    impl ERC721MetadataCamelOnly = ERC721Component::ERC721MetadataCamelOnlyImpl<ContractState>;
-    #[abi(embed_v0)]
-    impl ERC721Impl = ERC721Component::ERC721Impl<ContractState>;
-    #[abi(embed_v0)]
-    impl ERC721CamelOnly = ERC721Component::ERC721CamelOnlyImpl<ContractState>;
-    #[abi(embed_v0)]
-    impl SRC5Impl = SRC5Component::SRC5Impl<ContractState>;
-    ${BeforeEmbed}
-
-    impl ERC721InternalImpl = ERC721Component::InternalImpl<ContractState>;
-    ${AfterEmbed}
+    impl ERC721MetadataCamelOnly = ERC721Component::ERC721MetadataCamelOnlyImpl<ContractState>;${!erc721cpausable? '\n\t'+pausable:""}
+    impl SRC5Impl = SRC5Component::SRC5Impl<ContractState>;${'\n\t'+BeforeEmbed+'\n'}
+    impl ERC721InternalImpl = ERC721Component::InternalImpl<ContractState>;${'\n\t'+AfterEmbed}
 
     #[storage]
     struct Storage {
@@ -175,11 +197,11 @@ mod MyToken {
     }
 
     #[constructor]
-    fn constructor(ref self: ContractState${erc721cownable? OwnableConstructor:""}${erc721croles?RolesConstructor+',':""}${erc721croles?'\n\t'+Roles:""}) {
+    fn constructor(${erc721croles?'\n\t\t':""}ref self: ContractState${(erc721cmintable||erc721cownable||erc721cupgradable||erc721cpausable||erc721croles)?",":""}${erc721croles?'\n\t':""} ${erc721cownable? OwnableConstructor:""}${erc721croles?RolesConstructor+',':""}${erc721croles?'\n\t\t'+Roles:""}${erc721croles?'\n\t':""}) {
         self.erc721.initializer("${name}", "${symbol}", "${BaseURI}");
-        ${erc721cownable? OwnableConstructorInit:''}${erc721croles? RolesConstructorInit:""}
-        ${erc721croles? RolesInit:""}
+        ${erc721cownable? OwnableConstructorInit:''}${erc721croles? '\n\t\t'+RolesConstructorInit:""}${erc721croles? '\n\t\t'+RolesInit:""}
     }
+    ${Methods}
     ${Functions}
 }
 `

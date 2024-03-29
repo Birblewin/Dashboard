@@ -477,8 +477,8 @@ export const ERC20SCode =[
         tag: "Default",
         name: "ERC20upgradeableConstructor", 
         content: `constructor() {
-            _disableInitializers();
-        }
+        _disableInitializers();
+    }
     `
     },
 
@@ -487,9 +487,27 @@ export const ERC20SCode =[
         wizard_id: 1,
         contractType_id: 1, 
         section: "upgradeableFunctionsHeader",  
-        tag: "Default",
+        tag: "Roles",
         name: "ERC20DefaultupgradeableFunctions", 
         content: `function initialize(address defaultAdmin `
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctionsHeader",  
+        tag: "Managed",
+        name: "ERC20DefaultupgradeableFunctions", 
+        content: `function initialize(address initialAuthority`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctionsHeader",  
+        tag: "Ownable",
+        name: "ERC20DefaultupgradeableFunctions", 
+        content: `function initialize(address initialOwner`
     },
     { 
         snippet_id: 1, 
@@ -582,6 +600,7 @@ export const ERC20SCode =[
         tag: "Roles",
         name: "ERC20RolesupgradeableFunctions", 
         content: `    __AccessControl_init();
+
         _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);`
     },
     { 
@@ -612,10 +631,10 @@ export const ERC20SCode =[
         tag: "UUPS",
         name: "ERC20UUPSSection2", 
         content: `function _authorizeUpgrade(address newImplementation)
-        internal
-        onlyRole(UPGRADER_ROLE)
-        override
-    {}`
+                internal
+                onlyRole(UPGRADER_ROLE)
+                override
+        {}`
     },
     { 
         snippet_id: 1, 
@@ -639,15 +658,14 @@ export const ERC20SCode =[
         section: "Section3",  
         tag: "Pausable",
         name: "ERC20PausableSection3", 
-        content: `function nonces(address owner)
-        public
-        view
-        override(ERC20PermitUpgradeable, NoncesUpgradeable)
-        returns (uint256)
-    {
-        return super.nonces(owner);
-    }
-`
+        content: `// The following functions are overrides required by Solidity.
+
+    function _update(address from, address to, uint256 value)
+                internal
+                override(ERC20Upgradeable, ERC20PausableUpgradeable)
+        {
+        super._update(from, to, value);
+    }`
     },
     { 
         snippet_id: 1, 
@@ -659,10 +677,19 @@ export const ERC20SCode =[
         content: `// The following functions are overrides required by Solidity.
 
     function _update(address from, address to, uint256 value)
-        internal
-        override(ERC20Upgradeable, ERC20PausableUpgradeable)
-    {
+                internal
+                override(ERC20Upgradeable, ERC20PausableUpgradeable, ERC20VotesUpgradeable)
+        {
         super._update(from, to, value);
+    }
+    
+    function nonces(address owner)
+                public
+                view
+                override(ERC20PermitUpgradeable, NoncesUpgradeable)
+                returns (uint256)
+        {
+        return super.nonces(owner);
     }`
     }
 ];

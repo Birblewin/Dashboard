@@ -91,15 +91,6 @@ const CustomSCode =[
         name: "CustomSUUPSUpgradeableImports", 
         content: `import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";`
     },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "upgradeableImports",  
-        tag: "UUPS",
-        name: "ERC20UUPSUpgradeableImports", 
-        content: `import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";`
-    },
     
     { 
         snippet_id: 1, 
@@ -162,7 +153,7 @@ const CustomSCode =[
         section: "ContractStart",  
         tag: "Default",
         name: "ERC20DefaultContractNames", 
-        content: `is`
+        content: `${" "}is`
     },
     { 
         snippet_id: 1, 
@@ -209,17 +200,7 @@ const CustomSCode =[
         tag: "Managed",
         name: "ERC20ManagedContractNames", 
         content: `AccessManaged`
-    },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "upgradeableContractNames",  
-        tag: "Default",
-        name: "ERC20DefaultContractNames", 
-        content: `Initializable`
-    },
-    
+    },    
     { 
         snippet_id: 1, 
         wizard_id: 1,
@@ -291,10 +272,16 @@ const CustomSCode =[
         contractType_id: 1, 
         section: "Constructor",  
         tag: "Roles",
-        name: `constructor(address defaultAdmin) {
-            _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);
-        }
-    `
+        content: `constructor(address defaultAdmin) {
+        _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Constructor",  
+        tag: "Pausable",
+        content: `_grantRole(PAUSER_ROLE, pauser);`
     },
     { 
         snippet_id: 1, 
@@ -303,10 +290,7 @@ const CustomSCode =[
         section: "Constructor",  
         tag: "Managed",
         name: "ERC20ManagedConstructor", 
-        content: `constructor(address defaultAdmin) {
-            _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);
-        }
-    `
+        content: `constructor(address initialAuthority) AccessManaged(initialAuthority) {}`
     },
     { 
         snippet_id: 1, 
@@ -316,9 +300,9 @@ const CustomSCode =[
         tag: "Default",
         name: "ERC20upgradeableConstructor", 
         content: `/// @custom:oz-upgrades-unsafe-allow constructor
-        constructor() {
-            _disableInitializers();
-        }
+    constructor() {
+        _disableInitializers();
+    }
     `
     },
     { 
@@ -326,14 +310,140 @@ const CustomSCode =[
         wizard_id: 1,
         contractType_id: 1, 
         section: "upgradeableFunctions",  
-        tag: "Transparent",
+        tag: "PausableSection1",
         name: "ERC20BurnableupgradeableFunctions", 
-        content: `function initialize(address initialOwner) initializer public {
-            __Pausable_init();
-            __Ownable_init(initialOwner);
-        }
-    `
+        content: `__Pausable_init();`
     },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "uupsSection1",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `__UUPSUpgradeable_init();`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "Ownable",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `__Ownable_init(initialOwner);`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "Roles",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `__AccessControl_init();`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "Managed",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `__AccessManaged_init(initialAuthority);`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "RolesB",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `_grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "PausableB",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `_grantRole(PAUSER_ROLE, pauser);`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "UpgraderB",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `_grantRole(UPGRADER_ROLE, upgrader);`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "defaultHeader",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `function initialize(`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "ownableHeader",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `address initialOwner`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "rolesHeader",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `address defaultAdmin`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "managedHeader",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `address initialAuthority`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "pausableHeader",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `, address pauser`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "uupsHeader",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `, address upgrader`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableFunctions",  
+        tag: "endHeader",
+        name: "ERC20BurnableupgradeableFunctions", 
+        content: `) initializer public`
+    },
+    
+
+    
+
     { 
         snippet_id: 1, 
         wizard_id: 1,
@@ -341,12 +451,7 @@ const CustomSCode =[
         section: "upgradeableFunctions",  
         tag: "UUPS",
         name: "ERC20PausableupgradeableFunctions", 
-        content: `function initialize(address initialOwner) initializer public {
-        __Pausable_init();
-        __Ownable_init(initialOwner);
-        __UUPSUpgradeable_init();
-    }
-    `
+        content: `__UUPSUpgradeable_init();`
     },
     { 
         snippet_id: 1, 
@@ -372,10 +477,10 @@ const CustomSCode =[
         tag: "UUPS",
         name: "ERC20UUPSSection2", 
         content: `function _authorizeUpgrade(address newImplementation)
-        internal
-        onlyOwner
-        override
-    {}
+                internal
+                onlyOwner
+                override
+        {}
 `
     }
 ];
