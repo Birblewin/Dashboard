@@ -4,6 +4,7 @@
 import Tool from "./Tool";
 import {useRecoilState} from "recoil"
 import { ERC20CAccessControl, ERC20CAccessControlOwnable, ERC20CAccessControlRoles, ERC20CBurnable, ERC20CLicense, ERC20CMintable, ERC20CName, ERC20CPauseable, ERC20CPremint, ERC20CSymbol, ERC20CUpgradeable } from "@/store/ERC20C";
+import checkIfNumber from "@/lib/checkIfNumber";
 
 
 
@@ -59,9 +60,10 @@ const ERC20 = ()=>{
     
         // If Mintable is true, set Access Control to true
         if (isChecked) {
+            if(!accessControl){
             setAccessControl(true);
             setOwnable(true)
-            
+            }
         } else {
             // If both Burnable and Pauseable are false, set Access Control to false
             if (!pauseable && !upgradeable) {
@@ -78,9 +80,10 @@ const ERC20 = ()=>{
         
         // If Pauseable is true, set Access Control to true
         if (isChecked) {
+            if(!accessControl){
             setAccessControl(true);
             setOwnable(true)
-            
+            }
         } else {
             // If both Burnable and Pauseable are false, set Access Control to false
             if (!mintable && !upgradeable) {
@@ -97,9 +100,10 @@ const ERC20 = ()=>{
         
         // If Pauseable is true, set Access Control to true
         if (isChecked) {
+            if(accessControl){
             setAccessControl(true);
             setOwnable(true)
-            
+            }
         } else {
             // If both Burnable and Pauseable are false, set Access Control to false
             if (!mintable && !pauseable) {
@@ -109,6 +113,19 @@ const ERC20 = ()=>{
             }
         }
     };
+
+    const handlePremintChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        if(value == ''){
+            setPremint(value);
+        }
+        else{
+            if (checkIfNumber(value, true)) {
+                setPremint(value);
+            }
+        }    
+      };
+      
 
     
 
@@ -165,7 +182,7 @@ const ERC20 = ()=>{
                         </label>
                         <Tool tooltipText="Create an initial amount of tokens for the deployer." />
                     </div>
-                    <input  id="uri" type="text" placeholder="0" className="border border-1 border-[#333333] rounded-[6px] p-1  text-black" value={premint}  onChange={(e) => setPremint(e.target.value)}/>
+                    <input  id="uri" type="text" placeholder="0" className="border border-1 border-[#333333] rounded-[6px] p-1  text-black" value={premint}  onChange={ handlePremintChange}/>
                 </div>
             </div>
             <hr className="my-4"></hr>
