@@ -564,7 +564,8 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721VotesU
         section: "Constructor",  
         tag: "Upgradable",
         name: "ERC721UpgradableConstructor", 
-        content: `/// @custom:oz-upgrades-unsafe-allow constructor
+        content: `
+        /// @custom:oz-upgrades-unsafe-allow constructor
         constructor() {
             _disableInitializers();
         }`

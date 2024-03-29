@@ -2,6 +2,7 @@
 import { ERC721CName, ERC721CLicense, ERC721CSymbol, ERC721CMintable, ERC721CPauseable, ERC721CAccessControl, ERC721CBurnable, ERC721CUpgradeable, ERC721CAccessControlRoles, ERC721CAccessControlOwnable, ERC721CBaseURI } from "@/store/ERC721C";
 import Tool from "./Tool";
 import {atom, useRecoilState} from "recoil"
+import { useEffect } from "react";
 
 const ERC721C = ()=>{
 
@@ -18,7 +19,12 @@ const ERC721C = ()=>{
     const [BaseURI, setBaseURI] = useRecoilState(ERC721CBaseURI);
     
 
-
+    useEffect(() => {
+        console.log("Ownable state",ownable);
+    }, [ownable]);
+    useEffect(() => {
+        console.log("Roles state",roles);
+    }, [roles]);
       const handleAccessControlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         const isChecked = e.target.checked;
@@ -55,7 +61,7 @@ const ERC721C = ()=>{
             
         } else {
             // If both Burnable and Pauseable are false, set Access Control to false
-            if (!pauseable) {
+            if (!pauseable && !upgradeable) {
                 setAccessControl(false);
                 setOwnable(false)
                 setRoles(false)
@@ -74,7 +80,7 @@ const ERC721C = ()=>{
             
         } else {
             // If both Burnable and Pauseable are false, set Access Control to false
-            if (!mintable) {
+            if (!mintable && !upgradeable) {
                 setAccessControl(false);
                 setOwnable(false)
                 setRoles(false)
@@ -85,7 +91,7 @@ const ERC721C = ()=>{
     const handleUpgradableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUpgradeable(!upgradeable);
         const isChecked = e.target.checked;
-        
+       
         // If Upgradable is true, set Access Control to true
         if (isChecked) {
             setAccessControl(true);
@@ -93,7 +99,7 @@ const ERC721C = ()=>{
             
         } else {
             // If both Burnable and Pauseable are false, set Access Control to false
-            if (!mintable) {
+            if (!mintable  && !pauseable) {
                 setAccessControl(false);
                 setOwnable(false)
                 setRoles(false)
@@ -135,7 +141,7 @@ const ERC721C = ()=>{
                         <label htmlFor="name" className="text-[#333333] text-[0.875rem]  ">
                             Name
                         </label>
-                        <input  id="name" type="text" placeholder="My Token" className="border border-1 border-[#333333] rounded-[6px] p-1"
+                        <input  id="name" type="text" placeholder="MyToken" className="border border-1 border-[#333333] rounded-[6px] p-1"
                         value={name}  onChange={(e) => setName(e.target.value)}
                         />
                     </div>
@@ -216,7 +222,7 @@ const ERC721C = ()=>{
                         checked={upgradeable}
                         onChange={handleUpgradableChange}
                     />
-                    <label className="ml-[0.5rem] text-[#333333] ">Upgradable</label>
+                    <label className="ml-[0.5rem] text-[#333333] ">Upgradeable</label>
                     </div>
                     <Tool tooltipText="Smart contracts are immutable by default unless they include code that allows them to be upgraded." link='https://docs.openzeppelin.com/contracts-cairo/upgrades' linktext='Read more'/>
                 </div>
@@ -243,6 +249,7 @@ const ERC721C = ()=>{
                     <input
                         title="Ownable"
                         type="radio"
+                        name="access"
                         className="form-checkbox h-3 w-3"
                         value="ownable"
                         checked={ownable}
@@ -258,6 +265,7 @@ const ERC721C = ()=>{
                     <input
                         title="Roles"
                         type="radio"
+                        name="access"
                         className="radio h-3 w-3"
                         value="roles"
                         checked={roles}
