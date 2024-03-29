@@ -73,6 +73,10 @@ export const ManagedConstructor1: string[] = getCodeContent("Constructor", "Mana
 export const ManagedConstructor2: string[] = getCodeContent("Constructor", "Managed2");
 export const UpgradableConstructor: string[] = getCodeContent("Constructor", "Upgradable");
 
+export const MintableBytes: string[] = getCodeContent("Bytes", "MintableBytes");
+export const PausableBytes: string[] = getCodeContent("Bytes", "PausableBytes");
+export const UpdatableBytes: string[] = getCodeContent("Bytes", "UpdatableBytes");
+export const RolesByte: string[] = getCodeContent("RolesByte");
 export const MintableFunctions: string[] = getCodeContent("Functions", "Mintable");
 export const PausableFunctions: string[] = getCodeContent("Functions", "Pausable");
 export const Ownable: string[] = getCodeContent("Functions", "Ownable");
@@ -138,13 +142,13 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
         erc1155supplyTracking ? InitializeSupplyTrackingFunctions : "",
         erc1155updatableURI ? InitializeUpdatableURIFunctions : "",
         erc1155pausable ? InitializePausableFunctions : "",
-        erc1155burnable ? '\n\t\t ' +InitializeBurnableFunctions : "",
+        erc1155burnable ? '\n\t\t ' + InitializeBurnableFunctions : "",
         erc1155managed ? InitializeManagedFunctions : "",
         erc1155roles ? '\n\t\t' + InitializeRolesFunctions : "",
         erc1155ownable ? InitializeOwnableFunctions : "",
         erc1155uups ? '\n\t\t' + InitializeUUPSFunctions : "",
         erc1155roles ? '\n\t\t' + InitializeRolesFunctions2 : "",
-        erc1155ownable ? '\n\t\t ' +Roles : "",
+        erc1155ownable ? '\n\t\t ' + Roles : "",
     ].join('').trim();
     const TransparentFunction = [
         `  function initialize() initializer public {
@@ -179,7 +183,7 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
 
 
     const MintableFunctions = [
-    `
+        `
     function mint(address account, uint256 id, uint256 amount, bytes memory data)
             \t\tpublic
          \t\t\t${erc1155ownable ? Ownable : ""}${erc1155roles ? Roles1 : ""}${erc1155managed ? Managed : ""}
@@ -187,7 +191,7 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
         _mint(account, id, amount, data);
     }`,
 
-    `\n\tfunction mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
+        `\n\tfunction mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
         \t\t   public
     \t\t\t   ${erc1155ownable ? Ownable : ""}${erc1155roles ? Roles1 : ""}${erc1155managed ? Managed : ""}
          {
@@ -197,7 +201,7 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
     ]
 
     const SetURIFunctions = [
-    `\n\tfunction setURI(string memory newuri) public ${erc1155ownable ? Ownable : ""} ${erc1155roles ? UpdatableURIRoleFunction : ""}${erc1155managed ? Managed : ""}{
+        `\n\tfunction setURI(string memory newuri) public ${erc1155ownable ? Ownable : ""} ${erc1155roles ? UpdatableURIRoleFunction : ""}${erc1155managed ? Managed : ""}{
          _setURI(newuri);
     }`
     ]
@@ -215,17 +219,17 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
 
     const UpgradableSupportInterfaceFunctions = [
         `function supportsInterface(bytes4 interfaceId)
-                public
-                view
-                override(ERC1155${InterfaceUpgrade}, AccessControl${InterfaceUpgrade})
-                returns (bool)
-         {
-        return super.supportsInterface(interfaceId);
-    }`
+                    public
+                    view
+                    override(ERC1155${InterfaceUpgrade}, AccessControl${InterfaceUpgrade})
+                    returns (bool)
+          {
+          return super.supportsInterface(interfaceId);
+     }`
     ]
     const PausableFunctions = [
 
-    `function pause() public ${erc1155ownable ? Ownable : ""}${erc1155roles ? AccesRoles2 : ""}${erc1155managed ? Managed : ""} {
+        `function pause() public ${erc1155ownable ? Ownable : ""}${erc1155roles ? AccesRoles2 : ""}${erc1155managed ? Managed : ""} {
          _pause();
     }
         
@@ -234,11 +238,17 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
     }`
     ].join('').trim();
 
+    const RolesByte = [
+         erc1155updatableURI ? UpdatableBytes : "",
+         erc1155pausable ? "\t" + PausableBytes : "",
+         erc1155mintable ? "\t" + MintableBytes : ""    
+    ].join('').trim();
+
 
     const upgradeableFunctions = [
         erc1155upgradability ? TransparentFunction : "",
         erc1155mintable ? '\n\t\t ' + MintableFunctions : "",
-        erc1155pausable ? ' ' + PausableFunctions : "",
+        erc1155pausable ? '\n\t' + PausableFunctions : "",
         erc1155uups ? '\n\t  ' + UUPSFunctions : "",
         erc1155roles ? '\n\n\t' + UpgradableSupportInterfaceFunctions : "",
         shouldRenderStarter ? '\n\t\t' + starter : "",
@@ -265,8 +275,10 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
     const constructor = [
         `
          ${erc1155uups ? UupsConstructor2 : ""}
-        constructor(${erc1155managed ? ManagedConstructor1 : ""}${erc1155ownable ? OwnableConstructor1 : ""}${erc1155roles ? RolesConstructor1 : ""}) ERC1155("${baseUrl}") ${erc1155ownable ? '  ' + OwnableConstructor2 + '\n\t\t' : ''}${erc1155managed ? ManagedConstructor2 + '\n\t\t' : ''}{${erc1155roles ? '\n\t\t' + RolesConstructor2 + '\n\t\t\t\t' : ""}${erc1155roles ? Roles2 : ""}}`
+        constructor(${erc1155managed ? ManagedConstructor1 : ""}${erc1155ownable ? OwnableConstructor1 : ""}${erc1155roles ? RolesConstructor1 : ""}) ERC1155("${baseUrl}") ${erc1155ownable ? '  ' + OwnableConstructor2 + '\n\t\t' : ''}${erc1155managed ? ManagedConstructor2 + '\n\t\t' : ''}{${erc1155roles ? '\n\t\t' + RolesConstructor2 + '\n\t\t' : ""}${erc1155roles ? Roles2 : ""}}`
     ].join('').trim();
+
+
 
     const UpgradeableContract = [
         ContractHeader,
@@ -325,6 +337,7 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
             `/// @custom:security-contact ${securityContact}` : "",
 
         erc1155upgradability ? UpgradeableContract : contract,
+        erc1155roles ? "\t" + RolesByte : "",
         erc1155upgradability ? upgradeableConstructor : '\t' + constructor,
         erc1155upgradability ? '\t' + upgradeableFunctions : '\t ' + functions,
 
