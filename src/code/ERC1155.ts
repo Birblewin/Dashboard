@@ -455,7 +455,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "Constructor",
         tag: "Upgradable",
         name: "ERC1155UpgradableConstructor",
-        content: `/// @custom:oz-upgrades-unsafe-allow constructor
+        content: `\t/// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
     }`
