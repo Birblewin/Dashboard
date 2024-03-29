@@ -287,7 +287,7 @@ export default function ERC1155() {
         </div>
 
         <div className="mt-2">
-          <label className={`flex items-center justify-between cursor-pointer 'bg-gray-100' : ''}`}>
+          <label className={`flex items-center justify-between cursor-pointer ${ownable ? 'bg-gray-100' : ''}`}>
             <div className="m-[0.5rem] flex items-center">
               <input
                 title="Ownable"
