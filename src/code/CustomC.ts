@@ -204,10 +204,7 @@ const CustomCCode =[
             tag: "Ownable",
             name: "RolesComponent", 
             content: `#[abi(embed_v0)]
-    impl OwnableImpl = OwnableComponent::OwnableImpl<ContractState>;
-    #[abi(embed_v0)]
-    impl OwnableCamelOnlyImpl = OwnableComponent::OwnableCamelOnlyImpl<ContractState>;
-            `
+    impl OwnableMixinImpl = OwnableComponent::OwnableMixinImpl<ContractState>;`
         },
         { 
             snippet_id: 1, 
@@ -217,12 +214,7 @@ const CustomCCode =[
             tag: "Roles",
             name: "RolesComponent", 
             content: `#[abi(embed_v0)]
-    impl AccessControlImpl = AccessControlComponent::AccessControlImpl<ContractState>;
-    #[abi(embed_v0)]
-    impl AccessControlCamelImpl = AccessControlComponent::AccessControlCamelImpl<ContractState>;
-    #[abi(embed_v0)]
-    impl SRC5Impl = SRC5Component::SRC5Impl<ContractState>;
-            `
+    impl AccessControlMixinImpl = AccessControlComponent::AccessControlMixinImpl<ContractState>;`
         },
         { 
             snippet_id: 1, 

@@ -84,8 +84,7 @@ export const RolesUpgradeableABI: string[] = getCodeContent("UpgradeableABI", "R
   
 export function generateERC20CCode(erc20cburnable: boolean,erc20cmintable: boolean,  erc20cpausable: boolean,  erc20croles: boolean, erc20cownable: boolean,  erc20cupgradeable: boolean, erc20cpremint: string, erc20cname: string, erc20clicense: string, erc20csymbol: string): string {
 
-  const License = `
-  // SPDX-License-Identifier: ${erc20clicense}`;
+  const License = `// SPDX-License-Identifier: ${erc20clicense}`;
   const ContractHeader = `mod ${erc20cname} {`;
   const PremintConstructor = `self.erc20._mint(recipient, ${erc20cpremint}000000000000000000);`;
   const ConstructorReturn = `self.erc20.initializer("${erc20cname}", "${erc20csymbol}");`
@@ -93,9 +92,9 @@ export function generateERC20CCode(erc20cburnable: boolean,erc20cmintable: boole
 
     const Variables = [
     erc20cpausable? "\n"+PausableVariable : "",
-    !erc20cpausable && erc20cmintable? "\n":'',
+    erc20cmintable && !erc20cpausable? " ": "",
     erc20cmintable? MintableVariable: "",
-    !erc20cmintable && !erc20cpausable && erc20cupgradeable? "\n": '',
+    erc20cupgradeable && !erc20cpausable && !erc20cmintable? " ": "",
     erc20cupgradeable? UpgradeableVariable : "",
   ].filter(Boolean).join('\n');
 

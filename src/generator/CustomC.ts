@@ -21,7 +21,7 @@ const WizardTag: string[] = getCodeContent("WizardTag");
 const PausableZeppelinImport: string[] = getCodeContent("ZeppelinImports", "Pausable");
 const OwnableZeppelinImport: string[] = getCodeContent("ZeppelinImports", "Ownable");
 const RolesZeppelinImport: string[] = getCodeContent("ZeppelinImports", "Roles");
-const UpgradeableZeppelinImport: string[] = getCodeContent("ZeppelimImports", "Upgradeable");
+const UpgradeableZeppelinImport: string[] = getCodeContent("ZeppelinImports", "Upgradeable");
 const UpgradeableStarknetImport: string[] = getCodeContent("StarknetImports", "Upgradeable");
 const AccessControlStarknetImport: string[] = getCodeContent("StarknetImports", "AccessControl");
 const SuperImport: string[] = getCodeContent("SuperImports", "Default");
@@ -30,13 +30,15 @@ const SuperImport: string[] = getCodeContent("SuperImports", "Default");
  const ContractHeader: string[] = getCodeContent("ContractHeader");
  const Component: string[] = getCodeContent("Components", "Default");
  const PausableComponent: string[] = getCodeContent("Components", "Pausable");
+ const RolesComponent: string[] = getCodeContent("Components", "Roles");
+ const OwnableComponent: string[] = getCodeContent("Components", "Ownable");
  const UpgradeableComponent: string[] = getCodeContent("Components", "Upgradeable");
  const PausableEmbed: string[] = getCodeContent("Embeds", "Pausable");
  const OwnableEmbed: string[] = getCodeContent("Embeds", "Ownable");
  const RolesEmbed: string[] = getCodeContent("Embeds", "Roles");
  const PausableIMPL: string[] = getCodeContent("IMPLS", "Pausable");
  const OwnableIMPL: string[] = getCodeContent("IMPLS", "Ownable");
- const RolesIMPL: string[] = getCodeContent("Components", "Roles");
+ const RolesIMPL: string[] = getCodeContent("IMPLS", "Roles");
  const UpgradeableIMPL: string[] = getCodeContent("IMPLS", "Upgradeable");
  const Storage: string[] = getCodeContent("Storage", "Default");
  const PausableStorage: string[] = getCodeContent("Storage", "Pausable");
@@ -72,13 +74,12 @@ export function generateCustomCCode(customcupgradeable: boolean,customcpausable:
   const ContractHeader = `mod ${customcname} {`;
       
   const Variables = [
-    customcpausable? PausableVariable : "",
-    customcupgradeable? UpgradeableVariable : "",
-    "\n"
+    customcpausable? "\n"+PausableVariable : "",
+    customcupgradeable && !customcpausable ? " ": "",
+    customcupgradeable? UpgradeableVariable : ""
   ].filter(Boolean).join('\n');
 
   const  Zeppelin = [
-    
     customcpausable? "\t"+PausableZeppelinImport: "",
     customcownable ? "\t"+OwnableZeppelinImport: "",
     customcroles? "\t"+RolesZeppelinImport: "",
@@ -86,7 +87,6 @@ export function generateCustomCCode(customcupgradeable: boolean,customcpausable:
   ].filter(Boolean).join('\n'); 
   
   const  Starknet = [
-    
     customcownable || customcroles  ? "\t"+AccessControlStarknetImport: "",
     customcupgradeable? "\t"+UpgradeableStarknetImport: ""
   ].filter(Boolean).join('\n'); 
@@ -102,21 +102,26 @@ export function generateCustomCCode(customcupgradeable: boolean,customcpausable:
   const  Components = [
     "\t"+Component,
     customcpausable? "\t"+PausableComponent: "",
-    customcownable  ? "\t"+OwnableZeppelinImport: "",
-    customcroles ? "\t"+RolesZeppelinImport: "",
+    customcownable  ? "\t"+OwnableComponent: "",
+    customcroles ? "\t"+RolesComponent: "",
     customcupgradeable ? "\t"+UpgradeableComponent: ""
   ].filter(Boolean).join('\n'); 
 
   const  Embeds = [
-    customcpausable? "\t"+PausableEmbed: "",
+    customcpausable? "\n"+"\t"+PausableEmbed: "",
+    !customcpausable && customcownable ? " ": '',
     customcownable  ? "\t"+OwnableEmbed: "",
+    !customcpausable && !customcownable && customcroles? " ": "",
     customcroles ? "\t"+RolesEmbed: "", 
   ].filter(Boolean).join('\n'); 
 
   const IMPLS = [
-    customcpausable? "\t"+PausableIMPL : "",
+    customcpausable? "\n"+"\t"+PausableIMPL : "",
+    !customcpausable && customcownable ? " ": "",
     customcownable? "\t"+OwnableIMPL: "",
+    !customcpausable && !customcownable && customcroles? " ": "",
     customcroles ? "\t"+RolesIMPL: "",
+    !customcpausable && !customcownable && !customcroles && customcupgradeable? " ": "",
     customcupgradeable? "\t"+UpgradeableIMPL : ""
   ].filter(Boolean).join('\n');
 
@@ -173,7 +178,7 @@ export function generateCustomCCode(customcupgradeable: boolean,customcpausable:
     License,
     Compatibility,
     Variables,
-    WizardTag,
+    "\n"+WizardTag,
     ContractHeader,
     Zeppelin,
     Starknet,
