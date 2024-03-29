@@ -42,6 +42,8 @@ const ERC20 = ()=>{
         } else if (e.target.value === 'uups') {
           setUUPS(true);
           setTransparent(false);
+          setAccessControl(true);
+          setOwnable(true);
         }
         setUpgradeability(true); // Set the checkbox to true if either radio input is true
       };
@@ -65,7 +67,7 @@ const ERC20 = ()=>{
         
         // If either Burnable or Pauseable is true, set Access Control to true
     
-        if (isChecked || mintable || pauseable) {
+        if (isChecked || mintable || pauseable || UUPS) {
             setAccessControl(true);
             
         } else {
@@ -137,7 +139,7 @@ const ERC20 = ()=>{
         const value = e.target.value;
         const isChecked = e.target.checked;
 
-        if (!mintable && !pauseable) {
+        if (!mintable && !pauseable && !UUPS) {
         
             if (value === 'access') {
             

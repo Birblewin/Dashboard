@@ -49,6 +49,22 @@ export const UUPSSection3: string[] = getCodeContent("Section3", "UUPS");
 export const VotesSection3: string[] = getCodeContent("Section3", "Votes");
 export const TransparentSection1: string[] = getCodeContent("upgradeableFunctions", "Transparent");
 export const UUPSSection1: string[] = getCodeContent("upgradeableFunctions", "UUPS");
+const rolesSection1: string[] = getCodeContent("upgradeableFunctions", "Roles");
+const ownableSection1: string[] = getCodeContent("upgradeableFunctions", "Ownable");
+const managedSection1: string[] = getCodeContent("upgradeableFunctions", "Managed");
+const roles2Section1: string[] = getCodeContent("upgradeableFunctions", "RolesB");
+const pausable2Section1: string[] = getCodeContent("upgradeableFunctions", "PausableB");
+const upgrader2Section1: string[] = getCodeContent("upgradeableFunctions", "UpgraderB");
+const  defaultHeader: string[] = getCodeContent("upgradeableFunctions", "defaultHeader");
+const ownableHeader: string[] = getCodeContent("upgradeableFunctions", "ownableHeader");
+const managedHeader: string[] = getCodeContent("upgradeableFunctions", "managedHeader");
+const rolesHeader: string[] = getCodeContent("upgradeableFunctions", "rolesHeader");
+const pausableHeader: string[] = getCodeContent("upgradeableFunctions", "pausableHeader");
+const uupsHeader: string[] = getCodeContent("upgradeableFunctions", "uupsHeader");
+const endHeader: string[] = getCodeContent("upgradeableFunctions", "endHeader");
+const uupsSection1: string[] = getCodeContent("upgradeableFunctions", "uupsSection1");
+const pausableSection1: string[] = getCodeContent("upgradeableFunctions", "PausableSection1");
+
 
 
    
@@ -56,7 +72,8 @@ export const UUPSSection1: string[] = getCodeContent("upgradeableFunctions", "UU
 export function generateCustomSCode(customsupgradeable: boolean,customspausable: boolean, customsroles : boolean, customsownable : boolean, customsmanaged : boolean, customsupgradeability : boolean, customsUUPS : boolean, customssecuritycontact : string, customsname: string, customslicense: string): string {
 
   const License = `// SPDX-License-Identifier: ${customslicense}`;
-  const SecurityContact = `/// @custom:security-contact ${customssecuritycontact}`;
+  const SecurityContact = `
+  /// @custom:security-contact ${customssecuritycontact}`;
   const ContractHeader = `contract ${customsname}`;
       
 
@@ -130,6 +147,38 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
   ].filter(Boolean);
 
 
+  const upgradeableFunctionHeader = [
+    defaultHeader,
+    customsownable? ownableHeader: '',
+    customsmanaged? managedHeader: '',
+    customsroles? rolesHeader: '',
+    customsroles && customspausable? pausableHeader: '',
+    customsroles && customsUUPS? uupsHeader: '',
+    endHeader
+  ].filter(Boolean).join("").trim();
+
+
+  const section1 = [
+    '\t'+'\t'+ "{",
+    customspausable? '\t'+'\t'+pausableSection1: '',
+    customsroles? '\t'+'\t'+rolesSection1: '',
+    customsownable? '\t'+'\t'+ownableSection1: '',
+    customsmanaged? '\t'+'\t'+managedSection1: '',
+    customsUUPS? '\t'+'\t'+uupsSection1: '',
+    customspausable || customsUUPS || customsroles ? '  ':'',
+    customsroles? '\t'+'\t'+roles2Section1: '',
+    customspausable? '\t'+'\t'+pausable2Section1: '',
+    customsUUPS? '\t'+'\t'+upgrader2Section1: '',
+    '\t'+"}"
+  ].filter(Boolean).join("\n");
+
+
+  const UpgraderFunction = [
+    upgradeableFunctionHeader,
+    section1
+  ].filter(Boolean).join("\n");
+
+
 
   
 
@@ -138,23 +187,19 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
     CodeVersion,
     !customsupgradeability && !customsUUPS? Imports: "",
     customsupgradeability || customsUUPS? upgradeableImports: "",
-    "  ",
     customssecuritycontact? SecurityContact : "",
     contract,
     customspausable && customsroles ? "\t" + PausableRolesByte: "",
     customsUUPS && customsroles ? "\t"+UUPSRolesByte: "",
     !customsupgradeability && !customsUUPS? "\t"+constructor: '',
     customsupgradeability || customsUUPS? "\t" + UpgradeableConstructor: '',
-    customsupgradeability ? "\t"+TransparentSection1 : "",
-    customsUUPS? "\t"+UUPSSection1 : "",
+    customsupgradeability || customsUUPS ? "\t"+UpgraderFunction : "",
     customspausable? "\t"+PausableSection2 : "",
     customsUUPS ? "\t"+UUPSSection3 : "",
    "}"
   ].filter(Boolean).join('\n').trim();
 
-    return `
-     ${result}
-  `;
+    return `${result}`;
   }
   
 

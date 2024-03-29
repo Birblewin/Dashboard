@@ -77,8 +77,7 @@ export const FlashMintingSection1: string[] = getCodeContent("upgradeableFunctio
   
 export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spermit: boolean, erc20supgradeable: boolean, erc20sUUPS: boolean, erc20ssecutitycontact: string , erc20slicense: string, erc20sname: string, erc20ssymbol: string, erc20spremint: string): string {
 
-    const License = `
-// SPDX-License-Identifier: ${erc20slicense}`
+    const License = `// SPDX-License-Identifier: ${erc20slicense}`
     const SecurityContact = `/// @custom:security-contact ${erc20ssecutitycontact}`
     const ContractHeader = `contract ${erc20sname} is `
     const DefaultConstructor = `constructor() ERC20("${erc20sname}", "${erc20ssymbol}") ` + (erc20spermit ? `ERC20Permit("${erc20ssymbol}")` : "");
@@ -274,11 +273,9 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
     section2,
     section3,
     "}"
-  ].filter(Boolean).join('\n'); 
+  ].filter(Boolean).join('\n').trim(); 
 
-    return `
-     ${result}
-  `;
+    return `${result}`;
   }
   
 
