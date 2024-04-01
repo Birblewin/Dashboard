@@ -149,10 +149,6 @@ export function generateERC20CCode(erc20cburnable: boolean,erc20cmintable: boole
 
   ].filter(Boolean).join('\n');
 
-  console.log("ERC20CRoles", erc20croles);
-  console.log("ERC20COwnable", erc20cownable);
-
-
   const Storages = [
     "\n"+"\t"+Storage,
     erc20cpausable? "\t"+"\t"+PausableStorage : "",

@@ -5,9 +5,6 @@ const name = ERC20SName;
 const license = ERC20SLicense;
 const contact = ERC20SSecurityContact;
 
-
-console.log(ERC20SName);
-
 const PermitConstructor =
     { 
         snippet_id: 1, 
