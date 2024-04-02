@@ -35,10 +35,10 @@ function Download({handleClick}: ButtonProps) {
   return (
     <div>
       <button
-        className="font-bold text-black border p-2 rounded hover:bg-gray-200"
+        className="font-bold text-white hover:border-[#4D3C77] hover:bg-[#4D3C77] border p-2 rounded"
         onClick={handleButtonClick}
       >
-        <DownloadIcon width={15} height={15} />
+        <DownloadIcon width={15} height={15}  />
         Download
       </button>
       {showPopup && (

@@ -27,7 +27,7 @@ function CopyBtn({handleClick}: CopyButtonProps) {
   };
   return (
     <div>
-       <button className="font-bold text-black border p-2 rounded hover:bg-gray-200 flex gap-1" onClick={handleCopyClick}>
+       <button className="font-bold text-white hover:border-[#4D3C77] hover:bg-[#4D3C77] border p-2 rounded  flex gap-1" onClick={handleCopyClick}>
           {isCopied ? (
             <>
               <CheckIcon width={12} height={12} />

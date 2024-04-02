@@ -35,7 +35,7 @@ export default function Navbar() {
   }, [pathName, setCurrentTab]);
 
   return (
-    <nav className="flex flex-row items-center p-4 justify-between bg-[#ffffff] mb-8">
+    <nav className="flex flex-row items-center p-4 justify-between bg-transparent mb-8">
       {/* VISIBLE FOR SMALL ONLY */}
       <Link
         href={"https://www.birbleai.com/"}
@@ -134,7 +134,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href={"https://t.me/birblemain"}
+              href={"https://www.birbleai.com/dashboard"}
               className="font-medium text-[1rem] ml-4 text-[#333333]"
               target="_blank"
               rel="noreferrer"
@@ -145,11 +145,11 @@ export default function Navbar() {
                 }))
               }
             >
-              Forum
+              Home
             </Link>
 
             <Link
-              href={"https://www.birbleai.com/"}
+              href={"https://docs.openzeppelin.com/"}
               className="font-medium text-[1rem] ml-4 text-[#333333]"
               target="_blank"
               rel="noreferrer"
@@ -214,10 +214,12 @@ export default function Navbar() {
             href={"https://www.birbleai.com/"}
             className="font-semibold lg:text-xl text-lg ml-2 text-[#333333] hidden lg:block my-auto"
           >
-            Birble AI
-            <span className="font-light lg:text-xl text-lg text-[#333333]">
-              | contracts
+            <h2 className="overflow-hidden max-h-8 text-2xl font-bold text-white">Birble
+            <span className="text-transparent text-2xl bg-clip-text bg-gradient-to-r from-pink-500 via-violet-500 to-emerald-300">AI </span>
+            <span className="font-light lg:text-xl text-lg text-[white]">
+              contracts
             </span>
+            </h2>
           </Link>
         </div>
 
@@ -226,7 +228,7 @@ export default function Navbar() {
             className={`${
               currentTab === "Solidity"
                 ? "border-none bg-gradient-to-r from-[#51d4ff] to-[#4e5de4] text-white p-2 ml-4 rounded-[0.5rem]"
-                : "group bg-white border-[1.5px] hover:border-none border-[#4e5de4] hover:bg-gradient-to-r hover:from-[#51d4ff] hover:to-[#4e5de4]  ml-4 rounded-[0.5rem] p-2 hover:text-white"
+                : "group bg-transparent border-[1.5px] hover:border-none border-[#4e5de4] hover:bg-gradient-to-r hover:from-[#51d4ff] hover:to-[#4e5de4]  ml-4 rounded-[0.5rem] p-2 hover:text-white"
             }`}
           >
             <div
@@ -244,7 +246,7 @@ export default function Navbar() {
             className={`${
               currentTab === "Cairo"
                 ? "border-none bg-gradient-to-r from-[#fe9149] to-[#fe4a3c] text-white p-2 ml-4 rounded-[0.5rem]"
-                : "group bg-white border-[1.5px] hover:border-none border-[#fe4a3c] hover:bg-gradient-to-r hover:from-[#fe9149] hover:to-[#fe4a3c]  ml-4 rounded-[0.5rem] p-2 hover:text-white"
+                : "group bg-transparent border-[1.5px] hover:border-none border-[#fe4a3c] hover:bg-gradient-to-r hover:from-[#fe9149] hover:to-[#fe4a3c]  ml-4 rounded-[0.5rem] p-2 hover:text-white"
             }`}
           >
             <div
@@ -261,16 +263,16 @@ export default function Navbar() {
       {/* VISIBLE FROM MIDDLE UP */}
       <div className="hidden md:flex items-center">
         <Link
-          href={"https://t.me/birblemain"}
-          className="font-medium text-[1rem] ml-4 text-[#333333]"
+          href={"https://www.birbleai.com/dashboard"}
+          className="font-medium text-[1rem] ml-4 text-white"
           target="_blank"
           rel="noreferrer"
         >
           Forum
         </Link>
         <Link
-          href={"https://www.birbleai.com/"}
-          className="font-medium text-[1rem] ml-4 text-[#333333]"
+          href={"https://docs.openzeppelin.com/"}
+          className="font-medium text-[1rem] ml-4 text-white"
           target="_blank"
           rel="noreferrer"
         >
@@ -278,7 +280,7 @@ export default function Navbar() {
         </Link>
         <Link
           href={"https://github.com/Birblewin"}
-          className="font-medium text-[1rem] ml-4 text-[#333333]"
+          className="font-medium text-[1rem] ml-4 text-white"
           target="_blank"
           rel="noreferrer"
         >
@@ -286,7 +288,7 @@ export default function Navbar() {
         </Link>
         <Link
           href={"https://twitter.com/birble_AI"}
-          className="font-medium text-[1rem] ml-4 text-[#333333]"
+          className="font-medium text-[1rem] ml-4 text-white"
           target="_blank"
           rel="noreferrer"
         >
