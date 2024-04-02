@@ -138,8 +138,6 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
     "\t"+"}" 
   ].filter(Boolean).join("\n");
 
-  console.log('rolesconstructor', rolesconstructor);
-
   const constructor = [
     customsownable? OwnableConstructor: "",
     customsroles? rolesconstructor: "",

@@ -1,5 +1,5 @@
 import {  ERC20CLicense, ERC20CName, ERC20CPremint, ERC20CSymbol} from "@/store/ERC20C";
-import { getRecoil } from "recoil-nexus";
+
 
 const name = ERC20CName;
 const license = ERC20CLicense;

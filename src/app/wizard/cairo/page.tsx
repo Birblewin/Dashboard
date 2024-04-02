@@ -7,7 +7,7 @@ import CopyBtn from "@/components/CopyBtn";
 import Custom2 from "@/components/Custom2";
 import ERC20Cairo from "@/components/ERC20C"
 import ERC721C from "@/components/ERC721C";
-import {atom, useRecoilState} from "recoil"
+import {useRecoilState} from "recoil"
 import {ERC20 as ERC20Atom, ERC721 as ERC721Atom, Custom as CustomAtom} from "@/store/cairoBtns"
 
 import BuildRoundedIcon from "@mui/icons-material/BuildRounded";
@@ -60,7 +60,7 @@ export default function Cairo() {
     setIsERC721(false);
   };
   return (
-    <div className="flex flex-col gap-4 p-4 mx-4 rounded shadow-md  bg-[#ffffff]">
+    <div className="flex flex-col gap-4 p-4 mx-4 rounded shadow-md  bg-black">
       <div className=" flex flex-row justify-between p-2 mb-2 items-center">
         {/* FOR SMALL SCREENS, hamburger FOR ERC TABS */}
         <div className="md:hidden flex gap-3">
@@ -88,10 +88,10 @@ export default function Cairo() {
             <div className="flex flex-col gap-2">
               <button
                 type="button"
-                className={`font-bold py-2 px-4 rounded-md ${
+                className={`font-bold py-2 px-4 rounded-md  ${
                   selected === "ERC20"
-                    ? "bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
-                    : "text-[#575c66] hover:bg-gray-200"
+                    ? "bg-[#fe4a3c] hover:bg-red-600"
+                    : "text-white hover:bg-gray-200"
                 }`}
                 onClick={handleClickERC20}
               >
@@ -100,10 +100,10 @@ export default function Cairo() {
 
               <button
                 type="button"
-                className={`font-bold py-2 px-4 rounded-md ${
+                className={`font-bold py-2 px-4 rounded-md${
                   selected === "ERC721"
-                    ? "bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
-                    : "text-[#575c66] hover:bg-gray-200"
+                    ? "bg-[#fe4a3c] hover:bg-red-600"
+                    : "text-white hover:bg-gray-200"
                 }`}
                 onClick={handleClickERC721}
               >
@@ -115,7 +115,7 @@ export default function Cairo() {
                 className={`font-bold py-2 px-4 rounded-md ${
                   selected === "Custom"
                     ? "bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
-                    : "text-[#575c66] hover:bg-gray-200"
+                    : "text-white hover:bg-gray-200"
                 }`}
                 onClick={handleClickCustom}
               >
@@ -132,7 +132,7 @@ export default function Cairo() {
             className={`font-bold py-2 px-4 rounded-md ${
               selected === "ERC20"
                 ? "bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
-                : "text-[#575c66] hover:bg-gray-200"
+                : "text-white hover:bg-[#4D3C77] "
             }`}
             onClick={handleClickERC20}
           >
@@ -144,7 +144,7 @@ export default function Cairo() {
             className={`font-bold py-2 px-4 rounded-md ${
               selected === "ERC721"
                 ? "bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
-                : "text-[#575c66] hover:bg-gray-200"
+                : "text-white hover:bg-[#4D3C77]"
             }`}
             onClick={handleClickERC721}
           >
@@ -156,7 +156,7 @@ export default function Cairo() {
             className={`font-bold py-2 px-4 rounded-md ${
               selected === "Custom"
                 ? "bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
-                : "text-[#575c66] hover:bg-gray-200"
+                : "text-white hover:bg-[#4D3C77] "
             }`}
             onClick={handleClickCustom}
           >
@@ -234,7 +234,7 @@ export default function Cairo() {
       </div>
 
       <div className="grid md:grid-flow-row md:grid-cols-3 lg:grid-cols-4 md:grid-rows-1 gap-4 grid-flow-col grid-rows-2">
-        <div className="flex flex-col justify-between overflow-auto h-[calc(100vh-240px)] rounded shadow-md">
+        <div className="flex flex-col justify-between overflow-auto h-[calc(100vh-240px)] rounded shadow-md bg-[#232343cc]">
           {selected === "ERC20" && <ERC20Cairo />}
           {selected === "ERC721" && <ERC721C />}
           {selected === "Custom" && <Custom2 />}

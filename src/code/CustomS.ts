@@ -1,5 +1,5 @@
 import { CustomSSecurityContact, CustomSLicense, CustomSName} from "@/store/CustomS";
-import { getRecoil } from "recoil-nexus";
+
 
 const name = CustomSName;
 const license = CustomSLicense;
