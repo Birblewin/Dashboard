@@ -69,6 +69,7 @@ import {
   ERC20SLicense,
   ERC20SName,
   ERC20SSymbol,
+  ERC20SUpgradeabilityTransparent,
 } from "@/store/ERC20S";
 
 import { governorFormData } from "@/store/Governor";
@@ -165,6 +166,7 @@ function CopyBtn({handleClick}: CopyButtonProps) {
   const [erc20sname] = useRecoilState(ERC20SName);
   const [erc20ssymbol] = useRecoilState(ERC20SSymbol);
   const [erc20spremint] = useRecoilState(ERC20SPremint);
+  const [erc20stransparent] = useRecoilState(ERC20SUpgradeabilityTransparent)
 
   const ERC20InitialCode = generateERC20SCode(
     erc20sburnable,
@@ -176,8 +178,9 @@ function CopyBtn({handleClick}: CopyButtonProps) {
     erc20sownable,
     erc20smanaged,
     erc20spermit,
-    erc20supgradeable,
+    erc20stransparent,
     erc20sUUPS,
+    erc20supgradeable,
     erc20ssecuritycontact,
     erc20slicense,
     erc20sname,
