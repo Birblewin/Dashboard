@@ -60,6 +60,7 @@ import {
   ERC20SLicense,
   ERC20SName,
   ERC20SSymbol,
+  ERC20SUpgradeabilityTransparent,
 } from "@/store/ERC20S";
 
 import { governorFormData } from "@/store/Governor";
@@ -190,7 +191,8 @@ const CodeEditor = () => {
   const [erc20sownable] = useRecoilState(ERC20SAccessControlOwnable);
   const [erc20smanaged] = useRecoilState(ERC20SAccessControlManaged);
   const [erc20spermit] = useRecoilState(ERC20SPermit);
-  const [erc20supgradeable] = useRecoilState(ERC20SUpgradeability);
+  const [erc20stransparent] = useRecoilState(ERC20SUpgradeabilityTransparent);
+  const [erc20supgradeable] = useRecoilState(ERC20SUpgradeability)
   const [erc20sUUPS] = useRecoilState(ERC20SUpgradeabilityUUPS);
   const [erc20smintable] = useRecoilState(ERC20SMintable);
   const [erc20ssecuritycontact] = useRecoilState(ERC20SSecurityContact);
@@ -209,8 +211,9 @@ const CodeEditor = () => {
     erc20sownable,
     erc20smanaged,
     erc20spermit,
-    erc20supgradeable,
+    erc20stransparent,
     erc20sUUPS,
+    erc20supgradeable,
     erc20ssecuritycontact,
     erc20slicense,
     erc20sname,
@@ -249,9 +252,7 @@ const CodeEditor = () => {
   const [customsownable] = useRecoilState(CustomSAccessControlOwnable);
   const [customsmanaged] = useRecoilState(CustomSAccessControlManaged);
   const [customsupgradeable] = useRecoilState(CustomSUpgradeable);
-  const [customsupgradeability] = useRecoilState(
-    CustomSUpgradeabilityTransparent
-  );
+  const [customstransparent] = useRecoilState(CustomSUpgradeabilityTransparent);
   const [customsUUPS] = useRecoilState(CustomSUpgradeabilityUUPS);
   const [customssecuritycontact] = useRecoilState(CustomSSecurityContact);
   const [customsname] = useRecoilState(CustomSName);
@@ -263,7 +264,7 @@ const CodeEditor = () => {
     customsroles,
     customsownable,
     customsmanaged,
-    customsupgradeability,
+    customstransparent,
     customsUUPS,
     customssecuritycontact,
     customsname,

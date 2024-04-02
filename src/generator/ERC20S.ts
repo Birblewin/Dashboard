@@ -59,6 +59,7 @@ export const PausableSection2: string[] = getCodeContent("Section2", "Pausable")
 export const UUPSSection2: string[] = getCodeContent("Section2", "UUPS");
 export const PausableSection3: string[] = getCodeContent("Section3", "Pausable");
 export const VotesSection3: string[] = getCodeContent("Section3", "Votes");
+export const VotesSection3Upgradeable: string[] = getCodeContent("Section3", "VotesUpgradeable");
 export const Section1RolesHeader: string[] = getCodeContent("upgradeableFunctionsHeader", "Roles");
 export const Section1ManagedHeader: string[] = getCodeContent("upgradeableFunctionsHeader", "Managed");
 export const Section1OwnableHeader: string[] = getCodeContent("upgradeableFunctionsHeader", "Ownable");
@@ -75,7 +76,7 @@ export const FlashMintingSection1: string[] = getCodeContent("upgradeableFunctio
 
    
   
-export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spermit: boolean, erc20supgradeable: boolean, erc20sUUPS: boolean, erc20ssecutitycontact: string , erc20slicense: string, erc20sname: string, erc20ssymbol: string, erc20spremint: string): string {
+export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spermit: boolean, erc20stransparent: boolean, erc20sUUPS: boolean,erc20supgradeable:boolean, erc20ssecutitycontact: string , erc20slicense: string, erc20sname: string, erc20ssymbol: string, erc20spremint: string): string {
 
     const License = `// SPDX-License-Identifier: ${erc20slicense}`
     const SecurityContact = `/// @custom:security-contact ${erc20ssecutitycontact}`
@@ -193,11 +194,11 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
 
   const contract = [
     ContractHeader,
-    !erc20supgradeable? ContractName : "",
-    (erc20sownable || erc20sburnable || erc20spermit || erc20svotes || erc20sflashMinting) && !erc20supgradeable ? ", ": "",
-    erc20supgradeable ?  UpgradeableContractName: "",
-    !erc20supgradeable ? contractnames : "", 
-    erc20supgradeable ?  upgradeableContractnames : "",
+    !erc20stransparent && !erc20sUUPS? ContractName : "",
+    (erc20sownable || erc20sburnable || erc20spermit || erc20svotes || erc20sflashMinting) && (!erc20stransparent && !erc20sUUPS) ? ", ": "",
+    erc20stransparent || erc20sUUPS ?  UpgradeableContractName: "",
+    !erc20stransparent && !erc20sUUPS ? contractnames : "", 
+    erc20stransparent || erc20sUUPS ?  upgradeableContractnames : "",
     " {"
   ].filter(Boolean).join("").trim();
 
@@ -249,10 +250,24 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
     erc20sUUPS ? "\t" + UUPSSection2: ""
   ].filter(Boolean).join("\n");
 
-
+  const section3AUpgradeable = `function _update(address from, address to, uint256 value)
+                internal
+                override(ERC20Upgradeable${erc20spausable? ", ERC20PausableUpgradeable":""}${erc20svotes? " ,ERC20VotesUpgradeable":""})
+        {
+        super._update(from, to, value);
+    }`
+const section3A = `function _update(address from, address to, uint256 value)
+                internal
+                override(ERC20${erc20spausable? ", ERC20Pausable":""}${erc20svotes? " ,ERC20Votes":""})
+        {
+        super._update(from, to, value);
+    }`
   const section3 = [
-    erc20spausable && !erc20svotes ? "\t" + PausableSection3:"",
-    erc20svotes ? "\t" + VotesSection3: "",
+    (erc20spausable || erc20svotes) && !erc20supgradeable ? "\t" + section3A:"",
+    (erc20spausable || erc20svotes) && erc20supgradeable ? "\t" + section3AUpgradeable:"", 
+    erc20svotes && !erc20supgradeable ? "\t" + VotesSection3: "",
+    erc20svotes && erc20supgradeable ? "\t" + VotesSection3Upgradeable: "",
+
   ].filter(Boolean).join("\n");
 
   
