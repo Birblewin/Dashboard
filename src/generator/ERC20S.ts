@@ -169,26 +169,26 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
 
 
   const upgradeableContractnames = [
-    erc20sownable? OwnableUpgradeableContractName : "",
-    erc20sroles ?RolesUpgradeableContractName : "",
-    erc20smanaged ?ManagedUpgradeableContractName : "",
-    erc20sburnable? BurnableUpgradeableContractName: "",
-    erc20spausable ?PausableUpgradeableContractName : "",
-    erc20spermit?  PermitUpgradeableContractName : "",
-    erc20svotes? VotesUpgradeableContractName : "",
-    erc20sflashMinting? FlashMintUpgradeableContractName : ""
-  ].filter(Boolean).join(', ').trim();
+    erc20sownable? " ,"+OwnableUpgradeableContractName : "",
+    erc20sroles ?" ,"+RolesUpgradeableContractName : "",
+    erc20smanaged ?" ,"+ManagedUpgradeableContractName : "",
+    erc20sburnable? " ,"+BurnableUpgradeableContractName: "",
+    erc20spausable ?" ,"+PausableUpgradeableContractName : "",
+    erc20spermit?  " ,"+PermitUpgradeableContractName : "",
+    erc20svotes? " ,"+VotesUpgradeableContractName : "",
+    erc20sflashMinting? " ,"+FlashMintUpgradeableContractName : ""
+  ].filter(Boolean).join('').trim();
 
   const contractnames = [
-    erc20sownable? OwnableContractName : "",
-    erc20sroles ?RolesContractName : "",
-    erc20smanaged ?ManagedContractName : "",
-    erc20sburnable? BurnableContractName: "",
-    erc20spausable ?PausableContractName : "",
-    erc20spermit?  PermitContractName : "",
-    erc20svotes? VotesContractName : "",
-    erc20sflashMinting? FlashMintContractName : ""
-  ].filter(Boolean).join(', ').trim();
+    erc20sownable? " ,"+OwnableContractName : "",
+    erc20sroles ?" ,"+RolesContractName : "",
+    erc20smanaged ?" ,"+ManagedContractName : "",
+    erc20sburnable? " ,"+BurnableContractName: "",
+    erc20spausable ?" ,"+PausableContractName : "",
+    erc20spermit?  " ,"+PermitContractName : "",
+    erc20svotes? " ,"+VotesContractName : "",
+    erc20sflashMinting? " ,"+FlashMintContractName : ""
+  ].filter(Boolean).join('').trim();
 
 
 
