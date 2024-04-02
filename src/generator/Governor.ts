@@ -338,16 +338,15 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
     const contractBody = `${updatableSettings ? "" : votingDelayFunction}${updatableSettings ? "" : "\n\n\t" + votingPeriodFunction}${
         updatableSettings ? "" : 
         checkIfNumber(proposalThreshold) && proposalThreshold !== "0" ? "\n\n\t" + defaultProposalThreshold : ""
-    }${upgradeabilityType === "UUPS" ? "\n\n\t" + UUPSFunction : ""}${
-        quorumType === "number" ? "\n\n\t" + numericalQuorumFunction : 
-        (updatableSettings ? "" : "\n\n\t") + percentageQuorumFunction
+    }${upgradeabilityType === "UUPS" ? "\n\n\t" + UUPSFunction + (updatableSettings ? "\n\n\t" : "") : ""}${
+        (!updatableSettings ? "\n\n\t" : "") + (quorumType === "number" ? numericalQuorumFunction : percentageQuorumFunction)
     }${updatableSettings ? "\n\n\t" + updatableVotingDelayFunction : ""}${updatableSettings ? "\n\n\t" + updatableVotingPeriodFunction : ""}${updatableSettings ? "\n\n\t" + updatableProposalThresholdFunction : ""}${storage ? "\n\n\t" + storageFunction : ""}${timelockValue ? "\n\n\t" + timelockFunctions : ""}`
 
     // FORMING A CONTRACT
     const contract: string = `${contractHead}{
     ${constructor}
     ${upgradeabilityValue ? "\n\t" + initializer + "\n" : ""}
-    ${contractBody}     
+    ${contractBody}    
 }`
     
     return [

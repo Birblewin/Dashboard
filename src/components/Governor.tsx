@@ -172,6 +172,7 @@ export default function Governor(){
         setErrors((prevErrors) => ({
           ...prevErrors,
           proposalThreshold: ""
+
         }));
       }
 
@@ -284,13 +285,9 @@ export default function Governor(){
         <h1 className="text-[#818998] font-semibold text-xs">SETTINGS</h1>
 
         {/* NAME FIELD */}
-        <div className="flex flex-col p-[0.5rem] mb-[0.5rem]">
-          <label htmlFor="name" className="text-[#333333] text-[0.875rem]">
-            Name
-          </label>
-
+        <label className="text-[#333333] text-[0.875rem] flex flex-col p-[0.5rem] mb-[0.5rem]">
+          Name
           <input
-            id="name"
             name="name"
             type="text"
             className="border border-1 border-[#333333] rounded-[6px] p-1 text-black"
@@ -299,7 +296,7 @@ export default function Governor(){
               handleFormData(e)
             }
           />
-        </div>
+        </label>
 
         <div className="flex flex-row">
           {/* VOTING DELAY */}
@@ -311,6 +308,7 @@ export default function Governor(){
               >
                 VotingDelay
               </label>
+
               <Tool tooltipText="Delay since proposal is created until voting starts." />
             </div>
 
@@ -361,7 +359,7 @@ export default function Governor(){
 
         {/* BLOCK VALUE */}
         <div className="flex flex-row items-center p-[0.5rem] place-content-between mt-[0.5rem]">
-          <div className="flex items-center">
+          <div className="flex items-center gap-1">
             <label
               htmlFor="blockValue"
               className="text-[#333333] text-[0.875rem]"
@@ -376,11 +374,14 @@ export default function Governor(){
               className="border border-1 border-[#333333] rounded-[6px] p-1 w-7 h-5 text-black"
               name="blockValue"
               value={formData.blockValue}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleFormData(e)
+              }
             />
 
             <p className="text-[#333333]  text-[0.875rem]">seconds</p>
           </div>
+
           <Tool tooltipText="Assumed block time for converting above time periods into block numbers.Block time may drift and impact these periods in the future." />
         </div>
 
@@ -432,13 +433,15 @@ export default function Governor(){
                 %
               </label>
 
-              <input 
-                id="percentage" 
+              <input
+                id="percentage"
                 type="radio"
                 name="quorumType"
                 value="percentage"
                 checked={formData.quorumType === "percentage"}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleFormData(e)
+                }
               />
 
               <label
@@ -448,13 +451,15 @@ export default function Governor(){
                 #
               </label>
 
-              <input 
-                id="number" 
+              <input
+                id="number"
                 type="radio"
                 name="quorumType"
                 value="number"
                 checked={formData.quorumType === "number"}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)} 
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleFormData(e)
+                }
               />
             </div>
             <Tool tooltipText="Quorum required for a proposal to pass." />
@@ -468,10 +473,14 @@ export default function Governor(){
             className={`border border-1 ${errors.quorumValue ? "border-red-500" : "border-[#333333]"} rounded-[6px] p-1 text-black`}
             name="quorumValue"
             value={formData.quorumValue}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleFormData(e)
+            }
           />
 
-          {errors.quorumValue && <p className="text-sm text-red-500">{errors.quorumValue}</p>}
+          {errors.quorumValue && (
+            <p className="text-sm text-red-500">{errors.quorumValue}</p>
+          )}
         </div>
 
         {/* TOKEN DECIMALS */}
@@ -490,8 +499,12 @@ export default function Governor(){
               placeholder="18"
               className={`border border-1 border-[#333333] rounded-[6px] p-1 w-8 h-5 text-black ${formData.votes === "ERC721Votes" ? "bg-slate-200" : "bg-white"}`}
               name="tokenDecimals"
-              value={formData.votes === "ERC721Votes" ? "0" : formData.tokenDecimals}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+              value={
+                formData.votes === "ERC721Votes" ? "0" : formData.tokenDecimals
+              }
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleFormData(e)
+              }
             />
           </div>
 
@@ -499,43 +512,42 @@ export default function Governor(){
         </div>
 
         {/* UPDATEABLE SETTINGS */}
-        <div className="m-[0.5rem] flex items-center place-content-between">
-          <div className="flex items-center">
+        <div
+          className={`p-2 flex items-center place-content-between ${formData.updatableSettings ? "bg-gray-200" : ""}`}
+        >
+          <label className="text-[#333333] flex items-center">
             <input
               type="checkbox"
-              className=" h-3 w-3 text-indigo-600 rounded"
-              id="updatableSettings"
+              className="h-3 w-3 text-indigo-600 rounded mr-2"
               name="updatableSettings"
               checked={formData.updatableSettings}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleFormData(e)
+              }
             />
-
-            <label
-              className="ml-[0.5rem] text-[#333333]"
-              htmlFor="updatableSettings"
-            >
-              Updateable Settings
-            </label>
-          </div>
+            Updateable Settings
+          </label>
 
           <Tool tooltipText="Allow governance to update voting settings (delay, period, proposal threshold)." />
         </div>
 
         {/* STORAGE */}
-        <div className="m-[0.5rem] flex items-center place-content-between">
-          <div className="flex items-center">
+        <div
+          className={`p-2 flex items-center place-content-between ${formData.storage ? "bg-gray-200" : ""}`}
+        >
+          <label className="text-[#333333] flex items-center">
             <input
               type="checkbox"
-              className="form-checkbox h-3 w-3 text-indigo-600 rounded"
+              className="form-checkbox h-3 w-3 text-indigo-600 rounded mr-2"
               id="storage"
               name="storage"
               checked={formData.storage}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleFormData(e)
+              }
             />
-            <label className="ml-[0.5rem] text-[#333333]" htmlFor="storage">
-              Storage
-            </label>
-          </div>
+            Storage
+          </label>
 
           <Tool
             tooltipText="Enable storage of proposal details and enumerability of proposals."
@@ -551,12 +563,13 @@ export default function Governor(){
       <div>
         <h1 className="text-[#818998] font-semibold text-xs">VOTES</h1>
 
-        <div className="m-[0.5rem]  flex items-center place-content-between">
-          <div className="flex items-center">
+        <div
+          className={`p-2 flex items-center place-content-between ${formData.votes === "ERC20Votes" ? "bg-gray-200" : ""}`}
+        >
+          <label className="text-[#333333] flex items-center">
             <input
               type="radio"
-              className="form-checkbox h-3 w-3"
-              id="ERC20Votes"
+              className="form-checkbox h-3 w-3 mr-2"
               name="votes"
               value="ERC20Votes"
               checked={formData.votes === "ERC20Votes"}
@@ -564,11 +577,8 @@ export default function Governor(){
                 handleFormData(e)
               }
             />
-
-            <label className="ml-2 text-[#333333]" htmlFor="ERC20Votes">
-              ERC20Votes
-            </label>
-          </div>
+            ERC20Votes
+          </label>
 
           <Tool
             tooltipText="Represent voting power with a votes-enabled ERC20 token. Voters can entrust their voting power to a delegate."
@@ -577,20 +587,21 @@ export default function Governor(){
           />
         </div>
 
-        <div className="m-[0.5rem]  flex items-center place-content-between ">
-          <div className="flex items-center">
-            <input
-              type="radio"
-              className="radio h-3 w-3"
-              id="ERC721Votes"
-              name="votes"
-              value="ERC721Votes"
-              checked={formData.votes === "ERC721Votes"}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleFormData(e)
-              }
-            />
-            <label className="ml-2 text-[#333333]" htmlFor="ERC721Votes">
+        <div
+          className={`p-2 flex items-center place-content-between ${formData.votes === "ERC721Votes" ? "bg-gray-200" : ""}`}
+        >
+          <div>
+            <label className="text-[#333333] flex items-center">
+              <input
+                type="radio"
+                className="radio h-3 w-3 mr-2"
+                name="votes"
+                value="ERC721Votes"
+                checked={formData.votes === "ERC721Votes"}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleFormData(e)
+                }
+              />
               ERC721Votes
             </label>
           </div>
@@ -608,39 +619,41 @@ export default function Governor(){
       {/* TIMELOCK */}
       <div>
         {/* TIMELOCK VALUE */}
-        <div className=" flex items-center place-content-between mr-[0.5rem]">
-          <div className="flex items-center">
-            <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]" htmlFor="timelockValue">
-              TIMELOCK
-            </label>
-
-            <input 
-              type="checkbox" 
+        <div className="flex items-center place-content-between mr-[0.5rem]">
+          <label className="text-[#818998] font-semibold text-xs flex items-center gap-2">
+            TIMELOCK
+            <input
+              type="checkbox"
               className="form-checkbox h-3 w-3 rounded"
               id="timelockValue"
               name="timelockValue"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleFormData(e)
+              }
               checked={formData.timelockValue}
             />
-          </div>
+          </label>
 
           <Tool tooltipText="Add a delay to actions taken by the Governor. Gives users time to exit the system if they disagree with governance decisions." />
         </div>
 
         {/* TIMELOCK TYPE */}
-        <div className="m-[0.5rem] flex items-center place-content-between">
-          <div className="flex items-center">
+        <div
+          className={`p-2 flex items-center place-content-between ${formData.timelockType === "TimelockController" ? "bg-gray-200" : ""}`}
+        >
+          <label className="text-[#333333] flex items-center">
             <input
               type="radio"
-              className="form-checkbox h-3 w-3"
+              className="form-checkbox h-3 w-3 mr-2"
               name="timelockType"
-              id="TimelockController"
               value="TimelockController"
               checked={formData.timelockType === "TimelockController"}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleFormData(e)
+              }
             />
-            <label className="ml-2 text-[#333333]" htmlFor="TimelockController">TimeLock Controller</label>
-          </div>
+            TimeLock Controller
+          </label>
 
           <Tool
             tooltipText="Module compatible with OpenZeppelin's TimelockController. Allows multiple proposers and executors, in addition to the Governor itself."
@@ -649,19 +662,22 @@ export default function Governor(){
           />
         </div>
 
-        <div className="m-[0.5rem] mb-0 flex items-center place-content-between">
-          <div className="flex items-center">
-            <input 
-              type="radio" 
-              className="radio h-3 w-3" 
+        <div
+          className={`p-2 mb-0 flex items-center place-content-between ${formData.timelockType === "Compound" ? "bg-gray-200" : ""}`}
+        >
+          <label className="text-[#333333] flex items-center">
+            <input
+              type="radio"
+              className="radio h-3 w-3 mr-2"
               name="timelockType"
-              id="Compound"
               value="Compound"
               checked={formData.timelockType === "Compound"}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleFormData(e)
+              }
             />
-            <label className="ml-2 text-[#333333]" htmlFor="Compound">Compound</label>
-          </div>
+            Compound
+          </label>
 
           <Tool
             tooltipText="Module compatible with Compound's Timelock contract. Useful if assets and roles are already held in this contract."
@@ -676,21 +692,20 @@ export default function Governor(){
       {/* UPGRADEABILITY */}
       <div>
         {/* UPGRADEABILITY VALUE */}
-        <div className=" flex items-center place-content-between mr-[0.5rem]">
-          <div className="flex items-center">
-            <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]" htmlFor="upgradeabilityValue">
-              UPGRADEABILITY
-            </label>
-
-            <input 
-              type="checkbox" 
+        <div className="flex items-center place-content-between mr-[0.5rem]">
+          <label className="text-[#818998] font-semibold text-xs gap-2 flex items-center">
+            UPGRADEABILITY
+            <input
+              type="checkbox"
               className="form-checkbox h-3 w-3 rounded"
-              id="upgradeabilityValue" 
+              id="upgradeabilityValue"
               name="upgradeabilityValue"
               checked={formData.upgradeabilityValue}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleFormData(e)
+              }
             />
-          </div>
+          </label>
 
           <Tool
             tooltipText="Smart contracts are immutable by default unless deployed behind an upgradeable proxy."
@@ -700,19 +715,24 @@ export default function Governor(){
         </div>
 
         {/* UPGRADEABILITY TYPE */}
-        <div className="m-[0.5rem] flex items-center place-content-between">
-          <div className="flex items-center">
+        <div
+          className={`p-2 flex items-center place-content-between ${formData.upgradeabilityType === "Transparent" ? "bg-gray-200" : ""}`}
+        >
+          <label className="text-[#333333] flex items-center">
             <input
               type="radio"
-              className="form-checkbox h-3 w-3"
+              className="form-checkbox h-3 w-3 mr-2"
               name="upgradeabilityType"
               id="Transparent"
               checked={formData.upgradeabilityType === "Transparent"}
               value="Transparent"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleFormData(e)
+              }
             />
-            <label className="ml-2 text-[#333333]" htmlFor="Transparent">Transparent</label>
-          </div>
+            Transparent
+          </label>
+
           <Tool
             tooltipText="Uses more complex proxy with higher overhead, requires less changes in your contract. Can also be used with beacons."
             link="https://docs.openzeppelin.com/contracts/5.x/api/proxy#TransparentUpgradeableProxy"
@@ -720,20 +740,23 @@ export default function Governor(){
           />
         </div>
 
-        <div className="m-[0.5rem] mb-0 flex items-center place-content-between">
-          <div className="flex items-center">
+        <div
+          className={`p-2 mb-0 flex items-center place-content-between ${formData.upgradeabilityType === "UUPS" ? "bg-gray-200" : ""}`}
+        >
+          <label className="text-[#333333] flex items-center">
             <input
               type="radio"
-              className="radio h-3 w-3"
+              className="radio h-3 w-3 mr-2"
               name="upgradeabilityType"
-              id="UUPS"
               checked={formData.upgradeabilityType === "UUPS"}
               value="UUPS"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleFormData(e)
+              }
             />
+            UUPS
+          </label>
 
-            <label className="ml-2 text-[#333333]" htmlFor="UUPS">UUPS</label>
-          </div>
           <Tool
             tooltipText="Uses simpler proxy with less overhead, requires including extra code in your contract. Allows flexibility for authorizing upgrades."
             link="https://docs.openzeppelin.com/contracts/5.x/api/proxy#UUPSUpgradeable"
@@ -749,10 +772,7 @@ export default function Governor(){
         {/* SECURITY CONTACT */}
         <div className="flex flex-col mt-[0.75rem]">
           <div className="flex items-center place-content-between">
-            <label
-              htmlFor="securityContact"
-              className="text-[#333333] text-sm"
-            >
+            <label htmlFor="securityContact" className="text-[#333333] text-sm">
               Security Contact
             </label>
             <Tool
@@ -761,7 +781,7 @@ export default function Governor(){
               linktext="Read more"
             />
           </div>
-          
+
           <input
             id="securityContact"
             type="text"
@@ -769,26 +789,26 @@ export default function Governor(){
             className="border border-1 border-[#333333] rounded-[6px] p-1 text-black"
             name="securityContact"
             value={formData.securityContact}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleFormData(e)
+            }
           />
         </div>
 
         {/* LICENSE */}
-        <div className="flex flex-col mt-[0.75rem]">
-          <label htmlFor="license" className="text-[#333333] text-sm">
-            License
-          </label>
-
+        <label className="text-[#333333] text-sm flex flex-col my-3">
+          License
           <input
-            id="license"
             type="text"
             placeholder="MIT"
             className="border border-1 border-[#333333] rounded-[6px] p-1 text-black"
             name="license"
             value={formData.license}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleFormData(e)
+            }
           />
-        </div>
+        </label>
       </div>
     </div>
   );

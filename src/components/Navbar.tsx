@@ -1,18 +1,18 @@
 "use client";
 
-// IMPORTING NECESSARY FILES
 // IMPORTING COMPONENTS
 import Image from "next/image";
 import Link from "next/link";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import Popover from "@/components/Popover";
-import { cairos, wizard } from "../store/headerBtns";
+// IMPORTING ATOMS
+import wizardTab from "@/store/wizard";
 // IMPORTING MODULES
 import React from "react";
 import { useRecoilState } from "recoil";
 import { usePathname } from "next/navigation";
 // IMPORTING TYPES
-import { IsOpenType } from "@/types/types";
+import { IsOpenType, WizardTabType } from "@/types/types";
 // IMPORTING LIBS
 import getCurrentTab from "@/lib/getCurrentTab"
 
@@ -21,36 +21,18 @@ export default function Navbar() {
   // GETTING THE CURRENT URL PATH VISITED
   const pathName: string = usePathname();
 
-  // DETERMINING STATES
-  // A STATE TO KEEP TRACK OF THE TAB BEING CLICKED
-  const [currentTab, setCurrentTab] = React.useState<
-    "Solidity" | "Cairo" | "Other"
-  >(getCurrentTab(pathName));
-  const [Cairo, setCairo] = useRecoilState(cairos);
-  const [Wizard, setWizard] = useRecoilState(wizard);
+  // GETTING THE CURRENT TAB FROM THE ATOM, AND SETTING IT APPROPRIATELY
+  const [currentTab, setCurrentTab] = useRecoilState<WizardTabType>(wizardTab);
+
   // A STATE TO KEEP TRACK OF WHETHER OR NOT THE POPUP IS OPEN
   const [isOpen, setIsOpen] = React.useState<Pick<IsOpenType, "linksPopup">>({
     linksPopup: false,
   });
 
-  // A FUNCTION IN CASE THE SOL WIZARD IS CLICKED
-  const handleWizardClick = () => {
-    setIsOpen((prevState) => ({ ...prevState, linksPopup: false }));
-    setWizard(true);
-    setCairo(false);
-  };
-
-  // A FUNCTION IN CASE CAIRO WIZARD IS CLICKED
-  const handleCairoClick = () => {
-    setIsOpen((prevState) => ({ ...prevState, linksPopup: false }));
-    setCairo(true);
-    setWizard(false);
-  };
-
   // A USEEFFECT TO RESET THE CURRENT TAB IN CASE THE CURRENT LINK CHANGES
   React.useEffect(() => {
     setCurrentTab(getCurrentTab(pathName));
-  }, [pathName]);
+  }, [pathName, setCurrentTab]);
 
   return (
     <nav className="flex flex-row items-center p-4 justify-between bg-[#ffffff] mb-8">
@@ -110,7 +92,12 @@ export default function Navbar() {
                     ? "border-none bg-gradient-to-r from-[#51d4ff] to-[#4e5de4] text-white p-2 ml-4 rounded-[0.5rem]"
                     : "group bg-white border-[1.5px] hover:border-none border-[#4e5de4] hover:bg-gradient-to-r hover:from-[#51d4ff] hover:to-[#4e5de4]  ml-4 rounded-[0.5rem] p-2 hover:text-white"
                 }`}
-                onClick={handleWizardClick}
+                onClick={() =>
+                  setIsOpen((prevState) => ({
+                    ...prevState,
+                    linksPopup: false,
+                  }))
+                }
               >
                 <div
                   className={`text-[1.1rem] bg-clip-text bg-gradient-to-r from-[#51d4ff] to-[#4e5de4] hover:text-white text-transparent font-bold ${
@@ -129,7 +116,12 @@ export default function Navbar() {
                     ? "border-none bg-gradient-to-r from-[#fe9149] to-[#fe4a3c] text-white p-2 ml-4 rounded-[0.5rem]"
                     : "group bg-white border-[1.5px] hover:border-none border-[#fe4a3c] hover:bg-gradient-to-r hover:from-[#fe9149] hover:to-[#fe4a3c]  ml-4 rounded-[0.5rem] p-2 hover:text-white"
                 }`}
-                onClick={handleCairoClick}
+                onClick={() =>
+                  setIsOpen((prevState) => ({
+                    ...prevState,
+                    linksPopup: false,
+                  }))
+                }
               >
                 <div
                   className={` text-[1.1rem] bg-clip-text bg-gradient-to-r from-[#fe9149] to-[#fe4a3c]  font-bold hover:text-white text-transparent ${
@@ -236,7 +228,6 @@ export default function Navbar() {
                 ? "border-none bg-gradient-to-r from-[#51d4ff] to-[#4e5de4] text-white p-2 ml-4 rounded-[0.5rem]"
                 : "group bg-white border-[1.5px] hover:border-none border-[#4e5de4] hover:bg-gradient-to-r hover:from-[#51d4ff] hover:to-[#4e5de4]  ml-4 rounded-[0.5rem] p-2 hover:text-white"
             }`}
-            onClick={handleWizardClick}
           >
             <div
               className={`text-[1.1rem] bg-clip-text bg-gradient-to-r from-[#51d4ff] to-[#4e5de4] hover:text-white text-transparent font-bold ${
@@ -255,7 +246,6 @@ export default function Navbar() {
                 ? "border-none bg-gradient-to-r from-[#fe9149] to-[#fe4a3c] text-white p-2 ml-4 rounded-[0.5rem]"
                 : "group bg-white border-[1.5px] hover:border-none border-[#fe4a3c] hover:bg-gradient-to-r hover:from-[#fe9149] hover:to-[#fe4a3c]  ml-4 rounded-[0.5rem] p-2 hover:text-white"
             }`}
-            onClick={handleCairoClick}
           >
             <div
               className={` text-[1.1rem] bg-clip-text bg-gradient-to-r from-[#fe9149] to-[#fe4a3c]  font-bold hover:text-white text-transparent ${

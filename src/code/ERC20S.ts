@@ -1,12 +1,8 @@
 import { ERC20SSecurityContact, ERC20SLicense, ERC20SName} from "@/store/ERC20S";
-import { getRecoil } from "recoil-nexus";
 
 const name = ERC20SName;
 const license = ERC20SLicense;
 const contact = ERC20SSecurityContact;
-
-
-console.log(ERC20SName);
 
 const PermitConstructor =
     { 
