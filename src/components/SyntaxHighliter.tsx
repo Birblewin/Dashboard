@@ -4,7 +4,6 @@
   // IMPORTING MODULES
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { usePathname } from "next/navigation";
   // IMPORTING ATOMS
 import {
   ERC1155 as ERC1155Atom, 
@@ -14,7 +13,7 @@ import {
   Governor as GovernorAtom
 } from '../store/solidityBtns'
 
-import { wizard, cairos } from "../store/headerBtns";
+import wizardTab from "@/store/wizard";
 import { ERC721, ERC20, Custom } from "../store/cairoBtns";
 
 import {
@@ -127,14 +126,12 @@ import { generateCustomSCode } from "@/generator/CustomS";
 import { generateCustomCCode } from "@/generator/CustomC";
 import { generateERC20CCode } from "@/generator/ERC20C";
   // IMPORTING TYPES
-import { GovernorFormDataType } from "@/types/types";
+import { GovernorFormDataType, WizardTabType } from "@/types/types";
   // IMPORTING HIGHLIGHT-JS CODES
 import hljs from '../highlightjs';
 import "@/css/atom-one-dark.css";
   // IMPORTING COMPONENTS
 import CodeHighlighter from "./ui/CodeHighlighter";
-  // IMPORTING LIBS
-import getCurrentTab from "@/lib/getCurrentTab";
 
 // A FUNCTION THAT GENERATES HYPERLINKS FOR SOLIDITY
 function injectHyperlinksSolidity(code: string, version: string = "5.0.2"){
@@ -181,24 +178,8 @@ function injectHyperlinksCairo(code: string, version: string = "0.10.0") {
 
 // A FUNCTION THAT RETURNS THE CODE-EDITOR COMPONENT
 const CodeEditor = () => {
-  // GETTING THE CURRENT URL PATH VISITED
-  const pathName: string = usePathname();
-
   //checking which page is active
-  const [isWizard, setIsWizard] = useRecoilState<boolean>(wizard);
-  const [isCairo, setIsCairo] = useRecoilState<boolean>(cairos);
-
-  // SETTING VALUES OF CAIRO AND WIZARD TAB ATOMS
-  if (getCurrentTab(pathName) === "Solidity") {
-    setIsCairo(false)
-    setIsWizard(true)
-  }else if(getCurrentTab(pathName) === "Cairo"){
-    setIsWizard(false)
-    setIsCairo(true)
-  }else{
-    setIsWizard(false);
-    setIsCairo(false);
-  }
+  const currentWizard = useRecoilValue<WizardTabType>(wizardTab)
 
   //erc20 logic with props snippets
   const [erc20sburnable] = useRecoilState(ERC20SBurnable);
@@ -433,11 +414,11 @@ const CodeEditor = () => {
     <div className="w-full h-full">
       <CodeHighlighter
         code={
-          isWizard && !isCairo
+          currentWizard === "Solidity"
             ? injectHyperlinksSolidity(
                 hljs.highlight("solidity", initialCode).value
               )
-            : isCairo && !isWizard
+            : currentWizard === "Cairo"
               ? injectHyperlinksCairo(
                   hljs.highlight("cairo", CairoInitialCode).value
                 )

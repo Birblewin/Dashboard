@@ -1,5 +1,5 @@
 import { CustomCLicense, CustomCName} from "@/store/CustomC";
-import { getRecoil } from "recoil-nexus";
+
 
 const name = CustomCName;
 const license = CustomCLicense;
