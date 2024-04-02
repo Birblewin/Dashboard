@@ -164,10 +164,10 @@ export default function ERC1155() {
   return (
     <div className="p-4 overflow-visible">
       <div>
-        <h2 className="text-[#818998] font-semibold text-xs">SETTINGS</h2>
+        <h2 className="text-white font-semibold text-xs">SETTINGS</h2>
         <div className="flex flex-col p-[0.5rem]">
           <div className="flex item-center place-content-between">
-            <label htmlFor="uri" className="text-[#333333] text-[0.875rem]"> Name </label>
+            <label htmlFor="uri" className="text-white text-[0.875rem]"> Name </label>
           </div>
           <input
             id="name"
@@ -178,7 +178,7 @@ export default function ERC1155() {
         </div>
         <div className="flex flex-col p-[0.5rem]">
           <div className="flex item-center place-content-between">
-            <label htmlFor="uri" className="text-[#333333] text-[0.875rem]"> Uri </label>
+            <label htmlFor="uri" className="text-white text-[0.875rem]"> Uri </label>
             <Tool tooltipText="Location of the metadata. Clients will replace any instance of {id} in this string with the tokenId." />
           </div>
           <input
@@ -194,9 +194,9 @@ export default function ERC1155() {
       <hr className="my-4"></hr>
 
       <div>
-        <h1 className="text-[#818998] font-semibold text-xs">FEATURES</h1>
+        <h1 className="text-white font-semibold text-xs">FEATURES</h1>
         <div className="mt-2">
-          <label className={`flex items-center justify-between cursor-pointer ${mintable ? 'bg-gray-100' : ''}`}>
+          <label className={`flex items-center justify-between cursor-pointer ${mintable ? 'bg-[#4D3C77]' : ''}`}>
             <div className="m-[0.5rem] flex items-center">
               <input
                 title="Mintable"
@@ -205,12 +205,12 @@ export default function ERC1155() {
                 checked={mintable}
                 onChange={handleMintableChange}
               />
-              <span className="ml-[0.5rem] text-[#333333] select-text">Mintable</span>
+              <span className="ml-[0.5rem] text-white select-text">Mintable</span>
             </div>
             <Tool tooltipText="Privileged accounts will be able to create more supply." />
           </label>
 
-          <label className={`flex items-center justify-between cursor-pointer ${burnable ? 'bg-gray-100' : ''}`}>
+          <label className={`flex items-center justify-between cursor-pointer ${burnable ? 'bg-[#4D3C77]' : ''}`}>
             <div className="m-[0.5rem] flex items-center">
               <input
                 title="Burnable"
@@ -219,12 +219,12 @@ export default function ERC1155() {
                 checked={burnable}
                 onChange={() => setBurnable(!burnable)}
               />
-              <span className="ml-[0.5rem] text-[#333333] select-text">Burnable</span>
+              <span className="ml-[0.5rem] text-white select-text">Burnable</span>
             </div>
             <Tool tooltipText="Token holders will be able to destroy their tokens." link="https://docs.openzeppelin.com/contracts/5.x/api/token/erc1155#ERC1155Burnable" linktext="Read more" />
           </label>
 
-          <label className={`flex items-center justify-between cursor-pointer ${supplyTracking ? 'bg-gray-100' : ''}`}>
+          <label className={`flex items-center justify-between cursor-pointer ${supplyTracking ? 'bg-[#4D3C77]' : ''}`}>
             <div className="m-[0.5rem] flex items-center">
               <input
                 title="Supply Tracking"
@@ -233,13 +233,13 @@ export default function ERC1155() {
                 checked={supplyTracking}
                 onChange={() => setSupplyTracking(!supplyTracking)}
               />
-              <span className="ml-2 text-[#333333] select-text">Supply Tracking</span>
+              <span className="ml-2 text-white select-text">Supply Tracking</span>
             </div>
             <Tool tooltipText="Keeps track of total supply of tokens." />
           </label>
 
 
-          <label className={`flex items-center justify-between cursor-pointer ${pauseable ? 'bg-gray-100' : ''}`}>
+          <label className={`flex items-center justify-between cursor-pointer ${pauseable ? 'bg-[#4D3C77]' : ''}`}>
             <div className="m-[0.5rem] flex items-center">
               <input
                 title="Pauseable"
@@ -248,12 +248,12 @@ export default function ERC1155() {
                 checked={pauseable}
                 onChange={handlePausableChange}
               />
-              <span className="ml-[0.5rem] text-[#333333] select-text">Pauseable</span>
+              <span className="ml-[0.5rem] text-white select-text">Pauseable</span>
             </div>
             <Tool tooltipText="Privileged accounts will be able to pause the functionality marked as whenNotPaused. Useful for emergency response." link="https://docs.openzeppelin.com/contracts/5.x/api/utils#Pausable" linktext="Read more" />
           </label>
 
-          <label className={`flex items-center justify-between cursor-pointer ${updateableURI ? 'bg-gray-100' : ''}`}>
+          <label className={`flex items-center justify-between cursor-pointer ${updateableURI ? 'bg-[#4D3C77]' : ''}`}>
             <div className="m-[0.5rem] flex items-center">
               <input
                 title="Updateable URI"
@@ -262,7 +262,7 @@ export default function ERC1155() {
                 checked={updateableURI}
                 onChange={handleUpdateableURIChange}
               />
-              <span className="ml-[0.5rem] text-[#333333] select-text">Updateable URI</span>
+              <span className="ml-[0.5rem] text-white select-text">Updateable URI</span>
             </div>
             <Tool tooltipText="Privileged accounts will be able to set a new URI for all token types. Clients will replace any instance of {id} in the URI with the tokenId." link="https://docs.openzeppelin.com/contracts/5.x/api/token/erc1155#ERC1155-_setURI-string-" linktext="Read more" />
           </label>
@@ -274,7 +274,7 @@ export default function ERC1155() {
       <div>
         <div className=" mt-0  flex items-center place-content-between">
           <div className="flex items-center mr-[0.5rem]">
-            <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">ACCESS CONTROL</label>
+            <label className="text-white font-semibold text-xs mr-[0.5rem]">ACCESS CONTROL</label>
             <input
               type="checkbox"
               className="form-checkbox h-3 w-3 rounded"
@@ -287,7 +287,7 @@ export default function ERC1155() {
         </div>
 
         <div className="mt-2">
-          <label className={`flex items-center justify-between cursor-pointer ${ownable ? 'bg-gray-100' : ''}`}>
+          <label className={`flex items-center justify-between cursor-pointer ${ownable ? 'bg-[#4D3C77]' : ''}`}>
             <div className="m-[0.5rem] flex items-center">
               <input
                 title="Ownable"
@@ -298,12 +298,12 @@ export default function ERC1155() {
                 name="access"
                 onChange={handleAccessControlChange}
               />
-              <span className="ml-2 text-[#333333] select-text">Ownable</span>
+              <span className="ml-2 text-white select-text">Ownable</span>
             </div>
             <Tool tooltipText="Simple mechanism with a single account authorized for all privileged actions." link="https://docs.openzeppelin.com/contracts/5.x/api/access#Ownable" linktext="Read more" />
           </label>
 
-          <label className={`flex items-center justify-between cursor-pointer ${roles ? 'bg-gray-100' : ''}`}>
+          <label className={`flex items-center justify-between cursor-pointer ${roles ? 'bg-[#4D3C77]' : ''}`}>
             <div className="m-[0.5rem] flex items-center">
               <input
                 title="Roles"
@@ -314,12 +314,12 @@ export default function ERC1155() {
                 name="access"
                 onChange={handleAccessControlChange}
               />
-              <span className="ml-2 text-[#333333] select-text">Roles</span>
+              <span className="ml-2 text-white select-text">Roles</span>
             </div>
             <Tool tooltipText="Flexible mechanism with a separate role for each privileged action. A role can have many authorized accounts." link="https://docs.openzeppelin.com/contracts/5.x/api/access#AccessControl" linktext="Read more" />
           </label>
 
-          <label className={`flex items-center mb-0 justify-between cursor-pointer ${managed ? 'bg-gray-100' : ''}`}>
+          <label className={`flex items-center mb-0 justify-between cursor-pointer ${managed ? 'bg-[#4D3C77]' : ''}`}>
             <div className="m-[0.5rem] flex items-center">
               <input
                 title="Managed"
@@ -330,7 +330,7 @@ export default function ERC1155() {
                 name="access"
                 onChange={handleAccessControlChange}
               />
-              <span className="ml-2 text-[#333333] select-text">Managed</span>
+              <span className="ml-2 text-white select-text">Managed</span>
             </div>
             <Tool tooltipText="Enables a central contract to define a policy that allows certain callers to access certain functions." link="https://docs.openzeppelin.com/contracts/5.x/api/access#AccessManaged" linktext="Read more" />
           </label>
@@ -342,7 +342,7 @@ export default function ERC1155() {
       <div>
         <div className=" mt-0  flex items-center place-content-between">
           <div className="flex items-center mr-[0.5rem]">
-            <label className="text-[#818998] font-semibold text-xs mr-[0.5rem]">UPGRADABILITY</label>
+            <label className="text-white font-semibold text-xs mr-[0.5rem]">UPGRADABILITY</label>
             <input
               type="checkbox"
               className="form-checkbox h-3 w-3 rounded"
@@ -356,7 +356,7 @@ export default function ERC1155() {
 
 
         <div className="mt-2">
-          <label className={`flex items-center justify-between cursor-pointer ${transparent ? 'bg-gray-100' : ''}`}>
+          <label className={`flex items-center justify-between cursor-pointer ${transparent ? 'bg-[#4D3C77]' : ''}`}>
             <div className="m-[0.5rem] flex items-center">
               <input
                 title="transparent"
@@ -366,13 +366,13 @@ export default function ERC1155() {
                 checked={transparent}
                 onChange={handleUpgradeChange}
               />
-              <span className="ml-2 text-[#333333] select-text">Transparent</span>
+              <span className="ml-2 text-white select-text">Transparent</span>
             </div>
             <Tool tooltipText="Uses more complex proxy with higher overhead, requires less changes in your contract. Can also be used with beacons." link="https://docs.openzeppelin.com/contracts/5.x/api/proxy#TransparentUpgradeableProxy" linktext="Read more" />
           </label>
 
 
-          <label className={`mb-0 flex items-center justify-between cursor-pointer ${UUPS ? 'bg-gray-100' : ''}`}>
+          <label className={`mb-0 flex items-center justify-between cursor-pointer ${UUPS ? 'bg-[#4D3C77]' : ''}`}>
             <div className="m-[0.5rem] flex items-center">
               <input
                 title="uups"
@@ -382,7 +382,7 @@ export default function ERC1155() {
                 checked={UUPS}
                 onChange={handleUpgradeChange}
               />
-              <span className="ml-2 text-[#333333] select-text">UUPS</span>
+              <span className="ml-2 text-white select-text">UUPS</span>
             </div>
             <Tool tooltipText="Uses simpler proxy with less overhead, requires including extra code in your contract. Allows flexibility for authorizing upgrades." link="https://docs.openzeppelin.com/contracts/5.x/api/proxy#UUPSUpgradeable" linktext="Read more" />
           </label>
@@ -392,10 +392,10 @@ export default function ERC1155() {
       <hr className="my-4" />
 
       <div className="px-2">
-        <h1 className="text-[#818998] font-semibold text-xs ">INFO</h1>
+        <h1 className="text-white font-semibold text-xs ">INFO</h1>
         <div className="flex flex-col mt-[0.75rem]">
           <div className="flex items-center justify-between">
-            <label htmlFor="Security Contact" className="text-[#333333] text-sm">  Security Contact </label>
+            <label htmlFor="Security Contact" className="text-white text-sm">  Security Contact </label>
             <Tool tooltipText="Where people can contact you to report security issues. Will only be visible if contract metadata is verified." link='https://github.com/ethereum-lists/contracts/blob/main/README.md#tracking-new-deployments' linktext='Read more' />
           </div>
           <input
@@ -408,7 +408,7 @@ export default function ERC1155() {
           />
         </div>
         <div className="flex flex-col mt-[0.75rem]">
-          <label htmlFor="license" className="text-[#333333] text-sm"> License </label>
+          <label htmlFor="license" className="text-white text-sm"> License </label>
           <input
             id="license"
             type="text"
