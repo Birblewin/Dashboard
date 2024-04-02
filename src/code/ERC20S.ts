@@ -652,15 +652,15 @@ export const ERC20SCode =[
         wizard_id: 1,
         contractType_id: 1, 
         section: "Section3",  
-        tag: "Pausable",
+        tag: "VotesUpgradeable",
         name: "ERC20PausableSection3", 
-        content: `// The following functions are overrides required by Solidity.
-
-    function _update(address from, address to, uint256 value)
-                internal
-                override(ERC20Upgradeable, ERC20PausableUpgradeable)
+        content: `function nonces(address owner)
+                public
+                view
+                override(ERC20PermitUpgradeable, NoncesUpgradeable)
+                returns (uint256)
         {
-        super._update(from, to, value);
+        return super.nonces(owner);
     }`
     },
     { 
@@ -670,19 +670,10 @@ export const ERC20SCode =[
         section: "Section3",  
         tag: "Votes",
         name: "ERC20VotesSection3", 
-        content: `// The following functions are overrides required by Solidity.
-
-    function _update(address from, address to, uint256 value)
-                internal
-                override(ERC20Upgradeable, ERC20PausableUpgradeable, ERC20VotesUpgradeable)
-        {
-        super._update(from, to, value);
-    }
-    
-    function nonces(address owner)
+        content: `function nonces(address owner)
                 public
                 view
-                override(ERC20PermitUpgradeable, NoncesUpgradeable)
+                override(ERC20Permit, Nonces)
                 returns (uint256)
         {
         return super.nonces(owner);

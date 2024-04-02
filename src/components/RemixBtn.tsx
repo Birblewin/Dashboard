@@ -2,16 +2,10 @@
 
 // IMPORTING NECESSARY FILES
   // IMPORTING COMPONENTS
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import CheckIcon from '@mui/icons-material/Check';
-import { useState } from 'react';
-import copy from 'clipboard-copy';
-
+import Image from "next/image";
   // IMPORTING PROPS
-import { CopyButtonProps } from '@/types/props';
-// IMPORTING NECESSARY FILES
-  // IMPORTING MODULES
-import React from "react";
+import { RenderButtonProps } from "@/types/props";
+
 import { useRecoilState, useRecoilValue } from "recoil";
   // IMPORTING ATOMS
 import {
@@ -43,14 +37,6 @@ import {
   ERC721SBaseURI,
 } from "@/store/ERC721S";
 
-import {
-  ERC721CAccessControlOwnable,
-  ERC721CAccessControlRoles,
-  ERC721CBurnable,
-  ERC721CMintable,
-  ERC721CPauseable,
-  ERC721CUpgradeable,
-} from "@/store/ERC721C";
 
 import {
   ERC20SBurnable,
@@ -74,16 +60,6 @@ import {
 
 import { governorFormData } from "@/store/Governor";
 
-import {
-  CustomCPauseable,
-  CustomCAccessControlRoles,
-  CustomCAccessControlOwnable,
-  CustomCUpgradeable,
-  CustomCUpgradeability,
-  CustomCUpgradeabilityUUPS,
-  CustomCName,
-  CustomCLicense,
-} from "@/store/CustomC";
 
 import {
   CustomSPauseable,
@@ -98,18 +74,7 @@ import {
   CustomSLicense,
 } from "@/store/CustomS";
 
-import {
-  ERC20CBurnable,
-  ERC20CPauseable,
-  ERC20CAccessControlRoles,
-  ERC20CAccessControlOwnable,
-  ERC20CUpgradeable,
-  ERC20CMintable,
-  ERC20CPremint,
-  ERC20CLicense,
-  ERC20CName,
-  ERC20CSymbol,
-} from "@/store/ERC20C";
+
 
 import {
   ERC1155BaseURI,
@@ -129,23 +94,16 @@ import {
   // IMPORTING CODE GENERATORS
 import {generateERC20SCode} from "../generator/ERC20S";
 import { GenerateERC721SCode } from "@/generator/ERC721S";
-import { GenerateERC721CCode } from "@/generator/ERC721C";
 import { GenerateERC1155Code} from "@/generator/ERC1155";
 import governorCodeGenerator from "@/generator/Governor";
 import { generateCustomSCode } from "@/generator/CustomS";
-import { generateCustomCCode } from "@/generator/CustomC";
-import { generateERC20CCode } from "@/generator/ERC20C";
+
   // IMPORTING TYPES
 import { GovernorFormDataType, WizardTabType } from "@/types/types";
-  // IMPORTING HIGHLIGHT-JS CODES
-import hljs from '../highlightjs';
-import "@/css/atom-one-dark.css";
-  // IMPORTING COMPONENTS
-import CodeHighlighter from "./ui/CodeHighlighter";
+  
+import Tool from "./Tool";
 
-
-
-function CopyBtn({handleClick}: CopyButtonProps) {
+function RenderBtn({handleClick}: RenderButtonProps) {
   //checking which page is active
   const currentWizard = useRecoilValue<WizardTabType>(wizardTab)
 
@@ -188,30 +146,7 @@ function CopyBtn({handleClick}: CopyButtonProps) {
     erc20spremint
   );
 
-  //erc20C logic with props snippets
-  const [erc20cburnable] = useRecoilState(ERC20CBurnable);
-  const [erc20cpausable] = useRecoilState(ERC20CPauseable);
-  const [erc20croles] = useRecoilState(ERC20CAccessControlRoles);
-  const [erc20cownable] = useRecoilState(ERC20CAccessControlOwnable);
-  const [erc20cupgradeable] = useRecoilState(ERC20CUpgradeable);
-  const [erc20cmintable] = useRecoilState(ERC20CMintable);
-  const [erc20cpremint] = useRecoilState(ERC20CPremint);
-  const [erc20clicense] = useRecoilState(ERC20CLicense);
-  const [erc20cname] = useRecoilState(ERC20CName);
-  const [erc20csymbol] = useRecoilState(ERC20CSymbol);
-
-  const ERC20CInitialCode = generateERC20CCode(
-    erc20cburnable,
-    erc20cmintable,
-    erc20cpausable,
-    erc20croles,
-    erc20cownable,
-    erc20cupgradeable,
-    erc20cpremint,
-    erc20cname,
-    erc20clicense,
-    erc20csymbol
-  );
+  
 
   //customS logic with props snippets
   const [customspausable] = useRecoilState(CustomSPauseable);
@@ -240,26 +175,7 @@ function CopyBtn({handleClick}: CopyButtonProps) {
     customslicense
   );
 
-  //customC logic with props snippets
-  const [customcpausable] = useRecoilState(CustomCPauseable);
-  const [customcroles] = useRecoilState(CustomCAccessControlRoles);
-  const [customcownable] = useRecoilState(CustomCAccessControlOwnable);
-  const [customcupgradeable] = useRecoilState(CustomCUpgradeable);
-  const [customcupgradeability] = useRecoilState(CustomCUpgradeability);
-  const [customcUUPS] = useRecoilState(CustomCUpgradeabilityUUPS);
-  const [customcname] = useRecoilState(CustomCName);
-  const [customclicense] = useRecoilState(CustomCLicense);
-
-  const CustomCInitialCode = generateCustomCCode(
-    customcupgradeable,
-    customcpausable,
-    customcroles,
-    customcownable,
-    customcupgradeability,
-    customcUUPS,
-    customcname,
-    customclicense
-  );
+  
 
   //ERC1155
   const [erc1155baseUrl] = useRecoilState(ERC1155BaseURI);
@@ -326,21 +242,7 @@ function CopyBtn({handleClick}: CopyButtonProps) {
     erc721sBaseUrl
   );
 
-  const [erc721cburnable] = useRecoilState(ERC721CBurnable);
-  const [erc721cpausable] = useRecoilState(ERC721CPauseable);
-  const [erc721croles] = useRecoilState(ERC721CAccessControlRoles);
-  const [erc721cownable] = useRecoilState(ERC721CAccessControlOwnable);
-  const [erc721cupgradable] = useRecoilState(ERC721CUpgradeable);
-  const [erc721cmintable] = useRecoilState(ERC721CMintable);
-
-  const ERC721InitialCairoCode = GenerateERC721CCode(
-    erc721cburnable,
-    erc721cpausable,
-    erc721croles,
-    erc721cownable,
-    erc721cupgradable,
-    erc721cmintable
-  );
+  
 
   // EXTRACTING THE GOVERNOR FORM DATA
   const governorData = useRecoilValue<GovernorFormDataType>(governorFormData);
@@ -352,70 +254,55 @@ function CopyBtn({handleClick}: CopyButtonProps) {
   const [IsCustom] = useRecoilState(CustomAtom);
 
   let initialCode = ERC20InitialCode;
+  let isUpgradeable = erc20stransparent;
 
   if (IsERC1155) {
     initialCode = ERC1155InitialCode;
+    isUpgradeable = erc1155transparent;
   } else if (IsERC721) {
     initialCode = ERC721InitialCode;
+    isUpgradeable = erc721transparent;
   } else if (IsERC20) {
     initialCode = ERC20InitialCode;
+    isUpgradeable = erc20stransparent;
   } else if (IsGovernor) {
     initialCode = governorCodeGenerator(governorData);
+    isUpgradeable = false;
   } else if (IsCustom) {
     initialCode = CustomSInitialCode;
+    isUpgradeable = customsupgradeability;
   }
 
-  //cairo templates
-  const [CairoERC721] = useRecoilState(ERC721);
-  const [CairoERC20] = useRecoilState(ERC20);
-  const [CairoCustom] = useRecoilState(Custom);
-
-  let CairoInitialCode = ERC20CInitialCode;
-
-  if (CairoERC721) {
-    CairoInitialCode = ERC721InitialCairoCode;
-  } else if (CairoERC20) {
-    CairoInitialCode = ERC20CInitialCode;
-  } else if (CairoCustom) {
-    CairoInitialCode = CustomCInitialCode;
-  }
-
-  const [isCopied, setIsCopied] = useState(false);
-  let text = initialCode;
-  if(currentWizard === "Solidity"){
-    text = initialCode;
-  }else{
-    text = CairoInitialCode;
-  }
-
-  const handleCopyClick = async () => {
-    try {
-      await copy(text);
-      setIsCopied(true);
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 3000);
-    } catch (error) {
-      console.error('Failed to copy text to clipboard', error);
+  
+  const openCodeInRemix = (code: string, upgradeable = false): void => {
+    // Construct the Remix URL with the provided code
+    const remixURL = new URL('https://remix.ethereum.org');
+    console.log("Passed code", code);
+    remixURL.searchParams.set('code', btoa(code).replace(/=*$/, ''));
+  
+    // Set the deployProxy parameter if code is upgradeable
+    if (upgradeable) {
+      remixURL.searchParams.set('deployProxy', upgradeable.toString());
     }
+  
+    // Open the Remix URL in a new tab
+    window.open(remixURL.toString(), '_blank');
   };
+
+  const handleOpenInRemix = () => {
+    openCodeInRemix(initialCode, isUpgradeable);
+  };
+
+
   return (
-    <div>
-       <button className="font-bold text-white hover:border-[#4D3C77] hover:bg-[#4D3C77] border p-2 rounded  flex gap-1" onClick={handleCopyClick}>
-          {isCopied ? (
-            <>
-              <CheckIcon width={12} height={12} />
-              Copied
-            </>
-          ) : (
-            <>
-              <ContentCopyIcon width={12} height={12} />
-              Copy to clipboard
-            </>
-          )}
-        </button>
-    </div>
+    <>
+      <button disabled={isUpgradeable} className={`font-bold hover:border-[#4D3C77] hover:bg-[#4D3C77] border p-2 rounded flex gap-1 items-center ${isUpgradeable? "text-grey-100": "text-white"}`}  onClick={handleOpenInRemix}>
+        {isUpgradeable && <Tool tooltipText="Transparent upgradeable contracts are not supported on Remix. Try using Remix with UUPS upgradability or use Hardhat or Truffle with" link="https://docs.openzeppelin.com/upgrades-plugins/1.x/" linktext="OpenZeppelin Upgrades"/>}
+        {!isUpgradeable &&<Image src={"/render.svg"} alt="render" width={20} height={20} style={{ filter: 'invert(100%)' }} />}
+        Open in Remix
+      </button>
+    </>
   );
 }
 
-export default CopyBtn;
+export default RenderBtn;

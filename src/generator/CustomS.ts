@@ -74,7 +74,7 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
   const License = `// SPDX-License-Identifier: ${customslicense}`;
   const SecurityContact = `
   /// @custom:security-contact ${customssecuritycontact}`;
-  const ContractHeader = `contract ${customsname}`;
+  const ContractHeader = `contract ${customsname} ${" "}`;
       
 
 
@@ -127,8 +127,8 @@ export function generateCustomSCode(customsupgradeable: boolean,customspausable:
 
   const contract = [
     ContractHeader,
-    !customsupgradeability ? contractnames : "",
-    customsupgradeability ?  upgradeableContractnames : "",
+    !customsupgradeability && !customsUUPS ? contractnames : "",
+    customsupgradeability || customsUUPS ?  upgradeableContractnames : "",
     " {"
   ].filter(Boolean).join("").trim();
 
