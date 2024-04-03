@@ -91,7 +91,7 @@ export default function Cairo() {
                 className={`font-bold py-2 px-4 rounded-md  ${
                   selected === "ERC20"
                     ? "bg-[#fe4a3c] hover:bg-red-600"
-                    : "text-white hover:bg-gray-200"
+                    : "text-[ffffff] hover:bg-gray-200 hover:text-black"
                 }`}
                 onClick={handleClickERC20}
               >
@@ -103,7 +103,7 @@ export default function Cairo() {
                 className={`font-bold py-2 px-4 rounded-md${
                   selected === "ERC721"
                     ? "bg-[#fe4a3c] hover:bg-red-600"
-                    : "text-white hover:bg-gray-200"
+                    : "text-[ffffff] hover:bg-gray-200 hover:text-black"
                 }`}
                 onClick={handleClickERC721}
               >
@@ -114,8 +114,8 @@ export default function Cairo() {
                 type="button"
                 className={`font-bold py-2 px-4 rounded-md ${
                   selected === "Custom"
-                    ? "bg-[#fe4a3c] hover:bg-red-600 text-[#f5f5f5]"
-                    : "text-white hover:bg-gray-200"
+                    ? "bg-[#fe4a3c] hover:bg-red-600"
+                    : "text-[ffffff] hover:bg-gray-200 hover:text-black"
                 }`}
                 onClick={handleClickCustom}
               >

@@ -90,7 +90,7 @@ export default function Navbar() {
                 className={`${
                   currentTab === "Solidity"
                     ? "border-none bg-gradient-to-r from-[#51d4ff] to-[#4e5de4] text-white p-2 ml-4 rounded-[0.5rem]"
-                    : "group bg-white border-[1.5px] hover:border-none border-[#4e5de4] hover:bg-gradient-to-r hover:from-[#51d4ff] hover:to-[#4e5de4]  ml-4 rounded-[0.5rem] p-2 hover:text-white"
+                    : "group bg-transparent border-[1.5px] hover:border-none border-[#4e5de4] hover:bg-gradient-to-r hover:from-[#51d4ff] hover:to-[#4e5de4]  ml-4 rounded-[0.5rem] p-2 hover:text-white"
                 }`}
                 onClick={() =>
                   setIsOpen((prevState) => ({
@@ -114,7 +114,7 @@ export default function Navbar() {
                 className={`${
                   currentTab === "Cairo"
                     ? "border-none bg-gradient-to-r from-[#fe9149] to-[#fe4a3c] text-white p-2 ml-4 rounded-[0.5rem]"
-                    : "group bg-white border-[1.5px] hover:border-none border-[#fe4a3c] hover:bg-gradient-to-r hover:from-[#fe9149] hover:to-[#fe4a3c]  ml-4 rounded-[0.5rem] p-2 hover:text-white"
+                    : "group bg-transparent border-[1.5px] hover:border-none border-[#fe4a3c] hover:bg-gradient-to-r hover:from-[#fe9149] hover:to-[#fe4a3c]  ml-4 rounded-[0.5rem] p-2 hover:text-white"
                 }`}
                 onClick={() =>
                   setIsOpen((prevState) => ({
@@ -135,7 +135,7 @@ export default function Navbar() {
 
             <Link
               href={"https://www.birbleai.com/dashboard"}
-              className="font-medium text-[1rem] ml-4 text-[#333333]"
+              className="font-medium text-[1rem] ml-4 text-white"
               target="_blank"
               rel="noreferrer"
               onClick={() =>
@@ -150,7 +150,7 @@ export default function Navbar() {
 
             <Link
               href={"https://docs.openzeppelin.com/"}
-              className="font-medium text-[1rem] ml-4 text-[#333333]"
+              className="font-medium text-[1rem] ml-4 text-white"
               target="_blank"
               rel="noreferrer"
               onClick={() =>
@@ -165,7 +165,7 @@ export default function Navbar() {
 
             <Link
               href={"https://github.com/Birblewin"}
-              className="font-medium text-[1rem] ml-4 text-[#333333]"
+              className="font-medium text-[1rem] ml-4 text-white"
               target="_blank"
               rel="noreferrer"
               onClick={() =>
@@ -180,7 +180,7 @@ export default function Navbar() {
 
             <Link
               href={"https://twitter.com/birble_AI"}
-              className="font-medium text-[1rem] ml-4 text-[#333333]"
+              className="font-medium text-[1rem] ml-4 text-white"
               target="_blank"
               rel="noreferrer"
               onClick={() =>
