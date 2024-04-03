@@ -51,6 +51,7 @@ export const PermitUpgradeableContractName: string[] = getCodeContent("upgradeab
 export const VotesUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "Votes");
 export const PausableUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "Pausable");
 export const FlashMintUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "flashMinting");
+export const UUPSUpgradeableContractName: string[] = getCodeContent("upgradeableContractNames", "UUPS");
 export const RolesByte: string[] = getCodeContent("RolesByte");
 export const PermitConstructor: string[] = getCodeContent("Constructor", "Permit");
 export const UpgradeableConstructor: string[] = getCodeContent("upgradeableConstructor");
@@ -182,7 +183,8 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
     erc20spausable ?" ,"+PausableUpgradeableContractName : "",
     erc20spermit?  " ,"+PermitUpgradeableContractName : "",
     erc20svotes? " ,"+VotesUpgradeableContractName : "",
-    erc20sflashMinting? " ,"+FlashMintUpgradeableContractName : ""
+    erc20sflashMinting? " ,"+FlashMintUpgradeableContractName : "",
+    erc20sUUPS? " ,"+UUPSUpgradeableContractName : "",
   ].filter(Boolean).join('').trim();
 
   const contractnames = [

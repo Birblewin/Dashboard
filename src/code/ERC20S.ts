@@ -365,6 +365,15 @@ export const ERC20SCode =[
         wizard_id: 1,
         contractType_id: 1, 
         section: "upgradeableContractNames",  
+        tag: "UUPS",
+        name: "ERC20FlashMintingContractNames", 
+        content: `UUPSUpgradeable`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "upgradeableContractNames",  
         tag: "Permit",
         name: "ERC20PermitContractNames", 
         content: `ERC20PermitUpgradeable`
