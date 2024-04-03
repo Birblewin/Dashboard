@@ -189,9 +189,8 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
          \t\t\t${erc1155ownable ? Ownable : ""}${erc1155roles ? Roles1 : ""}${erc1155managed ? Managed : ""}
         {
         _mint(account, id, amount, data);
-    }`,
-
-        `\n\tfunction mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
+    }
+     \n\tfunction mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
         \t\t   public
     \t\t\t   ${erc1155ownable ? Ownable : ""}${erc1155roles ? Roles1 : ""}${erc1155managed ? Managed : ""}
          {
@@ -249,7 +248,7 @@ export function GenerateERC1155Code(erc1155burnable: boolean, erc1155supplyTrack
         erc1155upgradability ? TransparentFunction : "",
         erc1155mintable ? '\n\t\t ' + MintableFunctions : "",
         erc1155pausable ? '\n\t' + PausableFunctions : "",
-        erc1155uups ? '\n\t  ' + UUPSFunctions : "",
+        erc1155uups ? '\n\t' + UUPSFunctions : "",
         erc1155roles ? '\n\n\t' + UpgradableSupportInterfaceFunctions : "",
         shouldRenderStarter ? '\n\t\t' + starter : "",
         shouldRenderUpdateFunction ? '\n\t' + upgradableUpdateFunction : "",
