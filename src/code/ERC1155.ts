@@ -278,7 +278,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableContractNames",
         tag: "SupplyTracking",
         name: "ERC1155SupplyTrackingContractNames",
-        content: `, ERC1155SupplyTrackingUpgradeable`
+        content: `, ERC1155SupplyUpgradeable`
     },
     {
         snippet_id: 1,
@@ -585,7 +585,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",
         tag: "Pausable",
         name: "ERC1155PausableupgradeableFunctions",
-        content: `__ERC1155Pausable_init()`
+        content: `__ERC1155Pausable_init();`
     },
 
     {
@@ -660,7 +660,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";`
         section: "upgradeableFunctions",
         tag: "RolesUUPS",
         name: "ERC1155RolesUUPSupgradeableFunctions",
-        content: `\t\t\  onlyRole(UPGRADER_ROLE)`
+        content: `onlyRole(UPGRADER_ROLE)`
     },
     {
         snippet_id: 1,
