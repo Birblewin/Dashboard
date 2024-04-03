@@ -158,7 +158,7 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
         ]
 
         const InitializeVotesFunctions = [
-            `__EIP712_init(${name}, "1");
+            `__EIP712_init("${name}", "1");
                 __ERC721Votes_init();`
         ]
 
@@ -180,17 +180,17 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
             erc721sroles? Roles:"",  
         ].join('\n\t\t\t\t').trim();
         const TransparentFunction = [
-            `  function initialize(address defaultAdmin, address pauser, address minter)
+            `  function initialize(${erc721smanaged?'address initialAuthority':""}${erc721sroles?'address defaultAdmin':""}${erc721sownable?'address initialOwner':""}${(erc721sroles && erc721spausable)?', address pauser':""}${(erc721sroles && erc721mintable)?', address minter':""})
                         initializer public
                         {
-                __ERC721_init(${name}, ${symbol});
+                __ERC721_init("${name}", "${symbol}");
                 ${initializedStrings}
             }`
         ]
         const upgradableUpdateFunction = [
             `function _update(address to, uint256 tokenId, address auth)
                         internal
-                        override(ERC721Upgradeable${erc721senumerable? UpgradableEnumerable : ""}${erc721spausable? UpgradablePausable : ""} ${erc721svotes? UpgradableVotes : ""})
+                        override(ERC721Upgradeable${erc721senumerable? UpgradableEnumerable : ""}${erc721spausable? UpgradablePausable : ""} ${erc721svotes? ', ERC721VotesUpgradeable' : ""})
                         returns (address)
                     {
             return super._update(to, tokenId, auth);
@@ -200,7 +200,7 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
         const upgradableIncreaseBalanceFunction = [
             `function _increaseBalance(address account, uint128 value)
                     internal
-                    override(ERC721Upgradeable${erc721senumerable? UpgradableEnumerable : ""}${erc721svotes? UpgradableVotes : ""})
+                    override(ERC721Upgradeable${erc721senumerable? UpgradableEnumerable : ""}${erc721svotes? ", ERC721VotesUpgradeable" : ""})
                     {
             super._increaseBalance(account, value);
           }`
@@ -274,7 +274,7 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
         
         const MintableFunctions = [
             `    
-        function safeMint(address to, string memory uri) public onlyOwner {
+        function safeMint(address to${!erc721autoincrement?',  uint256 tokenId':""}${erc721sUriStorage? ', string memory uri' : ""}) public onlyOwner {
             ${erc721autoincrement? AutoIncrementFunc : ""}
             _safeMint(to, tokenId);
             ${erc721sUriStorage? URIStorageMint : ""}
@@ -338,16 +338,17 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
        const UpgradeableContract = [
             ContractHeader,
             UpgradabilityContractName,
+            erc721uups?', ERC721Upgradeable':"",
+            erc721transparent? UpgradableTransparent : "",
+            erc721senumerable? UpgradableEnumerable : "",
+            erc721sUriStorage? UpgradableURIStorage : "",
+            erc721spausable? UpgradablePausable : "",
             erc721sownable? UpgradableOwnable : "",
+            erc721sburnable? UpgradableBurnable : "",
             erc721sroles? UpgradableRoles : "",
             erc721smanaged? UpgradableManaged : "",
-            erc721sburnable? UpgradableBurnable : "",
-            erc721spausable? UpgradablePausable : "",
             erc721svotes? UpgradableVotes : "",
-            erc721sUriStorage? UpgradableURIStorage : "",
-            erc721senumerable? UpgradableEnumerable : "",
             erc721uups? UpgradableUUPS : "",
-            erc721transparent? UpgradableTransparent : "",
             " {"
        ].join('').trim();
   

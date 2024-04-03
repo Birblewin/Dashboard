@@ -349,7 +349,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721VotesU
         section: "upgradeableContractNames",  
         tag: "UUPS",
         name: "ERC721UUPSContractNames", 
-        content: `, ERC721Upgradeable, UUPSUpgradeable`
+        content: `, UUPSUpgradeable`
     },
     { 
         snippet_id: 1, 
@@ -677,7 +677,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721VotesU
         section: "upgradeableFunctions",  
         tag: "Pausable",
         name: "ERC721PausableupgradeableFunctions", 
-        content: `__ERC721Pausable_init()`
+        content: `__ERC721Pausable_init();`
     },
     { 
         snippet_id: 1, 

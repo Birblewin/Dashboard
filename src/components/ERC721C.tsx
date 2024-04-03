@@ -162,7 +162,7 @@ const ERC721C = ()=>{
                         <Tool tooltipText="Will be concatenated with token IDs to generate the token URIs."/>
                     </div>
                     
-                    <input  id="uri" type="text" placeholder="https://..." className="border border-1 border-[#818998] rounded-[6px] p-1  text-black bg-transparent"
+                    <input  id="uri" type="text" placeholder="https://..." className="border border-1 border-[#818998] rounded-[6px] p-1  bg-transparent"
                     value={BaseURI}  onChange={(e) => setBaseURI(e.target.value)}
                     />
                 </div>
