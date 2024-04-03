@@ -88,7 +88,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Permit",
         name: "ERC20PermitUpgradeableImports", 
-        content: `import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol"`
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol";`
     },
     { 
         snippet_id: 1, 
