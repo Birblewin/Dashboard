@@ -643,22 +643,22 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721VotesU
         name: "ERC721URIStorageMintableFunctions", 
         content: `_setTokenURI(tokenId, uri);`
     },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "Functions",  
-        tag: "Pausable",
-        name: "ERC721PausableFunctions", 
-        content: `
-        function pause() public onlyOwner {
-            _pause();
-        }
+    // { 
+    //     snippet_id: 1, 
+    //     wizard_id: 1,
+    //     contractType_id: 1, 
+    //     section: "Functions",  
+    //     tag: "Pausable",
+    //     name: "ERC721PausableFunctions", 
+    //     content: `
+    //     function pause() public onlyOwner {
+    //         _pause();
+    //     }
     
-        function unpause() public onlyOwner {
-            _unpause();
-        }`
-    },
+    //     function unpause() public onlyOwner {
+    //         _unpause();
+    //     }`
+    // },
 
     //..............
     { 

@@ -97,7 +97,7 @@ export const UpgradableConstructor: string[] = getCodeContent("Constructor", "Up
 
 //.............................................
 export const MintableFunctions: string[] = getCodeContent("Functions", "Mintable");
-export const PausableFunctions: string[] = getCodeContent("Functions", "Pausable");
+// export const PausableFunctions: string[] = getCodeContent("Functions", "Pausable");
 
 
 export const InitializeMintableFunctions: string[] = getCodeContent("upgradeableFunctions", "Burnable");
@@ -151,6 +151,15 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
                         ${erc721sownable? OwnableUUPS : ""}${erc721sroles? RolesUUPS : ""}${erc721smanaged? ManagedUUPS : ""}
                         override
                     {}`
+        ]
+        const PausableFunctions = [
+            `        function pause() ${erc721sownable?" public onlyOwner":""}${erc721sroles?" public onlyRole(MINTER_ROLE)":""}${erc721smanaged?" public restricted":""} {
+            _pause();
+        }
+                
+        function unpause() ${erc721sownable?" public onlyOwner":""}${erc721sroles?" public onlyRole(MINTER_ROLE)":""}${erc721smanaged?" public restricted":""} {
+             _unpause();
+        }`
         ]
 
         const VotesConstructor = [
@@ -274,7 +283,7 @@ export function GenerateERC721SCode(erc721sburnable: boolean, erc721svotes: bool
         
         const MintableFunctions = [
             `    
-        function safeMint(address to${!erc721autoincrement?',  uint256 tokenId':""}${erc721sUriStorage? ', string memory uri' : ""}) public onlyOwner {
+        function safeMint(address to${!erc721autoincrement?',  uint256 tokenId':""}${erc721sUriStorage? ', string memory uri' : ""}) ${erc721sownable?"public onlyOwner":""}${erc721sroles?"public onlyRole(MINTER_ROLE)":""}${erc721smanaged?"public restricted":""} {
             ${erc721autoincrement? AutoIncrementFunc : ""}
             _safeMint(to, tokenId);
             ${erc721sUriStorage? URIStorageMint : ""}
