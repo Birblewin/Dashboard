@@ -13,7 +13,7 @@ const getCodeContent = (section: string, tag?: string): string[] => {
 
 export const Compatibility: string[] = getCodeContent("compatibility");
 export const CodeVersion: string[] = getCodeContent("codeVersion");
-export const StartUpgradeableImport: string[] = getCodeContent("upgradeableImports", "DefaultStart");
+export const StartUpgradeableImport: string[] = getCodeContent("upgradeableImports", "DefaultS");
 export const BurnableUpgradeableImport: string[] = getCodeContent("upgradeableImports", "Burnable");
 export const PausableUpgradeableImport: string[] = getCodeContent("upgradeableImports", "Pausable");
 export const FlashMintingUpgradeableImport: string[] = getCodeContent("upgradeableImports", "flashMinting");
@@ -54,11 +54,18 @@ export const FlashMintUpgradeableContractName: string[] = getCodeContent("upgrad
 export const RolesByte: string[] = getCodeContent("RolesByte");
 export const PermitConstructor: string[] = getCodeContent("Constructor", "Permit");
 export const UpgradeableConstructor: string[] = getCodeContent("upgradeableConstructor");
-export const MintableSection2: string[] = getCodeContent("Section2", "Mintable");
-export const PausableSection2: string[] = getCodeContent("Section2", "Pausable");
-export const UUPSSection2: string[] = getCodeContent("Section2", "UUPS");
+export const MintableSection2Ownable: string[] = getCodeContent("Section2", "MintableOwnable");
+export const MintableSection2Roles: string[] = getCodeContent("Section2", "MintableRoles");
+export const MintableSection2Managed: string[] = getCodeContent("Section2", "MintableManaged");
+export const PausableSection2Ownable: string[] = getCodeContent("Section2", "PausableOwnable");
+export const PausableSection2Roles: string[] = getCodeContent("Section2", "PausableRoles");
+export const PausableSection2Managed: string[] = getCodeContent("Section2", "PausableManaged");
+export const UUPSSection2Ownable: string[] = getCodeContent("Section2", "UUPSOwnable");
+export const UUPSSection2Roles: string[] = getCodeContent("Section2", "UUPSRoles");
+export const UUPSSection2Managed: string[] = getCodeContent("Section2", "UUPSManaged");
 export const PausableSection3: string[] = getCodeContent("Section3", "Pausable");
 export const VotesSection3: string[] = getCodeContent("Section3", "Votes");
+export const VotesSection3Upgradeable: string[] = getCodeContent("Section3", "VotesUpgradeable");
 export const Section1RolesHeader: string[] = getCodeContent("upgradeableFunctionsHeader", "Roles");
 export const Section1ManagedHeader: string[] = getCodeContent("upgradeableFunctionsHeader", "Managed");
 export const Section1OwnableHeader: string[] = getCodeContent("upgradeableFunctionsHeader", "Ownable");
@@ -75,7 +82,7 @@ export const FlashMintingSection1: string[] = getCodeContent("upgradeableFunctio
 
    
   
-export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spermit: boolean, erc20supgradeable: boolean, erc20sUUPS: boolean, erc20ssecutitycontact: string , erc20slicense: string, erc20sname: string, erc20ssymbol: string, erc20spremint: string): string {
+export function generateERC20SCode(erc20sburnable: boolean, erc20smintable: boolean, erc20svotes: boolean, erc20spausable: boolean, erc20sflashMinting: boolean, erc20sroles: boolean, erc20sownable: boolean, erc20smanaged: boolean, erc20spermit: boolean, erc20stransparent: boolean, erc20sUUPS: boolean,erc20supgradeable:boolean, erc20ssecutitycontact: string , erc20slicense: string, erc20sname: string, erc20ssymbol: string, erc20spremint: string): string {
 
     const License = `// SPDX-License-Identifier: ${erc20slicense}`
     const SecurityContact = `/// @custom:security-contact ${erc20ssecutitycontact}`
@@ -168,36 +175,36 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
 
 
   const upgradeableContractnames = [
-    erc20sownable? OwnableUpgradeableContractName : "",
-    erc20sroles ?RolesUpgradeableContractName : "",
-    erc20smanaged ?ManagedUpgradeableContractName : "",
-    erc20sburnable? BurnableUpgradeableContractName: "",
-    erc20spausable ?PausableUpgradeableContractName : "",
-    erc20spermit?  PermitUpgradeableContractName : "",
-    erc20svotes? VotesUpgradeableContractName : "",
-    erc20sflashMinting? FlashMintUpgradeableContractName : ""
-  ].filter(Boolean).join(', ').trim();
+    erc20sownable? " ,"+OwnableUpgradeableContractName : "",
+    erc20sroles ?" ,"+RolesUpgradeableContractName : "",
+    erc20smanaged ?" ,"+ManagedUpgradeableContractName : "",
+    erc20sburnable? " ,"+BurnableUpgradeableContractName: "",
+    erc20spausable ?" ,"+PausableUpgradeableContractName : "",
+    erc20spermit?  " ,"+PermitUpgradeableContractName : "",
+    erc20svotes? " ,"+VotesUpgradeableContractName : "",
+    erc20sflashMinting? " ,"+FlashMintUpgradeableContractName : ""
+  ].filter(Boolean).join('').trim();
 
   const contractnames = [
-    erc20sownable? OwnableContractName : "",
-    erc20sroles ?RolesContractName : "",
-    erc20smanaged ?ManagedContractName : "",
-    erc20sburnable? BurnableContractName: "",
-    erc20spausable ?PausableContractName : "",
-    erc20spermit?  PermitContractName : "",
-    erc20svotes? VotesContractName : "",
-    erc20sflashMinting? FlashMintContractName : ""
-  ].filter(Boolean).join(', ').trim();
+    erc20sownable? " ,"+OwnableContractName : "",
+    erc20sroles ?" ,"+RolesContractName : "",
+    erc20smanaged ?" ,"+ManagedContractName : "",
+    erc20sburnable? " ,"+BurnableContractName: "",
+    erc20spausable ?" ,"+PausableContractName : "",
+    erc20spermit?  " ,"+PermitContractName : "",
+    erc20svotes? " ,"+VotesContractName : "",
+    erc20sflashMinting? " ,"+FlashMintContractName : ""
+  ].filter(Boolean).join('').trim();
 
 
 
   const contract = [
     ContractHeader,
-    !erc20supgradeable? ContractName : "",
-    (erc20sownable || erc20sburnable || erc20spermit || erc20svotes || erc20sflashMinting) && !erc20supgradeable ? ", ": "",
-    erc20supgradeable ?  UpgradeableContractName: "",
-    !erc20supgradeable ? contractnames : "", 
-    erc20supgradeable ?  upgradeableContractnames : "",
+    !erc20stransparent && !erc20sUUPS? ContractName : "",
+    (erc20sownable || erc20sburnable || erc20spermit || erc20svotes || erc20sflashMinting) && (!erc20stransparent && !erc20sUUPS) ? ", ": "",
+    erc20stransparent || erc20sUUPS ?  UpgradeableContractName: "",
+    !erc20stransparent && !erc20sUUPS ? contractnames : "", 
+    erc20stransparent || erc20sUUPS ?  upgradeableContractnames : "",
     " {"
   ].filter(Boolean).join("").trim();
 
@@ -244,15 +251,35 @@ const RolesConstructor5 = `_grantRole(MINTER_ROLE, minter);`
 
 
   const section2 = [
-    erc20spausable? "\t" + PausableSection2 : "",
-    erc20smintable? "\t" + MintableSection2 : "",
-    erc20sUUPS ? "\t" + UUPSSection2: ""
+    erc20spausable && erc20sownable? "\t" + PausableSection2Ownable : "",
+    erc20spausable && erc20sroles? "\t" + PausableSection2Roles : "",
+    erc20spausable && erc20smanaged? "\t" + PausableSection2Managed: "",
+    erc20smintable && erc20sownable? "\t" + MintableSection2Ownable : "",
+    erc20smintable && erc20sroles? "\t" + MintableSection2Roles : "",
+    erc20smintable && erc20smanaged? "\t" + MintableSection2Managed: "",
+    erc20sUUPS && erc20sownable? "\t" + UUPSSection2Ownable : "",
+    erc20sUUPS && erc20sroles? "\t" + UUPSSection2Roles : "",
+    erc20sUUPS && erc20smanaged? "\t" + UUPSSection2Managed: "",
   ].filter(Boolean).join("\n");
 
-
+  const section3AUpgradeable = `function _update(address from, address to, uint256 value)
+                internal
+                override(ERC20Upgradeable${erc20spausable? ", ERC20PausableUpgradeable":""}${erc20svotes? " ,ERC20VotesUpgradeable":""})
+        {
+        super._update(from, to, value);
+    }`
+const section3A = `function _update(address from, address to, uint256 value)
+                internal
+                override(ERC20${erc20spausable? ", ERC20Pausable":""}${erc20svotes? " ,ERC20Votes":""})
+        {
+        super._update(from, to, value);
+    }`
   const section3 = [
-    erc20spausable && !erc20svotes ? "\t" + PausableSection3:"",
-    erc20svotes ? "\t" + VotesSection3: "",
+    (erc20spausable || erc20svotes) && !erc20supgradeable ? "\t" + section3A:"",
+    (erc20spausable || erc20svotes) && erc20supgradeable ? "\t" + section3AUpgradeable:"", 
+    erc20svotes && !erc20supgradeable ? "\t" + VotesSection3: "",
+    erc20svotes && erc20supgradeable ? "\t" + VotesSection3Upgradeable: "",
+
   ].filter(Boolean).join("\n");
 
   

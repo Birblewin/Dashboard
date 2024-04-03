@@ -153,7 +153,7 @@ const CustomSCode =[
         section: "ContractStart",  
         tag: "Default",
         name: "ERC20DefaultContractNames", 
-        content: `${" "}is`
+        content: `is`
     },
     { 
         snippet_id: 1, 
@@ -458,13 +458,45 @@ const CustomSCode =[
         wizard_id: 1,
         contractType_id: 1, 
         section: "Section2",  
-        tag: "Pausable",
+        tag: "PausableOwnable",
         name: "Section2", 
         content: `function pause() public onlyOwner {
         _pause();
     }
     
     function unpause() public onlyOwner {
+        _unpause();
+    }
+    `
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Section2",  
+        tag: "PausableManaged",
+        name: "Section2", 
+        content: `function pause() public restricted {
+        _pause();
+    }
+    
+    function unpause() public restricted {
+        _unpause();
+    }
+    `
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Section2",  
+        tag: "PausableRoles",
+        name: "Section2", 
+        content: `function pause() public onlyRole(PAUSER_ROLE) {
+        _pause();
+    }
+    
+    function unpause() public onlyRole(PAUSER_ROLE) {
         _unpause();
     }
     `

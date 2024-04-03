@@ -50,7 +50,7 @@ export const ERC20SCode =[
         wizard_id: 1,
         contractType_id: 1, 
         section: "upgradeableImports",  
-        tag: "DefaultStart",
+        tag: "DefaultS",
         name: "ERC20DefaultUpgradeableImports", 
         content: `import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";`
     },
@@ -88,7 +88,7 @@ export const ERC20SCode =[
         section: "upgradeableImports",  
         tag: "Permit",
         name: "ERC20PermitUpgradeableImports", 
-        content: `import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol"`
+        content: `import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol";`
     },
     { 
         snippet_id: 1, 
@@ -613,7 +613,7 @@ export const ERC20SCode =[
         wizard_id: 1,
         contractType_id: 1, 
         section: "Section2",  
-        tag: "Mintable",
+        tag: "MintableOwnable",
         name: "ERC20MintableSection2", 
         content: `function mint(address to, uint256 amount) public onlyOwner {
          _mint(to, amount);
@@ -624,7 +624,42 @@ export const ERC20SCode =[
         wizard_id: 1,
         contractType_id: 1, 
         section: "Section2",  
-        tag: "UUPS",
+        tag: "MintableRoles",
+        name: "ERC20MintableSection2", 
+        content: `function mint(address to, uint256 amount) public onlyRole(MINTER_ROLE) {
+         _mint(to, amount);
+    }`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Section2",  
+        tag: "MintableManaged",
+        name: "ERC20MintableSection2", 
+        content: `function mint(address to, uint256 amount) public restricted {
+         _mint(to, amount);
+    }`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Section2",  
+        tag: "UUPSOwnable",
+        name: "ERC20UUPSSection2", 
+        content: `function _authorizeUpgrade(address newImplementation)
+                internal
+                onlyOwner
+                override
+        {}`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Section2",  
+        tag: "UUPSRoles",
         name: "ERC20UUPSSection2", 
         content: `function _authorizeUpgrade(address newImplementation)
                 internal
@@ -637,30 +672,76 @@ export const ERC20SCode =[
         wizard_id: 1,
         contractType_id: 1, 
         section: "Section2",  
-        tag: "Pausable",
-        name: "ERC20PausableSection2", 
+        tag: "UUPSManaged",
+        name: "ERC20UUPSSection2", 
+        content: `function _authorizeUpgrade(address newImplementation)
+                internal
+                restricted
+                override
+        {}`
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Section2",  
+        tag: "PausableOwnable",
+        name: "Section2", 
         content: `function pause() public onlyOwner {
-         _pause();
+        _pause();
     }
     
     function unpause() public onlyOwner {
         _unpause();
-    }`
+    }
+    `
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Section2",  
+        tag: "PausableManaged",
+        name: "Section2", 
+        content: `function pause() public restricted {
+        _pause();
+    }
+    
+    function unpause() public restricted {
+        _unpause();
+    }
+    `
+    },
+    { 
+        snippet_id: 1, 
+        wizard_id: 1,
+        contractType_id: 1, 
+        section: "Section2",  
+        tag: "PausableRoles",
+        name: "Section2", 
+        content: `function pause() public onlyRole(PAUSER_ROLE) {
+        _pause();
+    }
+    
+    function unpause() public onlyRole(PAUSER_ROLE) {
+        _unpause();
+    }
+    `
     },
     { 
         snippet_id: 1, 
         wizard_id: 1,
         contractType_id: 1, 
         section: "Section3",  
-        tag: "Pausable",
+        tag: "VotesUpgradeable",
         name: "ERC20PausableSection3", 
-        content: `// The following functions are overrides required by Solidity.
-
-    function _update(address from, address to, uint256 value)
-                internal
-                override(ERC20Upgradeable, ERC20PausableUpgradeable)
+        content: `function nonces(address owner)
+                public
+                view
+                override(ERC20PermitUpgradeable, NoncesUpgradeable)
+                returns (uint256)
         {
-        super._update(from, to, value);
+        return super.nonces(owner);
     }`
     },
     { 
@@ -670,19 +751,10 @@ export const ERC20SCode =[
         section: "Section3",  
         tag: "Votes",
         name: "ERC20VotesSection3", 
-        content: `// The following functions are overrides required by Solidity.
-
-    function _update(address from, address to, uint256 value)
-                internal
-                override(ERC20Upgradeable, ERC20PausableUpgradeable, ERC20VotesUpgradeable)
-        {
-        super._update(from, to, value);
-    }
-    
-    function nonces(address owner)
+        content: `function nonces(address owner)
                 public
                 view
-                override(ERC20PermitUpgradeable, NoncesUpgradeable)
+                override(ERC20Permit, Nonces)
                 returns (uint256)
         {
         return super.nonces(owner);
