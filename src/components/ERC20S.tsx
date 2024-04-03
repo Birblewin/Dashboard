@@ -214,7 +214,7 @@ const ERC20 = ()=>{
       <div>  
         <h1 className="text-white font-semibold text-xs">FEATURES</h1>
       <div className="mt-2">
-        <label className={`flex items-center justify-between cursor-pointer ${mintable ? 'bg-[#4D3C77]' : ''}`}>
+        <label className={`flex items-center justify-between cursor-pointer ${mintable ? 'bg-[#bdaaec]' : ''}`}>
           <div className="m-[0.5rem] flex items-center">
             <input
               title="Mintable"
