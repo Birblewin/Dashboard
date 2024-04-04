@@ -258,6 +258,7 @@ const ERC20 = ()=>{
             <div className="flex items-center mr-[0.5rem]">
               <label className="text-white font-semibold text-xs mr-[0.5rem]">ACCESS CONTROL</label>
               <input
+              title="Add owner to contract"
                 type="checkbox"
                 className={`form-checkbox h-3 w-3 rounded ${accessControl && (pauseable || mintable || upgradeable) ? "accent-grey-300 hover:accent-grey-300" : ""}`}
                 checked={accessControl}

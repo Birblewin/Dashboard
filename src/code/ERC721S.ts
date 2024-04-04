@@ -349,7 +349,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721VotesU
         section: "upgradeableContractNames",  
         tag: "UUPS",
         name: "ERC721UUPSContractNames", 
-        content: `, ERC721Upgradeable, UUPSUpgradeable`
+        content: `, UUPSUpgradeable`
     },
     { 
         snippet_id: 1, 
@@ -643,22 +643,22 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721VotesU
         name: "ERC721URIStorageMintableFunctions", 
         content: `_setTokenURI(tokenId, uri);`
     },
-    { 
-        snippet_id: 1, 
-        wizard_id: 1,
-        contractType_id: 1, 
-        section: "Functions",  
-        tag: "Pausable",
-        name: "ERC721PausableFunctions", 
-        content: `
-        function pause() public onlyOwner {
-            _pause();
-        }
+    // { 
+    //     snippet_id: 1, 
+    //     wizard_id: 1,
+    //     contractType_id: 1, 
+    //     section: "Functions",  
+    //     tag: "Pausable",
+    //     name: "ERC721PausableFunctions", 
+    //     content: `
+    //     function pause() public onlyOwner {
+    //         _pause();
+    //     }
     
-        function unpause() public onlyOwner {
-            _unpause();
-        }`
-    },
+    //     function unpause() public onlyOwner {
+    //         _unpause();
+    //     }`
+    // },
 
     //..............
     { 
@@ -677,7 +677,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721VotesU
         section: "upgradeableFunctions",  
         tag: "Pausable",
         name: "ERC721PausableupgradeableFunctions", 
-        content: `__ERC721Pausable_init()`
+        content: `__ERC721Pausable_init();`
     },
     { 
         snippet_id: 1, 
