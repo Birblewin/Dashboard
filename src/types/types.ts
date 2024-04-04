@@ -77,3 +77,5 @@ export type GovernorErrorsType = Pick<Record<keyof GovernorFormDataType, string>
 export type ERC20SolidityErrorsType = { premint: string }
 // A TYPE FOR THE WIZARD TAB
 export type WizardTabType = "Solidity" | "Cairo" | "Other"
+// A TYPE FOR THE DOWNLOAD CODE
+export type DownloadCodeType = Record<"fileName" | "downloadedCode", string>

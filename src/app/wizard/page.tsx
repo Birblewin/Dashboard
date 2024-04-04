@@ -15,7 +15,7 @@ import BuildRoundedIcon from "@mui/icons-material/BuildRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import Popover from "@/components/Popover";
 // IMPORTING MODULES
-import { useState } from "react";
+import React from "react";
 import { useRecoilState } from "recoil";
 import {
   ERC1155 as ERC1155Atom,
@@ -29,10 +29,10 @@ import { IsOpenType } from "../../types/types";
 
 export default function Home() {
     // A STATE TO KEEP TRACK OF SELECTED TAB
-  const [selected, setSelected] = useState<"ERC20" | "ERC721" | "ERC1155" | "Custom" | "Governor">("ERC20");
+  const [selected, setSelected] = React.useState<"ERC20" | "ERC721" | "ERC1155" | "Custom" | "Governor" | "">("");
   
   // A STATE TO KEEP TRACK OF WHETHER OR NOT THE MODAL SHOULD OPEN
-  const [isOpen, setIsOpen] = useState<Omit<IsOpenType, "linksPopup">>({
+  const [isOpen, setIsOpen] = React.useState<Omit<IsOpenType, "linksPopup">>({
     actionButtonsPopup: {
       largeScreens: false,
       smallScreens: false
@@ -40,9 +40,6 @@ export default function Home() {
 
     editorPopup: false
   })
-
-  // Define atoms using the createAtom function
- 
   
   const [IsERC721, setIsERC721] = useRecoilState(ERC721Atom);
   const [IsERC20, setIsERC20] = useRecoilState(ERC20Atom);
@@ -97,6 +94,12 @@ export default function Home() {
     setIsERC1155(false);
     setIsCustom(false);
   };
+
+  // A USE EFFECT TO SET THE INITIAL VALUE OF THE SOLIDITY HEADER
+  React.useEffect(() => {
+    setIsERC20(true)
+    setSelected("ERC20")
+  }, [setIsERC20])
 
   return (
     <>
