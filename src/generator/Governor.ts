@@ -266,7 +266,7 @@ export default function governorCodeGenerator(governorFormData: GovernorFormData
         
         .replace("(IVotes _token, address initialOwner)", `(IVotes _token, ${
             !timelockValue ? "" :
-            timelockType === "TimelockController" ? "TimelockControllerUpgradeable_timelock" : "ICompoundTimelock_timelock"
+            timelockType === "TimelockController" ? "TimelockControllerUpgradeable _timelock" : "ICompoundTimelock _timelock"
         } ,address initialOwner)`)
 
         .concat(`${

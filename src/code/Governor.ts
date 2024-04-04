@@ -802,7 +802,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockInitializer",
         section: "timelock",
         tag: ["optional", "initializer", "timelockController"],
-        content: `function initialize(IVotes _token, TimelockControllerUpgradeable_timelock) initializer public {\n\t\t__Governor_init("{name=Governor}");\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);\n\t\t__GovernorTimelockControl_init(_timelock);`
+        content: `function initialize(IVotes _token, TimelockControllerUpgradeable _timelock) initializer public {\n\t\t__Governor_init("{name=Governor}");\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);\n\t\t__GovernorTimelockControl_init(_timelock);`
     },
 
     {
@@ -812,7 +812,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorTimelockInitializer",
         section: "timelock",
         tag: ["optional", "initializer", "timelockCompound"],
-        content: `function initialize(IVotes _token, ICompoundTimelock_timelock) initializer public {\n\t\t__Governor_init("{name=Governor}");\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);\n\t\t__GovernorTimelockCompound_init(_timelock);`
+        content: `function initialize(IVotes _token, ICompoundTimelock _timelock) initializer public {\n\t\t__Governor_init("{name=Governor}");\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);\n\t\t__GovernorTimelockCompound_init(_timelock);`
     },
 
     {
@@ -984,7 +984,7 @@ export const upgradeableSnippets: GovernorCodeSnippetDataType[] = [
         name: "GovernorUUPSInitializer",
         section: "UUPS",
         tag: ["optional", "initializer"],
-        content: `function initialize(IVotes _token, address initialOwner) initializer public {\n\t\t__Governor_init({name=Governor});\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);\n\t\t__Ownable_init(initialOwner);\n\t\t__UUPSUpgradeable_init();`
+        content: `function initialize(IVotes _token, address initialOwner) initializer public {\n\t\t__Governor_init("{name=Governor}");\n\t\t__GovernorCountingSimple_init();\n\t\t__GovernorVotes_init(_token);\n\t\t__Ownable_init(initialOwner);\n\t\t__UUPSUpgradeable_init();`
     },
 
     {

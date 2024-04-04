@@ -1,7 +1,7 @@
 "use client";
 
 import CodeEditor from "@/components/SyntaxHighliter";
-import { useState } from "react";
+import React from "react";
 import Download from "@/components/CairoDownloadBtn";
 import CopyBtn from "@/components/CopyBtn";
 import Custom2 from "@/components/Custom2";
@@ -18,12 +18,10 @@ import { IsOpenType } from "@/types/types";
 
 export default function Cairo() {
   // A STATE TO MANAGE THE TAB SELECTED
-  const [selected, setSelected] = useState<"ERC20" | "ERC721" | "Custom">(
-    "ERC20"
-  );
+  const [selected, setSelected] = React.useState<"ERC20" | "ERC721" | "Custom" | "">("");
 
   // A STATE TO KEEP TRACK OF WHETHER OR NOT THE MODAL SHOULD OPEN
-  const [isOpen, setIsOpen] = useState<Omit<IsOpenType, "linksPopup">>({
+  const [isOpen, setIsOpen] = React.useState<Omit<IsOpenType, "linksPopup">>({
     actionButtonsPopup: {
       largeScreens: false,
       smallScreens: false,
@@ -59,6 +57,13 @@ export default function Cairo() {
     setIsERC20(false);
     setIsERC721(false);
   };
+
+  // A USE EFFECT TO SET THE INITIAL VALUE OF THE CAIRO HEADER
+  React.useEffect(() => {
+    setIsERC20(true)
+    setSelected("ERC20")
+  }, [setIsERC20])
+
   return (
     <div className="flex flex-col gap-4 p-4 mx-4 rounded shadow-md  bg-black">
       <div className=" flex flex-row justify-between p-2 mb-2 items-center">
