@@ -267,7 +267,7 @@ function RenderBtn({handleClick}: RenderButtonProps) {
     isUpgradeable = erc20stransparent;
   } else if (IsGovernor) {
     initialCode = governorCodeGenerator(governorData);
-    isUpgradeable = false;
+    isUpgradeable = governorData.upgradeabilityType === "Transparent";
   } else if (IsCustom) {
     initialCode = CustomSInitialCode;
     isUpgradeable = customsupgradeability;
