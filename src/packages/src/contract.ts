@@ -1,6 +1,6 @@
 import { toIdentifier } from './utils/to-identifier';
 
-export interface Contractt {
+export interface Contract {
   name: string;
   license: string;
   parents: Parent[];
@@ -72,7 +72,7 @@ export interface NatspecTag {
   value: string;
 }
 
-export class ContractBuilder implements Contractt {
+export class ContractBuilder implements Contract {
   readonly name: string;
   license: string = 'MIT';
   upgradeable = false;

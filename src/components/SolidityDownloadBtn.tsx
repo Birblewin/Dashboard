@@ -6,7 +6,7 @@ import { ButtonProps } from "@/types/props";
 import { saveAs } from 'file-saver';
 import JSZip from "jszip";
 import type { GenericOptions } from "../packages/src/build-generic";
-import type { Contractt } from "../packages/src/contract";
+import type { Contract as Contractt }  from "../packages/src/contract";
 import SOLIDITY_VERSION from '../packages/src/solidity-version.json';
 import {contracts} from '../packages/src/openzeppelin-contracts';
 import { formatLinesWithSpaces, Lines, spaceBetween } from "../packages/src/utils/format-lines";
