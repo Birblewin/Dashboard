@@ -1,4 +1,4 @@
-import contracts from '../openzeppelin-contracts';
+import {contracts} from './openzeppelin-contracts';
 import type { Contract } from "./contract";
 import { printContract } from "./print";
 
