@@ -2,16 +2,15 @@
 
 // IMPORTING NECESSARY COMPONENTS
 import Link from "next/link"
-
-// EXPORTING A FUNCTION THAT RETURNS THE DASHBOARD ROOT PAGE
-export default function DashboardRootPage(){
-    return(
-        <div className="flex flex-col gap-2 text-white">
-            <Link href={"/dashboard/legalpolicy"}>Legal Policy</Link>
-            <Link href={"/dashboard/terms-of-service"}>Terms of service</Link>
-            <Link href={"/wizard"}>Solidity wizard</Link>
-            <Link href={"/wizard/cairo"}>Cairo wizard</Link>
-            <Link href={"/dashboard/roadmap"}>RoadMap</Link>
-        </div>
-    )
+// EXPORTING A FUNCTION THAT RETURNS THE ROOT PAGE
+export default function RootPage(){
+    return (
+      <main className="flex flex-col gap-2 bg-[#050012] min-h-screen transition-all duration-500 ease-in-out">
+        <Link href={"/dashboard/legalpolicy"}>Legal Policy</Link>
+        <Link href={"/dashboard/terms-of-service"}>Terms of service</Link>
+        <Link href={"/wizard"}>Solidity wizard</Link>
+        <Link href={"/wizard/cairo"}>Cairo wizard</Link>
+        <Link href={"/dashboard/roadmap"}>RoadMap</Link>
+      </main>
+    );
 }
